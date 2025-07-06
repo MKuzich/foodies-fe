@@ -1,6 +1,8 @@
 :root {
   --white-color: #ffffff;
+  --black-color: #050505;
   --text-color: #1a1a1a;
+  --text-color-subtitle: #BFBEBE;
   --title-color: #050505;
   --inactive-color: #bfbebe;
   --transparent-white-color: rgba(255, 255, 255, 0.02rem);

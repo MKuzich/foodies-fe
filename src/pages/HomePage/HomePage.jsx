@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
+import Categories from "../../modules/categories/components/Categories/Categories";
 
 const HomePage = () => {
   return (
@@ -34,7 +35,9 @@ const HomePage = () => {
             Inactive button
           </Button>
         </div>
+        <Categories />
       </Container>
+      
     </div>
   );
 };
