@@ -2,8 +2,8 @@ import React from "react";
 import styles from "./MainTitle.module.css";
 
 
-function MainTitle({ children }) {
-  return <h1 className={styles.mainTitle}>{children}</h1>;
+function MainTitle({ children, style }) {
+  return <h2 className={styles.mainTitle} style={style}>{children}</h2>;
 }
 
 export default MainTitle;
