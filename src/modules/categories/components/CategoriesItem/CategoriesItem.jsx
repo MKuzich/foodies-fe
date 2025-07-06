@@ -8,7 +8,13 @@ function CategoriesItem({ image, title, option = "category" }) {
             <div className={styles.categoriesContainer}>
                 <div className={styles.categories} style={{ backgroundImage: `url(${image ? image : "/src/modules/categories/assets/Beef.jpg"})` }}>
                     <div className={styles.categoriesTitleContainer}>
+
                         <p className={styles.categoriesTitle}>{title ? title : "Beef"}</p>
+                        <div className={styles.categoriesIconContainer}>
+                            <svg className={styles.categoriesIcon}>
+                                <use href="/src/assets/sprite.svg#icon-arrow-up-right" />
+                            </svg>
+                        </div>
                     </div>
                 </div>
             </div>
