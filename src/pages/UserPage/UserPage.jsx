@@ -1,4 +1,5 @@
 import React from "react";
+import { useParams } from "react-router-dom";
 import PathInfo from "../../components/PathInfo/PathInfo";
 import MainTitle from "../../components/MainTitle/MainTitle";
 import Subtitle from "../../components/Subtitle/Subtitle";
@@ -7,8 +8,19 @@ import UserInfo from "../../components/UserInfo/UserInfo";
 import TabsList from "../../components/TabsList/TabsList";
 import TabItem from "../../components/TabItem/TabItem";
 import Button from "../../components/Button/Button";
+import { useDispatch } from "react-redux";
+import { fetchUser } from "../../redux/users/operations";
+import { useEffect } from "react";
 
 const UserPage = () => {
+  const { id } = useParams();
+
+  const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(fetchUser(id));
+  }, [dispatch, id]);
+
   const isUserCurrentUser = true;
   const isUserIsFollowed = true;
   const openLogoutModal = () => {};
