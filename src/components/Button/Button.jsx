@@ -2,15 +2,14 @@ import React from "react";
 import clsx from "clsx";
 import css from "./Button.module.css";
 
-const Button = (
-  { children, handler = () => {}, outlined = false, ...props },
-  type = "button"
-) => {
+const Button = ({ children, outlined, inactive, ...props }) => {
   return (
     <button
-      type={type}
-      className={clsx(css.btn, outlined && css.outlined)}
-      onClick={handler}
+      className={clsx(
+        css.btn,
+        outlined && css.outlined,
+        inactive && css.inactive
+      )}
       {...props}
     >
       {children}

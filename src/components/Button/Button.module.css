@@ -19,13 +19,13 @@
   background-color: var(--title-color);
 }
 
-.btn:disabled {
+.btn.inactive {
   color: var(--white-color);
   background-color: var(--inactive-color);
 }
 
-.btn:disabled:hover,
-.btn:disabled:hover {
+.btn.inactive:hover,
+.btn.inactive:hover {
   color: var(--white-color);
   background-color: var(--title-color);
 }

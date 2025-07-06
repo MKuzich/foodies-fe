@@ -17,19 +17,19 @@ const HomePage = () => {
           }}
         >
           <h2>Example of using Button component in different variants</h2>
-          <Button handler={() => console.log("Button clicked!")}>
+          <Button onCLick={() => console.log("Button clicked!")}>
             Default Button
           </Button>
           <Button
             outlined={true}
-            handler={() => console.log("Button clicked!")}
+            onCLick={() => console.log("Button clicked!")}
           >
             Outlined Button
           </Button>
           <Button
-            handler={() => console.log("Button clicked!")}
+            onCLick={() => console.log("Button clicked!")}
             type="submit"
-            disabled={true}
+            inactive
           >
             Inactive button
           </Button>
