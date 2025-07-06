@@ -1,0 +1,28 @@
+import { Routes, Route } from "react-router-dom";
+import { lazy, Suspense } from "react";
+import "./App.css";
+import SharedLayout from "./components/SharedLayout/SharedLayout";
+
+const Home = lazy(() => import("./pages/HomePage/HomePage"));
+const User = lazy(() => import("./pages/UserPage/UserPage"));
+const AddPecipe = lazy(() => import("./pages/AddRecipePage/AddRecipePage"));
+const Recipe = lazy(() => import("./pages/RecipePage/RecipePage"));
+const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+
+function App() {
+  return (
+    <SharedLayout>
+      <Suspense fallback={<div>Loading...</div>}>
+        <Routes>
+          <Route path="/" element={<Home />} />
+          <Route path="/user/:id" element={<User />} />
+          <Route path="/recipe/add" element={<AddPecipe />} />
+          <Route path="/pecipe/:id" element={<Recipe />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+    </SharedLayout>
+  );
+}
+
+export default App;

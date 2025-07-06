@@ -1,0 +1,55 @@
+:root {
+  --white-color: #ffffff;
+  --text-color: #1a1a1a;
+  --title-color: #050505;
+  --inactive-color: #bfbebe;
+  --transparent-white-color: rgba(255, 255, 255, 0.02rem);
+
+  --color-transition: color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --background-transition: background-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --border-transition: border-color 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --transform-transition: transform 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --fill-transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --stroke-transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --all-transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+body {
+  font-family: "Mulish", sans-serif;
+  line-height: 1.5;
+  font-weight: 500;
+  color: var(--text-color);
+  font-size: 16px;
+  letter-spacing: -0.02rem;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 p,
+a {
+  margin: 0;
+  padding: 0;
+}
+
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+img,
+button {
+  display: block;
+}
+
+button {
+  padding: 0;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+}
