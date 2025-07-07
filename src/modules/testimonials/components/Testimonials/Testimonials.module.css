@@ -13,37 +13,27 @@
 }
 
 .testimonialsSubtitle {
-    font-family: 'Mulish', sans-serif;
-    font-weight: 500;
-    font-style: normal;
     font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -0.02em;
+    line-height: 1.428;
     text-align: center;
     margin-bottom: 16px;
 
     @media (min-width: 768px) {
         font-size: 16px;
-        line-height: 24px;
+        line-height: 1.428;
     }
 
 }
 
 .testimonialsComment {
-
-    font-family: 'Mulish', sans-serif;
-    font-weight: 500;
-    font-style: normal;
     font-size: 18px;
-    line-height: 24px;
-    letter-spacing: -0.02em;
+    line-height: 1.333;
     text-align: center;
     margin-bottom: 64px;
 
     @media (min-width: 768px) {
         font-size: 24px;
-        line-height: 36px;
-        letter-spacing: -0.02em;
+        line-height: 1.5;
         margin-bottom: 80px;
     }
 }
@@ -54,7 +44,7 @@
     left: 8px;
     width: 40px;
     height: 32px;
-    fill: var(--text-color-subtitle);
+    fill: var(--inactive-color);
 
     @media (min-width: 768px) {
         width: 59px;

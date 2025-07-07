@@ -5,10 +5,9 @@ import clsx from "clsx";
 function CategoriesItem({ image, title, option = "category" }) {
     return (
         option === "category" ? (
-            <div className={styles.categoriesContainer}>
-                <div className={styles.categories} style={{ backgroundImage: `url(${image ? image : "/src/modules/categories/assets/Beef.jpg"})` }}>
+            <li className={styles.categoriesContainer}>
+                <div className={styles.categoriesImage} style={{ backgroundImage: `url(${image ? image : "/src/modules/categories/assets/Beef.jpg"})` }}>
                     <div className={styles.categoriesTitleContainer}>
-
                         <p className={styles.categoriesTitle}>{title ? title : "Beef"}</p>
                         <div className={styles.categoriesIconContainer}>
                             <svg className={styles.categoriesIcon}>
@@ -17,11 +16,11 @@ function CategoriesItem({ image, title, option = "category" }) {
                         </div>
                     </div>
                 </div>
-            </div>
+            </li>
         ) : (
-            <div className={clsx(styles.categoriesContainer, styles.categoriesContainerAll)}>
+            <li className={clsx(styles.categoriesContainer, styles.categoriesContainerAll)}>
                 <p className={styles.categoriesTitleAll}>All categories</p>
-            </div>
+            </li>
         )
     );
 }
