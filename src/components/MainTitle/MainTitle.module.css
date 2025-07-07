@@ -1,15 +1,13 @@
 .mainTitle {
     font-weight: 800;
-    font-style: normal;
     font-size: 28px;
-    line-height: 32px;
+    line-height: 1.14;
     text-transform: uppercase;
     margin-bottom: 16px;
 
     @media (min-width: 768px) {
         font-size: 40px;
-        line-height: 44px;
-        letter-spacing: -0.02em;
+        line-height: 1.1;
         margin-bottom: 20px;
 
     }
