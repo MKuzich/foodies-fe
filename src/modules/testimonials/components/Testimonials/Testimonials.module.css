@@ -68,3 +68,16 @@
         line-height: 1.2;
     }
 }
+
+.customBullet {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: red;
+    margin: 0 8px;
+  }
+  
+  .customBulletActive {
+    background: blue;
+  }

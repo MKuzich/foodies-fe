@@ -1,6 +1,10 @@
 import styles from "./Testimonials.module.css";
 import MainTitle from "@/components/MainTitle/MainTitle";
+import "./SwiperCustomStyles.css";
+import 'swiper/css';
 import { useState, useEffect } from "react";
+import { Swiper, SwiperSlide } from 'swiper/react';
+import { Autoplay, Pagination } from "swiper/modules";
 
 
 function Testimonials() {
@@ -39,11 +43,29 @@ function Testimonials() {
             <svg className={styles.testimonialsIcon}>
                 <use href="/src/assets/sprite.svg#icon-quote" />
             </svg>
-            <h3 className={styles.testimonialsComment}>Thank you for the wonderful recipe for feta pasta with tomatoes and basil. It turned out to be not only tasty, but also incredibly colorful. This has become a favorite family meal!</h3>
-            <p className={styles.testimonialsAuthor}>Larry Pageim</p>
+            <Swiper
+                spaceBetween={20}
+                slidesPerView={1}
+                modules={[Autoplay, Pagination]}
+                autoplay={{ delay: 2500, disableOnInteraction: false }}
+                loop={true}
+                pagination={{
+                    clickable: true,
+                }}
+                className={styles.swiper}
+            >
+                {mockData.map((item, idx) => (
+                    <SwiperSlide key={idx}>
+
+                        <h3 className={styles.testimonialsComment}>{item.comment}</h3>
+                        <p className={styles.testimonialsAuthor}>{item.author}</p>
+
+                    </SwiperSlide>
+
+                ))}
+            </Swiper>
+
         </div>
-
-
     );
 }
 
