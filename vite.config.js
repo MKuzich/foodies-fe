@@ -6,7 +6,7 @@ export default defineConfig({
   plugins: [react()],
   resolve: {
     alias: {
-      "@": fileURLToPath(new URL("./src", import.meta.url)), // теперь @ указывает на src
+      "@": fileURLToPath(new URL("./src", import.meta.url)),
     },
   },
   build: {
