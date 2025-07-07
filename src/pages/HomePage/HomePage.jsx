@@ -3,8 +3,12 @@ import Button from "@/components/Button/Button";
 import Container from "@/components/Container/Container";
 import Categories from "@/modules/categories/components/Categories/Categories";
 import Testimonials from "@/modules/testimonials/components/Testimonials/Testimonials";
+import Recipes from "@/components/Recipes/Recipes";
+import { useState } from "react";
 
 const HomePage = () => {
+  // TEMPORARY FROM TESTING
+  const [isCategoreis, setIsCategoreis] = useState(true);
   return (
     <div>
       HomePage
@@ -35,11 +39,23 @@ const HomePage = () => {
           >
             Inactive button
           </Button>
+
+          {/* TEMPORARY FROM TESTING */}
+          <Button
+            outlined={true}
+            onClick={() => setIsCategoreis(!isCategoreis)}
+          >
+           Switch to Recipes and back to Categories
+          </Button>
+          
         </div>
-        <Categories />
-        <Testimonials />
+       
+          {isCategoreis ? <>
+            <Categories />
+            <Testimonials />
+          </> : <Recipes />}
       </Container>
-      
+
     </div>
   );
 };

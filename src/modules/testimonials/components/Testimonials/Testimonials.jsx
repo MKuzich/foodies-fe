@@ -56,12 +56,9 @@ function Testimonials() {
             >
                 {mockData.map((item, idx) => (
                     <SwiperSlide key={idx}>
-
                         <h3 className={styles.testimonialsComment}>{item.comment}</h3>
                         <p className={styles.testimonialsAuthor}>{item.author}</p>
-
                     </SwiperSlide>
-
                 ))}
             </Swiper>
 
