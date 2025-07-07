@@ -3,11 +3,11 @@ import Button from "@/components/Button/Button";
 import Container from "@/components/Container/Container";
 import Categories from "@/modules/categories/components/Categories/Categories";
 import Testimonials from "@/modules/testimonials/components/Testimonials/Testimonials";
+import Loader from "../../components/Loader/Loader";
 
 const HomePage = () => {
   return (
     <div>
-      HomePage
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
         <div
@@ -39,7 +39,6 @@ const HomePage = () => {
         <Categories />
         <Testimonials />
       </Container>
-      
     </div>
   );
 };
