@@ -1,7 +1,11 @@
-const TabsList = () => {
-  return (
-    <div>TabsList</div>
-  )
-}
+import css from "./TabsList.module.css";
 
-export default TabsList
+const TabsList = ({ children }) => {
+  return (
+    <div className={css.tabsList}>
+      <div className={css.tabsScroll}>{children}</div>
+    </div>
+  );
+};
+
+export default TabsList;

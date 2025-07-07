@@ -1,7 +1,14 @@
-const TabItem = () => {
-  return (
-    <div>TabItem</div>
-  )
-}
+import css from "./TabItem.module.css";
 
-export default TabItem
+const TabItem = ({ name, active, onClick }) => {
+  return (
+    <div
+      className={css.tabItem + (active ? " " + css.active : "")}
+      onClick={onClick}
+    >
+      {name}
+    </div>
+  );
+};
+
+export default TabItem;
