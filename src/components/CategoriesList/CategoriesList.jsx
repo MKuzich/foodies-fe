@@ -6,7 +6,7 @@ function CategoriesList() {
 
     // TODO: connect store and api when will be ready
     const NewArr = new Array(11).fill({
-        image: "/src/modules/categories/assets/Beef.jpg",
+        image: "/src/assets/Beef.jpg",
         title: "Beef",
         option: "category"
     });
