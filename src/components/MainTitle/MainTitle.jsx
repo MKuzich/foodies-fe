@@ -1,7 +1,9 @@
 import React from "react";
+import styles from "./MainTitle.module.css";
 
-const MainTitle = () => {
-  return <div>MainTitle</div>;
-};
+
+function MainTitle({ children, style }) {
+  return <h2 className={styles.mainTitle} style={style}>{children}</h2>;
+}
 
 export default MainTitle;

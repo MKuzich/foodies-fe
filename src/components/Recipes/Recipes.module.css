@@ -1,0 +1,16 @@
+.recipesContainer {
+    display: flex;
+    flex-direction: column;
+}
+
+.recipesContent {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+
+    @media (min-width: 1440px) {
+        display: grid;
+        grid-template-columns: 330px 1fr;
+        gap: 40px;
+    }
+}
