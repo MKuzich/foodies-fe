@@ -1,14 +1,17 @@
 import { useSelector } from "react-redux";
 import { selectUser } from "../../redux/users/selectors";
 import { selectLoading } from "../../redux/root/selectors";
-import Button from "../Button/Button";
 import css from "./UserInfo.module.css";
+import { selectIsUserCurrentUser } from "../../redux/users/selectors";
+import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
 
 const UserInfo = () => {
   const user = useSelector(selectUser);
   const loading = useSelector(selectLoading);
-  const isUserCurrentUser = true;
-  const openChangeAvatarModal = () => {};
+  const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
+  const changeAvatar = (e, values) => {
+    console.log("change avatar", e, values);
+  };
 
   return user ? (
     <div className={css.userInfo}>
@@ -19,10 +22,9 @@ const UserInfo = () => {
           className={css.userAvatar}
         />
         {isUserCurrentUser && (
-          <Button
-            className={css.changeAvatarButton}
-            onClick={openChangeAvatarModal}
-          />
+          <div className={css.changeAvatarWrapper}>
+            <ChageAvatarForm onSubmit={changeAvatar} />
+          </div>
         )}
       </div>
       <div className={css.userName}>{user.name}</div>

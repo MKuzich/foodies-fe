@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Container from "../../components/Container/Container";
 import PathInfo from "../../components/PathInfo/PathInfo";
@@ -13,7 +14,16 @@ import TabItem from "../../components/TabItem/TabItem";
 import Button from "../../components/Button/Button";
 import { fetchUser } from "../../redux/users/operations";
 import css from "./UserPage.module.css";
-
+import TabsContent from "../../components/TabsContent/TabsContent";
+import ListItems from "../../components/ListItems/ListItems";
+import {
+  currentUserPageErrors,
+  userPageErrors,
+} from "../../utils/const/userPageErrors";
+import {
+  selectIsUserCurrentUser,
+  selectIsUserIsFollowed,
+} from "../../redux/users/selectors";
 const UserPage = () => {
   const { id } = useParams();
 
@@ -26,9 +36,10 @@ const UserPage = () => {
     marginTop: "20px",
     width: "100%",
   };
-  const isUserCurrentUser = true;
-  const isUserIsFollowed = true;
+  const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
+  const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
   const openLogoutModal = () => {};
+  const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   const [tabOpened, setTabOpened] = useState("1");
   const handleChange = (newValue) => {
@@ -37,63 +48,98 @@ const UserPage = () => {
   };
 
   return (
-    <Container>
-      <PathInfo pathName={"home"} currentName={"profile"} />
-      <MainTitle text="profile" />
-      <Subtitle text="Reveal your culinary art, share your favorite recipe and create gastronomic masterpieces with us." />
-      <UserInfo />
-      {isUserCurrentUser ? (
-        <Button onClick={openLogoutModal} style={btnStyle}>
-          Log out
-        </Button>
-      ) : isUserIsFollowed ? (
-        <Button onClick={openLogoutModal} style={btnStyle}>
-          Unfollow
-        </Button>
-      ) : (
-        <Button onClick={openLogoutModal} style={btnStyle}>
-          Follow
-        </Button>
-      )}
-
-      <TabsList>
+    <>
+      <Container>
+        <PathInfo pathName={"home"} currentName={"profile"} />
+        <MainTitle>profile</MainTitle>
+        <Subtitle>
+          Reveal your culinary art, share your favorite recipe and create
+          gastronomic masterpieces with us.
+        </Subtitle>
+        <UserInfo />
         {isUserCurrentUser ? (
-          <TabItem
-            name="My recepies"
-            active={tabOpened === "1"}
-            onClick={() => handleChange("1")}
-          />
+          <Button onClick={openLogoutModal} style={btnStyle}>
+            Log out
+          </Button>
+        ) : isUserIsFollowed ? (
+          <Button onClick={openLogoutModal} style={btnStyle}>
+            Unfollow
+          </Button>
         ) : (
-          <TabItem
-            name="recepies"
-            active={tabOpened === "1"}
-            onClick={() => handleChange("1")}
-          />
+          <Button onClick={openLogoutModal} style={btnStyle}>
+            Follow
+          </Button>
         )}
-        {isUserCurrentUser && (
+      </Container>
+      <div className={css.tabsContainer}>
+        <TabsList>
+          {isUserCurrentUser ? (
+            <TabItem
+              name="My recepies"
+              isActive={tabOpened === "1"}
+              onClick={() => handleChange("1")}
+            />
+          ) : (
+            <TabItem
+              name="recepies"
+              isActive={tabOpened === "1"}
+              onClick={() => handleChange("1")}
+            />
+          )}
+          {isUserCurrentUser && (
+            <TabItem
+              name="My Favorites"
+              isActive={tabOpened === "2"}
+              onClick={() => handleChange("2")}
+            />
+          )}
+          {isUserCurrentUser && (
+            <TabItem
+              name="Following"
+              isActive={tabOpened === "3"}
+              onClick={() => handleChange("3")}
+            />
+          )}
           <TabItem
-            name="My Favorites"
-            active={tabOpened === "2"}
-            onClick={() => handleChange("2")}
+            name="Followers"
+            isActive={tabOpened === "4"}
+            onClick={() => handleChange("4")}
           />
-        )}
-        {isUserCurrentUser && (
-          <TabItem
-            name="Following"
-            active={tabOpened === "3"}
-            onClick={() => handleChange("3")}
-          />
-        )}
-        <TabItem
-          name="Followers"
-          active={tabOpened === "4"}
-          onClick={() => handleChange("4")}
-        />
-      </TabsList>
-      <div className={css.tabsContent}>
-        <h3>{tabOpened}</h3>
+        </TabsList>
+        <Container>
+          <div className={css.tabsContent}>
+            <TabsContent isActive={tabOpened === "1"}>
+              <ListItems
+                items={[]}
+                type="recipe"
+                errorText={errorMap.noRecipes}
+              />
+            </TabsContent>
+            <TabsContent isActive={tabOpened === "2"}>
+              <ListItems
+                items={[]}
+                type="recipe"
+                errorText={errorMap.noFavorites}
+              />
+            </TabsContent>
+            <TabsContent isActive={tabOpened === "3"}>
+              <ListItems
+                items={[]}
+                type="user"
+                errorText={errorMap.noFollowers}
+              />
+            </TabsContent>
+            <TabsContent isActive={tabOpened === "4"}>
+              <ListItems
+                items={[]}
+                type="user"
+                errorText={errorMap.noSubscriptions}
+              />
+            </TabsContent>
+          </div>
+        </Container>
       </div>
-    </Container>
+    </>
   );
 };
 

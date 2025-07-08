@@ -1,40 +1,21 @@
 .tabsList {
   text-transform: uppercase;
-  max-width: 100%;
-  font-family: var(--font-family);
-  font-weight: 800;
-  font-size: 18px;
-  line-height: 133%;
-  letter-spacing: -0.02em;
-  white-space: nowrap;
-  overflow-x: auto;
-  position: relative;
-  margin-top: 64px;
-}
-
-.tabsList::after {
-  content: "";
-  display: block;
-  width: 100%;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  height: 2px;
-  background: var(--inactive-color);
 }
 
 .tabsScroll {
-  display: flex;
-  gap: 30px;
-  justify-content: flex-start;
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
   overflow-x: auto;
   overflow-y: hidden;
   white-space: nowrap;
   scrollbar-width: none;
   -ms-overflow-style: none;
-  scroll-behavior: smooth;
 }
 
-.tabsScroll::-webkit-scrollbar {
-  display: none;
+.tabsListItems {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-start;
+  text-wrap: nowrap;
 }

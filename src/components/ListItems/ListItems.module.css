@@ -1,0 +1,7 @@
+.errorText {
+  color: var(--inactive-color);
+  font-size: 14px;
+  line-height: 143%;
+  text-align: center;
+  padding: 80px 0;
+}

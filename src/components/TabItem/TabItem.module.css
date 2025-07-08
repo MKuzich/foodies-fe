@@ -2,6 +2,10 @@
   color: var(--inactive-color);
   padding: 0;
   padding-bottom: 14px;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 133%;
+  letter-spacing: -0.02em;
 }
 
 .tabItem.active {
@@ -13,9 +17,6 @@
   cursor: pointer;
 }
 
-.tabItem:focus {
-  outline: none;
-}
 .tabItem.active::after {
   content: "";
   position: absolute;
@@ -25,5 +26,4 @@
   width: 100%;
   height: 4px;
   background: var(--title-color);
-  z-index: 1000;
 }
