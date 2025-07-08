@@ -2,6 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import { lazy, Suspense } from "react";
 import "./App.css";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
+import Loader from "./components/Loader/Loader";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -12,7 +13,7 @@ const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 function App() {
   return (
     <SharedLayout>
-      <Suspense fallback={<div>Loading...</div>}>
+      <Suspense fallback={<Loader />}>
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/user/:id" element={<User />} />

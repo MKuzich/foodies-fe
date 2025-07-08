@@ -5,13 +5,14 @@ import Categories from "@/components/Categories/Categories";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
 import { useState } from "react";
+import Loader from "../../components/Loader/Loader";
+
 
 const HomePage = () => {
   // TEMPORARY FROM TESTING
   const [isCategoreis, setIsCategoreis] = useState(true);
   return (
     <div>
-      HomePage
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
         <div
@@ -55,7 +56,6 @@ const HomePage = () => {
             <Testimonials />
           </> : <Recipes />}
       </Container>
-
     </div>
   );
 };
