@@ -23,6 +23,10 @@ import {
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
+  selectUserRecepies,
+  selectUserFavorites,
+  selectUserFollowers,
+  selectUserFollowing,
 } from "../../redux/users/selectors";
 const UserPage = () => {
   const { id } = useParams();
@@ -38,6 +42,10 @@ const UserPage = () => {
   };
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
+  const userRecepies = useSelector(selectUserRecepies);
+  const userFavorites = useSelector(selectUserFavorites);
+  const userFollowers = useSelector(selectUserFollowers);
+  const userFollowing = useSelector(selectUserFollowing);
   const openLogoutModal = () => {};
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
@@ -110,28 +118,28 @@ const UserPage = () => {
           <div className={css.tabsContent}>
             <TabsContent isActive={tabOpened === "1"}>
               <ListItems
-                items={[]}
+                items={userRecepies}
                 type="recipe"
                 errorText={errorMap.noRecipes}
               />
             </TabsContent>
             <TabsContent isActive={tabOpened === "2"}>
               <ListItems
-                items={[]}
+                items={userFavorites}
                 type="recipe"
                 errorText={errorMap.noFavorites}
               />
             </TabsContent>
             <TabsContent isActive={tabOpened === "3"}>
               <ListItems
-                items={[]}
+                items={userFollowers}
                 type="user"
                 errorText={errorMap.noFollowers}
               />
             </TabsContent>
             <TabsContent isActive={tabOpened === "4"}>
               <ListItems
-                items={[]}
+                items={userFollowing}
                 type="user"
                 errorText={errorMap.noSubscriptions}
               />
