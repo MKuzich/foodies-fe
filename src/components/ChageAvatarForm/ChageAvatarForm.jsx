@@ -6,6 +6,16 @@ import css from "./ChageAvatarForm.module.css";
 import { ErrorMessage } from "formik";
 
 const ChageAvatarForm = ({ onSubmit }) => {
+  const onChange = async ({ e, ...props }) => {
+    const file = e.currentTarget.files[0];
+    await props.setTouched({ avatarFile: true });
+    await props.setFieldValue("avatarFile", file);
+
+    const errors = await props.validateForm();
+    if (!errors.avatarFile) {
+      props.submitForm();
+    }
+  };
   const avatarForm = {
     initialValues: {
       avatarFile: null,
@@ -40,20 +50,20 @@ const ChageAvatarForm = ({ onSubmit }) => {
       onSubmit={avatarForm.submit}
       validationSchema={avatarForm.schema}
     >
-      <Form className={css.form}>
-        <input
-          type="file"
-          accept="image/png, image/jpeg"
-          name="avatarFile"
-          className={css.input}
-          onChange={avatarForm.submit}
-        />
-        <ErrorMessage name="avatarFile">
-          {(msg) => <div className={css.error}>{msg}</div>}
-        </ErrorMessage>
-      </Form>
+      {({ ...props }) => (
+        <Form className={css.form}>
+          <input
+            type="file"
+            name="avatarFile"
+            className={css.input}
+            onChange={(e) => onChange({ e, ...props })}
+          />
+          <ErrorMessage name="avatarFile">
+            {(msg) => <div className={css.error}>{msg}</div>}
+          </ErrorMessage>
+        </Form>
+      )}
     </Formik>
   );
 };
-
 export default ChageAvatarForm;

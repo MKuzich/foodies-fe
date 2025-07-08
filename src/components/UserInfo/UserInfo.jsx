@@ -9,8 +9,8 @@ const UserInfo = () => {
   const user = useSelector(selectUser);
   const loading = useSelector(selectLoading);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
-  const changeAvatar = (e, values) => {
-    console.log("change avatar", e, values);
+  const changeAvatar = (newAvatarFile) => {
+    console.log("change avatar", newAvatarFile);
   };
 
   return user ? (
