@@ -30,6 +30,7 @@
     line-height: 1.333;
     text-align: center;
     margin-bottom: 64px;
+    font-weight: 500;
 
     @media (min-width: 768px) {
         font-size: 24px;
@@ -54,3 +55,29 @@
     }
 }
 
+
+.testimonialsAuthor {
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    text-transform: uppercase;
+    text-align: center;
+    color: var(--title-color);
+
+    @media (min-width: 768px) {
+        font-size: 24px;
+        line-height: 1.2;
+    }
+}
+
+.customBullet {
+    display: inline-block;
+    width: 28px;
+    height: 28px;
+    border-radius: 50%;
+    background: red;
+    margin: 0 8px;
+  }
+  
+  .customBulletActive {
+    background: blue;
+  }

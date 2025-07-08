@@ -1,0 +1,65 @@
+.inputWrapper {
+    display: flex;
+    width: 100%;
+    max-width: 343px;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.inputContainer {
+    position: relative;
+  }
+  
+  .inputField {
+    width: 100%;
+    height: 48px;
+    border-radius: 30px;
+    border: 1px solid var(--inactive-color);
+    color: var(--inactive-color);
+    background-color: var(--white-color);
+    text-align: left;
+    padding-left: 14px;
+
+    font-size: 14px;
+    line-height: 1.42;
+ 
+  }
+  
+  .icon {
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    pointer-events: none;
+    display: flex;
+    align-items: center;
+    fill: none;
+    stroke: #111;
+    stroke-width: 2;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .dropdown {
+    margin-top: 8px;
+
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+    padding:  18px 16px;
+    border-radius: 15px;
+    border: 1px solid var(--inactive-color);
+  }
+
+  .dropdownItem {
+    font-family: 'Mulish', sans-serif;
+    font-weight: 500;
+    font-size: 14px;
+    line-height: 1.42;
+    color: var(--title-color);
+    cursor: pointer;
+  }
+
+  /* .dropdownItem:hover {
+    background-color: var(--background-categories-color);
+  } */

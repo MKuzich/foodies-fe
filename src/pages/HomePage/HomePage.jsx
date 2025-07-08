@@ -1,11 +1,16 @@
 import React from "react";
 import Button from "@/components/Button/Button";
 import Container from "@/components/Container/Container";
-import Categories from "@/modules/categories/components/Categories/Categories";
-import Testimonials from "@/modules/testimonials/components/Testimonials/Testimonials";
+import Categories from "@/components/Categories/Categories";
+import Testimonials from "@/components/Testimonials/Testimonials";
+import Recipes from "@/components/Recipes/Recipes";
+import { useState } from "react";
 import Loader from "../../components/Loader/Loader";
 
+
 const HomePage = () => {
+  // TEMPORARY FROM TESTING
+  const [isCategoreis, setIsCategoreis] = useState(true);
   return (
     <div>
       {/* TODO: Delete example below, just show-case of using Button */}
@@ -35,9 +40,21 @@ const HomePage = () => {
           >
             Inactive button
           </Button>
+
+          {/* TEMPORARY FROM TESTING */}
+          <Button
+            outlined={true}
+            onClick={() => setIsCategoreis(!isCategoreis)}
+          >
+           Switch to Recipes and back to Categories
+          </Button>
+          
         </div>
-        <Categories />
-        <Testimonials />
+       
+          {isCategoreis ? <>
+            <Categories />
+            <Testimonials />
+          </> : <Recipes />}
       </Container>
     </div>
   );
