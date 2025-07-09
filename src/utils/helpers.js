@@ -1,15 +1,25 @@
 export const enshureEnoughItems = (values, count) => {
-  if (Array.isArray(values) && values.length >= count) {
-    return values;
+  if (!Array.isArray(values)) return null;
+
+  const cloned = [...values];
+
+  if (cloned.length >= count) {
+    return cloned;
   }
-  const valuesLength = values.length;
+
+  if (cloned.length === 0) return null;
+
+  const valuesLength = cloned.length;
   let i = 1;
-  while (values.length < count) {
-    values.push({ ...values[valuesLength - i], id: values.length + i });
+
+  while (cloned.length < count) {
+    const itemToClone = cloned[valuesLength - i];
+    cloned.push({ ...itemToClone, id: cloned.length + i });
     i++;
     if (i > valuesLength) {
       i = 1;
     }
   }
-  return values;
+
+  return cloned;
 };

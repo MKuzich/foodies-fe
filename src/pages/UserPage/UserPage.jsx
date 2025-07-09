@@ -1,6 +1,6 @@
-import React, { useState } from "react";
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { Outlet } from "react-router-dom";
+import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -12,23 +12,15 @@ import UserInfo from "../../components/UserInfo/UserInfo";
 import TabsList from "../../components/TabsList/TabsList";
 import TabItem from "../../components/TabItem/TabItem";
 import Button from "../../components/Button/Button";
-import { fetchUser } from "../../redux/users/operations";
-import css from "./UserPage.module.css";
-import TabsContent from "../../components/TabsContent/TabsContent";
-import ListItems from "../../components/ListItems/ListItems";
-import {
-  currentUserPageErrors,
-  userPageErrors,
-} from "../../utils/const/userPageErrors";
+import { fetchUser, fetchUserRecipes } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
-  selectUserRecepies,
-  selectUserFavorites,
-  selectUserFollowers,
-  selectUserFollowing,
 } from "../../redux/users/selectors";
 import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
+import UserRecepies from "../../components/UserRecepies/UserRecepies";
+
+import css from "./UserPage.module.css";
 
 const UserPage = () => {
   const { id } = useParams();
@@ -37,25 +29,18 @@ const UserPage = () => {
 
   useEffect(() => {
     dispatch(fetchUser(id));
+    dispatch(fetchUserRecipes(id));
   }, [dispatch, id]);
 
-  // const favoritesItems = useSelector(selectFavoriteItems);
+  const location = useLocation();
+
+  const isBaseUserPath =
+    location.pathname === `/user/${id}` || location.pathname === `/user/${id}/`;
 
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
-  const userRecepies = useSelector(selectUserRecepies);
-  const favorites = isUserCurrentUser ? useSelector(selectUserFavorites) : null;
-  const followers = useSelector(selectUserFollowers);
-  const following = isUserCurrentUser ? useSelector(selectUserFollowing) : null;
   const openLogoutModal = () => {};
-  const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
-
-  const [tabOpened, setTabOpened] = useState("1");
-  const handleChange = (newValue) => {
-    console.log("newValue of tab", newValue);
-    setTabOpened(newValue);
-  };
-
+  const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
       dispatch(removeFromFollowing(id));
@@ -92,69 +77,19 @@ const UserPage = () => {
       </Container>
       <div className={css.tabsContainer}>
         <TabsList>
-          {isUserCurrentUser ? (
-            <TabItem
-              name="My recepies"
-              isActive={tabOpened === "1"}
-              onClick={() => handleChange("1")}
-            />
-          ) : (
-            <TabItem
-              name="recepies"
-              isActive={tabOpened === "1"}
-              onClick={() => handleChange("1")}
-            />
-          )}
+          <TabItem name={recepieTabName} to={`/user/${id}`} />
           {isUserCurrentUser && (
-            <TabItem
-              name="My Favorites"
-              isActive={tabOpened === "2"}
-              onClick={() => handleChange("2")}
-            />
+            <TabItem name="My Favorites" to={`/user/${id}/favorites`} />
           )}
-          <TabItem
-            name="Followers"
-            isActive={tabOpened === "3"}
-            onClick={() => handleChange("3")}
-          />
+          <TabItem name="Followers" to={`/user/${id}/followers`} />
           {isUserCurrentUser && (
-            <TabItem
-              name="Following"
-              isActive={tabOpened === "4"}
-              onClick={() => handleChange("4")}
-            />
+            <TabItem name="Following" to={`/user/${id}/following`} />
           )}
         </TabsList>
         <Container>
           <div className={css.tabsContent}>
-            <TabsContent isActive={tabOpened === "1"}>
-              <ListItems
-                items={userRecepies}
-                type="recipe"
-                errorText={errorMap.noRecipes}
-              />
-            </TabsContent>
-            <TabsContent isActive={tabOpened === "2"}>
-              <ListItems
-                items={favorites}
-                type="recipe"
-                errorText={errorMap.noFavorites}
-              />
-            </TabsContent>
-            <TabsContent isActive={tabOpened === "3"}>
-              <ListItems
-                items={followers}
-                type="user"
-                errorText={errorMap.noFollowers}
-              />
-            </TabsContent>
-            <TabsContent isActive={tabOpened === "4"}>
-              <ListItems
-                items={following}
-                type="user"
-                errorText={errorMap.noSubscriptions}
-              />
-            </TabsContent>
+            {isBaseUserPath && <UserRecepies />}
+            <Outlet />
           </div>
         </Container>
       </div>

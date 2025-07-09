@@ -1,7 +1,7 @@
-import css from "./RecipePreview.module.css";
-import { Link } from "react-router-dom";
 import IconButton from "../IconButton/IconButton";
 import IconLink from "../IconLink/IconLink";
+
+import css from "./RecipePreview.module.css";
 
 const RecipePreview = ({ recipe }) => {
   return (

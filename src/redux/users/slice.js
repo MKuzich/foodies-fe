@@ -1,14 +1,20 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./operations";
+import {
+  fetchUser,
+  fetchUserFollowers,
+  fetchUserFollowing,
+  fetchUserFavorites,
+  fetchUserRecipes,
+} from "./operations";
 
 const slice = createSlice({
   name: "users",
   initialState: {
     user: null,
-    recipes: [],
-    favorites: [],
-    followers: [],
-    following: [],
+    recipes: null,
+    favorites: null,
+    followers: null,
+    following: null,
     isUserIsFollowed: false,
     isUserCurrentUser: false,
   },
@@ -23,8 +29,18 @@ const slice = createSlice({
   extraReducers: (builder) => {
     builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
       state.user = payload;
-      // state.isUserCurrentUser = payload.id === state.user.id;
-      // state.isUserIsFollowed = payload.followers.includes(state.user.id);
+    });
+    builder.addCase(fetchUserRecipes.fulfilled, (state, { payload }) => {
+      state.recipes = payload;
+    });
+    builder.addCase(fetchUserFavorites.fulfilled, (state, { payload }) => {
+      state.favorites = payload;
+    });
+    builder.addCase(fetchUserFollowers.fulfilled, (state, { payload }) => {
+      state.followers = payload;
+    });
+    builder.addCase(fetchUserFollowing.fulfilled, (state, { payload }) => {
+      state.following = payload;
     });
   },
 });
