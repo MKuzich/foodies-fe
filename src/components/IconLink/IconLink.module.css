@@ -8,7 +8,7 @@
   border: 1px solid var(--inactive-color);
 }
 
-.iconLink.outlined {
+.iconLink.white {
   width: 40px;
   height: 40px;
   border: 1px solid rgba(255, 255, 255, 0.2);
@@ -20,7 +20,7 @@
   stroke: var(--text-color);
 }
 
-.iconLinkIcon.outlined {
+.iconLinkIcon.white {
   stroke: var(--white-color);
 }
 
@@ -33,7 +33,7 @@
     width: 18px;
     height: 18px;
   }
-  .iconLink.outlined {
+  .iconLink.white {
     width: 44px;
     height: 44px;
   }
