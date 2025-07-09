@@ -1,4 +1,5 @@
 import React from "react";
+import {useDispatch} from 'react-redux'
 import Button from "@/components/Button/Button";
 import Container from "@/components/Container/Container";
 import Categories from "@/components/Categories/Categories";
@@ -6,13 +7,19 @@ import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
 import { useState } from "react";
 import Loader from "../../components/Loader/Loader";
+import {openSignIn, openSignUp} from '../../redux/auth/authSlice';
 
 
 const HomePage = () => {
   // TEMPORARY FROM TESTING
   const [isCategoreis, setIsCategoreis] = useState(true);
+    const dispatch = useDispatch();
   return (
     <div>
+        <nav>
+      <button onClick={() => dispatch(openSignIn())}>Sign In</button>
+      <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
+    </nav>
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
         <div

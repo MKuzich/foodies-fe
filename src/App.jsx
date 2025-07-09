@@ -3,6 +3,7 @@ import { lazy, Suspense } from "react";
 import "./App.css";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import Loader from "./components/Loader/Loader";
+import AuthModals from './components/AuthModals';
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -22,6 +23,7 @@ function App() {
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
+      <AuthModals />
     </SharedLayout>
   );
 }
