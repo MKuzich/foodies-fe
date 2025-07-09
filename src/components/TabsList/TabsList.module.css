@@ -1,0 +1,21 @@
+.tabsList {
+  text-transform: uppercase;
+}
+
+.tabsScroll {
+  overflow-x: auto;
+  scroll-behavior: smooth;
+  scrollbar-width: none;
+  overflow-x: auto;
+  overflow-y: hidden;
+  white-space: nowrap;
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.tabsListItems {
+  display: flex;
+  gap: 30px;
+  justify-content: flex-start;
+  text-wrap: nowrap;
+}
