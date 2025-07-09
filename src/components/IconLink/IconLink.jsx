@@ -1,0 +1,49 @@
+import { Link } from "react-router-dom";
+import Icons from "../../assets/sprite.svg";
+import clsx from "clsx";
+import css from "./IconLink.module.css";
+
+const IconLink = ({
+  children,
+  to,
+  outlined,
+  social,
+  name,
+  color,
+  iconStyle,
+  ...props
+}) => {
+  const iconNameMap = {
+    arrow: "arrow-up-right",
+    facebook: "facebook",
+    instagram: "instagram",
+    youtube: "youtube",
+  };
+  return (
+    <Link
+      to={to}
+      {...props}
+      className={clsx(
+        css.iconLink,
+        outlined && css.outlined,
+        social && css.social
+      )}
+    >
+      <svg
+        className={clsx(
+          css.iconLinkIcon,
+          outlined && css.outlined,
+          social && css.social
+        )}
+      >
+        <use
+          xlinkHref={`${Icons}#icon-${iconNameMap[name]}`}
+          style={iconStyle}
+        />
+      </svg>
+      {children}
+    </Link>
+  );
+};
+
+export default IconLink;
