@@ -19,7 +19,7 @@ const RecipePreview = ({ recipe }) => {
           <p className={css.recipePreviewDescription}>{recipe.description}</p>
         </div>
         <div className={css.recipePreviewButtons}>
-          <IconLink to={`/recipe/${recipe.id}`} name="arrow" outlined />
+          <IconLink to={`/recipe/${recipe.id}`} name="arrow" />
           <IconButton></IconButton>
         </div>
       </div>
