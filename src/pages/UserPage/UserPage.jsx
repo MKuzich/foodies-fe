@@ -28,6 +28,8 @@ import {
   selectUserFollowers,
   selectUserFollowing,
 } from "../../redux/users/selectors";
+import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
+
 const UserPage = () => {
   const { id } = useParams();
 
@@ -36,12 +38,15 @@ const UserPage = () => {
   useEffect(() => {
     dispatch(fetchUser(id));
   }, [dispatch, id]);
+
+  // const favoritesItems = useSelector(selectFavoriteItems);
+
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
   const userRecepies = useSelector(selectUserRecepies);
-  const userFavorites = useSelector(selectUserFavorites);
-  const userFollowers = useSelector(selectUserFollowers);
-  const userFollowing = useSelector(selectUserFollowing);
+  const favorites = isUserCurrentUser ? useSelector(selectUserFavorites) : null;
+  const followers = useSelector(selectUserFollowers);
+  const following = isUserCurrentUser ? useSelector(selectUserFollowing) : null;
   const openLogoutModal = () => {};
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
@@ -49,6 +54,16 @@ const UserPage = () => {
   const handleChange = (newValue) => {
     console.log("newValue of tab", newValue);
     setTabOpened(newValue);
+  };
+
+  const handleFollowClick = () => {
+    if (isUserIsFollowed) {
+      dispatch(removeFromFollowing(id));
+      console.log("You can alway return it back :)");
+      return;
+    }
+    dispatch(addToFollowing(id));
+    console.log("We remember that!");
   };
 
   return (
@@ -66,11 +81,11 @@ const UserPage = () => {
             Log out
           </Button>
         ) : isUserIsFollowed ? (
-          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+          <Button onClick={handleFollowClick} style={{ width: "100%" }}>
             Unfollow
           </Button>
         ) : (
-          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+          <Button onClick={handleFollowClick} style={{ width: "100%" }}>
             Follow
           </Button>
         )}
@@ -97,18 +112,18 @@ const UserPage = () => {
               onClick={() => handleChange("2")}
             />
           )}
+          <TabItem
+            name="Followers"
+            isActive={tabOpened === "3"}
+            onClick={() => handleChange("3")}
+          />
           {isUserCurrentUser && (
             <TabItem
               name="Following"
-              isActive={tabOpened === "3"}
-              onClick={() => handleChange("3")}
+              isActive={tabOpened === "4"}
+              onClick={() => handleChange("4")}
             />
           )}
-          <TabItem
-            name="Followers"
-            isActive={tabOpened === "4"}
-            onClick={() => handleChange("4")}
-          />
         </TabsList>
         <Container>
           <div className={css.tabsContent}>
@@ -121,21 +136,21 @@ const UserPage = () => {
             </TabsContent>
             <TabsContent isActive={tabOpened === "2"}>
               <ListItems
-                items={userFavorites}
+                items={favorites}
                 type="recipe"
                 errorText={errorMap.noFavorites}
               />
             </TabsContent>
             <TabsContent isActive={tabOpened === "3"}>
               <ListItems
-                items={userFollowers}
+                items={followers}
                 type="user"
                 errorText={errorMap.noFollowers}
               />
             </TabsContent>
             <TabsContent isActive={tabOpened === "4"}>
               <ListItems
-                items={userFollowing}
+                items={following}
                 type="user"
                 errorText={errorMap.noSubscriptions}
               />

@@ -6,6 +6,7 @@ import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 
 const UserCard = ({ user }) => {
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
+
   return (
     <li className={css.userCard}>
       <div className={css.userCardInfo}>
@@ -31,11 +32,7 @@ const UserCard = ({ user }) => {
               lineHeight: "1.43",
             }}
           >
-            {isUserCurrentUser
-              ? "Follow"
-              : isUserFollowed
-              ? "Following"
-              : "Follow"}
+            {isUserCurrentUser ? "Following" : "Follow"}
           </Button>
         </div>
       </div>
