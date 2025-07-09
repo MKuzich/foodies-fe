@@ -10,7 +10,7 @@ const UserInfo = () => {
   const loading = useSelector(selectLoading);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const changeAvatar = (newAvatarFile) => {
-    console.log("change avatar", newAvatarFile);
+    console.log("change avatar with valid file", newAvatarFile);
   };
 
   return user ? (
