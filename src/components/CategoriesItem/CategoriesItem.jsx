@@ -12,11 +12,10 @@ function CategoriesItem({ title, option = "category" }) {
                     className={styles.categoriesImage}
                     style={{
                         backgroundImage: `image-set(
-                            url(${image}) 1x,
-                            url(${image.replace('.webp', '@2x.webp')}) 2x,
-                            url(${image.replace('.webp', '@3x.webp')}) 3x
+                          url(${image}) 1x,
+                          url(${image.replace('.webp', '@2x.webp')}) 2x
                         )`
-                    }}
+                      }}
                 >
                     <div className={styles.categoriesTitleContainer}>
                         <p className={styles.categoriesTitle}>{title}</p>
