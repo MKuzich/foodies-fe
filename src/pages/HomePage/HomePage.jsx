@@ -1,11 +1,12 @@
 import React from "react";
 import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
+import Hero from "../../components/Hero/Hero";
 
 const HomePage = () => {
   return (
     <div>
-      HomePage
+      <Hero />
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
         <div

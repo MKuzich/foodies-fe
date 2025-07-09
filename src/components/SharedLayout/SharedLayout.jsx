@@ -1,17 +1,24 @@
 import React from "react";
-import css from "./SharedLayout.module.css";
 import Container from "../Container/Container";
+import Footer from "../Footer/Footer";
+
+import Header from "../Header/Header";
+
 
 const SharedLayout = ({ children }) => {
+
+
+
   return (
     <>
-      <header>
+      <Header>
         <Container>Header</Container>
-      </header>
+      </Header>
+  
       <main>{children}</main>
-      <footer>
+      <Footer>
         <Container>Footer</Container>
-      </footer>
+      </Footer>
     </>
   );
 };
