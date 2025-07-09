@@ -18,50 +18,18 @@ const Hero = () => (
         <button className={styles.ctaBtn}>Add Recipe</button>
 
         <div className={styles.images}>
-          <picture>
-            <source
-              srcSet="/img/cakemob@1x.webp 1x, /img/cakemob@2x.webp 2x"
-              media="(max-width: 767px)"
-              type="image/webp"
-            />
-            <source
-              srcSet="/img/caketablet@1x.webp 1x, /img/caketablet@2x.webp 2x"
-              media="(max-width: 1024px)"
-              type="image/webp"
-            />
-            <source
-              srcSet="/img/cakedesk@1x.webp 1x, /img/cakedesk@2x.webp 2x"
-              media="(min-width: 1440px)"
-              type="image/webp"
-            />
-            <img
-              src="/img/cakedesk.png"
-              alt="Cake dessert"
-              className={`${styles.heroImg} ${styles.imgLeft}`}
-            />
-          </picture>
-          <picture>
-            <source
-              srcSet="/img/beefmob@1x.webp 1x, /img/beefmob@2x.webp 2x"
-              media="(max-width: 767px)"
-              type="image/webp"
-            />
-            <source
-              srcSet="/img/beeftablet@1x.webp 1x, /img/beeftablet@2x.webp 2x"
-              media="(max-width: 1024px)"
-              type="image/webp"
-            />
-            <source
-              srcSet="/img/beefdesk@1x.webp 1x, /img/beefdesk@2x.webp 2x"
-              media="(min-width: 1440px)"
-              type="image/webp"
-            />
-            <img
-              src="/img/beefdesk.png"
-              alt="Beef dish"
-              className={`${styles.heroImg} ${styles.imgRight}`}
-            />
-          </picture>
+          <img
+            src="/img/panacota.png"
+            srcSet="/img/panacota.png 1x, /img/panacota@2x.png 2x, /img/panacota@3x.png 3x"
+            alt="Panacota dessert"
+            className={`${styles.heroImg} ${styles.imgLeft}`}
+          />
+          <img
+            src="/img/beef.png"
+            srcSet="/img/beef.png 1x, /img/beef@2x.png 2x, /img/beef@3x.png 3x"
+            alt="Beef dish"
+            className={`${styles.heroImg} ${styles.imgRight}`}
+          />
         </div>
       </div>
     </Container>
