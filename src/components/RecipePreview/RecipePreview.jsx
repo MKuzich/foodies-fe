@@ -5,7 +5,7 @@ import MainTitle from "../MainTitle/MainTitle";
 
 const RecipePreview = ({ recipe }) => {
   return (
-    <div className={css.recipePreview}>
+    <li className={css.recipePreview}>
       <img
         src={recipe.thumb}
         alt={recipe.title}
@@ -19,7 +19,7 @@ const RecipePreview = ({ recipe }) => {
         <Link to={`/recipe/${recipe.id}`}></Link>
         <IconButton></IconButton>
       </div>
-    </div>
+    </li>
   );
 };
 

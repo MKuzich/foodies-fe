@@ -8,7 +8,7 @@ const ListItems = ({ items, type, errorText }) => {
       {items.length === 0 ? (
         <p className={css.errorText}>{errorText}</p>
       ) : (
-        <div className={clsx(css.listItems, css[type])}>
+        <ul className={clsx(css.listItems, css[type])}>
           {items.map((item) => {
             if (type === "recipe") {
               return <RecipePreview key={item.id} recipe={item} />;
@@ -17,7 +17,7 @@ const ListItems = ({ items, type, errorText }) => {
               return <UserCard key={item.id} user={item} />;
             }
           })}
-        </div>
+        </ul>
       )}
     </div>
   );

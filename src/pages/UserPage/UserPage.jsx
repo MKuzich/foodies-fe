@@ -36,10 +36,6 @@ const UserPage = () => {
   useEffect(() => {
     dispatch(fetchUser(id));
   }, [dispatch, id]);
-  const btnStyle = {
-    marginTop: "20px",
-    width: "100%",
-  };
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
   const userRecepies = useSelector(selectUserRecepies);
@@ -66,15 +62,15 @@ const UserPage = () => {
         </Subtitle>
         <UserInfo />
         {isUserCurrentUser ? (
-          <Button onClick={openLogoutModal} style={btnStyle}>
+          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
             Log out
           </Button>
         ) : isUserIsFollowed ? (
-          <Button onClick={openLogoutModal} style={btnStyle}>
+          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
             Unfollow
           </Button>
         ) : (
-          <Button onClick={openLogoutModal} style={btnStyle}>
+          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
             Follow
           </Button>
         )}

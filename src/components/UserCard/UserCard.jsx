@@ -1,14 +1,8 @@
 import css from "./UserCard.module.css";
-import MainTitle from "../MainTitle/MainTitle";
 import IconButton from "../IconButton/IconButton";
 import Button from "../Button/Button";
 
 const UserCard = ({ user }) => {
-  const btnStyle = {
-    color: "var(--inactive-color)",
-    borderColor: "var(--inactive-color)",
-    marginTop: "4px",
-  };
   return (
     <div className={css.userCard}>
       <div className={css.userCardInfo}>
@@ -20,7 +14,7 @@ const UserCard = ({ user }) => {
         <div className={css.userInfo}>
           <h2 className={css.userName}>{user.name}</h2>
           <p className={css.userRecipes}>Own recipes: {user.ownRecipes}</p>
-          <Button outlined style={btnStyle}>
+          <Button outlined inactive style={{ marginTop: "4px" }}>
             Follow
           </Button>
         </div>

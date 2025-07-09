@@ -4,7 +4,7 @@ const TabsList = ({ children }) => {
   return (
     <div className={css.tabsList}>
       <div className={css.tabsScroll}>
-        <div className={css.tabsListItems}>{children}</div>
+        <ul className={css.tabsListItems}>{children}</ul>
       </div>
     </div>
   );

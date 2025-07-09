@@ -20,12 +20,7 @@
   gap: 8px;
 }
 .recipePreviewTitle {
-  font-family: var(--font-family);
-  font-weight: 800;
-  font-size: 16px;
-  line-height: 150%;
   text-transform: uppercase;
-  color: var(--main);
 
   display: -webkit-box;
   -webkit-line-clamp: 1;
@@ -38,7 +33,7 @@
   font-size: 14px;
   color: var(--inactive-color);
   font-weight: 500;
-  line-height: 143%;
+  line-height: 1.43;
 
   display: -webkit-box;
   -webkit-line-clamp: 2;

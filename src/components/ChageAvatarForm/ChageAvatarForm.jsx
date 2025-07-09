@@ -30,9 +30,9 @@ const ChageAvatarForm = ({ onSubmit }) => {
   });
   const userAvatarFieldValue = watch("avatarFile");
   useEffect(() => {
-    if (userAvatarFieldValue !== undefined) {
-      handleSubmit(onSubmit)();
-    }
+    if (userAvatarFieldValue == undefined) return;
+    if (userAvatarFieldValue.length === 0) return;
+    handleSubmit(onSubmit)();
   }, [userAvatarFieldValue]);
 
   return (
