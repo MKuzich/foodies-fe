@@ -1,3 +1,6 @@
+import { enshureEnoughItems } from "../../utils/helpers";
+import { userPageRecipes, userPageFollowers } from "../../utils/data";
+
 export const selectUser = (state) => state.users.user;
 export const selectIsUserCurrentUser = (state) => {
   return true;
@@ -9,18 +12,22 @@ export const selectIsUserCurrentUser = (state) => {
 export const selectIsUserIsFollowed = (state) => false;
 export const selectIsUserIsSubscribed = (state) => false;
 export const selectUserRecepies = (state) => {
-  return [];
+  // return [];
   // return state.users.user.recipes;
+  return enshureEnoughItems(userPageRecipes, 10);
 };
 export const selectUserFavorites = (state) => {
-  return [];
+  // return [];
   // state.users.user.favorites;
+  return enshureEnoughItems(userPageRecipes, 10);
 };
 export const selectUserFollowers = (state) => {
-  return [];
+  // return [];
   // state.users.user.followers;
+  return enshureEnoughItems(userPageFollowers, 10);
 };
 export const selectUserFollowing = (state) => {
-  return [];
+  // return [];
   // state.users.user.following;
+  return enshureEnoughItems(userPageFollowers, 10);
 };

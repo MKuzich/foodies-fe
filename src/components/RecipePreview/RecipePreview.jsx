@@ -12,6 +12,8 @@ const RecipePreview = ({ recipe }) => {
         className={css.recipePreviewImage}
       />
       <div className={css.recipePreviewInfo}>
+        {/* add as typography with variant="h2" UserCard has the same */}
+
         <h2 className={css.recipePreviewTitle}>{recipe.title}</h2>
         <p className={css.recipePreviewDescription}>{recipe.description}</p>
       </div>
