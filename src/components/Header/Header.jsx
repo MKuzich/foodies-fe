@@ -5,15 +5,18 @@ import Container from "../Container/Container";
 import AuthBar from "./AuthBar";
 import UserBar from "./UserBar";
 import styles from "./Header.module.css";
-
 // TODO: Replace these with real auth state & user
-const isAuthenticated = false;
+const isAuthenticated = true;
 const user = { name: "Victoria", avatar: "" };
+// TEMP: Simulate authenticated user for manual testing
+// const user = { name: "Test User", avatar: "" };
+// const isAuthenticated = true;
 
 const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const isHome = location.pathname === "/";
 
   const openSignIn = () => {
     alert("Open Sign In Modal");
@@ -31,7 +34,7 @@ const Header = () => {
   ];
 
   return (
-    <header className={styles.header}>
+    <header className={`${styles.header} ${!isHome ? styles.headerDark : ""}`}>
       <Container>
         <div className={styles.inner}>
           {/* Logo */}

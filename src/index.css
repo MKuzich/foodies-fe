@@ -15,6 +15,17 @@
   --fill-transition: fill 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --stroke-transition: stroke 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --all-transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
+  --color-bg-dark: #111;
+  --color-bg-light: #fff;
+  --color-primary: #a259ff;
+  --color-border: #eaeaea;
+  --color-border-strong: #fff;
+  --color-text: #fff;
+  --color-text-dark: #111;
+  --radius-pill: 999px;
+  --radius-card: 24px;
+  --radius-card-mobile: 16px;
+  --transition-main: 0.2s;
 }
 
 body {

@@ -41,6 +41,7 @@ const Footer = () => (
           ))}
         </nav>
       </div>
+      <div className={styles.divider} />
       <div className={styles.copyright}>
         &copy;2024, Foodies. All rights reserved
       </div>

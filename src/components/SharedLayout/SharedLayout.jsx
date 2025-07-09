@@ -1,24 +1,16 @@
 import React from "react";
 import Container from "../Container/Container";
 import Footer from "../Footer/Footer";
-
 import Header from "../Header/Header";
-
+import Breadcrumbs from "../Breadcrumbs/Breadcrumbs";
 
 const SharedLayout = ({ children }) => {
-
-
-
   return (
     <>
-      <Header>
-        <Container>Header</Container>
-      </Header>
-  
+      <Header />
+      <Breadcrumbs />
       <main>{children}</main>
-      <Footer>
-        <Container>Footer</Container>
-      </Footer>
+      <Footer />
     </>
   );
 };

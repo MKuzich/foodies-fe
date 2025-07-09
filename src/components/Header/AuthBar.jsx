@@ -4,7 +4,7 @@ import SegmentedSwitch from "./SegmentedSwitch";
 const AuthBar = ({ onSignIn, onSignUp, className = "" }) => {
   const [mode, setMode] = useState("signIn");
 
-  // When the user clicks a segment, open the corresponding modal
+ 
   const handleChange = (val) => {
     setMode(val);
     if (val === "signIn") onSignIn();

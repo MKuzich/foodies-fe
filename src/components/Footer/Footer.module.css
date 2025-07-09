@@ -3,9 +3,9 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    padding: 24px 0 0 0;
-    background: #fff;
-    border-top: 1px solid #eaeaea;
+    padding: 120px 0 72px 0;
+    background: var(--color-bg-light);
+
 }
 
 .topRow {
@@ -15,9 +15,13 @@
 }
 
 .logo {
-    font-weight: bold;
-    font-size: 20px;
-    letter-spacing: 1px;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -0.02em;
+    text-transform: lowercase;
 }
 
 .networkLinks {
@@ -32,9 +36,9 @@
     width: 32px;
     height: 32px;
     border-radius: 50%;
-    border: 1px solid #d1d1d1;
-    background: #fff;
-    transition: background 0.2s;
+    border: 1px solid var(--color-border);
+    background: var(--color-bg-light);
+    transition: background var(--transition-main);
     cursor: pointer;
 }
 
@@ -43,8 +47,83 @@
 }
 
 .copyright {
-    margin: 24px 0 0 0;
-    font-size: 12px;
-    color: #444;
+    font-family: 'Mulish', sans-serif;
+    font-weight: 500;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -0.02em;
     text-align: center;
+    color: #444;
+    margin: 24px 0 0 0;
+}
+
+.divider {
+    border-top: 1px solid #BFBEBE;
+    margin: 40px 0;
+    width: 100%;
+}
+
+@media (max-width: 1024px) {
+    .footer {
+        padding: 100px 0 32px 0;
+    }
+
+    .logo {
+        font-size: 18px;
+    }
+}
+
+@media (max-width: 768px) {
+
+
+    .footer {
+        padding: 80px 0 16px 0;
+    }
+
+    .topRow {
+        padding: 0 8px;
+    }
+
+    .logo {
+
+        font-size: 20px;
+
+        line-height: 24px;
+
+
+
+    }
+
+    .copyright {
+        font-size: 14px;
+        line-height: 20px;
+    }
+}
+
+@media (max-width: 375px) {
+    .footer {
+        padding: 8px 0 0 0;
+    }
+
+    .topRow {
+        padding: 0 4px;
+    }
+
+    .logo {
+        font-size: 14px;
+    }
+}
+
+@media (min-width: 1440px) {
+    .footer {
+        padding-left: 80px;
+        padding-right: 80px;
+    }
+
+    .topRow {
+        max-width: 1440px;
+        margin: 0 auto;
+        padding: 0 80px;
+    }
 }
