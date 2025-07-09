@@ -1,5 +1,5 @@
 import styles from "./RecipeFilters.module.css";
-import InputCheckbox from "../InputCheckbox/InputCheckbox";
+import Dropdown from "../Dropdown/Dropdown";
 
 const mockIngredients = [
   { id: 1, name: "Eggs" },
@@ -20,13 +20,15 @@ const mockArea = [
   { id: 4, name: "Japanese" },
   { id: 5, name: "French" },
 ];
+
+
 function RecipeFilters() {
-    return (
-        <div className={styles.recipeFilters}>
-            <InputCheckbox placeholder="Ingredients" data={mockIngredients} />
-            <InputCheckbox placeholder="Area" data={mockArea} />
-        </div>
-    );
+  return (
+    <div className={styles.recipeFilters}>
+      <Dropdown placeholder="Ingredients" data={mockIngredients} />
+      <Dropdown placeholder="Area" data={mockArea} />
+    </div>
+  );
 }
 
 export default RecipeFilters;
