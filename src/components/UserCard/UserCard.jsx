@@ -4,7 +4,7 @@ import Button from "../Button/Button";
 
 const UserCard = ({ user }) => {
   return (
-    <div className={css.userCard}>
+    <li className={css.userCard}>
       <div className={css.userCardInfo}>
         <img
           src={user.avatar}
@@ -20,7 +20,7 @@ const UserCard = ({ user }) => {
         </div>
       </div>
       <IconButton></IconButton>
-    </div>
+    </li>
   );
 };
 

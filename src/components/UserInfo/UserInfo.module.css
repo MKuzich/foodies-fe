@@ -50,6 +50,7 @@
 
 .userName {
   font-size: 18px;
+  font-weight: 800;
   line-height: 1.33;
   text-transform: uppercase;
   color: var(--title-color);
@@ -63,12 +64,11 @@
 }
 
 .userInfoListTitle {
-  font-size: 12px;
-  line-height: 1.5;
   color: var(--inactive-color);
 }
 
 .userInfoListValue {
+  font-weight: 700;
   font-size: 14px;
   line-height: 1.43;
   color: var(--inactive-color);
