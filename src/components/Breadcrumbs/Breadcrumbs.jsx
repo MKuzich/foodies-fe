@@ -1,5 +1,6 @@
 import { Link, useLocation } from "react-router-dom";
 import styles from "./Breadcrumbs.module.css";
+import Container from "../Container/Container";
 
 const BREADCRUMB_NAMES = {
   "add-recipe": "Add Recipe",
@@ -16,6 +17,7 @@ export default function Breadcrumbs() {
   if (pathnames.length === 0) return null;
 
   return (
+    <Container>
     <nav className={styles.breadcrumbs} aria-label="Breadcrumb">
       {pathnames.map((segment, idx) => {
         const to = "/" + pathnames.slice(0, idx + 1).join("/");
@@ -36,5 +38,6 @@ export default function Breadcrumbs() {
         );
       })}
     </nav>
+    </Container>
   );
 } 

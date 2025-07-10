@@ -30,11 +30,11 @@ const Header = () => {
 
   const navLinks = [
     { to: "/", label: "Home", private: false },
-    { to: "/add", label: "Add Recipe", private: true },
+    { to: "/recipe/add", label: "Add Recipe", private: true },
   ];
 
   return (
-    <header className={`${styles.header} ${!isHome ? styles.headerDark : ""}`}>
+    <header className={`${styles.header} ${!isHome ? styles.headerDark : ""}  ${isHome ? styles.headerAbsolute : styles.headerFlex}`}>
       <Container>
         <div className={styles.inner}>
           {/* Logo */}

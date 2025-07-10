@@ -1,31 +1,38 @@
-import { NavLink } from "react-router-dom";
+import { NavLink, useLocation } from "react-router-dom";
 import styles from "./Header.module.css";
 
-const Nav = ({ isAuthenticated }) => (
-  <nav className={styles.nav}>
-    <NavLink
-      to="/"
-      className={({ isActive }) =>
-        isActive
-          ? `${styles.navLink} ${styles.navLinkOutlined}`
-          : styles.navLink
-      }
-    >
-      HOME
-    </NavLink>
-    {isAuthenticated && (
+const Nav = ({ isAuthenticated }) => {
+  const location = useLocation();
+  const isHome = location.pathname === "/";
+  const isAddRecipe = location.pathname === "/recipe/add";
+
+  return (
+    <nav className={styles.nav}>
       <NavLink
-        to="/add"
+        to="/"
         className={({ isActive }) =>
           isActive
-            ? `${styles.navLink} ${styles.navLinkOutlined}`
-            : styles.navLink
+            ? `${styles.navLink} ${styles.navLinkActive}`
+            : `${styles.navLink} ${isAddRecipe ? styles.navLinkNoBorder : ""}`
         }
+        end
       >
-        ADD RECIPE
+        HOME
       </NavLink>
-    )}
-  </nav>
-);
+      {isAuthenticated && (
+        <NavLink
+          to="/recipe/add"
+          className={({ isActive }) =>
+            isActive
+              ? `${styles.navLink} ${styles.navLinkActive}`
+              : `${styles.navLink} ${isHome ? styles.navLinkNoBorder : ""}`
+          }
+        >
+          ADD RECIPE
+        </NavLink>
+      )}
+    </nav>
+  );
+};
 
 export default Nav; 

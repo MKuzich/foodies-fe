@@ -15,7 +15,7 @@
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 0 24px;
+
     min-height: 80px;
 }
 
@@ -55,13 +55,16 @@
     transition: border var(--transition-main), color var(--transition-main), background var(--transition-main);
 }
 
-.navLinkOutlined {
-    border: 1px solid #fff;
+.navLinkActive {
+    border: 1px solid #232323;
+    color: #232323;
+    background: #fff;
 }
 
-.navLinkActive {
-    background: var(--color-bg-dark);
-    color: var(--color-text);
+.navLinkNoBorder {
+    border: none;
+    color: #bfbebe;
+    background: transparent;
 }
 
 .authBar,
@@ -257,12 +260,7 @@
     }
 }
 
-@media (min-width: 1440px) {
-    .inner {
-        max-width: 1440px;
-        padding: 0 80px;
-    }
-}
+
 
 @media (max-width: 900px) {
     .mobileNavOverlay {
@@ -340,4 +338,32 @@
 
 .headerDark .dropdownItem {
     color: #232323;
+}
+
+/* src/components/Header/Header.module.css */
+
+.header {
+    width: 100%;
+    z-index: 1;
+    /* Remove position and display from here */
+}
+
+.headerAbsolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+    /* Any other absolute-specific styles */
+}
+
+.headerFlex {
+    display: flex;
+    position: static;
+    padding: 0;
+}
+
+.headerDark .inner {
+
+    padding-top: 40px;
+    padding-bottom: 80px;
+    min-height: 50px;
 }
