@@ -40,6 +40,7 @@ const slice = createSlice({
         state.userToken = payload.token;
         state.error = null;
         state.success = true;
+        state.authModal = null;
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
@@ -55,6 +56,7 @@ const slice = createSlice({
         state.userInfo = payload;
         state.error = null;
         state.success = true;
+        state.authModal = null;
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.loading = false;
@@ -70,6 +72,7 @@ const slice = createSlice({
         state.userInfo = null;
         state.userToken = null;
         state.success = true;
+        state.authModal = null;
       })
       .addCase(userLogout.rejected, (state, { payload }) => {
         state.loading = false;
