@@ -1,12 +1,13 @@
 .form {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-  position: relative;
 }
 .input {
   opacity: 0;
+  width: 100px;
+  height: 100px;
+  transform: translate(-40%, -70%);
 }
+
 .error {
   width: 100%;
   color: red;

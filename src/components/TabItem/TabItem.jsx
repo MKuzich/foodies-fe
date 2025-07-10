@@ -1,13 +1,13 @@
 import css from "./TabItem.module.css";
-import Button from "../Button/Button";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
-const TabItem = ({ name, isActive, onClick }) => {
+const TabItem = ({ name, isActive, to }) => {
   return (
     <li className={clsx(css.tabItem, isActive && css.active)}>
-      <Button onClick={onClick} className={css.tabItemButton}>
+      <Link to={to} className={css.tabItemLink}>
         {name}
-      </Button>
+      </Link>
     </li>
   );
 };

@@ -11,7 +11,7 @@
 .recipePreviewButtons {
   display: flex;
   flex-direction: row;
-  margin-left: 6px;
+  gap: 4px;
 }
 
 .recipePreviewInfo {
@@ -19,6 +19,14 @@
   flex-direction: column;
   gap: 8px;
 }
+.recipePreviewWrapper {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  gap: 16px;
+  width: 100%;
+}
+
 .recipePreviewTitle {
   text-transform: uppercase;
 
