@@ -1,11 +1,17 @@
 import React from "react";
-import Button from "../../components/Button/Button";
-import Container from "../../components/Container/Container";
+import Button from "@/components/Button/Button";
+import Container from "@/components/Container/Container";
+import Categories from "@/components/Categories/Categories";
+import Testimonials from "@/components/Testimonials/Testimonials";
+import Recipes from "@/components/Recipes/Recipes";
+import { selectedCategory } from "../../redux/categories/selectors";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
+  const isSelectedCategory = useSelector(selectedCategory);
+
   return (
     <div>
-      HomePage
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
         <div
@@ -17,23 +23,32 @@ const HomePage = () => {
           }}
         >
           <h2>Example of using Button component in different variants</h2>
-          <Button onCLick={() => console.log("Button clicked!")}>
+          <Button onClick={() => console.log("Button clicked!")}>
             Default Button
           </Button>
           <Button
             outlined={true}
-            onCLick={() => console.log("Button clicked!")}
+            onClick={() => console.log("Button clicked!")}
           >
             Outlined Button
           </Button>
           <Button
-            onCLick={() => console.log("Button clicked!")}
+            onClick={() => console.log("Button clicked!")}
             type="submit"
             inactive
           >
             Inactive button
           </Button>
+
         </div>
+
+        {isSelectedCategory ?
+            < Recipes /> 
+            :
+          <>
+            <Categories />
+            <Testimonials />
+          </>}
       </Container>
     </div>
   );

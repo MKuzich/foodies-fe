@@ -1,0 +1,12 @@
+.categoriesContainer {
+    margin-bottom: 64px;
+
+    @media (min-width: 768px) {
+        margin-bottom: 100px;
+    }
+
+    @media (min-width: 1440px) {
+        margin-bottom: 120px;
+    }
+  
+}
