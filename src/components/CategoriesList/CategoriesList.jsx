@@ -2,26 +2,83 @@ import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import styles from "./CategoriesList.module.css";
 
 function CategoriesList() {
-    
+
 
     // TODO: connect store and api when will be ready
-    const NewArr = new Array(11).fill({
-        image: "/src/assets/Beef.jpg",
-        title: "Beef",
-        option: "category"
-    });
+    const mockCategories = [
+        {
+            id: "6462a6cd4c3d0ddd28897f8e",
+            name: "Beef"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f95",
+            name: "Breakfast"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f8f",
+            name: "Dessert"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f8b",
+            name: "Lamb"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f97",
+            name: "Goat"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f93",
+            name: "Miscellaneous"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f94",
+            name: "Pasta"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f91",
+            name: "Pork"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f8a",
+            name: "Seafood"
+        },
 
-    NewArr.push({
-        title: "All categories",
-        option: "all"
-    });
+        {
+            id: "6462a6cd4c3d0ddd28897f96",
+            name: "Side"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f8c",
+            name: "Starter"
+        },
+        {
+            id: "6462a6cd4c3d0ddd28897f8d",
+            name: "Chicken"
+        },
+
+
+        {
+            id: "6462a6cd4c3d0ddd28897f90",
+            name: "Vegan"
+        },
+
+        {
+            id: "6462a6cd4c3d0ddd28897f92",
+            name: "Vegetarian"
+        },
+
+
+
+
+    ]
 
     return (
-        
+
         <ul className={styles.categoriesList}>
-            {NewArr.map((item, index) => (
-                <CategoriesItem key={index} {...item} />
+            {mockCategories.map((item) => (
+                <CategoriesItem key={item.id} title={item.name} />
             ))}
+            <CategoriesItem option="all" title="All categories" />
         </ul>
     );
 }
