@@ -1,9 +1,9 @@
-import { useEffect, useState } from "react";
-import { useParams } from "react-router-dom";
-import RecipeMainInfo from "./RecipeMainInfo";
-import RecipeIngredients from "./RecipeIngredients";
-import RecipePreparation from "./RecipePreparation";
-import styles from "./recipeInfo.module.css";
+import { useEffect, useState } from 'react';
+import { useParams } from 'react-router-dom';
+import RecipeMainInfo from '../components/RecipeMainInfo';
+import RecipeIngredients from '../components/RecipeIngredients';
+import RecipePreparation from '../components/RecipePreparation';
+import styles from './recipePage.module.css';
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -17,7 +17,7 @@ const RecipePage = () => {
         const data = await response.json();
         setRecipe(data);
       } catch (error) {
-        console.error("Failed to fetch recipe:", error);
+        console.error('Failed to fetch recipe:', error);
       } finally {
         setLoading(false);
       }
@@ -29,15 +29,20 @@ const RecipePage = () => {
   const handleToggleFavorite = async () => {
     if (!recipe) return;
 
-    const url = `/api/recipes/${id}/${
-      recipe.isFavorite ? "remove-favorite" : "add-favorite"
-    }`;
+    const url = `/api/recipes/${id}/favorite`;
 
     try {
-      await fetch(url, { method: "POST" });
+      await fetch(url, {
+        method: 'PATCH',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ favorite: !recipe.isFavorite }),
+      });
+
       setRecipe({ ...recipe, isFavorite: !recipe.isFavorite });
     } catch (error) {
-      console.error("Error updating favorite status", error);
+      console.error('Error updating favorite status', error);
     }
   };
 
