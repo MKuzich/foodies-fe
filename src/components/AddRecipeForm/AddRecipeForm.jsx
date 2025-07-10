@@ -2,7 +2,7 @@ import React from "react";
 import { FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import styles from "./AddRecipeForm.module.css";
-import AddRecipeImage from "../AddReceipImage/AddRecipeImage";
+import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import { recipeSchema } from "./validationSchema";
 import Button from "../Button/Button";
 
