@@ -4,15 +4,19 @@
 
 .tabItemLink {
   color: var(--inactive-color);
+  border: none;
+  background-color: transparent;
   text-decoration: none;
   font-weight: 800;
   font-size: 18px;
   line-height: 1.33;
+  text-transform: uppercase;
 }
 
 .active {
   color: var(--title-color);
 }
+
 .active::after {
   content: "";
   display: block;
@@ -22,10 +26,4 @@
   height: 4px;
   background-color: var(--title-color);
   transform: translateY(16px);
-  opacity: 1;
-  transition: opacity 0.3s ease;
-}
-
-.isScrolling.active::after {
-  opacity: 0;
 }

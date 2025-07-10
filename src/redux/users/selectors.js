@@ -10,7 +10,7 @@ export const selectIsUserCurrentUser = (state) => {
   return false;
 };
 export const selectIsUserIsFollowed = (state) => state.users.isUserIsFollowed;
-export const selectUserRecepies = (state) => {
+export const selectUserRecipes = (state) => {
   return enshureEnoughItems(state.users.recipes, 10);
 };
 export const selectUserFavorites = (state) => {
