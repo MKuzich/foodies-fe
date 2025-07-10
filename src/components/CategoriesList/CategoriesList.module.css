@@ -9,7 +9,8 @@
         gap: 20px;
 
         & > :nth-child(3),
-        & > :nth-child(8) {
+        & > :nth-child(8),
+        & > :nth-child(13) {
           grid-column: 1 / -1;
         }
     }
@@ -27,7 +28,8 @@
         & > :nth-child(3),
         & > :nth-child(4),
         & > :nth-child(8),
-        & > :nth-child(10) {
+        & > :nth-child(10),
+        & > :nth-child(14) {
             width: 590px;
         }
     }
