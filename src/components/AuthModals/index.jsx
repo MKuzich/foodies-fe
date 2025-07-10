@@ -9,12 +9,16 @@ const AuthModals = () => {
 
   const close = () => dispatch(closeModal());
 
+  const handleOpenSignIn = () => dispatch(openSignIn());
+  
+  const handleOpenSignUp = () => dispatch(openSignUp());
+
   if (modalType === 'signin') {
-    return <SignInModal onClose={close} onSwitch={() => dispatch(openSignUp())} />;
+    return <SignInModal onClose={close} onSwitch={handleOpenSignUp} />;
   }
 
   if (modalType === 'signup') {
-    return <SignUpModal onClose={close} onSwitch={() => dispatch(openSignIn())} />;
+    return <SignUpModal onClose={close} onSwitch={handleOpenSignIn} />;
   }
 
   return null;
