@@ -17,6 +17,7 @@ const slice = createSlice({
     following: null,
     isUserIsFollowed: false,
     isUserCurrentUser: false,
+    scrollIsScrolling: false,
   },
   reducers: {
     addToFollowing: (state, action) => {
@@ -24,6 +25,9 @@ const slice = createSlice({
     },
     removeFromFollowing: (state, action) => {
       state.isUserIsFollowed = false;
+    },
+    toggleScrolling: (state, action) => {
+      state.scrollIsScrolling = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -45,5 +49,6 @@ const slice = createSlice({
   },
 });
 
-export const { addToFollowing, removeFromFollowing } = slice.actions;
+export const { addToFollowing, removeFromFollowing, toggleScrolling } =
+  slice.actions;
 export const userReducer = slice.reducer;

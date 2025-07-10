@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
+import { Outlet, useMatch } from "react-router-dom";
 import { useLocation, useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
@@ -19,12 +19,12 @@ import {
 } from "../../redux/users/selectors";
 import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
 import UserRecepies from "../../components/UserRecepies/UserRecepies";
+import { useMemo } from "react";
 
 import css from "./UserPage.module.css";
 
 const UserPage = () => {
   const { id } = useParams();
-
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -77,14 +77,14 @@ const UserPage = () => {
       </Container>
       <div className={css.tabsContainer}>
         <TabsList>
-          <TabItem name={recepieTabName} to={`/user/${id}`} />
-          {isUserCurrentUser && (
-            <TabItem name="My Favorites" to={`/user/${id}/favorites`} />
-          )}
-          <TabItem name="Followers" to={`/user/${id}/followers`} />
-          {isUserCurrentUser && (
-            <TabItem name="Following" to={`/user/${id}/following`} />
-          )}
+          <TabItem
+            name={recepieTabName}
+            to=""
+            activeOnlyBasePath={isBaseUserPath}
+          />
+          {isUserCurrentUser && <TabItem name="My Favorites" to="favorites" />}
+          <TabItem name="Followers" to="followers" />
+          {isUserCurrentUser && <TabItem name="Following" to="following" />}
         </TabsList>
         <Container>
           <div className={css.tabsContent}>

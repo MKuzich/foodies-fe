@@ -1,3 +1,31 @@
+.tabItem {
+  padding-bottom: 14px;
+}
+
 .tabItemLink {
+  color: var(--inactive-color);
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.33;
+}
+
+.active {
+  color: var(--title-color);
+}
+.active::after {
+  content: "";
+  display: block;
   width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--title-color);
+  transform: translateY(16px);
+  opacity: 1;
+  transition: opacity 0.3s ease;
+}
+
+.isScrolling.active::after {
+  opacity: 0;
 }

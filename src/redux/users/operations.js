@@ -21,6 +21,7 @@ export const fetchUserRecipes = createAsyncThunk(
     try {
       // const { data } = await api.get(url);
       return userPageRecipes;
+      // return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -47,6 +48,7 @@ export const fetchUserFollowers = createAsyncThunk(
     try {
       // const { data } = await api.get(url);
       return userPageFollowers;
+      // return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }

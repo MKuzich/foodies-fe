@@ -25,3 +25,4 @@ export const selectUserFollowing = (state) => {
   // return state.users.following;
   return enshureEnoughItems(state.users.following, 10);
 };
+export const selectIsScrolling = (state) => state.users.scrollIsScrolling;
