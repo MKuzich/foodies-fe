@@ -61,19 +61,23 @@ const UserPage = () => {
           gastronomic masterpieces with us.
         </Subtitle>
         <UserInfo />
-        {isUserCurrentUser ? (
-          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
-            Log out
-          </Button>
-        ) : isUserIsFollowed ? (
-          <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-            Unfollow
-          </Button>
-        ) : (
-          <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-            Follow
-          </Button>
-        )}
+        <div className={css.followButtonContainer}>
+          <div className={css.followButtonWrapper}>
+            {isUserCurrentUser ? (
+              <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+                Log out
+              </Button>
+            ) : isUserIsFollowed ? (
+              <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                Unfollow
+              </Button>
+            ) : (
+              <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                Follow
+              </Button>
+            )}
+          </div>
+        </div>
       </Container>
       <div className={css.tabsContainer}>
         <TabsList>
