@@ -1,14 +1,24 @@
 import styles from "./CategoriesItem.module.css";
 import clsx from "clsx";
 
+function CategoriesItem({ title, option = "category" }) {
 
-function CategoriesItem({ image, title, option = "category" }) {
+    const image = `/src/assets/categories/${title}.webp`;
+    console.log(image);
     return (
         option === "category" ? (
             <li className={styles.categoriesContainer}>
-                <div className={styles.categoriesImage} style={{ backgroundImage: `url(${image ? image : "/src/modules/categories/assets/Beef.jpg"})` }}>
+                <div
+                    className={styles.categoriesImage}
+                    style={{
+                        backgroundImage: `image-set(
+                          url(${image}) 1x,
+                          url(${image.replace('.webp', '@2x.webp')}) 2x
+                        )`
+                      }}
+                >
                     <div className={styles.categoriesTitleContainer}>
-                        <p className={styles.categoriesTitle}>{title ? title : "Beef"}</p>
+                        <p className={styles.categoriesTitle}>{title}</p>
                         <div className={styles.categoriesIconContainer}>
                             <svg className={styles.categoriesIcon}>
                                 <use href="/src/assets/sprite.svg#icon-arrow-up-right" />
