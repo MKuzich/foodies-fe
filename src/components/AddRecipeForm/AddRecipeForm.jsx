@@ -4,6 +4,7 @@ import { yupResolver } from "@hookform/resolvers/yup";
 import styles from "./AddRecipeForm.module.css";
 import AddRecipeImage from "../AddReceipImage/AddRecipeImage";
 import { recipeSchema } from "./validationSchema";
+import Button from "../Button/Button";
 
 const AddRecipeForm = () => {
   const methods = useForm({
@@ -22,7 +23,7 @@ const AddRecipeForm = () => {
       <FormProvider {...methods}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <AddRecipeImage />
-          <button type="submit">Submit</button>
+          <Button type="submit">Publish</Button>
         </form>
       </FormProvider>
     </div>
