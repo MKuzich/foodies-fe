@@ -4,13 +4,12 @@ import Container from "@/components/Container/Container";
 import Categories from "@/components/Categories/Categories";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
-import { useState } from "react";
-import Loader from "../../components/Loader/Loader";
-
+import { selectedCategory } from "../../redux/categories/selectors";
+import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  // TEMPORARY FROM TESTING
-  const [isCategoreis, setIsCategoreis] = useState(true);
+  const isSelectedCategory = useSelector(selectedCategory);
+
   return (
     <div>
       {/* TODO: Delete example below, just show-case of using Button */}
@@ -41,20 +40,15 @@ const HomePage = () => {
             Inactive button
           </Button>
 
-          {/* TEMPORARY FROM TESTING */}
-          <Button
-            outlined={true}
-            onClick={() => setIsCategoreis(!isCategoreis)}
-          >
-           Switch to Recipes and back to Categories
-          </Button>
-          
         </div>
-       
-          {isCategoreis ? <>
+
+        {isSelectedCategory ?
+            < Recipes /> 
+            :
+          <>
             <Categories />
             <Testimonials />
-          </> : <Recipes />}
+          </>}
       </Container>
     </div>
   );
