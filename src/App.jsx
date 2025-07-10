@@ -1,23 +1,23 @@
-import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
-import "./App.css";
-import SharedLayout from "./components/SharedLayout/SharedLayout";
-import Loader from "./components/Loader/Loader";
+import { Routes, Route } from 'react-router-dom';
+import { lazy, Suspense } from 'react';
+import './App.css';
+import SharedLayout from './components/SharedLayout/SharedLayout';
+import Loader from './components/Loader/Loader';
 
-const Home = lazy(() => import("./pages/HomePage/HomePage"));
-const User = lazy(() => import("./pages/UserPage/UserPage"));
-const AddPecipe = lazy(() => import("./pages/AddRecipePage/AddRecipePage"));
-const Recipe = lazy(() => import("./pages/RecipePage/RecipePage"));
-const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+const Home = lazy(() => import('./pages/HomePage/HomePage'));
+const User = lazy(() => import('./pages/UserPage/UserPage'));
+const AddPecipe = lazy(() => import('./pages/AddRecipePage/AddRecipePage'));
+const Recipe = lazy(() => import('./pages/RecipePage/RecipePage'));
+const NotFound = lazy(() => import('./pages/NotFound/NotFound'));
 
 const UserFollowers = lazy(() =>
-  import("./components/UserFollowers/UserFollowers")
+  import('./components/UserFollowers/UserFollowers')
 );
 const UserFavorites = lazy(() =>
-  import("./components/UserFavorites/UserFavorites")
+  import('./components/UserFavorites/UserFavorites')
 );
 const UserFollowing = lazy(() =>
-  import("./components/UserFollowing/UserFollowing")
+  import('./components/UserFollowing/UserFollowing')
 );
 
 function App() {
@@ -32,7 +32,7 @@ function App() {
             <Route path="following" element={<UserFollowing />} />
           </Route>
           <Route path="/recipe/add" element={<AddPecipe />} />
-          <Route path="/pecipe/:id" element={<Recipe />} />
+          <Route path="/recipe/:id" element={<Recipe />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Suspense>
