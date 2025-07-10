@@ -13,6 +13,7 @@ import { combineReducers } from "redux";
 import { rootReducer } from "./root/slice";
 import authReducer from "./auth/authSlice";
 import { userReducer } from "./users/slice";
+import { categoriesReducer } from "./categories/slice";
 
 const persistConfig = {
   key: "auth",
@@ -25,6 +26,7 @@ const reducers = combineReducers({
   root: rootReducer,
   auth: persistedAuthReducer,
   users: userReducer,
+  categories: categoriesReducer,
 });
 
 export const store = configureStore({

@@ -1,82 +1,36 @@
+import { useDispatch, useSelector } from "react-redux";
 import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import styles from "./CategoriesList.module.css";
+import { categoriesSelector, errorSelector, isLoadingSelector } from "../../redux/categories/selectors";
+import { fetchCategories } from "../../redux/categories/actions";
+import { useEffect } from "react";
 
 function CategoriesList() {
+    const categories = useSelector(categoriesSelector);
+    const isLoading = useSelector(isLoadingSelector);
+    const error = useSelector(errorSelector);
 
 
-    // TODO: connect store and api when will be ready
-    const mockCategories = [
-        {
-            id: "6462a6cd4c3d0ddd28897f8e",
-            name: "Beef"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f95",
-            name: "Breakfast"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f8f",
-            name: "Dessert"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f8b",
-            name: "Lamb"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f97",
-            name: "Goat"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f93",
-            name: "Miscellaneous"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f94",
-            name: "Pasta"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f91",
-            name: "Pork"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f8a",
-            name: "Seafood"
-        },
+    const dispatch = useDispatch();
 
-        {
-            id: "6462a6cd4c3d0ddd28897f96",
-            name: "Side"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f8c",
-            name: "Starter"
-        },
-        {
-            id: "6462a6cd4c3d0ddd28897f8d",
-            name: "Chicken"
-        },
-
-
-        {
-            id: "6462a6cd4c3d0ddd28897f90",
-            name: "Vegan"
-        },
-
-        {
-            id: "6462a6cd4c3d0ddd28897f92",
-            name: "Vegetarian"
-        },
+    useEffect(() => {
+        dispatch(fetchCategories());
+    }, []);
 
 
 
+    if (isLoading) {
+        return <div>Loading...</div>;
+    }
 
-    ]
+    if (error) {
+        return <div>Error: {error}</div>;
+    }
 
     return (
-
         <ul className={styles.categoriesList}>
-            {mockCategories.map((item) => (
-                <CategoriesItem key={item.id} title={item.name} />
+            {categories.map((item) => (
+                <CategoriesItem key={item.id} id={item.id} title={item.name}  />
             ))}
             <CategoriesItem option="all" title="All categories" />
         </ul>

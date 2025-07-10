@@ -2,10 +2,11 @@ import RecipePreview from "../RecipePreview/RecipePreview";
 import UserCard from "../UserCard/UserCard";
 import css from "./ListItems.module.css";
 import clsx from "clsx";
+
 const ListItems = ({ items, type, errorText }) => {
   return (
     <div className={css.listItemsWrap}>
-      {items.length === 0 ? (
+      {!items || items.length === 0 ? (
         <p className={css.errorText}>{errorText}</p>
       ) : (
         <ul className={clsx(css.listItems, css[type])}>

@@ -5,15 +5,14 @@ import Container from "@/components/Container/Container";
 import Categories from "@/components/Categories/Categories";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
-import { useState } from "react";
-import Loader from "../../components/Loader/Loader";
+import { selectedCategory } from "../../redux/categories/selectors";
+import { useSelector } from "react-redux";
 import {openSignIn, openSignUp} from '../../redux/auth/authSlice';
 
-
 const HomePage = () => {
-  // TEMPORARY FROM TESTING
-  const [isCategoreis, setIsCategoreis] = useState(true);
-    const dispatch = useDispatch();
+  const isSelectedCategory = useSelector(selectedCategory);
+  const  dispatch = useDispatch();
+
   return (
     <div>
         <nav>
@@ -48,20 +47,15 @@ const HomePage = () => {
             Inactive button
           </Button>
 
-          {/* TEMPORARY FROM TESTING */}
-          <Button
-            outlined={true}
-            onClick={() => setIsCategoreis(!isCategoreis)}
-          >
-           Switch to Recipes and back to Categories
-          </Button>
-          
         </div>
-       
-          {isCategoreis ? <>
+
+        {isSelectedCategory ?
+            < Recipes /> 
+            :
+          <>
             <Categories />
             <Testimonials />
-          </> : <Recipes />}
+          </>}
       </Container>
     </div>
   );
