@@ -1,4 +1,5 @@
 import { useState, useRef, useEffect } from 'react';
+import IconLink from '../IconLink/IconLink';
 import styles from './Header.module.css';
 
 const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
@@ -22,7 +23,7 @@ const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
         className={styles.userBarBtn}
       >
         <img
-          src={user.avatar || 'https://via.placeholder.com/50x50?text=U'}
+          src={user.avatar || 'src/assets/avatar.png'}
           alt="avatar"
           className={styles.avatar}
         />
@@ -30,6 +31,7 @@ const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
         <svg className={styles.chevronIcon} width="16" height="16">
           <use href="src/assets/sprite.svg#icon-chevron-down" />
         </svg>
+     
       </button>
       {open && (
         <div className={styles.dropdown}>
@@ -38,7 +40,7 @@ const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
           </button>
           <button type="button" className={styles.dropdownItem} onClick={onLogout}>
             LOG OUT
-            <svg className={styles.arrowIcon} width="16" height="16">
+            <svg className={styles.arrowIcon} width="18" height="18">
               <use href="src/assets/sprite.svg#icon-arrow-up-right" />
             </svg>
           </button>

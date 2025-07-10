@@ -13,6 +13,7 @@
   height: 40px;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .iconLinkIcon {
   width: 16px;
   height: 16px;
@@ -24,15 +25,42 @@
   stroke: var(--white-color);
 }
 
+
+.iconLink.social {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  border: 1px solid #BFBEBE;
+  background: transparent;
+  transition: background 0.2s;
+}
+
+.iconLinkIcon.social {
+  width: 20px;
+  height: 20px;
+  fill: #232323;
+  stroke: none;
+}
+
+.iconLink.social:hover {
+  background: #f5f5f5;
+}
+
+
 @media (min-width: 768px) {
   .iconLink {
     width: 42px;
     height: 42px;
   }
+
   .iconLinkIcon {
     width: 18px;
     height: 18px;
   }
+
   .iconLink.white {
     width: 44px;
     height: 44px;
@@ -42,8 +70,18 @@
     width: 40px;
     height: 40px;
   }
+
   .iconLink.social {
-    width: 20px;
-    height: 20px;
+
+    width: 40px;
+    height: 40px;
+
   }
+
+
+
+
+
+
+
 }

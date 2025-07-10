@@ -1,10 +1,12 @@
 import Container from "../Container/Container";
 import styles from "./Hero.module.css";
+import Button from "../Button/Button";
 
 const Hero = () => (
   <section className={styles.hero}>
-    <Container>
+ 
       <div className={styles.heroInner}>
+      <Container>
         <h1 className={styles.title}>
           IMPROVE YOUR
           <br />
@@ -14,8 +16,15 @@ const Hero = () => (
           Amazing recipes for beginners in the world of cooking, enveloping you
           in the aromas and tastes of various cuisines.
         </p>
-
-        <button className={styles.ctaBtn}>Add Recipe</button>
+        <Button
+            onClick={() => console.log("Button clicked!")}
+            type="submit"
+         outlined
+            className={styles.ctaBtn}
+          >
+          Add Recipe
+          </Button>
+       
 
         <div className={styles.images}>
           <img
@@ -31,8 +40,9 @@ const Hero = () => (
             className={`${styles.heroImg} ${styles.imgRight}`}
           />
         </div>
+        </Container>
       </div>
-    </Container>
+ 
   </section>
 );
 

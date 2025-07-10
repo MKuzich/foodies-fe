@@ -1,8 +1,10 @@
 .hero {
-    width: 100%;
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
     background: transparent;
     padding: 0;
-    margin: 0;
+
     margin-top: 20px;
 }
 
@@ -44,18 +46,15 @@
 }
 
 .ctaBtn {
-    background: var(--color-bg-light);
-    color: var(--color-bg-dark);
-    border: 1px solid var(--color-bg-dark);
+
     border-radius: var(--radius-pill);
-    padding: 12px 32px;
+    padding: 16px 32px;
     font-size: 1rem;
     font-weight: 600;
     cursor: pointer;
-    transition:
-        background var(--transition-main),
-        color var(--transition-main),
-        border var(--transition-main);
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
     margin-bottom: 40px;
     box-shadow: none;
     display: block;

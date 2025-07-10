@@ -1,23 +1,6 @@
 import styles from './Footer.module.css';
 import Container from '../Container/Container';
-
-const socialLinks = [
-  {
-    href: 'https://facebook.com',
-    label: 'Facebook',
-    icon: 'icon-facebook',
-  },
-  {
-    href: 'https://instagram.com',
-    label: 'Instagram',
-    icon: 'icon-instagram',
-  },
-  {
-    href: 'https://youtube.com',
-    label: 'YouTube',
-    icon: 'icon-youtube',
-  },
-];
+import IconLink from '../IconLink/IconLink';
 
 const Footer = () => (
   <footer className={styles.footer}>
@@ -25,20 +8,34 @@ const Footer = () => (
       <div className={styles.topRow}>
         <div className={styles.logo}>foodies</div>
         <nav className={styles.networkLinks} aria-label="Social media links">
-          {socialLinks.map(({ href, label, icon }) => (
-            <a
-              key={icon}
-              href={href}
-              className={styles.iconBtn}
-              target="_blank"
-              rel="noopener noreferrer"
-              aria-label={label}
-            >
-              <svg width="20" height="20" aria-hidden="true">
-                <use href={`src/assets/sprite.svg#${icon}`} />
-              </svg>
-            </a>
-          ))}
+          <IconLink
+            to="https://facebook.com"
+            name="facebook"
+            social
+            className={styles.iconBtn}
+            target="_blank"
+            
+            rel="noopener noreferrer"
+            aria-label="Facebook"
+          />
+          <IconLink
+            to="https://instagram.com"
+            name="instagram"
+            social
+            className={styles.iconBtn}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          />
+          <IconLink
+            to="https://youtube.com"
+            name="youtube"
+            social
+            className={styles.iconBtn}
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="YouTube"
+          />
         </nav>
       </div>
       <div className={styles.divider} />
