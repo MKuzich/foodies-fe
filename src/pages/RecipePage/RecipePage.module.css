@@ -1,0 +1,6 @@
+.recipeInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  margin: 20px 0;
+}
