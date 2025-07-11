@@ -51,7 +51,7 @@ const RecipePage = () => {
 
   return (
     <div className={styles.recipeInfo}>
-      <RecipeMainInfo
+      {/* <RecipeMainInfo
         image={recipe.image}
         title={recipe.title}
         category={recipe.category}
@@ -65,7 +65,7 @@ const RecipePage = () => {
         description={recipe.instructions}
         isFavorite={recipe.isFavorite}
         onToggleFavorite={handleToggleFavorite}
-      />
+      /> */}
     </div>
   );
 };
