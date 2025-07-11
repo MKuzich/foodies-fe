@@ -30,6 +30,7 @@ import {
 } from "../../utils/api/users";
 import css from "./UserPage.module.css";
 import clsx from "clsx";
+import { toast } from "react-hot-toast";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -38,13 +39,9 @@ const UserPage = () => {
   const dispatch = useDispatch();
 
   const [tabOpened, setTabOpened] = useState("recipes");
-  const [tabContentActive, setTabContentActive] = useState(true);
+
   const handleChange = (e, newValue) => {
-    setTabContentActive(false);
     setTabOpened(newValue);
-    setTimeout(() => {
-      setTabContentActive(true);
-    }, 300);
   };
 
   useEffect(() => {
@@ -72,11 +69,11 @@ const UserPage = () => {
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
       dispatch(removeFromFollowing(id));
-      console.log("You can alway return it back :)");
+      toast.success("Successfully unfollowed from this user!");
       return;
     }
     dispatch(addToFollowing(id));
-    console.log("We remember that!");
+    toast.success("Successfully followed to this user!");
   };
 
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
@@ -140,12 +137,7 @@ const UserPage = () => {
             </TabsList>
           </div>
           <div className={css.tabsContent}>
-            <div
-              className={clsx(
-                css.tabContentActive,
-                tabContentActive && css.active
-              )}
-            >
+            <div className={css.tabContentActive}>
               {tabOpened === "recipes" && (
                 <ListItems
                   items={userRecipes}
