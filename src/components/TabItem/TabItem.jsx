@@ -1,7 +1,6 @@
 import css from "./TabItem.module.css";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import { smoothScrollLeft } from "../../utils/helpers";
 
 const TabItem = ({ name, onClick, isActive }) => {
   const ref = useRef(null);
@@ -12,7 +11,7 @@ const TabItem = ({ name, onClick, isActive }) => {
       ref.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",
-        inline: "start",
+        inline: "center",
       });
       const currentRef = ref.current;
       const isFirstChild =
@@ -21,13 +20,6 @@ const TabItem = ({ name, onClick, isActive }) => {
       setIsNeedScrollToStart(false);
 
       if (!currentRef || isFirstChild) return;
-      setTimeout(() => {
-        const parent = currentRef.parentElement?.parentElement;
-        if (parent) {
-          smoothScrollLeft(parent, parent.scrollLeft - 100, 400);
-          // 100px to move current tab from start page after click
-        }
-      }, 400);
     }
   }, [isNeedScrollToStart]);
 
