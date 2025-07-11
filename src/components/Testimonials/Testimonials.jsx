@@ -2,19 +2,12 @@ import styles from "./Testimonials.module.css";
 import MainTitle from "@/components/MainTitle/MainTitle";
 import "./SwiperCustomStyles.css";
 import 'swiper/css';
-import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from "swiper/modules";
-
+import { useScreenWidth } from "../../hooks/useScreenWidth";
 
 function Testimonials() {
-    const [width, setWidth] = useState(window.innerWidth);
-
-    useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
-    }, []);
+    const width = useScreenWidth();
 
     const value = width <= 768 ? 64 : 80;
 

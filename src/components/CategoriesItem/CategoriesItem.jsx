@@ -3,14 +3,16 @@ import styles from "./CategoriesItem.module.css";
 import clsx from "clsx";
 import { setSelectedCategory } from "../../redux/categories/slice";
 
-function CategoriesItem({ id, title, option = "category" }) {
+function CategoriesItem({ id, title, option = "category", onClick }) {
 
     const image = `/src/assets/categories/${title}.webp`;
 
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        if (option === "all") {
+        if (option === "All") {
+            onClick();
+        } else if (option === "Show") {
             dispatch(setSelectedCategory({
                 id: null,
                 title
@@ -23,9 +25,20 @@ function CategoriesItem({ id, title, option = "category" }) {
         }
     }
 
+    const optionClassMap = {
+        All: {
+            container: styles.categoriesContainerAll,
+            title: styles.categoriesTitleAll,
+        },
+        Show: {
+            container: styles.categoriesContainerShow,
+            title: styles.categoriesTitleShow,
+        },
+      };
+
     return (
         option === "category" ? (
-            <li className={styles.categoriesContainer}>
+            <li className={styles.categoriesContainer} onClick={handleClick}>
                 <div
                     className={styles.categoriesImage}
                     style={{
@@ -38,7 +51,7 @@ function CategoriesItem({ id, title, option = "category" }) {
                 >
                     <div className={styles.categoriesTitleContainer}>
                         <p className={styles.categoriesTitle}>{title}</p>
-                        <div className={styles.categoriesIconContainer} onClick={handleClick}>
+                        <div className={styles.categoriesIconContainer} >
                             <svg className={styles.categoriesIcon} >
                                 <use href="/src/assets/sprite.svg#icon-arrow-up-right" />
                             </svg>
@@ -47,8 +60,8 @@ function CategoriesItem({ id, title, option = "category" }) {
                 </div>
             </li>
         ) : (
-            <li className={clsx(styles.categoriesContainer, styles.categoriesContainerAll)} onClick={handleClick}>
-                <p className={styles.categoriesTitleAll}>All categories</p>
+            <li className={clsx(styles.categoriesContainer, optionClassMap[option].container)} onClick={handleClick}>
+                <p className={clsx(styles.categoriesTitleExtra, optionClassMap[option].title)}>{title}</p>
             </li>
         )
     );

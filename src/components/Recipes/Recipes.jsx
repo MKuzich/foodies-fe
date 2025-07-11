@@ -6,17 +6,26 @@ import Subtitle from "@/components/Subtitle/Subtitle";
 import { useDispatch, useSelector } from "react-redux";
 import { selectedCategory } from "../../redux/categories/selectors";
 import { setSelectedCategory } from "../../redux/categories/slice";
+import { useEffect, useRef } from "react";
 
 function Recipes() {
     const isSelectedCategory = useSelector(selectedCategory);
+    const recipesRef = useRef(null);
+
     const dispatch = useDispatch();
+
+    useEffect(() => {
+        if (recipesRef.current) {
+          recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+        }
+      }, []);
 
     const handleBack = () => {
         dispatch(setSelectedCategory(null));
     }
 
     return (
-        <div className={styles.recipesContainer}>
+        <div className={styles.recipesContainer} ref={recipesRef}>
             <div className={styles.recipesBackContainer} onClick={handleBack}>
                 <svg className={styles.recipesBackIcon}>
                     <use href="/src/assets/sprite.svg#icon-arrow-left" />

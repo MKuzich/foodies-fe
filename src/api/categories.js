@@ -36,7 +36,7 @@ const mockCategories = [
         id: "6462a6cd4c3d0ddd28897f8a",
         name: "Seafood"
     },
-  
+
     {
         id: "6462a6cd4c3d0ddd28897f96",
         name: "Side"
@@ -49,21 +49,25 @@ const mockCategories = [
         id: "6462a6cd4c3d0ddd28897f8d",
         name: "Chicken"
     },
-  
-  
+
+
     {
         id: "6462a6cd4c3d0ddd28897f90",
         name: "Vegan"
     },
-  
+
     {
         id: "6462a6cd4c3d0ddd28897f92",
         name: "Vegetarian"
     },
-  ]
+    {
+        id: "6462a6cd4c3d0ddd28897f98",
+        name: "Soup"
+    }
+]
 export const getCategoriesApi = async () => {
     console.log("getCategoriesApi");
-    await new Promise(resolve => setTimeout(resolve, 5000));
+    await new Promise(resolve => setTimeout(resolve, 1000));
     return mockCategories;
     // const response = await api.get("/categories");
     // return response.data;
