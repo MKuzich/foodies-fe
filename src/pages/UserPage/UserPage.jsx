@@ -27,7 +27,7 @@ import {
   fetchUserFavorites,
   fetchUserFollowers,
   fetchUserFollowing,
-} from "../../utils/api/users";
+} from "../../api/users";
 import css from "./UserPage.module.css";
 import clsx from "clsx";
 import { toast } from "react-hot-toast";

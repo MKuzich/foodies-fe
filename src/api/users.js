@@ -1,5 +1,6 @@
-import api from "./api";
-import { userPageRecipes, userPageFollowers } from "../data";
+import api from "../api/api";
+
+import { userPageRecipes, userPageFollowers } from "../utils/data";
 
 export const fetchUserRecipes = (id) => {
   const url = `/users/${id}/recipes`;

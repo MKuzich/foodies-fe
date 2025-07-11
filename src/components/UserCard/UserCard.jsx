@@ -2,7 +2,7 @@ import css from "./UserCard.module.css";
 import Button from "../Button/Button";
 import { useSelector } from "react-redux";
 import { selectIsUserCurrentUser } from "../../redux/users/selectors";
-import { useWindowDimensions } from "../../utils/hooks/useWindowDimensions";
+import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { useState, useEffect } from "react";
 import IconLink from "../IconLink/IconLink";
 
