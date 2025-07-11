@@ -6,6 +6,7 @@ import { ModalPortal } from '../ModalPortal/ModalPortal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
 import s from './index.module.css'
+import Icon from '../Icon';
 
 const schema = yup.object({
   email: yup.string().email('Invalid email').required('Email is required'),
@@ -44,7 +45,9 @@ const SignInModal = ({ onClose, onSwitch }) => {
     <ModalPortal>
       <div className={s.modalBackdrop} onMouseDown={onClose} onKeyDown={handleKeyClose} tabIndex="0">
         <div className={s.modal} onMouseDown={(e) => e.stopPropagation()}>
-          <button className={s.close} onClick={onClose}>✕</button>
+          <button className={s.close} onClick={onClose}>
+            <Icon name="youtube" />
+          </button>
           <h2 className={s.title}>Sign in</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.inputGroup}>
