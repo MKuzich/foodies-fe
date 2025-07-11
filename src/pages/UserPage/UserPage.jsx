@@ -112,32 +112,34 @@ const UserPage = () => {
       </Container>
 
       <div className={css.userProfileTabsContainer}>
-        <TabsList>
-          <TabItem
-            name={recepieTabName}
-            onClick={(e) => handleChange(e, "recipes")}
-            isActive={tabOpened === "recipes"}
-          />
-          {isUserCurrentUser && (
+        <div className={css.tabsWrapper}>
+          <TabsList>
             <TabItem
-              name="My Favorites"
-              onClick={(e) => handleChange(e, "favorites")}
-              isActive={tabOpened === "favorites"}
+              name={recepieTabName}
+              onClick={(e) => handleChange(e, "recipes")}
+              isActive={tabOpened === "recipes"}
             />
-          )}
-          <TabItem
-            name="Followers"
-            onClick={(e) => handleChange(e, "followers")}
-            isActive={tabOpened === "followers"}
-          />
-          {isUserCurrentUser && (
+            {isUserCurrentUser && (
+              <TabItem
+                name="My Favorites"
+                onClick={(e) => handleChange(e, "favorites")}
+                isActive={tabOpened === "favorites"}
+              />
+            )}
             <TabItem
-              name="Following"
-              onClick={(e) => handleChange(e, "following")}
-              isActive={tabOpened === "following"}
+              name="Followers"
+              onClick={(e) => handleChange(e, "followers")}
+              isActive={tabOpened === "followers"}
             />
-          )}
-        </TabsList>
+            {isUserCurrentUser && (
+              <TabItem
+                name="Following"
+                onClick={(e) => handleChange(e, "following")}
+                isActive={tabOpened === "following"}
+              />
+            )}
+          </TabsList>
+        </div>
         <Container>
           <div className={css.tabsContent}>
             <div className={css.tabContentActive}>
