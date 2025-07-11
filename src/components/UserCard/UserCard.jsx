@@ -1,10 +1,10 @@
 import css from "./UserCard.module.css";
-import IconButton from "../IconButton/IconButton";
 import Button from "../Button/Button";
 import { useSelector } from "react-redux";
 import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 import { useWindowDimensions } from "../../utils/hooks/useWindowDimensions";
 import { useState, useEffect } from "react";
+import IconLink from "../IconLink/IconLink";
 
 const UserCard = ({ user }) => {
   const { _, width } = useWindowDimensions();
@@ -62,7 +62,7 @@ const UserCard = ({ user }) => {
       </ul>
 
       <div className={css.userCardButtons}>
-        <IconButton name="trash" />
+        <IconLink to={`/user/${user.id}`} name="arrow" />
       </div>
     </li>
   );
