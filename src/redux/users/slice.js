@@ -12,9 +12,11 @@ const slice = createSlice({
   reducers: {
     addToFollowing: (state, action) => {
       state.isUserIsFollowed = true;
+      state.user.followers += 1;
     },
     removeFromFollowing: (state, action) => {
       state.isUserIsFollowed = false;
+      state.user.followers -= 1;
     },
     toggleScrolling: (state, action) => {
       state.scrollIsScrolling = action.payload;
