@@ -4,11 +4,9 @@
 
 .tabsScroll {
   overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  overflow-x: auto;
   overflow-y: hidden;
-  white-space: nowrap;
+  padding-bottom: 16px;
+  margin-bottom: -16px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -18,4 +16,9 @@
   gap: 30px;
   justify-content: flex-start;
   text-wrap: nowrap;
+  position: relative;
+}
+.tabSpacer {
+  min-width: 100px;
+  pointer-events: none;
 }

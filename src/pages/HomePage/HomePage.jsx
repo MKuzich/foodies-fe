@@ -7,6 +7,7 @@ import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
 import { selectedCategory } from "../../redux/categories/selectors";
 import { useSelector } from "react-redux";
+import IconButton from "@/components/IconButton/IconButton";
 
 const HomePage = () => {
   const isSelectedCategory = useSelector(selectedCategory);
@@ -41,16 +42,25 @@ const HomePage = () => {
           >
             Inactive button
           </Button>
-
         </div>
-
-        {isSelectedCategory ?
-            < Recipes /> 
-            :
+        <h2>Example of using IconButton component in different variants</h2>
+        <div style={{ display: "flex", gap: "2rem", alignItems: "start" }}>
+          <IconButton name="trash" disabled />
+          <IconButton
+            name="like"
+            onClick={() => console.log("Like Button clicked!")}
+          />
+          <IconButton name="plus" />
+          <IconButton name="minus" />
+        </div>
+        {isSelectedCategory ? (
+          <Recipes />
+        ) : (
           <>
             <Categories />
             <Testimonials />
-          </>}
+          </>
+        )}
       </Container>
     </div>
   );

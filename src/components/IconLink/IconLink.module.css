@@ -6,6 +6,7 @@
   height: 36px;
   border-radius: 30px;
   border: 1px solid var(--inactive-color);
+  transition: var(--color-transition);
 }
 
 .iconLink.white {
@@ -19,6 +20,7 @@
   height: 16px;
   fill: none;
   stroke: var(--text-color);
+  transition: var(--stroke-transition);
 }
 
 .iconLinkIcon.white {
@@ -77,11 +79,13 @@
     height: 40px;
 
   }
+}
 
+.iconLink:hover {
+  border-color: var(--text-color);
+  background-color: var(--text-color);
+}
 
-
-
-
-
-
+.iconLink:hover .iconLinkIcon {
+  stroke: var(--white-color);
 }
