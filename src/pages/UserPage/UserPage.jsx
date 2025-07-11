@@ -77,33 +77,32 @@ const UserPage = () => {
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   return (
-    <>
-      <Container>
-        <PathInfo pathName={"home"} currentName={"profile"} />
-        <MainTitle>profile</MainTitle>
-        <Subtitle>
-          Reveal your culinary art, share your favorite recipe and create
-          gastronomic masterpieces with us.
-        </Subtitle>
-        <UserInfo />
-        <div className={css.followButtonContainer}>
-          <div className={css.followButtonWrapper}>
-            {isUserCurrentUser ? (
-              <Button onClick={openLogoutModal} style={{ width: "100%" }}>
-                Log out
-              </Button>
-            ) : isUserIsFollowed ? (
-              <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                Unfollow
-              </Button>
-            ) : (
-              <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                Follow
-              </Button>
-            )}
-          </div>
+    <Container>
+      <PathInfo pathName={"home"} currentName={"profile"} />
+      <MainTitle>profile</MainTitle>
+      <Subtitle>
+        Reveal your culinary art, share your favorite recipe and create
+        gastronomic masterpieces with us.
+      </Subtitle>
+      <UserInfo />
+      <div className={css.followButtonContainer}>
+        <div className={css.followButtonWrapper}>
+          {isUserCurrentUser ? (
+            <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+              Log out
+            </Button>
+          ) : isUserIsFollowed ? (
+            <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+              Unfollow
+            </Button>
+          ) : (
+            <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+              Follow
+            </Button>
+          )}
         </div>
-      </Container>
+      </div>
+
       <div className={css.tabsContainer}>
         <TabsList>
           <TabItem
@@ -131,40 +130,38 @@ const UserPage = () => {
             />
           )}
         </TabsList>
-        <Container>
-          <div className={css.tabsContent}>
-            {tabOpened === "recipes" && (
-              <ListItems
-                items={userRecipes}
-                type="recipe"
-                errorText={errorMap.noRecipes}
-              />
-            )}
-            {tabOpened === "favorites" && (
-              <ListItems
-                items={userFavorites}
-                type="recipe"
-                errorText={errorMap.noFavorites}
-              />
-            )}
-            {tabOpened === "followers" && (
-              <ListItems
-                items={userFollowers}
-                type="user"
-                errorText={errorMap.noFollowers}
-              />
-            )}
-            {tabOpened === "following" && (
-              <ListItems
-                items={userFollowing}
-                type="user"
-                errorText={errorMap.noSubscriptions}
-              />
-            )}
-          </div>
-        </Container>
       </div>
-    </>
+      <div className={css.tabsContent}>
+        {tabOpened === "recipes" && (
+          <ListItems
+            items={userRecipes}
+            type="recipe"
+            errorText={errorMap.noRecipes}
+          />
+        )}
+        {tabOpened === "favorites" && (
+          <ListItems
+            items={userFavorites}
+            type="recipe"
+            errorText={errorMap.noFavorites}
+          />
+        )}
+        {tabOpened === "followers" && (
+          <ListItems
+            items={userFollowers}
+            type="user"
+            errorText={errorMap.noFollowers}
+          />
+        )}
+        {tabOpened === "following" && (
+          <ListItems
+            items={userFollowing}
+            type="user"
+            errorText={errorMap.noSubscriptions}
+          />
+        )}
+      </div>
+    </Container>
   );
 };
 
