@@ -9,24 +9,24 @@
   .tabsList::after {
     content: "";
     position: absolute;
-    bottom: 14px;
-    width: 16px;
-    height: 4px;
+    bottom: 13px;
+    width: 17px;
+    height: 6px;
     background-color: var(--white-color);
     z-index: 2;
   }
   .tabsList::before {
-    left: 0;
+    left: -1px;
   }
   .tabsList::after {
-    right: 0;
+    right: -1px;
   }
 }
 
 @media screen and (max-width: 374px) {
   .tabsList::before,
   .tabsList::after {
-    width: 8px;
+    width: 9px;
   }
 }
 
