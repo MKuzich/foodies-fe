@@ -6,11 +6,12 @@ import { rootReducer } from './root/slice';
 import authReducer from './auth/authSlice';
 import { userReducer } from './users/slice';
 import { categoriesReducer } from './categories/slice';
+import { testimonialsReducer } from './testimonials/slice';
 
 const persistConfig = {
   key: 'auth',
   storage,
-  blacklist: ['authModal'],
+  blacklist: ['authModal', 'testimonials', 'categories'],
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
@@ -20,6 +21,7 @@ const reducers = combineReducers({
   auth: persistedAuthReducer,
   users: userReducer,
   categories: categoriesReducer,
+  testimonials: testimonialsReducer,
 });
 
 export const store = configureStore({

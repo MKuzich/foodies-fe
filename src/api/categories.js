@@ -64,5 +64,4 @@ export const getCategoriesApi = async () => {
     return mockCategories;
     // const response = await api.get("/categories");
     // return response.data;
-
 };
