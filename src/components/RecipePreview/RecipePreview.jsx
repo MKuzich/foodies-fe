@@ -20,7 +20,7 @@ const RecipePreview = ({ recipe }) => {
         </div>
         <div className={css.recipePreviewButtons}>
           <IconLink to={`/recipe/${recipe.id}`} name="arrow" />
-          <IconButton></IconButton>
+          <IconButton name="trash" />
         </div>
       </div>
     </li>

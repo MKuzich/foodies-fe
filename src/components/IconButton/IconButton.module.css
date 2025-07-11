@@ -1,4 +1,4 @@
-.iconLink {
+.iconButton {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -6,15 +6,11 @@
   height: 36px;
   border-radius: 30px;
   border: 1px solid var(--inactive-color);
+  background-color: transparent;
   transition: var(--color-transition);
 }
 
-.iconLink.white {
-  width: 40px;
-  height: 40px;
-  border: 1px solid rgba(255, 255, 255, 0.2);
-}
-.iconLinkIcon {
+.iconButtonIcon {
   width: 16px;
   height: 16px;
   fill: none;
@@ -22,38 +18,32 @@
   transition: var(--stroke-transition);
 }
 
-.iconLinkIcon.white {
+.iconButtonIcon.white {
   stroke: var(--white-color);
 }
 
 @media (min-width: 768px) {
-  .iconLink {
+  .iconButton {
     width: 42px;
     height: 42px;
   }
-  .iconLinkIcon {
+  .iconButtonIcon {
     width: 18px;
     height: 18px;
   }
-  .iconLink.white {
-    width: 44px;
-    height: 44px;
-  }
-
-  .iconLink.social {
-    width: 40px;
-    height: 40px;
-  }
-  .iconLink.social {
-    width: 20px;
-    height: 20px;
-  }
 }
 
-.iconLink:hover {
+.iconButton.disabled {
+  border-color: var(--inactive-color);
+}
+.iconButton.disabled .iconButtonIcon {
+  stroke: var(--inactive-color);
+}
+
+.iconButton:hover {
   border-color: var(--text-color);
   background-color: var(--text-color);
 }
-.iconLink:hover .iconLinkIcon {
+.iconButton:hover .iconButtonIcon {
   stroke: var(--white-color);
 }

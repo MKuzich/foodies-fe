@@ -15,16 +15,21 @@ const TabItem = ({ name, onClick, isActive }) => {
         inline: "start",
       });
       const currentRef = ref.current;
+      const isFirstChild =
+        currentRef === currentRef.parentElement.firstElementChild;
+
+      setIsNeedScrollToStart(false);
+
+      if (!currentRef || isFirstChild) return;
       setTimeout(() => {
         const parent = currentRef.parentElement?.parentElement;
         if (parent) {
-          smoothScrollLeft(parent, parent.scrollLeft - 16, 400); // px to move current tab from start page after click
+          smoothScrollLeft(parent, parent.scrollLeft - 100, 400);
+          // 100px to move current tab from start page after click
         }
       }, 400);
-
-      setIsNeedScrollToStart(false);
     }
-  }, [isNeedScrollToStart]); // TODO: move to custom hook ?
+  }, [isNeedScrollToStart]);
 
   const handleClick = (e) => {
     onClick(e);
