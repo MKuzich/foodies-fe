@@ -79,63 +79,66 @@ const UserPage = () => {
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   return (
-    <Container>
-      <PathInfo pathName={"home"} currentName={"profile"} />
-      <MainTitle>profile</MainTitle>
-      <Subtitle>
-        Reveal your culinary art, share your favorite recipe and create
-        gastronomic masterpieces with us.
-      </Subtitle>
-      <div className={css.userProfile}>
-        <div className={css.userProfileInfo}>
-          <UserInfo />
-          <div className={css.followButtonContainer}>
-            <div className={css.followButtonWrapper}>
-              {isUserCurrentUser ? (
-                <Button onClick={openLogoutModal} style={{ width: "100%" }}>
-                  Log out
-                </Button>
-              ) : isUserIsFollowed ? (
-                <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                  Unfollow
-                </Button>
-              ) : (
-                <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                  Follow
-                </Button>
-              )}
+    <div className={css.userProfile}>
+      <Container>
+        <PathInfo pathName={"home"} currentName={"profile"} />
+        <MainTitle>profile</MainTitle>
+        <Subtitle>
+          Reveal your culinary art, share your favorite recipe and create
+          gastronomic masterpieces with us.
+        </Subtitle>
+        <div className={css.userProfile}>
+          <div className={css.userProfileInfo}>
+            <UserInfo />
+            <div className={css.followButtonContainer}>
+              <div className={css.followButtonWrapper}>
+                {isUserCurrentUser ? (
+                  <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+                    Log out
+                  </Button>
+                ) : isUserIsFollowed ? (
+                  <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                    Follow
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
-        <div className={css.userProfileTabsContainer}>
-          <div className={css.tabsContainer}>
-            <TabsList>
-              <TabItem
-                name={recepieTabName}
-                onClick={(e) => handleChange(e, "recipes")}
-                isActive={tabOpened === "recipes"}
-              />
-              {isUserCurrentUser && (
-                <TabItem
-                  name="My Favorites"
-                  onClick={(e) => handleChange(e, "favorites")}
-                  isActive={tabOpened === "favorites"}
-                />
-              )}
-              <TabItem
-                name="Followers"
-                onClick={(e) => handleChange(e, "followers")}
-                isActive={tabOpened === "followers"}
-              />
-              {isUserCurrentUser && (
-                <TabItem
-                  name="Following"
-                  onClick={(e) => handleChange(e, "following")}
-                  isActive={tabOpened === "following"}
-                />
-              )}
-            </TabsList>
-          </div>
+      </Container>
+
+      <div className={css.userProfileTabsContainer}>
+        <TabsList>
+          <TabItem
+            name={recepieTabName}
+            onClick={(e) => handleChange(e, "recipes")}
+            isActive={tabOpened === "recipes"}
+          />
+          {isUserCurrentUser && (
+            <TabItem
+              name="My Favorites"
+              onClick={(e) => handleChange(e, "favorites")}
+              isActive={tabOpened === "favorites"}
+            />
+          )}
+          <TabItem
+            name="Followers"
+            onClick={(e) => handleChange(e, "followers")}
+            isActive={tabOpened === "followers"}
+          />
+          {isUserCurrentUser && (
+            <TabItem
+              name="Following"
+              onClick={(e) => handleChange(e, "following")}
+              isActive={tabOpened === "following"}
+            />
+          )}
+        </TabsList>
+        <Container>
           <div className={css.tabsContent}>
             <div className={css.tabContentActive}>
               {tabOpened === "recipes" && (
@@ -168,9 +171,9 @@ const UserPage = () => {
               )}
             </div>
           </div>
-        </div>
+        </Container>
       </div>
-    </Container>
+    </div>
   );
 };
 

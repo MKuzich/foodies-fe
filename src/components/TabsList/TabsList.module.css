@@ -1,5 +1,33 @@
 .tabsList {
   text-transform: uppercase;
+  width: 100%;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .tabsList::before,
+  .tabsList::after {
+    content: "";
+    position: absolute;
+    bottom: 14px;
+    width: 16px;
+    height: 4px;
+    background-color: var(--white-color);
+    z-index: 2;
+  }
+  .tabsList::before {
+    left: 0;
+  }
+  .tabsList::after {
+    right: 0;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .tabsList::before,
+  .tabsList::after {
+    width: 8px;
+  }
 }
 
 .tabsScroll {
