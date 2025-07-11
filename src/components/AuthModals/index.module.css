@@ -31,6 +31,11 @@
   text-transform: uppercase;
 }
 
+.logoutModal .title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
 .inputGroup {
   position: relative;
 }
@@ -68,6 +73,21 @@
 
 .buttonSubmit:disabled {
   background: #ccc;
+}
+
+.buttonCancel {
+  border: none;
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+
+  background-color: transparent;
+  border-radius: 30px;
+  border: 1px solid #050505;
 }
 
 .close {
@@ -124,7 +144,15 @@
   font-weight: 500;
   line-height: 18px;
   letter-spacing: -0.28px;
+}
+
+.bottomTextLink {
+  color: #050505;
   cursor: pointer;
+}
+
+.logoutModal .bottomText {
+  text-align: center;
 }
 
 @media screen and (max-width: 767px) {
@@ -135,5 +163,12 @@
   .title {
     margin-bottom: 40px;
     font-size: 28px;
+  }
+  .bottomText {
+    color: #bfbebe;
+  }
+
+  .logoutModal .bottomText {
+    color: #bfbebe;
   }
 }

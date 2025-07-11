@@ -68,7 +68,7 @@ const SignUpModal = ({ onClose, onSwitch }) => {
             <button className={s.buttonSubmit} type="submit" disabled={loading}>Create</button>
           </form>
           {error && <p className={s.errorForm}>{error}</p>}
-          <p className={s.bottomText} onClick={onSwitch}>I already have an account? Sign in</p>
+          <p className={s.bottomText} onClick={onSwitch}>I already have an account? <span className={s.bottomTextLink} onClick={onSwitch}>Sign in</span></p>
         </div>
       </div>
     </ModalPortal>

@@ -1,6 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import SignInModal from './SignInModal';
 import SignUpModal from './SignUpModal';
+import LogoutModal from './LogoutModal';
 import { closeModal, openSignIn, openSignUp } from '../../redux/auth/authSlice';
 
 const AuthModals = () => {
@@ -19,6 +20,10 @@ const AuthModals = () => {
 
   if (modalType === 'signup') {
     return <SignUpModal onClose={close} onSwitch={handleOpenSignIn} />;
+  }
+  
+  if (modalType === 'logout') {
+    return <LogoutModal onClose={close} />;
   }
 
   return null;

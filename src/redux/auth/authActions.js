@@ -1,4 +1,4 @@
-import api from '../../utils/api/api';
+import api, { setAuthToken } from '../../utils/api/api';
 import { createAsyncThunk } from '@reduxjs/toolkit';
 
 export const registerUser = createAsyncThunk(
@@ -6,6 +6,7 @@ export const registerUser = createAsyncThunk(
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
       const { data } = await api.post('/auth/register', { name, email, password });
+      setAuthToken(data.token);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -22,6 +23,7 @@ export const userLogin = createAsyncThunk(
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const { data } = await api.post('/auth/login', { email, password });
+      setAuthToken(data.token);
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -36,6 +38,7 @@ export const userLogin = createAsyncThunk(
 export const userLogout = createAsyncThunk('auth/logout', async (_, { rejectWithValue }) => {
   try {
     await api.post('/auth/logout', {});
+    setAuthToken(null);
   } catch (error) {
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message);
