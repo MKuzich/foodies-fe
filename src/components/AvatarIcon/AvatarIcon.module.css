@@ -1,6 +1,6 @@
 .avatarIcon {
   border-radius: 50%;
-  background-color: var(--inactive-color);
+  background-color: #f5f2f2;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -13,11 +13,13 @@
 .avatarIcon.xsmall {
   width: 32px;
   height: 32px;
+  font-size: 24px;
 }
 
 .avatarIcon.medium {
   width: 60px;
   height: 60px;
+  font-size: 32px;
 }
 
 .avatarIcon.large {
@@ -41,9 +43,6 @@
   .avatarIcon.large {
     width: 120px;
     height: 120px;
-  }
-  .avatarIcon {
-    width: 120px;
-    height: 120px;
+    font-size: 90px;
   }
 }
