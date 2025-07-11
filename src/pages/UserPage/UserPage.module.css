@@ -1,10 +1,3 @@
-.tabsContainer {
-  width: 100%;
-  margin: 0 auto;
-  padding: 0;
-  margin-top: 64px;
-}
-
 .tabsContent {
   border-top: 1px solid var(--inactive-color);
 }
@@ -13,10 +6,42 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  width: 100%;
+}
+
+.followButtonWrapper {
+  width: 100%;
 }
 
 @media (min-width: 768px) {
   .followButtonWrapper {
     width: 394px;
   }
+}
+.userProfileInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+.userProfile {
+  display: flex;
+  flex-direction: column;
+  gap: 64px;
+}
+
+@media (min-width: 768px) {
+  .userProfile {
+    gap: 80px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .userProfile {
+    flex-direction: row;
+    gap: 40px;
+  }
+}
+
+.userProfileTabsContainer {
+  width: 100%;
 }
