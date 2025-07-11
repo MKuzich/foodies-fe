@@ -12,13 +12,13 @@
 }
 
 .modal {
+  position: relative;
   background: white;
   border-radius: 20px;
   padding: 80px;
   max-width: 560px;
   width: 90%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-  position: relative;
 }
 
 .title {
@@ -106,6 +106,12 @@
 }
 
 .errorForm {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 0 15px;
   color: red;
   text-align: center;
   margin-top: 10px;
