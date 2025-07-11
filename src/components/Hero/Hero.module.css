@@ -1,14 +1,16 @@
 .hero {
     max-width: 1440px;
+
     margin-left: auto;
     margin-right: auto;
     background: transparent;
-    padding: 0;
+    padding: 0 16px;
 
     margin-top: 20px;
 }
 
 .heroInner {
+
     background: var(--color-bg-dark);
     color: var(--color-text);
     padding: 180px 0 40px 0;
@@ -46,7 +48,6 @@
 }
 
 .ctaBtn {
-
     border-radius: var(--radius-pill);
     padding: 16px 32px;
     font-size: 1rem;
@@ -107,13 +108,16 @@
 
 @media (max-width: 1024px) {
     .title {
-        font-size: 2.2rem;
+
+        font-size: 70px;
+
+        line-height: 70px;
+
+
     }
 
-
-
     .heroInner {
-        padding: 64px 0 24px 0;
+        padding: 216px 0 24px 0;
         border-radius: var(--radius-card-mobile);
     }
 }
@@ -132,11 +136,19 @@
     }
 
     .heroInner {
-        padding: 48px 0 16px 0;
+        padding: 180px 0 16px 0;
     }
 
     .title {
-        font-size: 1.4rem;
+        font-size: 40px;
+        line-height: 40px;
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 20px;
     }
 
     .ctaBtn {

@@ -86,7 +86,7 @@ const Header = () => {
               aria-label="Open navigation menu"
               type="button"
             >
-              <svg width="24" height="24" fill="currentColor">
+              <svg width="28" height="28" className={styles.burgerIcon}>
                 <use href="src/assets/sprite.svg#icon-align-justify" />
               </svg>
             </button>
