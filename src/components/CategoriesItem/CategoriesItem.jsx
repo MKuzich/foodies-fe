@@ -3,7 +3,7 @@ import styles from "./CategoriesItem.module.css";
 import clsx from "clsx";
 import { setSelectedCategory } from "../../redux/categories/slice";
 
-function CategoriesItem({ id, title, option = "category", onClick }) {
+function CategoriesItem({ id, title, description, option = "category", onClick }) {
 
     const image = `/src/assets/categories/${title}.webp`;
 
@@ -15,12 +15,14 @@ function CategoriesItem({ id, title, option = "category", onClick }) {
         } else if (option === "Show") {
             dispatch(setSelectedCategory({
                 id: null,
-                title
+                title,
+                description 
             }));
         } else {
             dispatch(setSelectedCategory({
                 id,
-                title
+                title,
+                description
             }));
         }
     }

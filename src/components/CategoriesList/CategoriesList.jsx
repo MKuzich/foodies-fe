@@ -33,7 +33,7 @@ function CategoriesList() {
     return (
         <ul className={styles.categoriesList}>
             {displayedCategories.map((item, index) => (
-                <CategoriesItem key={index} id={item.id} title={item.name} />
+                <CategoriesItem key={index} id={item.id} title={item.name} description={item.description} />
             ))}
             <CategoriesItem option="All" title={showAll ? "Hide categories" : "All categories"} onClick={handleShowAll} />
             {showAll && <CategoriesItem option="Show" title="All recipes" />}

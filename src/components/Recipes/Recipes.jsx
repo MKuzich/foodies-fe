@@ -33,7 +33,7 @@ function Recipes() {
                 <p className={styles.recipesBackText}>Back</p>
             </div>
             <MainTitle>{isSelectedCategory.title}</MainTitle>
-            <Subtitle style={{ maxWidth: "540px" }}>Go on a taste journey, where every sip is a sophisticated creative chord, and every dessert is an expression of the most refined gastronomic desires.</Subtitle>
+            <Subtitle style={{ maxWidth: "540px" }}>{isSelectedCategory.description}</Subtitle>
             <div className={styles.recipesContent}>
                 <RecipeFilters />
                 <RecipeList />
