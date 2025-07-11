@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
-import { Outlet, useMatch } from "react-router-dom";
-import { useLocation, useParams } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -30,6 +29,7 @@ import {
   fetchUserFollowing,
 } from "../../utils/api/users";
 import css from "./UserPage.module.css";
+import clsx from "clsx";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -38,8 +38,13 @@ const UserPage = () => {
   const dispatch = useDispatch();
 
   const [tabOpened, setTabOpened] = useState("recipes");
+  const [tabContentActive, setTabContentActive] = useState(true);
   const handleChange = (e, newValue) => {
+    setTabContentActive(false);
     setTabOpened(newValue);
+    setTimeout(() => {
+      setTabContentActive(true);
+    }, 300);
   };
 
   useEffect(() => {
@@ -77,94 +82,103 @@ const UserPage = () => {
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   return (
-    <>
-      <Container>
-        <PathInfo pathName={"home"} currentName={"profile"} />
-        <MainTitle>profile</MainTitle>
-        <Subtitle>
-          Reveal your culinary art, share your favorite recipe and create
-          gastronomic masterpieces with us.
-        </Subtitle>
-        <UserInfo />
-        <div className={css.followButtonContainer}>
-          <div className={css.followButtonWrapper}>
-            {isUserCurrentUser ? (
-              <Button onClick={openLogoutModal} style={{ width: "100%" }}>
-                Log out
-              </Button>
-            ) : isUserIsFollowed ? (
-              <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                Unfollow
-              </Button>
-            ) : (
-              <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                Follow
-              </Button>
-            )}
+    <Container>
+      <PathInfo pathName={"home"} currentName={"profile"} />
+      <MainTitle>profile</MainTitle>
+      <Subtitle>
+        Reveal your culinary art, share your favorite recipe and create
+        gastronomic masterpieces with us.
+      </Subtitle>
+      <div className={css.userProfile}>
+        <div className={css.userProfileInfo}>
+          <UserInfo />
+          <div className={css.followButtonContainer}>
+            <div className={css.followButtonWrapper}>
+              {isUserCurrentUser ? (
+                <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+                  Log out
+                </Button>
+              ) : isUserIsFollowed ? (
+                <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                  Unfollow
+                </Button>
+              ) : (
+                <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                  Follow
+                </Button>
+              )}
+            </div>
           </div>
         </div>
-      </Container>
-      <div className={css.tabsContainer}>
-        <TabsList>
-          <TabItem
-            name={recepieTabName}
-            onClick={(e) => handleChange(e, "recipes")}
-            isActive={tabOpened === "recipes"}
-          />
-          {isUserCurrentUser && (
-            <TabItem
-              name="My Favorites"
-              onClick={(e) => handleChange(e, "favorites")}
-              isActive={tabOpened === "favorites"}
-            />
-          )}
-          <TabItem
-            name="Followers"
-            onClick={(e) => handleChange(e, "followers")}
-            isActive={tabOpened === "followers"}
-          />
-          {isUserCurrentUser && (
-            <TabItem
-              name="Following"
-              onClick={(e) => handleChange(e, "following")}
-              isActive={tabOpened === "following"}
-            />
-          )}
-        </TabsList>
-        <Container>
-          <div className={css.tabsContent}>
-            {tabOpened === "recipes" && (
-              <ListItems
-                items={userRecipes}
-                type="recipe"
-                errorText={errorMap.noRecipes}
+        <div className={css.userProfileTabsContainer}>
+          <div className={css.tabsContainer}>
+            <TabsList>
+              <TabItem
+                name={recepieTabName}
+                onClick={(e) => handleChange(e, "recipes")}
+                isActive={tabOpened === "recipes"}
               />
-            )}
-            {tabOpened === "favorites" && (
-              <ListItems
-                items={userFavorites}
-                type="recipe"
-                errorText={errorMap.noFavorites}
+              {isUserCurrentUser && (
+                <TabItem
+                  name="My Favorites"
+                  onClick={(e) => handleChange(e, "favorites")}
+                  isActive={tabOpened === "favorites"}
+                />
+              )}
+              <TabItem
+                name="Followers"
+                onClick={(e) => handleChange(e, "followers")}
+                isActive={tabOpened === "followers"}
               />
-            )}
-            {tabOpened === "followers" && (
-              <ListItems
-                items={userFollowers}
-                type="user"
-                errorText={errorMap.noFollowers}
-              />
-            )}
-            {tabOpened === "following" && (
-              <ListItems
-                items={userFollowing}
-                type="user"
-                errorText={errorMap.noSubscriptions}
-              />
-            )}
+              {isUserCurrentUser && (
+                <TabItem
+                  name="Following"
+                  onClick={(e) => handleChange(e, "following")}
+                  isActive={tabOpened === "following"}
+                />
+              )}
+            </TabsList>
           </div>
-        </Container>
+          <div className={css.tabsContent}>
+            <div
+              className={clsx(
+                css.tabContentActive,
+                tabContentActive && css.active
+              )}
+            >
+              {tabOpened === "recipes" && (
+                <ListItems
+                  items={userRecipes}
+                  type="recipe"
+                  errorText={errorMap.noRecipes}
+                />
+              )}
+              {tabOpened === "favorites" && (
+                <ListItems
+                  items={userFavorites}
+                  type="recipe"
+                  errorText={errorMap.noFavorites}
+                />
+              )}
+              {tabOpened === "followers" && (
+                <ListItems
+                  items={userFollowers}
+                  type="user"
+                  errorText={errorMap.noFollowers}
+                />
+              )}
+              {tabOpened === "following" && (
+                <ListItems
+                  items={userFollowing}
+                  type="user"
+                  errorText={errorMap.noSubscriptions}
+                />
+              )}
+            </div>
+          </div>
+        </div>
       </div>
-    </>
+    </Container>
   );
 };
 
