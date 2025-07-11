@@ -23,3 +23,23 @@ export const enshureEnoughItems = (values, count) => {
 
   return cloned;
 };
+
+export const smoothScrollLeft = (element, to, duration = 300) => {
+  const start = element.scrollLeft;
+  const change = to - start;
+  const startTime = performance.now();
+
+  const animateScroll = (currentTime) => {
+    const elapsed = currentTime - startTime;
+    const progress = Math.min(elapsed / duration, 1);
+    const ease = 1 - Math.pow(1 - progress, 3);
+
+    element.scrollLeft = start + change * ease;
+
+    if (progress < 1) {
+      requestAnimationFrame(animateScroll);
+    }
+  };
+
+  requestAnimationFrame(animateScroll);
+};
