@@ -7,7 +7,8 @@ import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
 import { selectedCategory } from "../../redux/categories/selectors";
 import { useSelector } from "react-redux";
-import {openSignIn, openSignUp, openLogout} from '../../redux/auth/authSlice';
+import { openSignIn, openSignUp, openLogout } from '../../redux/auth/authSlice';
+import {getUser} from '../../redux/auth/authActions';
 
 const HomePage = () => {
   const isSelectedCategory = useSelector(selectedCategory);
@@ -17,8 +18,9 @@ const HomePage = () => {
     <div>
         <nav>
       <button onClick={() => dispatch(openSignIn())}>Sign In</button>
-        <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
+      <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
       <button onClick={() => dispatch(openLogout())}>Logout</button>
+      <button onClick={() => dispatch(getUser())}>Get User</button>
         
     </nav>
       {/* TODO: Delete example below, just show-case of using Button */}

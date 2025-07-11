@@ -47,3 +47,16 @@ export const userLogout = createAsyncThunk('auth/logout', async (_, { rejectWith
     }
   }
 });
+
+export const getUser = createAsyncThunk('auth/current', async (_, { rejectWithValue }) => {
+  try {
+    const { data } = await api.get('/auth/current', {});
+    return data;
+  } catch (error) {
+    if (error.response && error.response.data.message) {
+      return rejectWithValue(error.response.data.message);
+    } else {
+      return rejectWithValue(error.message);
+    }
+  }
+});
