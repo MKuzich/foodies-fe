@@ -1,5 +1,22 @@
 .tabsContent {
   border-top: 1px solid var(--inactive-color);
+  position: relative;
+  z-index: 0;
+}
+
+.tabContentActive {
+  opacity: 0;
+  transform: translateX(100px);
+  transition: opacity 300ms ease, transform 300ms ease;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+}
+
+.tabContentActive.active {
+  opacity: 1;
+  transform: translateX(0);
+  position: relative;
 }
 
 .followButtonContainer {

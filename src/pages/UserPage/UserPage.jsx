@@ -29,6 +29,7 @@ import {
   fetchUserFollowing,
 } from "../../utils/api/users";
 import css from "./UserPage.module.css";
+import clsx from "clsx";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -37,8 +38,13 @@ const UserPage = () => {
   const dispatch = useDispatch();
 
   const [tabOpened, setTabOpened] = useState("recipes");
+  const [tabContentActive, setTabContentActive] = useState(true);
   const handleChange = (e, newValue) => {
+    setTabContentActive(false);
     setTabOpened(newValue);
+    setTimeout(() => {
+      setTabContentActive(true);
+    }, 300);
   };
 
   useEffect(() => {
@@ -134,34 +140,41 @@ const UserPage = () => {
             </TabsList>
           </div>
           <div className={css.tabsContent}>
-            {tabOpened === "recipes" && (
-              <ListItems
-                items={userRecipes}
-                type="recipe"
-                errorText={errorMap.noRecipes}
-              />
-            )}
-            {tabOpened === "favorites" && (
-              <ListItems
-                items={userFavorites}
-                type="recipe"
-                errorText={errorMap.noFavorites}
-              />
-            )}
-            {tabOpened === "followers" && (
-              <ListItems
-                items={userFollowers}
-                type="user"
-                errorText={errorMap.noFollowers}
-              />
-            )}
-            {tabOpened === "following" && (
-              <ListItems
-                items={userFollowing}
-                type="user"
-                errorText={errorMap.noSubscriptions}
-              />
-            )}
+            <div
+              className={clsx(
+                css.tabContentActive,
+                tabContentActive && css.active
+              )}
+            >
+              {tabOpened === "recipes" && (
+                <ListItems
+                  items={userRecipes}
+                  type="recipe"
+                  errorText={errorMap.noRecipes}
+                />
+              )}
+              {tabOpened === "favorites" && (
+                <ListItems
+                  items={userFavorites}
+                  type="recipe"
+                  errorText={errorMap.noFavorites}
+                />
+              )}
+              {tabOpened === "followers" && (
+                <ListItems
+                  items={userFollowers}
+                  type="user"
+                  errorText={errorMap.noFollowers}
+                />
+              )}
+              {tabOpened === "following" && (
+                <ListItems
+                  items={userFollowing}
+                  type="user"
+                  errorText={errorMap.noSubscriptions}
+                />
+              )}
+            </div>
           </div>
         </div>
       </div>

@@ -20,10 +20,12 @@
 .active::after {
   content: "";
   display: block;
+  position: relative;
   width: 100%;
   bottom: 0;
   left: 0;
   height: 4px;
   background-color: var(--title-color);
   transform: translateY(16px);
+  z-index: 1;
 }
