@@ -1,14 +1,40 @@
 .tabsList {
   text-transform: uppercase;
+  width: 100%;
+  position: relative;
+}
+
+@media screen and (max-width: 767px) {
+  .tabsList::before,
+  .tabsList::after {
+    content: "";
+    position: absolute;
+    bottom: 13px;
+    width: 17px;
+    height: 6px;
+    background-color: var(--white-color);
+    z-index: 2;
+  }
+  .tabsList::before {
+    left: -1px;
+  }
+  .tabsList::after {
+    right: -1px;
+  }
+}
+
+@media screen and (max-width: 374px) {
+  .tabsList::before,
+  .tabsList::after {
+    width: 9px;
+  }
 }
 
 .tabsScroll {
   overflow-x: auto;
-  scroll-behavior: smooth;
-  scrollbar-width: none;
-  overflow-x: auto;
   overflow-y: hidden;
-  white-space: nowrap;
+  padding-bottom: 16px;
+  margin-bottom: -16px;
   scrollbar-width: none;
   -ms-overflow-style: none;
 }
@@ -18,4 +44,9 @@
   gap: 30px;
   justify-content: flex-start;
   text-wrap: nowrap;
+  position: relative;
+}
+.tabSpacer {
+  min-width: 100px;
+  pointer-events: none;
 }

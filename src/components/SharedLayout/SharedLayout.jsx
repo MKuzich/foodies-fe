@@ -4,6 +4,7 @@ import Container from "../Container/Container";
 import { useDispatch } from "react-redux";
 import { fetchCategories } from "../../redux/categories/actions";
 import { useEffect } from "react";
+import { Toaster } from "react-hot-toast";
 
 const SharedLayout = ({ children }) => {
   const dispatch = useDispatch();
@@ -14,6 +15,7 @@ const SharedLayout = ({ children }) => {
 
   return (
     <>
+      <Toaster />
       <header>
         <Container>Header</Container>
       </header>

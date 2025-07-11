@@ -1,0 +1,174 @@
+.modalBackdrop {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+}
+
+.modal {
+  position: relative;
+  background: white;
+  border-radius: 20px;
+  padding: 80px;
+  max-width: 560px;
+  width: 90%;
+  box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+}
+
+.title {
+  margin-bottom: 40px;
+  color: #050505;
+  font-size: 32px;
+  font-weight: 800;
+  line-height: 40px;
+  letter-spacing: -0.64px;
+  text-transform: uppercase;
+}
+
+.logoutModal .title {
+  margin-bottom: 0;
+  text-align: center;
+}
+
+.inputGroup {
+  position: relative;
+}
+
+.inputGroup:not(:last-of-type) {
+  margin-bottom: 14px;
+}
+
+.input {
+  outline: none;
+  display: block;
+  width: 100%;
+  padding: 16px 18px;
+  border-radius: 25px;
+  border: 1px solid #050505;
+}
+
+.input.error {
+  border-color: red;
+}
+
+.buttonSubmit {
+  border: none;
+  width: 100%;
+  padding: 16px;
+  margin-top: 40px;
+
+  background: #050505;
+  color: #fff;
+  border-radius: 30px;
+  font-weight: 700;
+  text-transform: uppercase;
+  cursor: pointer;
+}
+
+.buttonSubmit:disabled {
+  background: #ccc;
+}
+
+.buttonCancel {
+  border: none;
+  width: 100%;
+  padding: 16px;
+  margin-top: 20px;
+
+  font-weight: 700;
+  text-transform: uppercase;
+  color: #000;
+
+  background-color: transparent;
+  border-radius: 30px;
+  border: 1px solid #050505;
+}
+
+.close {
+  position: absolute;
+  right: 20px;
+  top: 15px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.eyeButton {
+  position: absolute;
+  right: 20px;
+  top: 50%;
+  transform: translateY(-50%);
+  background: none;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+}
+
+.errorInput {
+  margin: 0;
+  padding: 0 5px;
+  position: absolute;
+  z-index: 2;
+  background: white;
+  left: 30px;
+  bottom: -8px;
+  font-size: 12px;
+  color: red;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
+}
+
+.errorForm {
+  position: absolute;
+  bottom: 7%;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 100%;
+  padding: 0 15px;
+  color: red;
+  text-align: center;
+  margin-top: 10px;
+}
+
+.bottomText {
+  margin-top: 20px;
+  text-align: center;
+  color: #1a1a1a;
+  font-weight: 500;
+  line-height: 18px;
+  letter-spacing: -0.28px;
+}
+
+.bottomTextLink {
+  color: #050505;
+  cursor: pointer;
+}
+
+.logoutModal .bottomText {
+  text-align: center;
+}
+
+@media screen and (max-width: 767px) {
+  .modal {
+    padding: 60px 30px;
+  }
+
+  .title {
+    margin-bottom: 40px;
+    font-size: 28px;
+  }
+  .bottomText {
+    color: #bfbebe;
+  }
+
+  .logoutModal .bottomText {
+    color: #bfbebe;
+  }
+}

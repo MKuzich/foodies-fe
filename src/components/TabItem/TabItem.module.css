@@ -1,3 +1,31 @@
+.tabItem {
+  padding-bottom: 14px;
+}
+
 .tabItemLink {
+  color: var(--inactive-color);
+  border: none;
+  background-color: transparent;
+  text-decoration: none;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.33;
+  text-transform: uppercase;
+}
+
+.active {
+  color: var(--title-color);
+}
+
+.active::after {
+  content: "";
+  display: block;
+  position: relative;
   width: 100%;
+  bottom: 0;
+  left: 0;
+  height: 4px;
+  background-color: var(--title-color);
+  transform: translateY(16px);
+  z-index: 1;
 }

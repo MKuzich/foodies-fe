@@ -10,7 +10,7 @@ export const selectIsUserCurrentUser = (state) => {
   return false;
 };
 export const selectIsUserIsFollowed = (state) => state.users.isUserIsFollowed;
-export const selectUserRecepies = (state) => {
+export const selectUserRecipes = (state) => {
   return enshureEnoughItems(state.users.recipes, 10);
 };
 export const selectUserFavorites = (state) => {
@@ -25,3 +25,4 @@ export const selectUserFollowing = (state) => {
   // return state.users.following;
   return enshureEnoughItems(state.users.following, 10);
 };
+export const selectIsScrolling = (state) => state.users.scrollIsScrolling;

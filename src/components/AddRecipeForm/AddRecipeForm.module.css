@@ -1,21 +1,59 @@
 .addRecipeForm {
-    display: flex;
-    flex-direction: row;
-    gap: 1rem;
-  }
+  display: flex;
+  width: 100%;
+  text-align: center;
+  flex-direction: column;
+}
 
-.photoUpload {
-    border: 1px dashed #BFBEBE;
-    border-radius: 30px;
-    width: 551px;
-    height: 400px;
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  width: 100%;
+  gap: 32px;
+}
+
+input:active, input:focus {
+  outline: none;
+}
+
+.formGroup > label, .cookingtime, .ingredients {
+  font-weight: 800;
+  text-transform: uppercase;
+}
+.titleInput{
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  color: var(--inactive-color);
+  font-weight: 800;
+}
+
+.descriptionInput {
+  width: 100%;
+  border: none;
+  border-bottom: 1px solid var(--inactive-color);
+}
+
+.buttonGroup {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+@media screen and (min-width: 1440px) {
+  .addRecipeForm {
+    flex-direction: row;
   }
-  
-  .uploadText {
-    text-decoration: underline;
+}
+
+@media screen and (min-width: 1440px) {
+  .addRecipeForm {
+    flex-direction: row;
   }
+  .formGroup {
+    width: 649px;
+  }
+}

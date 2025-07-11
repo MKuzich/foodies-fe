@@ -2,8 +2,12 @@ import IconButton from "../IconButton/IconButton";
 import IconLink from "../IconLink/IconLink";
 
 import css from "./RecipePreview.module.css";
+import { useSelector } from "react-redux";
+import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 
 const RecipePreview = ({ recipe }) => {
+  const isCurrentUser = useSelector(selectIsUserCurrentUser);
+
   return (
     <li className={css.recipePreview}>
       <img
@@ -20,7 +24,7 @@ const RecipePreview = ({ recipe }) => {
         </div>
         <div className={css.recipePreviewButtons}>
           <IconLink to={`/recipe/${recipe.id}`} name="arrow" />
-          <IconButton></IconButton>
+          {isCurrentUser && <IconButton name="trash" />}
         </div>
       </div>
     </li>
