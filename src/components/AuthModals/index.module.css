@@ -23,7 +23,6 @@
 
 .title {
   margin-bottom: 40px;
-
   color: #050505;
   font-size: 32px;
   font-weight: 800;
@@ -47,6 +46,10 @@
   padding: 16px 18px;
   border-radius: 25px;
   border: 1px solid #050505;
+}
+
+.input.error {
+  border-color: red;
 }
 
 .buttonSubmit {
@@ -89,9 +92,17 @@
 }
 
 .errorInput {
+  margin: 0;
+  padding: 0 5px;
+  position: absolute;
+  z-index: 2;
+  background: white;
+  left: 30px;
+  bottom: -8px;
   font-size: 12px;
   color: red;
-  margin-top: 5px;
+  text-wrap: nowrap;
+  text-overflow: ellipsis;
 }
 
 .errorForm {
@@ -108,4 +119,15 @@
   line-height: 18px;
   letter-spacing: -0.28px;
   cursor: pointer;
+}
+
+@media screen and (max-width: 767px) {
+  .modal {
+    padding: 60px 30px;
+  }
+
+  .title {
+    margin-bottom: 40px;
+    font-size: 28px;
+  }
 }

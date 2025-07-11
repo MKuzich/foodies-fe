@@ -4,6 +4,8 @@ import { useDispatch, useSelector } from 'react-redux';
 import { registerUser } from '../../redux/auth/authActions';
 import { ModalPortal } from '../ModalPortal/ModalPortal';
 import { yupResolver } from '@hookform/resolvers/yup';
+import Icon from '../Icon';
+import cn from 'classnames';
 import * as yup from 'yup';
 import s from './index.module.css'
 
@@ -39,25 +41,27 @@ const SignUpModal = ({ onClose, onSwitch }) => {
     <ModalPortal>
       <div className={s.modalBackdrop} onMouseDown={onClose}>
         <div className={s.modal} onMouseDown={(e) => e.stopPropagation()}>
-          <button className={s.close} onClick={onClose}>✕</button>
+          <button className={s.close} onClick={onClose}>
+            <Icon name="x" />
+          </button>
           <h2 className={s.title}>Sign up</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.inputGroup}>
-              <input className={s.input} {...register('name')} placeholder="Name*" autoComplete='on' />
+              <input className={cn(s.input,  errors.name && s.error )} {...register('name')} placeholder="Name*" autoComplete='on' />
               {errors.name && <p className={s.errorInput}>{errors.name.message}</p>}
             </div>
             <div className={s.inputGroup}>
-              <input className={s.input} {...register('email')} placeholder="Email*" autoComplete='on' />
+              <input className={cn(s.input,  errors.email && s.error )} {...register('email')} placeholder="Email*" autoComplete='on' />
               {errors.email && <p className={s.errorInput}>{errors.email.message}</p>}
             </div>
             <div className={s.inputGroup}>
-              <input className={s.input} {...register('password')} type={showPassword ? 'text' : 'password'} placeholder="Password" />
+              <input className={cn(s.input, errors.password && s.error )} {...register('password')} type={showPassword ? 'text' : 'password'} placeholder="Password" />
               <button
                 type="button"
                 className={s.eyeButton}
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? '🙈' : '👁️'}
+                <Icon name={showPassword ? "eye-on" : "eye-off"} width="30" height="30" />
               </button>
               {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
             </div>

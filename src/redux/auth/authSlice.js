@@ -22,6 +22,10 @@ const slice = createSlice({
       state.authModal = 'signup';
       state.error = null;
     },
+    openLogout: (state) => {
+      state.authModal = 'logout';
+      state.error = null;
+    },
     closeModal: (state) => {
       state.authModal = null;
       state.error = null;
@@ -53,7 +57,8 @@ const slice = createSlice({
       })
       .addCase(registerUser.fulfilled, (state, { payload }) => {
         state.loading = false;
-        state.userInfo = payload;
+        state.userInfo = payload.user;
+        state.userToken = payload.token;
         state.error = null;
         state.success = true;
         state.authModal = null;

@@ -5,7 +5,8 @@ import { userLogin } from '../../redux/auth/authActions';
 import { ModalPortal } from '../ModalPortal/ModalPortal';
 import { yupResolver } from '@hookform/resolvers/yup';
 import * as yup from 'yup';
-import s from './index.module.css'
+import cn from 'classnames';
+import s from './index.module.css';
 import Icon from '../Icon';
 
 const schema = yup.object({
@@ -46,22 +47,22 @@ const SignInModal = ({ onClose, onSwitch }) => {
       <div className={s.modalBackdrop} onMouseDown={onClose} onKeyDown={handleKeyClose} tabIndex="0">
         <div className={s.modal} onMouseDown={(e) => e.stopPropagation()}>
           <button className={s.close} onClick={onClose}>
-            <Icon name="youtube" />
+            <Icon name="x" />
           </button>
           <h2 className={s.title}>Sign in</h2>
           <form onSubmit={handleSubmit(onSubmit)}>
             <div className={s.inputGroup}>
-              <input className={s.input} {...register('email')} placeholder="Email*" autoComplete='on' />
+              <input className={cn(s.input, errors.email && s.error )} {...register('email')} placeholder="Email*" autoComplete='on' />
               {errors.email && <p className={s.errorInput}>{errors.email.message}</p>}
             </div>
             <div className={s.inputGroup}>
-              <input className={s.input} {...register('password')} type={showPassword ? 'text' : 'password'} placeholder="Password" />
+              <input className={cn(s.input, errors.password && s.error )} {...register('password')} type={showPassword ? 'text' : 'password'} placeholder="Password" />
               <button
                 type="button"
                 className={s.eyeButton}
                 onClick={() => setShowPassword((prev) => !prev)}
               >
-                {showPassword ? '🙈' : '👁️'}
+                <Icon name={showPassword ? "eye-on" : "eye-off"} width="30" height="30" />
               </button>
               {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
             </div>
