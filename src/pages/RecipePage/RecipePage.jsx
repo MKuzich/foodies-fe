@@ -3,7 +3,7 @@ import { useParams } from "react-router-dom";
 // import RecipeMainInfo from '../components/RecipeMainInfo';
 // import RecipeIngredients from "../components/RecipeIngredients";
 // import RecipePreparation from "../components/RecipePreparation";
-import styles from "./recipePage.module.css";
+import styles from "./RecipePage.module.css";
 
 const RecipePage = () => {
   const { id } = useParams();
