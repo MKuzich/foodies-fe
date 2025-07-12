@@ -53,7 +53,7 @@
     }
 
     .mobileNavHero {
-        color: var(--color-text, #fff);
+        color: var(--white-color);
         height: 100vh;
         width: 100vw;
         display: flex;
@@ -66,6 +66,10 @@
         z-index: 1001;
         padding: 0 16px;
         animation: slideIn var(--transition-main);
+    }
+
+    .headerDark .mobileClose {
+        stroke: var(--white-color);
     }
 
     .mobileNavButtons {
@@ -91,6 +95,7 @@
         background: none;
         border: none;
         cursor: pointer;
+        stroke: var(--white-color);
         color: var(--white-color);
         font-size: 28px;
         padding: 8px;

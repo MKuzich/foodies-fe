@@ -2,7 +2,6 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openSignIn, openSignUp, openLogout } from "../../redux/auth/authSlice";
-import HeroImages from "../HeroImages/HeroImages";
 import Container from "../Container/Container";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
