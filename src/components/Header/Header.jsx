@@ -6,6 +6,7 @@ import HeroImages from "../HeroImages/HeroImages";
 import Container from "../Container/Container";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
+import MobileSidebar from "../MobileSideBar/MobileSideBar";
 import styles from "./Header.module.css";
 import clsx from "clsx";
 
@@ -103,59 +104,14 @@ const Header = () => {
       </Container>
 
       {/* Mobile Nav Overlay */}
-
       {mobileNavOpen && (
-        <div
-          className={styles.mobileNavOverlay}
-          onClick={() => setMobileNavOpen(false)}
-        >
-          <div className={styles.sidebarContent}>
-            <div className={styles.sidebarHeader}>
-              <Link
-                to="/"
-                className={styles.logo}
-                onClick={() => setMobileNavOpen(false)}
-              >
-                foodies
-              </Link>
-              <button
-                type="button"
-                onClick={() => setMobileNavOpen(false)}
-                className={styles.mobileClose}
-                aria-label="Close navigation menu"
-              >
-                <svg width="28" height="28" fill="currentColor">
-                  <use href="src/assets/sprite.svg#icon-x" />
-                </svg>
-              </button>
-            </div>
-            <nav
-              className={styles.mobileNav}
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Mobile navigation"
-            >
-              {navLinks.map(
-                (link) =>
-                  (!link.private || isAuthenticated) && (
-                    <Link
-                      key={link.to}
-                      to={link.to}
-                      className={
-                        location.pathname === link.to
-                          ? `${styles.SideBarLink} ${styles.SideBarLinkActive}`
-                          : styles.SideBarLink
-                      }
-                      onClick={() => setMobileNavOpen(false)}
-                    >
-                      {link.label}
-                    </Link>
-                  )
-              )}
-            </nav>
-            {/* Images below buttons */}
-            <HeroImages />
-          </div>
-        </div>
+        <MobileSidebar
+          open={mobileNavOpen}
+          onClose={() => setMobileNavOpen(false)}
+          navLinks={navLinks}
+          isAuthenticated={isAuthenticated}
+          location={location}
+        />
       )}
     </header>
   );
