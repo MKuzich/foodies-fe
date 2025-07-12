@@ -147,14 +147,6 @@
         }
     }
 
-    .nav {
-        display: none;
-    }
-
-    .burger {
-        display: block;
-    }
-
     .inner {
         padding: 0 16px;
     }
