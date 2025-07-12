@@ -5,7 +5,7 @@ export const registerUser = createAsyncThunk(
   "auth/register",
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/auth/register", {
+      const { data } = await api.post("auth/register", {
         name,
         email,
         password,
@@ -26,7 +26,7 @@ export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("/auth/login", { email, password });
+      const { data } = await api.post("auth/login", { email, password });
       setAuthToken(data.token);
       return data;
     } catch (error) {
@@ -43,7 +43,7 @@ export const userLogout = createAsyncThunk(
   "auth/logout",
   async (_, { rejectWithValue }) => {
     try {
-      await api.post("/auth/logout", {});
+      await api.post("auth/logout", {});
       setAuthToken(null);
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -59,7 +59,7 @@ export const getUser = createAsyncThunk(
   "auth/current",
   async (_, { rejectWithValue }) => {
     try {
-      const { data } = await api.get("/auth/current", {});
+      const { data } = await api.get("auth/current", {});
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
@@ -78,7 +78,7 @@ export const refreshUser = createAsyncThunk(
       const state = getState();
       const token = state.auth.userToken;
       setAuthToken(token);
-      const { data } = await api.get("/auth/current", {});
+      const { data } = await api.get("auth/current", {});
       return data;
     } catch (error) {
       if (error.response && error.response.data.message) {
