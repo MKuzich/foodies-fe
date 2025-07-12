@@ -7,6 +7,7 @@ import Container from "../Container/Container";
 import AuthBar from "../AuthBar/AuthBar";
 import UserBar from "../UserBar/UserBar";
 import styles from "./Header.module.css";
+import clsx from "clsx";
 
 const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
@@ -65,7 +66,7 @@ const Header = () => {
                   >
                     {link.label}
                   </Link>
-                ),
+                )
             )}
           </nav>
 
@@ -81,7 +82,7 @@ const Header = () => {
               user={user}
               onProfile={() => navigate("/user")}
               onLogout={handleLogOut}
-              className={styles.userBar}
+              className={clsx(styles.userBar, !isHome && styles.headerDark)}
             />
           )}
 
@@ -148,7 +149,7 @@ const Header = () => {
                     >
                       {link.label}
                     </Link>
-                  ),
+                  )
               )}
             </nav>
             {/* Images below buttons */}

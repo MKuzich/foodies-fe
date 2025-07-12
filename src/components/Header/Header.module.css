@@ -1,382 +1,397 @@
 .header {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  padding: 40px 0 24px 0;
-  z-index: 1;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 0 24px 0;
+    z-index: 1;
 
-  background: transparent;
+    background: transparent;
 }
 
 .inner {
-  margin: 0 auto;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-
-  min-height: 80px;
-}
-
-.logo {
-  font-family: "Mulish", sans-serif;
-  font-weight: 800;
-  font-style: normal;
-  font-size: 24px;
-  line-height: 28px;
-  letter-spacing: -2%;
-  text-transform: lowercase;
-  cursor: pointer;
-  color: #fff;
-  text-decoration: none;
-}
-
-.nav {
-  display: flex;
-  gap: 40px;
-}
-
-.navLink {
-  font-size: 14px;
-  color: #ffffff;
-  text-decoration: none;
-  padding: 14px 10px;
-  border-radius: 30px;
-
-  height: 46px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 10px;
-  background: transparent;
-  opacity: 1;
-  transition:
-    border var(--transition-main),
-    color var(--transition-main),
-    background var(--transition-main);
-}
-
-.navLinkActive {
-  border: 1px solid #fff;
-  color: #fff;
-}
-
-.navLinkNoBorder {
-  border: none;
-  color: #bfbebe;
-  background: transparent;
-}
-
-.chevronIcon {
-  margin-left: 8px;
-  display: inline-block;
-  vertical-align: middle;
-  fill: #fff;
-}
-
-.arrowIcon {
-  margin-left: 8px;
-  display: inline-block;
-  vertical-align: middle;
-  width: 18px;
-  height: 18px;
-  fill: none;
-  stroke: var(--white-color);
-}
-
-.burger {
-  display: none;
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 8px;
-  border-radius: 50%;
-  stroke: var(--white-color);
-}
-
-.mobileNavOverlay {
-  display: none;
-}
-
-@media (max-width: 1024px) {
-  .mobileNavOverlay {
-    position: fixed;
-    top: 0;
-    left: 0;
-    width: 100vw;
-    height: 100vh;
-    background: #000;
-    z-index: 100000;
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  .mobileNav {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 40vh;
-    padding: 218px 0 132px 0;
-    gap: 32px;
-    padding-top: 48px;
-  }
-
-  .SideBarLink {
-    font-weight: 700;
-    font-style: Bold;
-    font-size: 14px;
-    line-height: 20px;
-    letter-spacing: -2%;
-    text-transform: uppercase;
-    color: var(--white-color);
-  }
-
-  .sideBarImages {
-    display: flex;
-    flex-direction: row;
-    justify-content: center;
-    align-items: center;
-    gap: 16px;
-    margin-bottom: 40px;
-    z-index: 1000000;
-  }
-
-  .sidebarHeader {
+    margin: 0 auto;
     display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 24px 24px 16px 24px;
-  }
 
-  .mobileClose {
-    align-self: flex-end;
+    min-height: 80px;
+}
+
+.logo {
+    font-family: "Mulish", sans-serif;
+    font-weight: 800;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 28px;
+    letter-spacing: -2%;
+    text-transform: lowercase;
+    cursor: pointer;
+    color: #fff;
+    text-decoration: none;
+}
+
+.nav {
+    display: flex;
+    gap: 40px;
+}
+
+.navLink {
+    font-size: 14px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 14px 10px;
+    border-radius: 30px;
+
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: transparent;
+    opacity: 1;
+    transition:
+        border var(--transition-main),
+        color var(--transition-main),
+        background var(--transition-main);
+}
+
+.navLinkActive {
+    border: 1px solid #fff;
+    color: #fff;
+}
+
+.navLinkNoBorder {
+    border: none;
+    color: #bfbebe;
+    background: transparent;
+}
+
+.chevronIcon {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    fill: #fff;
+}
+
+.arrowIcon {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--white-color);
+}
+
+.burger {
+    display: none;
     background: none;
     border: none;
     cursor: pointer;
-
-    color: var(--white-color);
-    font-size: 28px;
     padding: 8px;
     border-radius: 50%;
-    transition: background 0.2s;
-  }
+    stroke: var(--white-color);
+}
 
-  .mobileClose:focus,
-  .mobileClose:hover {
-    background: #f5f5f5;
-  }
-
-  .mobileNav .navLink {
-    font-size: 20px;
-    color: #232323;
-    text-decoration: none;
-    padding: 16px 0;
-    width: 100%;
-    border-radius: 8px;
-    text-align: left;
-    transition:
-      background 0.2s,
-      color 0.2s;
-  }
-
-  .mobileNav .navLinkActive {
-    background: #232323;
-    color: #fff;
-  }
-
-  .mobileNav .navLink:focus,
-  .mobileNav .navLink:hover {
-    background: #f5f5f5;
-    color: #232323;
-  }
-
-  @keyframes slideIn {
-    from {
-      right: -100vw;
-    }
-
-    to {
-      right: 0;
-    }
-  }
-
-  .nav {
+.mobileNavOverlay {
     display: none;
-  }
+}
 
-  .burger {
-    display: block;
-  }
+@media (max-width: 1024px) {
+    .mobileNavOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: #000;
+        z-index: 100000;
+        display: flex;
+        justify-content: flex-end;
+    }
 
-  .inner {
-    padding: 0 16px;
-  }
+    .mobileNav {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
+        padding: 218px 0 132px 0;
+        gap: 32px;
+        padding-top: 48px;
+    }
 
-  .logo {
-    font-size: 20px;
-    line-height: 24px;
-  }
+    .SideBarLink {
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -2%;
+        text-transform: uppercase;
+        color: var(--white-color);
+    }
+
+    .sideBarImages {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 40px;
+        z-index: 1000000;
+    }
+
+    .sidebarHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 24px 16px 24px;
+    }
+
+    .mobileClose {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        cursor: pointer;
+
+        color: var(--white-color);
+        font-size: 28px;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+
+    .mobileClose:focus,
+    .mobileClose:hover {
+        background: #f5f5f5;
+    }
+
+    .mobileNav .navLink {
+        font-size: 20px;
+        color: #232323;
+        text-decoration: none;
+        padding: 16px 0;
+        width: 100%;
+        border-radius: 8px;
+        text-align: left;
+        transition:
+            background 0.2s,
+            color 0.2s;
+    }
+
+    .mobileNav .navLinkActive {
+        background: #232323;
+        color: #fff;
+    }
+
+    .mobileNav .navLink:focus,
+    .mobileNav .navLink:hover {
+        background: #f5f5f5;
+        color: #232323;
+    }
+
+    @keyframes slideIn {
+        from {
+            right: -100vw;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    .nav {
+        display: none;
+    }
+
+    .burger {
+        display: block;
+    }
+
+    .inner {
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 20px;
+        line-height: 24px;
+    }
 }
 
 @media (max-width: 768px) {
-  .inner {
-    padding: 0 8px;
-  }
+    .inner {
+        padding: 0 8px;
+    }
 }
 
 @media (max-width: 375px) {
-  .inner {
-    padding: 0 4px;
-  }
+    .inner {
+        padding: 0 4px;
+    }
 
-  .logo {
-    font-size: 14px;
-  }
+    .logo {
+        font-size: 14px;
+    }
 }
 
 .headerDark {
-  background: transparent;
-  color: #232323;
+    background: transparent;
+    color: #232323;
 }
 
 .headerDark .logo {
-  color: #232323;
+    color: #232323;
 }
 
 .headerDark .navLink {
-  color: #232323;
-  font-family: Mulish;
-  font-weight: 700;
-  font-size: 12px;
-  line-height: 18px;
-  text-transform: uppercase;
+    color: #232323;
+    font-family: Mulish;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
 }
 
 .headerDark .navLinkActive {
-  border: 1px solid #bfbebe;
-  color: #232323;
+    border: 1px solid #bfbebe;
+    color: #232323;
 }
 
 .headerDark .userBarBtn {
-  background: #fff;
-  color: #232323;
+    background: #fff;
+    color: #232323;
 }
 
 .headerDark .chevronIcon,
 .headerDark .arrowIcon {
-  fill: #232323;
+    fill: #232323;
 }
 
 .headerDark .dropdown {
-  background: #fff;
-  border: 1px solid #232323;
-  color: #232323;
+    background: #fff;
+    border: 1px solid #232323;
+    color: #232323;
 }
 
 .headerDark .dropdownItem {
-  color: #232323;
+    color: #232323 !important;
+}
+
+.dropdownItem:hover {
+    background: #f5f5f5;
+    color: #1a1a1a;
+}
+
+.headerDark .dropdown {
+    background: #fff;
+    border: 1px solid #232323;
+    color: #232323;
+}
+
+.headerDark .dropdownItem {
+    color: #232323;
 }
 
 .header {
-  width: 100%;
-  z-index: 1;
+    width: 100%;
+    z-index: 1;
 }
 
 .headerAbsolute {
-  position: absolute;
-  top: 0;
-  left: 0;
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 .headerFlex {
-  display: flex;
-  position: static;
-  padding: 0;
+    display: flex;
+    position: static;
+    padding: 0;
 }
 
 .headerDark .inner {
-  padding-top: 40px;
-  padding-bottom: 80px;
-  min-height: 50px;
+    padding-top: 40px;
+    padding-bottom: 80px;
+    min-height: 50px;
 }
 
 .mobileNavHero {
-  background: var(--color-bg-dark, #000);
-  color: var(--color-text, #fff);
-  width: 80vw;
-  max-width: 340px;
-  height: 100vh;
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  position: fixed;
-  top: 0;
-  right: 0;
-  z-index: 1001;
-  padding: 0 16px;
-  box-shadow: -2px 0 12px rgba(0, 0, 0, 0.08);
-  animation: slideIn var(--transition-main);
+    background: var(--color-bg-dark, #000);
+    color: var(--color-text, #fff);
+    width: 80vw;
+    max-width: 340px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    padding: 0 16px;
+    box-shadow: -2px 0 12px rgba(0, 0, 0, 0.08);
+    animation: slideIn var(--transition-main);
 }
 
 .mobileNavImages {
-  display: flex;
-  flex-direction: row;
-  justify-content: center;
-  align-items: flex-end;
-  gap: 16px;
-  margin-bottom: 40px;
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 40px;
 }
 
 .mobileNavImgLeft {
-  width: 77px;
-  height: 70px;
-  margin-top: 80px;
-  object-fit: cover;
-  border-radius: 16px;
+    width: 77px;
+    height: 70px;
+    margin-top: 80px;
+    object-fit: cover;
+    border-radius: 16px;
 }
 
 .mobileNavImgRight {
-  width: 190px;
-  height: 172px;
-  object-fit: cover;
-  border-radius: 24px;
+    width: 190px;
+    height: 172px;
+    object-fit: cover;
+    border-radius: 24px;
 }
 
 .mobileNavButtons {
-  display: flex;
-  flex-direction: column;
-  gap: 20px;
-  width: 100%;
-  align-items: center;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
 }
 
 .mobileNavButton {
-  border-radius: var(--radius-pill, 30px);
-  padding: 14px 32px;
-  font-size: 1rem;
-  font-weight: 600;
-  cursor: pointer;
-  background: transparent;
-  border: 1px solid #fff;
-  color: #fff;
-  width: 100%;
-  max-width: 220px;
-  text-align: center;
-  transition:
-    background 0.2s,
-    color 0.2s;
+    border-radius: var(--radius-pill, 30px);
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+    transition:
+        background 0.2s,
+        color 0.2s;
 }
 
 .mobileNavButton.private {
-  opacity: 0.6;
-  pointer-events: none;
+    opacity: 0.6;
+    pointer-events: none;
 }
 
 .mobileNavButton:focus,
 .mobileNavButton:hover {
-  background: #fff;
-  color: #232323;
+    background: #fff;
+    color: #232323;
 }
