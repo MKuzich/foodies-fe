@@ -2,39 +2,26 @@ import styles from "./Testimonials.module.css";
 import MainTitle from "@/components/MainTitle/MainTitle";
 import "./SwiperCustomStyles.css";
 import 'swiper/css';
-import { useState, useEffect } from "react";
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from "swiper/modules";
-
+import { useScreenWidth } from "../../hooks/useScreenWidth";
+import { useDispatch, useSelector } from "react-redux";
+import { testimonialsSelector } from "@/redux/testimonials/selectors";
+import { fetchTestimonials } from "../../redux/testimonials/actions";
+import { useEffect } from "react";
 
 function Testimonials() {
-    const [width, setWidth] = useState(window.innerWidth);
+    const width = useScreenWidth();
+    const testimonials = useSelector(testimonialsSelector);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        const handleResize = () => setWidth(window.innerWidth);
-        window.addEventListener("resize", handleResize);
-        return () => window.removeEventListener("resize", handleResize);
+        dispatch(fetchTestimonials());
     }, []);
+
 
     const value = width <= 768 ? 64 : 80;
 
-    const mockData = [
-        {
-            id: 1,
-            author: "Larry Pageim",
-            comment: "Amazing collection of recipes! The step-by-step instructions make cooking so much easier. I've tried several dishes and they all turned out perfect. Highly recommend!",
-        },
-        {
-            id: 2,
-            author: "Sarah Johnson",
-            comment: "I've been using this app for a few weeks now, and I've already tried several recipes. They all turned out great, and the app's interface is really user-friendly. I'm definitely going to continue using it!",
-        },
-        {
-            id: 3,
-            author: "John Doe",
-            comment: "I've been using this app for a few weeks now, and I've already tried several recipes. They all turned out great, and the app's interface is really user-friendly. I'm definitely going to continue using it!",
-        },
-    ];
 
     return (
         <div className={styles.testimonialsContainer}>
@@ -54,7 +41,7 @@ function Testimonials() {
                 }}
                 className={styles.swiper}
             >
-                {mockData.map((item, idx) => (
+                {testimonials.map((item, idx) => (
                     <SwiperSlide key={idx}>
                         <h3 className={styles.testimonialsComment}>{item.comment}</h3>
                         <p className={styles.testimonialsAuthor}>{item.author}</p>

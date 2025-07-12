@@ -4,8 +4,10 @@ import { useDispatch } from "react-redux";
 import { refreshUser } from "./redux/auth/authActions";
 import "./App.css";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import Loader from "./components/Loader/Loader";
 import AuthModals from "./components/AuthModals";
+import css from "./App.module.css";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -21,11 +23,20 @@ function App() {
 
   return (
     <SharedLayout>
-      <Suspense fallback={<Loader />}>
+      <Suspense
+        fallback={
+          <div className={css.loaderWrapper}>
+            <Loader />
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user/:id" element={<User />} />
-          <Route path="/recipe/add" element={<AddPecipe />} />
+          <Route path="/user/:id" element={<PrivateRoute component={User} />} />
+          <Route
+            path="/recipe/add"
+            element={<PrivateRoute component={AddPecipe} />}
+          />
           <Route path="/recipe/:id" element={<Recipe />} />
           <Route path="*" element={<NotFound />} />
         </Routes>

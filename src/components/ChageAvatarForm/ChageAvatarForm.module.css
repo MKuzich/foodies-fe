@@ -7,15 +7,3 @@
   height: 100px;
   transform: translate(-40%, -70%);
 }
-
-.error {
-  width: 100%;
-  color: red;
-  position: absolute;
-  top: -90px;
-  left: -400%;
-  display: inline-block;
-  min-width: 250px;
-  text-align: center;
-  font-size: 12px;
-}
