@@ -5,7 +5,7 @@ const api = axios.create({
     import.meta.env.VITE_FOODIES_API_ENDPOINT ||
     "https://foodies-be-oruu.onrender.com/api/",
 });
-console.log(import.meta.env.VITE_FOODIES_API_ENDPOINT);
+
 export const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
