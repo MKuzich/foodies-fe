@@ -1,6 +1,14 @@
 .tabItem {
   padding-bottom: 14px;
 }
+.tabItem:first-child {
+  padding-left: 8px;
+}
+@media screen and (min-width: 375px) and (max-width: 767px) {
+  .tabItem:first-child {
+    padding-left: 16px;
+  }
+}
 
 .tabItemLink {
   color: var(--inactive-color);

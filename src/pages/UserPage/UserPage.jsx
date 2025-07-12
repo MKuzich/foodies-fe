@@ -79,15 +79,17 @@ const UserPage = () => {
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   return (
-    <div className={css.userProfile}>
-      <Container>
+    <section className={css.section}>
+      <div className={css.container}>
         <PathInfo pathName={"home"} currentName={"profile"} />
         <MainTitle>profile</MainTitle>
         <Subtitle>
           Reveal your culinary art, share your favorite recipe and create
           gastronomic masterpieces with us.
         </Subtitle>
-        <div className={css.userProfile}>
+      </div>
+      <div className={css.userProfile}>
+        <div className={clsx(css.userProfile, css.container)}>
           <div className={css.userProfileInfo}>
             <UserInfo />
             <div className={css.followButtonContainer}>
@@ -109,73 +111,73 @@ const UserPage = () => {
             </div>
           </div>
         </div>
-      </Container>
 
-      <div className={css.userProfileTabsContainer}>
-        <div className={css.tabsWrapper}>
-          <TabsList>
-            <TabItem
-              name={recepieTabName}
-              onClick={(e) => handleChange(e, "recipes")}
-              isActive={tabOpened === "recipes"}
-            />
-            {isUserCurrentUser && (
+        <div>
+          <div className={css.tabsWrapper}>
+            <TabsList>
               <TabItem
-                name="My Favorites"
-                onClick={(e) => handleChange(e, "favorites")}
-                isActive={tabOpened === "favorites"}
+                name={recepieTabName}
+                onClick={(e) => handleChange(e, "recipes")}
+                isActive={tabOpened === "recipes"}
               />
-            )}
-            <TabItem
-              name="Followers"
-              onClick={(e) => handleChange(e, "followers")}
-              isActive={tabOpened === "followers"}
-            />
-            {isUserCurrentUser && (
+              {isUserCurrentUser && (
+                <TabItem
+                  name="My Favorites"
+                  onClick={(e) => handleChange(e, "favorites")}
+                  isActive={tabOpened === "favorites"}
+                />
+              )}
               <TabItem
-                name="Following"
-                onClick={(e) => handleChange(e, "following")}
-                isActive={tabOpened === "following"}
+                name="Followers"
+                onClick={(e) => handleChange(e, "followers")}
+                isActive={tabOpened === "followers"}
               />
-            )}
-          </TabsList>
-        </div>
-        <Container>
-          <div className={css.tabsContent}>
-            <div className={css.tabContentActive}>
-              {tabOpened === "recipes" && (
-                <ListItems
-                  items={userRecipes}
-                  type="recipe"
-                  errorText={errorMap.noRecipes}
+              {isUserCurrentUser && (
+                <TabItem
+                  name="Following"
+                  onClick={(e) => handleChange(e, "following")}
+                  isActive={tabOpened === "following"}
                 />
               )}
-              {tabOpened === "favorites" && (
-                <ListItems
-                  items={userFavorites}
-                  type="recipe"
-                  errorText={errorMap.noFavorites}
-                />
-              )}
-              {tabOpened === "followers" && (
-                <ListItems
-                  items={userFollowers}
-                  type="user"
-                  errorText={errorMap.noFollowers}
-                />
-              )}
-              {tabOpened === "following" && (
-                <ListItems
-                  items={userFollowing}
-                  type="user"
-                  errorText={errorMap.noSubscriptions}
-                />
-              )}
+            </TabsList>
+          </div>
+          <div className={css.container}>
+            <div className={css.tabsContent}>
+              <div className={css.tabContentActive}>
+                {tabOpened === "recipes" && (
+                  <ListItems
+                    items={userRecipes}
+                    type="recipe"
+                    errorText={errorMap.noRecipes}
+                  />
+                )}
+                {tabOpened === "favorites" && (
+                  <ListItems
+                    items={userFavorites}
+                    type="recipe"
+                    errorText={errorMap.noFavorites}
+                  />
+                )}
+                {tabOpened === "followers" && (
+                  <ListItems
+                    items={userFollowers}
+                    type="user"
+                    errorText={errorMap.noFollowers}
+                  />
+                )}
+                {tabOpened === "following" && (
+                  <ListItems
+                    items={userFollowing}
+                    type="user"
+                    errorText={errorMap.noSubscriptions}
+                  />
+                )}
+              </div>
             </div>
           </div>
-        </Container>
+        </div>
       </div>
-    </div>
+    </section>
   );
 };
 
