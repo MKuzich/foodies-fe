@@ -44,10 +44,6 @@
   }
 }
 
-.userProfileTabsContainer {
-  width: 100%;
-}
-
 .tabsWrapper {
   width: 100%;
   margin: 0 auto;
@@ -65,5 +61,45 @@
   .tabsWrapper {
     margin: 0;
     padding: 0;
+  }
+}
+
+.container {
+  width: 100%;
+  margin: 0 auto;
+  padding: 0 8px;
+}
+
+@media screen and (min-width: 375px) {
+  .container {
+    width: 375px;
+    padding: 0 16px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .container {
+    padding: 0 32px;
+    width: 768px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .container {
+    padding: 0;
+    width: auto;
+    margin: 0;
+  }
+}
+
+.section {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1440px) {
+  .section {
+    padding: 0 80px;
+    width: 1440px;
+    margin: 0 auto;
   }
 }
