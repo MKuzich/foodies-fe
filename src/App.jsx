@@ -3,7 +3,6 @@ import "./App.css";
 import { lazy, Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
 import { Route, Routes } from "react-router-dom";
-
 import css from "./App.module.css";
 import AuthModals from "./components/AuthModals";
 import Loader from "./components/Loader/Loader";
