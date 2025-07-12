@@ -63,8 +63,8 @@ function CategoriesItem({ id, title, description, option = "category", onClick }
                 </button>
             </li>
         ) : (
-            <li >
-                <button className={clsx(styles.categoriesContainer, optionClassMap[option].container)} onClick={handleClick}>
+            <li className={styles.categoriesContainer}>
+                <button className={clsx(styles.categoriesButton, optionClassMap[option].container)} onClick={handleClick}>
                     <p className={clsx(styles.categoriesTitleExtra, optionClassMap[option].title)}>{title}</p>
                 </button>
             </li>
