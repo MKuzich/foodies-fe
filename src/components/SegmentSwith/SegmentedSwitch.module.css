@@ -1,0 +1,40 @@
+.switch {
+  display: flex;
+  border-radius: 999px;
+  background: #fff;
+  border: 1px solid #fff;
+  overflow: hidden;
+  width: fit-content;
+}
+
+.switch button {
+  background: #fff;
+  border: none;
+  outline: none;
+  padding: 8px 28px;
+  font-size: 14px;
+  font-weight: 600;
+  color: #111;
+  cursor: pointer;
+  transition:
+    background 0.2s,
+    color 0.2s;
+  position: relative;
+  z-index: 1;
+  border-radius: 999px;
+}
+
+.switch button.active,
+.switch button:focus {
+  background: #111 !important;
+  color: #fff !important;
+  z-index: 2;
+}
+
+.switch button:first-child.active {
+  border-radius: 999px;
+}
+
+.switch button:last-child.active {
+  border-radius: 999px;
+}
