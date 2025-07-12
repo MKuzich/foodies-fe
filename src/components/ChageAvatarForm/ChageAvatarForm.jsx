@@ -23,19 +23,22 @@ const ChageAvatarForm = ({ onSubmit }) => {
     register,
     handleSubmit,
     watch,
+    trigger,
     reset,
     formState: { errors },
   } = useForm({
     resolver: yupResolver(schema),
-    mode: "onChange",
+    mode: "onSubmit",
   });
   const userAvatarFieldValue = watch("avatarFile");
 
   useEffect(() => {
-    if (userAvatarFieldValue == undefined) return;
-    if (userAvatarFieldValue.length === 0) return;
+    const file = userAvatarFieldValue?.[0];
+    if (!file) return;
 
     const submit = async () => {
+      const isValid = await trigger("avatarFile");
+      if (!isValid) return;
       await onSubmit({ avatarFile: userAvatarFieldValue });
       reset();
     };
