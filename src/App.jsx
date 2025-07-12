@@ -1,9 +1,11 @@
 import { Routes, Route } from "react-router-dom";
-import { lazy, Suspense } from "react";
+import { lazy, Suspense, useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { refreshUser } from "./redux/auth/authActions";
 import "./App.css";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import Loader from "./components/Loader/Loader";
-import AuthModals from './components/AuthModals';
+import AuthModals from "./components/AuthModals";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -12,6 +14,11 @@ const Recipe = lazy(() => import("./pages/RecipePage/RecipePage"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
 
 function App() {
+  const dispatch = useDispatch();
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
+
   return (
     <SharedLayout>
       <Suspense fallback={<Loader />}>

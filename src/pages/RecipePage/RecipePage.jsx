@@ -4,6 +4,7 @@ import { useParams } from "react-router-dom";
 // import RecipeIngredients from "../components/RecipeIngredients";
 // import RecipePreparation from "../components/RecipePreparation";
 import styles from "./RecipePage.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -46,7 +47,12 @@ const RecipePage = () => {
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   if (!recipe) return <div>Recipe not found</div>;
 
   return (
