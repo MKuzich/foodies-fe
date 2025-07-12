@@ -20,6 +20,7 @@ const HomePage = () => {
 
   return (
     <div>
+        <Hero />
         <nav>
       <button onClick={() => dispatch(openSignIn())}>Sign In</button>
       <button onClick={() => dispatch(openSignUp())}>Sign Up</button>

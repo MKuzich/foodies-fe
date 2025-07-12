@@ -1,10 +1,12 @@
 import { useState, useRef, useEffect } from 'react';
-import IconLink from '../IconLink/IconLink';
+import { useSelector } from 'react-redux';
+import AvatarIcon from '../AvatarIcon/AvatarIcon';
 import styles from './Header.module.css';
 
-const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
+const UserBar = ({ onProfile, onLogout, className = '' }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
+  const user = useSelector(state => state.auth.userInfo) || { name: '', avatar: '' };
 
   useEffect(() => {
     if (!open) return;
@@ -22,8 +24,9 @@ const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
         onClick={() => setOpen((v) => !v)}
         className={styles.userBarBtn}
       >
-        <img
-          src={user.avatar || 'src/assets/avatar.png'}
+        <AvatarIcon
+          src={user.avatar}
+          name={user.name}
           alt="avatar"
           className={styles.avatar}
         />
@@ -31,7 +34,6 @@ const UserBar = ({ user, onProfile, onLogout, className = '' }) => {
         <svg className={styles.chevronIcon} width="16" height="16">
           <use href="src/assets/sprite.svg#icon-chevron-down" />
         </svg>
-     
       </button>
       {open && (
         <div className={styles.dropdown}>

@@ -1,31 +1,34 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { openSignIn, openSignUp, openLogout } from "../../redux/auth/authSlice";
 
 import Container from "../Container/Container";
 import AuthBar from "./AuthBar";
 import UserBar from "./UserBar";
 import styles from "./Header.module.css";
-// TODO: Replace these with real auth state & user
-const isAuthenticated = true;
-const user = { name: "Victoria", avatar: "" };
-// TEMP: Simulate authenticated user for manual testing
-// const user = { name: "Test User", avatar: "" };
-// const isAuthenticated = true;
 
 const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
+  const dispatch = useDispatch();
   const isHome = location.pathname === "/";
 
-  const openSignIn = () => {
-    alert("Open Sign In Modal");
+  // Get auth state from Redux
+  const userToken = useSelector(state => state.auth.userToken);
+  const userInfo = useSelector(state => state.auth.userInfo);
+  const isAuthenticated = Boolean(userToken );
+  const user = userInfo || { name: "", avatar: "" };
+
+  const handleSignIn = () => {
+    dispatch(openSignIn());
   };
-  const openSignUp = () => {
-    alert("Open Sign Up Modal");
+  const handleSignUp = () => {
+    dispatch(openSignUp());
   };
-  const openLogOut = () => {
-    alert("Open Log Out Modal");
+  const handleLogOut = () => {
+    dispatch(openLogout());
   };
 
   const navLinks = [
@@ -65,15 +68,15 @@ const Header = () => {
           {/* AuthBar or UserBar */}
           {!isAuthenticated ? (
             <AuthBar
-              onSignIn={openSignIn}
-              onSignUp={openSignUp}
+              onSignIn={handleSignIn}
+              onSignUp={handleSignUp}
               className={styles.authBar}
             />
           ) : (
             <UserBar
               user={user}
               onProfile={() => navigate("/user")}
-              onLogout={openLogOut}
+              onLogout={handleLogOut}
               className={styles.userBar}
             />
           )}
