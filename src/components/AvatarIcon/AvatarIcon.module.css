@@ -2,7 +2,6 @@
   border-radius: 50%;
   background-color: #f5f2f2; /* TODO: move to index */
   display: flex;
-  flex-shrink: 0;
   align-items: center;
   justify-content: center;
   font-size: 44px;
@@ -35,17 +34,14 @@
     width: 40px;
     height: 40px;
   }
-
   .avatarIcon.small {
     width: 50px;
     height: 50px;
   }
-
   .avatarIcon.medium {
     width: 85px;
     height: 85px;
   }
-
   .avatarIcon.large {
     width: 120px;
     height: 120px;

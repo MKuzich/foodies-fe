@@ -1,9 +1,7 @@
-
 import React from "react";
 import {useDispatch} from 'react-redux'
 import Button from "@/components/Button/Button";
 import Container from "@/components/Container/Container";
-import Hero from "@/components/Hero/Hero";
 import Categories from "@/components/Categories/Categories";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
@@ -20,7 +18,6 @@ const HomePage = () => {
 
   return (
     <div>
-        <Hero />
         <nav>
       <button onClick={() => dispatch(openSignIn())}>Sign In</button>
       <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
