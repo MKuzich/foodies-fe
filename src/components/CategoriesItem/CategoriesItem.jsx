@@ -3,31 +3,47 @@ import styles from "./CategoriesItem.module.css";
 import clsx from "clsx";
 import { setSelectedCategory } from "../../redux/categories/slice";
 
-function CategoriesItem({ id, title, option = "category" }) {
+function CategoriesItem({ id, title, description, option = "category", onClick }) {
 
     const image = `/src/assets/categories/${title}.webp`;
 
     const dispatch = useDispatch();
 
     const handleClick = () => {
-        if (option === "all") {
+        if (option === "All") {
+            onClick();
+        } else if (option === "Show") {
             dispatch(setSelectedCategory({
                 id: null,
-                title
+                title,
+                description
             }));
         } else {
             dispatch(setSelectedCategory({
                 id,
-                title
+                title,
+                description
             }));
         }
     }
 
+    const optionClassMap = {
+        All: {
+            container: styles.categoriesContainerAll,
+            title: styles.categoriesTitleAll,
+        },
+        Show: {
+            container: styles.categoriesContainerShow,
+            title: styles.categoriesTitleShow,
+        },
+    };
+
     return (
         option === "category" ? (
-            <li className={styles.categoriesContainer}>
-                <div
+            <li className={styles.categoriesContainer} >
+                <button
                     className={styles.categoriesImage}
+                    onClick={handleClick}
                     style={{
                         backgroundImage: `image-set(
                           url(${image}) 1x,
@@ -38,17 +54,19 @@ function CategoriesItem({ id, title, option = "category" }) {
                 >
                     <div className={styles.categoriesTitleContainer}>
                         <p className={styles.categoriesTitle}>{title}</p>
-                        <div className={styles.categoriesIconContainer} onClick={handleClick}>
+                        <div className={styles.categoriesIconContainer} >
                             <svg className={styles.categoriesIcon} >
                                 <use href="/src/assets/sprite.svg#icon-arrow-up-right" />
                             </svg>
                         </div>
                     </div>
-                </div>
+                </button>
             </li>
         ) : (
-            <li className={clsx(styles.categoriesContainer, styles.categoriesContainerAll)} onClick={handleClick}>
-                <p className={styles.categoriesTitleAll}>All categories</p>
+            <li className={styles.categoriesContainer}>
+                <button className={clsx(styles.categoriesButton, optionClassMap[option].container)} onClick={handleClick}>
+                    <p className={clsx(styles.categoriesTitleExtra, optionClassMap[option].title)}>{title}</p>
+                </button>
             </li>
         )
     );
