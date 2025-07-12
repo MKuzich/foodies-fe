@@ -1,34 +1,33 @@
 .categoriesList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  @media (min-width: 768px) {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+
+    & > :nth-child(5n + 3) {
+      grid-column: 1 / -1;
+    }
+  }
+
+  @media (min-width: 1440px) {
     display: flex;
-    flex-direction: column;
-    gap: 16px;
+    flex-direction: row;
+    flex-wrap: wrap;
+    gap: 20px;
 
-    @media (min-width: 768px) {
-        display: grid;
-        grid-template-columns: repeat(2, 1fr);
-        gap: 20px;
-
-        &> :nth-child(5n + 3) {
-            grid-column: 1 / -1;
-        }
+    & > * {
+      width: 325px;
     }
 
-    @media (min-width: 1440px) {
-        display: flex;
-        flex-direction: row;
-        flex-wrap: wrap;
-        gap: 20px;
-
-        &>* {
-            width: 325px;
-        }
-
-        &> :nth-child(3),
-        &> :nth-child(4),
-        &> :nth-child(8),
-        &> :nth-child(10),
-        &> :nth-child(14) {
-            width: 590px;
-        }
+    & > :nth-child(12n + 3),
+    & > :nth-child(12n + 4),
+    & > :nth-child(12n + 8),
+    & > :nth-child(12n + 10) {
+      width: 590px;
     }
+  }
 }
