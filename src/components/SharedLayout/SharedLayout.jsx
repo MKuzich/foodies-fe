@@ -6,7 +6,6 @@ import { Toaster } from "react-hot-toast";
 const SharedLayout = ({ children }) => {
   return (
     <>
-      <Toaster />
       <header>
         <Container>Header</Container>
       </header>
@@ -14,6 +13,7 @@ const SharedLayout = ({ children }) => {
       <footer>
         <Container>Footer</Container>
       </footer>
+      <Toaster />
     </>
   );
 };
