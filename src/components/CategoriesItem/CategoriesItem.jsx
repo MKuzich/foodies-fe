@@ -5,7 +5,7 @@ import { setSelectedCategory } from "../../redux/categories/slice";
 
 function CategoriesItem({ id, title, description, option = "category", onClick }) {
 
-    const image = `/src/assets/categories/${title}.webp`;
+    const image = `/categories/${title}.webp`;
 
     const dispatch = useDispatch();
 
