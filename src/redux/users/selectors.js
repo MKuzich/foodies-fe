@@ -1,28 +1,17 @@
-import { enshureEnoughItems } from "../../utils/helpers";
-import { userPageRecipes, userPageFollowers } from "../../utils/data";
-
 export const selectUser = (state) => state.users.user;
 export const selectIsUserCurrentUser = (state) => {
-  return true;
-  // if (state.users.user) {
-  //   return state.users.user.id === state.user.id;
-  // }
+  if (!state.auth.userInfo) {
+    return false;
+  }
+  if (state.users.user) {
+    return state.users.user.id === state.auth.userInfo.id;
+  }
   return false;
 };
-export const selectIsUserIsFollowed = (state) => state.users.isUserIsFollowed;
-export const selectUserRecipes = (state) => {
-  return enshureEnoughItems(state.users.recipes, 10);
-};
-export const selectUserFavorites = (state) => {
-  // state.users.favorites;
-  return enshureEnoughItems(state.users.favorites, 10);
-};
-export const selectUserFollowers = (state) => {
-  // state.users.followers;
-  return enshureEnoughItems(state.users.followers, 10);
-};
-export const selectUserFollowing = (state) => {
-  // return state.users.following;
-  return enshureEnoughItems(state.users.following, 10);
-};
-export const selectIsScrolling = (state) => state.users.scrollIsScrolling;
+export const selectIsUserIsFollowed = (state) => state.users.user.isFollowed;
+export const selectUserExists = (state) => state.users.user.id !== "";
+
+export const selectUserRecipes = (state) => state.users.recipes;
+export const selectUserFavorites = (state) => state.users.favorites;
+export const selectUserFollowers = (state) => state.users.followers;
+export const selectUserFollowing = (state) => state.users.following;

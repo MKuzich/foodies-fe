@@ -1,67 +1,45 @@
-import api from "../api/api";
+import api from "./api";
 
-import { userPageRecipes, userPageFollowers } from "../utils/data";
-
-export const fetchUserRecipes = (id) => {
+export const fetchUserRecipes = async (id) => {
   const url = `/users/${id}/recipes`;
-  try {
-    // const { data } = await api.get(url);
-    return userPageRecipes;
-    // return data;
-  } catch (error) {
-    return error;
-  }
+  const { data } = await api.get(url);
+  return data;
 };
 
-export const fetchUserFavorites = (id) => {
+export const fetchUserFavorites = async (id) => {
   const url = `/users/${id}/favorites`;
-  try {
-    // const { data } = await api.get(url);
-    return userPageRecipes;
-  } catch (error) {
-    return error;
-  }
+  const { data } = await api.get(url);
+  return data;
 };
 
-export const fetchUserFollowers = (id) => {
+export const fetchUserFollowers = async (id) => {
   const url = `/users/${id}/followers`;
-  try {
-    // const { data } = await api.get(url);
-    return userPageFollowers;
-    // return data;
-  } catch (error) {
-    return error;
-  }
+  const { data } = await api.get(url);
+  return data;
 };
 
-export const fetchUserFollowing = () => {
-  const url = `/users/following`;
-  try {
-    // const { data } = await api.get(url);
-    return userPageFollowers;
-  } catch (error) {
-    return error;
-  }
+export const fetchUserFollowing = async (id) => {
+  const url = `/users/${id}/following`;
+  const { data } = await api.get(url);
+  return data;
 };
 
-export const followUser = (id) => {
+export const followUser = async (id) => {
   const url = `/users/${id}/follow`;
-  try {
-    // const { data } = await api.post(url);
-    return userPageFollowers;
-    // return data;
-  } catch (error) {
-    return error;
-  }
+  const { data } = await api.post(url);
+  return data;
 };
 
-export const unfollowUser = (id) => {
+export const unfollowUser = async (id) => {
   const url = `/users/${id}/unfollow`;
-  try {
-    // const { data } = await api.delete(url);
-    return userPageFollowers;
-    // return data;
-  } catch (error) {
-    return error;
-  }
+  const { data } = await api.delete(url);
+  return data;
+};
+
+export const changeAvatar = async (newAvatarFile) => {
+  const formData = new FormData();
+  formData.append("avatar", newAvatarFile, newAvatarFile.name);
+  const url = "/auth/avatars";
+  const { data } = await api.patch(url, formData);
+  return data;
 };
