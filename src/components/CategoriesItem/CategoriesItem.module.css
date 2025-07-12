@@ -118,7 +118,7 @@
     border: 1px solid var(--background-categories-color);
     border-radius: 50%;
     padding: 12px;
-    
+    transition: var(--color-transition);
    
 }
 
@@ -127,6 +127,5 @@
     height: 18px;
     fill: none;
     stroke: var(--white-color);
-    transition: var(--color-transition);
 
 }
