@@ -4,8 +4,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { openSignIn, openSignUp, openLogout } from "../../redux/auth/authSlice";
 
 import Container from "../Container/Container";
-import AuthBar from "./AuthBar";
-import UserBar from "./UserBar";
+import AuthBar from "./AuthBar/AuthBar";
+import UserBar from "./UserBar/UserBar";
 import styles from "./Header.module.css";
 
 const Header = () => {
@@ -16,9 +16,9 @@ const Header = () => {
   const isHome = location.pathname === "/";
 
   // Get auth state from Redux
-  const userToken = useSelector(state => state.auth.userToken);
-  const userInfo = useSelector(state => state.auth.userInfo);
-  const isAuthenticated = Boolean(userToken );
+  const userToken = useSelector((state) => state.auth.userToken);
+  const userInfo = useSelector((state) => state.auth.userInfo);
+  const isAuthenticated = Boolean(userToken);
   const user = userInfo || { name: "", avatar: "" };
 
   const handleSignIn = () => {
@@ -37,7 +37,11 @@ const Header = () => {
   ];
 
   return (
-    <header className={`${styles.header} ${!isHome ? styles.headerDark : ""}  ${isHome ? styles.headerAbsolute : styles.headerFlex}`}>
+    <header
+      className={`${styles.header} ${!isHome ? styles.headerDark : ""}  ${
+        isHome ? styles.headerAbsolute : styles.headerFlex
+      }`}
+    >
       <Container>
         <div className={styles.inner}>
           {/* Logo */}
@@ -82,60 +86,78 @@ const Header = () => {
           )}
 
           {/* Burger menu for mobile */}
-          {isAuthenticated && (
-            <button
-              className={styles.burger}
-              onClick={() => setMobileNavOpen(true)}
-              aria-label="Open navigation menu"
-              type="button"
-            >
-              <svg width="28" height="28" className={styles.burgerIcon}>
-                <use href="src/assets/sprite.svg#icon-align-justify" />
-              </svg>
-            </button>
-          )}
+          {/* {isAuthenticated && ( */}
+          <button
+            className={styles.burger}
+            onClick={() => setMobileNavOpen(true)}
+            aria-label="Open navigation menu"
+            type="button"
+          >
+            <svg width="28" height="28" className={styles.burgerIcon}>
+              <use href="src/assets/sprite.svg#icon-align-justify" />
+            </svg>
+          </button>
+          {/* )} */}
         </div>
       </Container>
 
       {/* Mobile Nav Overlay */}
-      {isAuthenticated && mobileNavOpen && (
+      {/* //isAuthenticated &&  */}
+      {mobileNavOpen && (
         <div
           className={styles.mobileNavOverlay}
           onClick={() => setMobileNavOpen(false)}
         >
-          <nav
-            className={styles.mobileNav}
-            onClick={(e) => e.stopPropagation()}
-            aria-label="Mobile navigation"
-          >
-            <button
-              type="button"
-              onClick={() => setMobileNavOpen(false)}
-              className={styles.mobileClose}
-              aria-label="Close navigation menu"
+          <div className={styles.sidebarContent}>
+            <nav
+              className={styles.mobileNav}
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Mobile navigation"
             >
-              <svg width="28" height="28" fill="currentColor">
-                <use href="src/assets/sprite.svg#icon-x" />
-              </svg>
-            </button>
-            {navLinks.map(
-              (link) =>
-                (!link.private || isAuthenticated) && (
-                  <Link
-                    key={link.to}
-                    to={link.to}
-                    className={
-                      location.pathname === link.to
-                        ? `${styles.navLink} ${styles.navLinkActive}`
-                        : styles.navLink
-                    }
-                    onClick={() => setMobileNavOpen(false)}
-                  >
-                    {link.label}
-                  </Link>
-                )
-            )}
-          </nav>
+              <button
+                type="button"
+                onClick={() => setMobileNavOpen(false)}
+                className={styles.mobileClose}
+                aria-label="Close navigation menu"
+              >
+                <svg width="28" height="28" fill="currentColor">
+                  <use href="src/assets/sprite.svg#icon-x" />
+                </svg>
+              </button>
+              {navLinks.map(
+                (link) =>
+                  (!link.private || isAuthenticated) && (
+                    <Link
+                      key={link.to}
+                      to={link.to}
+                      className={
+                        location.pathname === link.to
+                          ? `${styles.navLink} ${styles.navLinkActive}`
+                          : styles.navLink
+                      }
+                      onClick={() => setMobileNavOpen(false)}
+                    >
+                      {link.label}
+                    </Link>
+                  )
+              )}
+            </nav>
+            {/* Images below buttons */}
+            {/* <div className={styles.images}>
+              <img
+                src="/img/panacota.png"
+                srcSet="/img/panacota.png 1x, /img/panacota@2x.png 2x, /img/panacota@3x.png 3x"
+                alt="Panacota dessert"
+                // className={`${styles.heroImg} ${styles.imgLeft}`}
+              />
+              <img
+                src="/img/beef.png"
+                srcSet="/img/beef.png 1x, /img/beef@2x.png 2x, /img/beef@3x.png 3x"
+                alt="Beef dish"
+                // className={`${styles.heroImg} ${styles.imgRight}`}
+              />
+            </div> */}
+          </div>
         </div>
       )}
     </header>

@@ -4,8 +4,7 @@ import Button from "../Button/Button";
 
 const Hero = () => (
   <section className={styles.hero}>
- 
-      <div className={styles.heroInner}>
+    <div className={styles.heroInner}>
       <Container>
         <h1 className={styles.title}>
           IMPROVE YOUR
@@ -17,14 +16,13 @@ const Hero = () => (
           in the aromas and tastes of various cuisines.
         </p>
         <Button
-            onClick={() => console.log("Button clicked!")}
-            type="submit"
-         outlined
-            className={styles.ctaBtn}
-          >
+          onClick={() => console.log("Button clicked!")}
+          type="link"
+          outlined
+          className={styles.ctaBtn}
+        >
           Add Recipe
-          </Button>
-       
+        </Button>
 
         <div className={styles.images}>
           <img
@@ -40,9 +38,8 @@ const Hero = () => (
             className={`${styles.heroImg} ${styles.imgRight}`}
           />
         </div>
-        </Container>
-      </div>
- 
+      </Container>
+    </div>
   </section>
 );
 

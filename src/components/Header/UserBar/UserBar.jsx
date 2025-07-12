@@ -1,20 +1,23 @@
-import { useState, useRef, useEffect } from 'react';
-import { useSelector } from 'react-redux';
-import AvatarIcon from '../AvatarIcon/AvatarIcon';
-import styles from './Header.module.css';
+import { useState, useRef, useEffect } from "react";
+import { useSelector } from "react-redux";
+import AvatarIcon from "../../AvatarIcon/AvatarIcon";
+import styles from "../Header.module.css";
 
-const UserBar = ({ onProfile, onLogout, className = '' }) => {
+const UserBar = ({ onProfile, onLogout, className = "" }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
-  const user = useSelector(state => state.auth.userInfo) || { name: '', avatar: '' };
+  const user = useSelector((state) => state.auth.userInfo) || {
+    name: "",
+    avatar: "",
+  };
 
   useEffect(() => {
     if (!open) return;
     const handleClick = (e) => {
       if (ref.current && !ref.current.contains(e.target)) setOpen(false);
     };
-    document.addEventListener('mousedown', handleClick);
-    return () => document.removeEventListener('mousedown', handleClick);
+    document.addEventListener("mousedown", handleClick);
+    return () => document.removeEventListener("mousedown", handleClick);
   }, [open]);
 
   return (
@@ -37,10 +40,18 @@ const UserBar = ({ onProfile, onLogout, className = '' }) => {
       </button>
       {open && (
         <div className={styles.dropdown}>
-          <button type="button" className={styles.dropdownItem} onClick={onProfile}>
+          <button
+            type="button"
+            className={styles.dropdownItem}
+            onClick={onProfile}
+          >
             PROFILE
           </button>
-          <button type="button" className={styles.dropdownItem} onClick={onLogout}>
+          <button
+            type="button"
+            className={styles.dropdownItem}
+            onClick={onLogout}
+          >
             LOG OUT
             <svg className={styles.arrowIcon} width="18" height="18">
               <use href="src/assets/sprite.svg#icon-arrow-up-right" />
@@ -52,4 +63,4 @@ const UserBar = ({ onProfile, onLogout, className = '' }) => {
   );
 };
 
-export default UserBar; 
+export default UserBar;

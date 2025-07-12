@@ -284,30 +284,68 @@
 
 @media (max-width: 1024px) {
     .mobileNavOverlay {
-        display: block;
         position: fixed;
         top: 0;
-        right: 0;
+        left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.4);
+        background: rgba(0, 0, 0, 0.95);
+        /* semi-transparent black */
         z-index: 1000;
+        display: flex;
+        justify-content: flex-end;
     }
 
+
+
     .mobileNav {
-        position: fixed;
-        top: 0;
-        right: 0;
-        width: 80vw;
-        max-width: 340px;
-        height: 100vh;
-        background: var(--color-bg-light);
-        box-shadow: -2px 0 12px rgba(0, 0, 0, 0.08);
+        /* ...existing styles... */
         display: flex;
         flex-direction: column;
-        padding: 32px 24px;
-        z-index: 1001;
-        animation: slideIn var(--transition-main);
+        align-items: flex-start;
+        gap: 32px;
+        padding-top: 48px;
+        /* rest as before */
+    }
+
+    .mobileClose {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        cursor: pointer;
+        margin-bottom: 32px;
+        color: #232323;
+        font-size: 28px;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+
+    .mobileClose:focus,
+    .mobileClose:hover {
+        background: #f5f5f5;
+    }
+
+    .mobileNav .navLink {
+        font-size: 20px;
+        color: #232323;
+        text-decoration: none;
+        padding: 16px 0;
+        width: 100%;
+        border-radius: 8px;
+        text-align: left;
+        transition: background 0.2s, color 0.2s;
+    }
+
+    .mobileNav .navLinkActive {
+        background: #232323;
+        color: #fff;
+    }
+
+    .mobileNav .navLink:focus,
+    .mobileNav .navLink:hover {
+        background: #f5f5f5;
+        color: #232323;
     }
 
     @keyframes slideIn {
@@ -392,4 +430,81 @@
     padding-top: 40px;
     padding-bottom: 80px;
     min-height: 50px;
+}
+
+.mobileNavHero {
+    background: var(--color-bg-dark, #000);
+    color: var(--color-text, #fff);
+    width: 80vw;
+    max-width: 340px;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: fixed;
+    top: 0;
+    right: 0;
+    z-index: 1001;
+    padding: 0 16px;
+    box-shadow: -2px 0 12px rgba(0, 0, 0, 0.08);
+    animation: slideIn var(--transition-main);
+}
+
+.mobileNavImages {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 16px;
+    margin-bottom: 40px;
+}
+
+.mobileNavImgLeft {
+    width: 77px;
+    height: 70px;
+    margin-top: 80px;
+    object-fit: cover;
+    border-radius: 16px;
+}
+
+.mobileNavImgRight {
+    width: 190px;
+    height: 172px;
+    object-fit: cover;
+    border-radius: 24px;
+}
+
+.mobileNavButtons {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 100%;
+    align-items: center;
+}
+
+.mobileNavButton {
+    border-radius: var(--radius-pill, 30px);
+    padding: 14px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid #fff;
+    color: #fff;
+    width: 100%;
+    max-width: 220px;
+    text-align: center;
+    transition: background 0.2s, color 0.2s;
+}
+
+.mobileNavButton.private {
+    opacity: 0.6;
+    pointer-events: none;
+}
+
+.mobileNavButton:focus,
+.mobileNavButton:hover {
+    background: #fff;
+    color: #232323;
 }
