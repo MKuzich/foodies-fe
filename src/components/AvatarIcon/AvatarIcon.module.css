@@ -1,13 +1,15 @@
 .avatarIcon {
   border-radius: 50%;
-  background-color: #f5f2f2;
+  background-color: #f5f2f2; /* TODO: move to index */
   display: flex;
   flex-shrink: 0;
   align-items: center;
   justify-content: center;
   font-size: 44px;
   font-weight: 600;
-  color: #000;
+  color: var(--title-color);
+  cursor: pointer;
+  user-select: none; /* disables text selection */
 }
 
 .avatarIcon.small,

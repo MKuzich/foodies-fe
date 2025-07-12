@@ -6,6 +6,7 @@ import "./App.css";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import Loader from "./components/Loader/Loader";
 import AuthModals from "./components/AuthModals";
+import css from "./App.module.css";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -21,7 +22,13 @@ function App() {
 
   return (
     <SharedLayout>
-      <Suspense fallback={<Loader />}>
+      <Suspense
+        fallback={
+          <div className={css.loaderWrapper}>
+            <Loader />
+          </div>
+        }
+      >
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/user/:id" element={<User />} />
