@@ -129,23 +129,7 @@
     display: none;
 }
 
-/* Auth Bar Styles */
-.authBar {
-    /* Default styles for home page */
-}
 
-.authBarDark {
-    /* Dark mode styles for other pages */
-}
-
-/* User Bar Styles */
-.userBar {
-    /* Default styles for home page */
-}
-
-.userBarDark {
-    /* Dark mode styles for other pages */
-}
 
 @media (max-width: 1024px) {
 
@@ -186,6 +170,10 @@
         padding: 0 16px;
     }
 
+    .headerDark .inner {
+        padding: 0;
+    }
+
     .logo {
         font-size: 20px;
         line-height: 24px;
@@ -195,6 +183,10 @@
 @media (max-width: 768px) {
     .inner {
         padding: 0 8px;
+    }
+
+    .headerDark .inner {
+        padding: 0;
     }
 
     .burger {
