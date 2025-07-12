@@ -1,0 +1,111 @@
+.hero {
+    max-width: 1440px;
+    margin-left: auto;
+    margin-right: auto;
+    background: transparent;
+    padding: 0 16px;
+    margin-top: 20px;
+}
+
+.heroInner {
+    background: var(--title-color);
+    color: var(--white-color);
+    padding: 180px 0 40px 0;
+    text-align: center;
+    border-radius: var(--radius-card);
+    position: relative;
+    overflow: hidden;
+}
+
+.title {
+    font-weight: 800;
+    font-style: normal;
+    font-size: 90px;
+    line-height: 90px;
+    text-align: center;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.subtitle {
+    font-weight: 500;
+    font-style: normal;
+    font-size: 16px;
+    line-height: 24px;
+    letter-spacing: -2%;
+    text-align: center;
+    color: var(--white-color);
+    margin-bottom: 32px;
+    max-width: 480px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ctaBtn {
+    border-radius: var(--radius-card);
+    padding: 16px 32px;
+    font-size: 1rem;
+    font-weight: 600;
+    cursor: pointer;
+    background: transparent;
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+    margin-bottom: 40px;
+    box-shadow: none;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.ctaBtn:hover {
+    background: var(--title-color);
+    color: var(--white-color);
+    border: 1px solid var(--white-color);
+}
+
+@media (max-width: 1024px) {
+    .title {
+        font-size: 70px;
+
+        line-height: 70px;
+    }
+
+    .heroInner {
+        padding: 216px 0 24px 0;
+        border-radius: var(--radius-card-mobile);
+    }
+}
+
+@media (max-width: 768px) {
+    .heroInner {
+        padding: 180px 0 16px 0;
+    }
+
+    .title {
+        font-size: 40px;
+        line-height: 40px;
+        margin-bottom: 20px;
+    }
+
+    .subtitle {
+        font-size: 14px;
+        line-height: 20px;
+        margin-bottom: 20px;
+    }
+
+    .ctaBtn {
+        padding: 10px 16px;
+        font-size: 0.9rem;
+    }
+}
+
+@media (max-width: 375px) {
+
+    .hero {
+
+        padding: 0 8px;
+        margin-top: 10px;
+    }
+
+
+}

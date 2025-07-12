@@ -5,20 +5,48 @@
   flex-direction: column;
 }
 
+.formAdd {
+  display: flex;
+  flex-direction: column;
+}
+
 .formGroup {
   display: flex;
   flex-direction: column;
   align-items: start;
   justify-content: start;
+  text-align: start;
   width: 100%;
   gap: 32px;
+  margin-bottom: 32px;
+}
+
+.formCategory, .formCookingtime, .formIngredients{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  text-align: start;
+  width: 100%;
+  gap: 32px;
+  margin-bottom: 32px;
+}
+
+.fieldsGroup{
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+  justify-content: start;
+  text-align: start;
+  width: 100%;
+  gap: 16px;
 }
 
 input:active, input:focus {
   outline: none;
 }
 
-.formGroup > label, .cookingtime, .ingredients {
+.formGroup > label, .category, .cookingtime, .ingredients {
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -31,19 +59,48 @@ input:active, input:focus {
   font-weight: 800;
 }
 
-.descriptionInput {
+.textareaWrapper {
+  position: relative;
+  width: 100%;
+}
+
+.formQuantity{
+  width: 100%;
+}
+
+.description, .quantity, .recipePreparation {
   width: 100%;
   border: none;
   border-bottom: 1px solid var(--inactive-color);
+  box-sizing: border-box;
+  background-color: transparent;
+}
+
+.description, .recipePreparation{
+  padding-right: 73px;
+  resize: vertical;
+}
+
+.description:focus-visible, .recipePreparation:focus-visible, .quantity:focus-visible {
+  outline: none;
+}
+
+.charCounterInside {
+  position: absolute;
+  top: 0;
+  right: 0;
+  font-size: 12px;
+  color: #999;
 }
 
 .buttonGroup {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 8px;
 }
 
-@media screen and (min-width: 1440px) {
+@media screen and (min-width: 768px) {
   .addRecipeForm {
     flex-direction: row;
   }
@@ -55,5 +112,22 @@ input:active, input:focus {
   }
   .formGroup {
     width: 649px;
+  }
+  .formCategoryCookingtime{
+    display: flex;
+    flex-direction: row;
+  }
+  .formIngredientsQuantity {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+  }
+  .formIngredients{
+    margin: 0;
+  }
+  .formAdd {
+    display: flex;
+    flex-direction: row;
+    gap: 80px;
   }
 }

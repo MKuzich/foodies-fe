@@ -1,30 +1,31 @@
 import React from "react";
-import {useDispatch} from 'react-redux'
+import { useDispatch } from "react-redux";
 import Button from "@/components/Button/Button";
 import Container from "@/components/Container/Container";
 import Categories from "@/components/Categories/Categories";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import Recipes from "@/components/Recipes/Recipes";
+import Hero from "@/components/Hero/Hero";
 import { selectedCategory } from "../../redux/categories/selectors";
 import { useSelector } from "react-redux";
-import { openSignIn, openSignUp, openLogout } from '../../redux/auth/authSlice';
-import {getUser} from '../../redux/auth/authActions';
+import { openSignIn, openSignUp, openLogout } from "../../redux/auth/authSlice";
+import { getUser } from "../../redux/auth/authActions";
 import IconButton from "@/components/IconButton/IconButton";
 import AvatarIcon from "@/components/AvatarIcon/AvatarIcon";
 
 const HomePage = () => {
   const isSelectedCategory = useSelector(selectedCategory);
-  const  dispatch = useDispatch();
+  const dispatch = useDispatch();
 
   return (
     <div>
-        <nav>
-      <button onClick={() => dispatch(openSignIn())}>Sign In</button>
-      <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
-      <button onClick={() => dispatch(openLogout())}>Logout</button>
-      <button onClick={() => dispatch(getUser())}>Get User</button>
-        
-    </nav>
+      <Hero />
+      <nav>
+        <button onClick={() => dispatch(openSignIn())}>Sign In</button>
+        <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
+        <button onClick={() => dispatch(openLogout())}>Logout</button>
+        <button onClick={() => dispatch(getUser())}>Get User</button>
+      </nav>
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
         <div
