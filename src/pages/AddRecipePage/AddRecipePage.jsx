@@ -5,10 +5,12 @@ import Container from "../../components/Container/Container";
 import MainTitle from "../../components/MainTitle/MainTitle";
 import PathInfo from "../../components/PathInfo/PathInfo";
 import Subtitle from "../../components/Subtitle/Subtitle";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 
 const AddRecipePage = () => {
   return (
     <Container>
+      <Breadcrumbs />
       <PathInfo pathName={"home"} currentName={"Add recipe"} />
       <MainTitle>Add recipe</MainTitle>
       <Subtitle style={{ maxWidth: "443px" }}>

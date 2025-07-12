@@ -18,6 +18,7 @@ const IconLink = ({
     facebook: "facebook",
     instagram: "instagram",
     youtube: "youtube",
+    chevron: "icon-chevron-down",
   };
   return (
     <Link
