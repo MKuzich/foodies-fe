@@ -2,7 +2,7 @@ import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { openSignIn, openSignUp, openLogout } from "../../redux/auth/authSlice";
-
+import HeroImages from "../HeroImages/HeroImages";
 import Container from "../Container/Container";
 import AuthBar from "./AuthBar/AuthBar";
 import UserBar from "./UserBar/UserBar";
@@ -86,34 +86,37 @@ const Header = () => {
           )}
 
           {/* Burger menu for mobile */}
-          {/* {isAuthenticated && ( */}
-          <button
-            className={styles.burger}
-            onClick={() => setMobileNavOpen(true)}
-            aria-label="Open navigation menu"
-            type="button"
-          >
-            <svg width="28" height="28" className={styles.burgerIcon}>
-              <use href="src/assets/sprite.svg#icon-align-justify" />
-            </svg>
-          </button>
-          {/* )} */}
+          {isAuthenticated && (
+            <button
+              className={styles.burger}
+              onClick={() => setMobileNavOpen(true)}
+              aria-label="Open navigation menu"
+              type="button"
+            >
+              <svg width="28" height="28" className={styles.burgerIcon}>
+                <use href="src/assets/sprite.svg#icon-align-justify" />
+              </svg>
+            </button>
+          )}
         </div>
       </Container>
 
       {/* Mobile Nav Overlay */}
-      {/* //isAuthenticated &&  */}
+
       {mobileNavOpen && (
         <div
           className={styles.mobileNavOverlay}
           onClick={() => setMobileNavOpen(false)}
         >
           <div className={styles.sidebarContent}>
-            <nav
-              className={styles.mobileNav}
-              onClick={(e) => e.stopPropagation()}
-              aria-label="Mobile navigation"
-            >
+            <div className={styles.sidebarHeader}>
+              <Link
+                to="/"
+                className={styles.logo}
+                onClick={() => setMobileNavOpen(false)}
+              >
+                foodies
+              </Link>
               <button
                 type="button"
                 onClick={() => setMobileNavOpen(false)}
@@ -124,6 +127,12 @@ const Header = () => {
                   <use href="src/assets/sprite.svg#icon-x" />
                 </svg>
               </button>
+            </div>
+            <nav
+              className={styles.mobileNav}
+              onClick={(e) => e.stopPropagation()}
+              aria-label="Mobile navigation"
+            >
               {navLinks.map(
                 (link) =>
                   (!link.private || isAuthenticated) && (
@@ -132,8 +141,8 @@ const Header = () => {
                       to={link.to}
                       className={
                         location.pathname === link.to
-                          ? `${styles.navLink} ${styles.navLinkActive}`
-                          : styles.navLink
+                          ? `${styles.SideBarLink} ${styles.SideBarLinkActive}`
+                          : styles.SideBarLink
                       }
                       onClick={() => setMobileNavOpen(false)}
                     >
@@ -143,20 +152,7 @@ const Header = () => {
               )}
             </nav>
             {/* Images below buttons */}
-            {/* <div className={styles.images}>
-              <img
-                src="/img/panacota.png"
-                srcSet="/img/panacota.png 1x, /img/panacota@2x.png 2x, /img/panacota@3x.png 3x"
-                alt="Panacota dessert"
-                // className={`${styles.heroImg} ${styles.imgLeft}`}
-              />
-              <img
-                src="/img/beef.png"
-                srcSet="/img/beef.png 1x, /img/beef@2x.png 2x, /img/beef@3x.png 3x"
-                alt="Beef dish"
-                // className={`${styles.heroImg} ${styles.imgRight}`}
-              />
-            </div> */}
+            <HeroImages />
           </div>
         </div>
       )}

@@ -121,6 +121,7 @@
     align-items: center;
     cursor: pointer;
     padding: 0 18px 0 0;
+    gap: 6px;
     height: 56px;
     border-radius: 30px;
     transition: background var(--transition-main);
@@ -143,8 +144,6 @@
     margin-left: 8px;
     display: inline-block;
     vertical-align: middle;
-
-
     width: 18px;
     height: 18px;
     fill: none;
@@ -157,36 +156,34 @@
     height: 50px;
     border-radius: 50%;
     object-fit: cover;
-
+    flex-shrink: 0;
     margin-right: 10px;
 }
 
 .userName {
     font-size: 14px;
     font-weight: 500;
-    color: var(--color-text);
+    color: var(--white-color);
 }
 
 .dropdown {
     position: absolute;
     top: 68px;
+    min-width: 122px;
     right: 14px;
-
-    border: 1px solid #fff;
+    border: 1px solid var(--white-color);
     border-radius: 15px;
-    color: #fff;
+    color: var(--white-color);
     padding: 16px;
     z-index: 100;
-
     display: flex;
     flex-direction: column;
     gap: 6px;
 }
 
 .dropdownItem {
-
     font-size: 12px;
-    color: #ffff;
+    color: var(--white-color);
     background: none;
     border: none;
     width: 100%;
@@ -198,7 +195,6 @@
     transition: background var(--transition-main), color var(--transition-main);
     display: flex;
     align-items: center;
-
     text-transform: uppercase;
 }
 
@@ -214,9 +210,8 @@
     cursor: pointer;
     padding: 8px;
     border-radius: 50%;
-    color: #fff;
-    fill: #fff;
     stroke: var(--white-color);
+
 }
 
 .mobileNavOverlay {
@@ -247,11 +242,19 @@
         padding: 0 8px;
     }
 
+
     .avatar {
         width: 32px;
         height: 32px;
     }
 
+
+    .dropdown {
+
+        top: 40px;
+        right: 0;
+
+    }
 
     .userBarBtn {
         padding: 7px 12px 7px 6px;
@@ -261,7 +264,7 @@
     .burgerIcon {
         width: 28px;
         height: 28px;
-        fill: #ffffff;
+        fill: var(--white-color);
     }
 
     .authBar button {
@@ -289,9 +292,8 @@
         left: 0;
         width: 100vw;
         height: 100vh;
-        background: rgba(0, 0, 0, 0.95);
-        /* semi-transparent black */
-        z-index: 1000;
+        background: #000;
+        z-index: 100000;
         display: flex;
         justify-content: flex-end;
     }
@@ -299,22 +301,66 @@
 
 
     .mobileNav {
-        /* ...existing styles... */
+        width: 100vw;
         display: flex;
         flex-direction: column;
-        align-items: flex-start;
+        align-items: center;
+        justify-content: center;
+        /* height: 100vh;
+        width: 100vw; */
+        padding: 218px 0 132px 0;
         gap: 32px;
         padding-top: 48px;
-        /* rest as before */
+
     }
+
+    .SideBarLink {
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -2%;
+        text-transform: uppercase;
+        color: var(--white-color);
+    }
+
+    .sideBarImages {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 40px;
+        z-index: 1000000;
+    }
+
+    /* 
+    .sidebarContent {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+        width: 100vw;
+    } */
+
+
+    .sidebarHeader {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 24px 16px 24px;
+    }
+
+
 
     .mobileClose {
         align-self: flex-end;
         background: none;
         border: none;
         cursor: pointer;
-        margin-bottom: 32px;
-        color: #232323;
+
+        color: var(--white-color);
         font-size: 28px;
         padding: 8px;
         border-radius: 50%;
@@ -404,19 +450,19 @@
     color: #232323;
 }
 
-/* src/components/Header/Header.module.css */
+
 
 .header {
     width: 100%;
     z-index: 1;
-    /* Remove position and display from here */
+
 }
 
 .headerAbsolute {
     position: absolute;
     top: 0;
     left: 0;
-    /* Any other absolute-specific styles */
+
 }
 
 .headerFlex {

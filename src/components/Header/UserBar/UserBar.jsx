@@ -32,6 +32,7 @@ const UserBar = ({ onProfile, onLogout, className = "" }) => {
           name={user.name}
           alt="avatar"
           className={styles.avatar}
+          small
         />
         <span className={styles.userName}>{user.name}</span>
         <svg className={styles.chevronIcon} width="16" height="16">

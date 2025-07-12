@@ -1,6 +1,7 @@
 import Container from "../Container/Container";
 import styles from "./Hero.module.css";
 import Button from "../Button/Button";
+import HeroImages from "../HeroImages/HeroImages";
 
 const Hero = () => (
   <section className={styles.hero}>
@@ -24,20 +25,7 @@ const Hero = () => (
           Add Recipe
         </Button>
 
-        <div className={styles.images}>
-          <img
-            src="/img/panacota.png"
-            srcSet="/img/panacota.png 1x, /img/panacota@2x.png 2x, /img/panacota@3x.png 3x"
-            alt="Panacota dessert"
-            className={`${styles.heroImg} ${styles.imgLeft}`}
-          />
-          <img
-            src="/img/beef.png"
-            srcSet="/img/beef.png 1x, /img/beef@2x.png 2x, /img/beef@3x.png 3x"
-            alt="Beef dish"
-            className={`${styles.heroImg} ${styles.imgRight}`}
-          />
-        </div>
+        <HeroImages />
       </Container>
     </div>
   </section>

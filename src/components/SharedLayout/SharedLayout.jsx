@@ -9,9 +9,9 @@ const SharedLayout = ({ children }) => {
   return (
     <>
       <Header />
-      <Breadcrumbs />
+
       <Toaster />
-      
+
       <main>{children}</main>
       <Footer />
     </>
