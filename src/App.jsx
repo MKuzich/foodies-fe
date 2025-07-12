@@ -20,7 +20,7 @@ function App() {
   useEffect(() => {
     dispatch(refreshUser());
   }, [dispatch]);
-  console.log("App component rendered");
+
   return (
     <SharedLayout>
       <Suspense
