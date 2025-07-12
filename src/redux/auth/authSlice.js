@@ -1,5 +1,11 @@
-import { createSlice } from '@reduxjs/toolkit';
-import { registerUser, userLogin, userLogout, getUser } from './authActions';
+import { createSlice } from "@reduxjs/toolkit";
+import {
+  registerUser,
+  userLogin,
+  userLogout,
+  getUser,
+  refreshUser,
+} from "./authActions";
 
 const initialState = {
   loading: false,
@@ -11,19 +17,19 @@ const initialState = {
 };
 
 const slice = createSlice({
-  name: 'auth',
+  name: "auth",
   initialState,
   reducers: {
     openSignIn: (state) => {
-      state.authModal = 'signin';
+      state.authModal = "signin";
       state.error = null;
     },
     openSignUp: (state) => {
-      state.authModal = 'signup';
+      state.authModal = "signup";
       state.error = null;
     },
     openLogout: (state) => {
-      state.authModal = 'logout';
+      state.authModal = "logout";
       state.error = null;
     },
     closeModal: (state) => {
@@ -96,6 +102,9 @@ const slice = createSlice({
       .addCase(getUser.rejected, (state, { payload }) => {
         state.loading = false;
         state.error = payload;
+      })
+      .addCase(refreshUser.fulfilled, (state, { payload }) => {
+        state.userInfo = payload;
       });
   },
 });
