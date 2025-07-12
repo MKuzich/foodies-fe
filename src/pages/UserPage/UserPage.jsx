@@ -31,8 +31,6 @@ import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
 import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
 import css from "./UserPage.module.css";
-import { selectLoading } from "../../redux/root/selectors";
-import { openLogout } from "../../redux/auth/authSlice";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
