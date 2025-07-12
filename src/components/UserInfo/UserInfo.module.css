@@ -1,3 +1,10 @@
+.userInfoWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
 .userInfo {
   border: 1px solid var(--inactive-color);
   border-radius: 30px;
@@ -6,7 +13,14 @@
   align-items: center;
   padding: 30px;
   gap: 16px;
-  margin-bottom: 20px;
+  width: 100%;
+}
+
+@media (min-width: 768px) {
+  .userInfo {
+    width: 394px;
+    border-color: var(--title-color);
+  }
 }
 
 .userAvatarContainer {
@@ -42,12 +56,6 @@
   transform: translate(-50%, -50%) rotate(90deg);
 }
 
-.userAvatar {
-  max-width: 80px;
-  max-height: 80px;
-  border-radius: 100px;
-}
-
 .userName {
   font-size: 18px;
   font-weight: 800;
@@ -75,4 +83,10 @@
   line-height: 1.43;
   color: var(--inactive-color);
   text-transform: lowercase;
+}
+
+@media (min-width: 768px) {
+  .userInfoListValue {
+    color: var(--title-color);
+  }
 }

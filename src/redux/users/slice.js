@@ -1,46 +1,43 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  fetchUser,
-  fetchUserFollowers,
-  fetchUserFollowing,
-  fetchUserFavorites,
-  fetchUserRecipes,
-} from "./operations";
+import { fetchUser } from "./operations";
+import { userLogout } from "../auth/authActions";
+
+const userSchema = {
+  id: "",
+  name: "",
+  email: "",
+  avatarURL: null,
+  createdCount: 0,
+  favoriteCount: 0,
+  followersCount: 0,
+  followingCount: 0,
+  isFollowed: false,
+};
 
 const slice = createSlice({
   name: "users",
   initialState: {
-    user: null,
-    recipes: null,
-    favorites: null,
-    followers: null,
-    following: null,
-    isUserIsFollowed: false,
-    isUserCurrentUser: false,
+    user: userSchema,
   },
   reducers: {
     addToFollowing: (state, action) => {
-      state.isUserIsFollowed = true;
+      state.user.followersCount += 1;
+      state.user.isFollowed = true;
     },
     removeFromFollowing: (state, action) => {
-      state.isUserIsFollowed = false;
+      state.user.followersCount -= 1;
+      state.user.isFollowed = false;
     },
   },
   extraReducers: (builder) => {
+    builder.addCase(fetchUser.pending, (state) => {
+      state.user = userSchema;
+    });
     builder.addCase(fetchUser.fulfilled, (state, { payload }) => {
-      state.user = payload;
+      state.user = { ...state.user, ...payload };
     });
-    builder.addCase(fetchUserRecipes.fulfilled, (state, { payload }) => {
-      state.recipes = payload;
-    });
-    builder.addCase(fetchUserFavorites.fulfilled, (state, { payload }) => {
-      state.favorites = payload;
-    });
-    builder.addCase(fetchUserFollowers.fulfilled, (state, { payload }) => {
-      state.followers = payload;
-    });
-    builder.addCase(fetchUserFollowing.fulfilled, (state, { payload }) => {
-      state.following = payload;
+    builder.addCase(userLogout.fulfilled, (state) => {
+      state.user = userSchema;
     });
   },
 });

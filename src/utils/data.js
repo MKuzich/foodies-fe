@@ -25,17 +25,77 @@ export const userPageFollowers = [
     name: "User 1",
     ownRecipes: 1,
     avatarURL: "https://placehold.co/400",
+    recepiesTop: [
+      {
+        id: 1,
+        title: "Recipe 1",
+        description: "Description 1",
+        thumb: "https://placehold.co/400",
+      },
+      {
+        id: 2,
+        title: "Recipe 2",
+        description: "Description 2",
+        thumb: "https://placehold.co/400",
+      },
+      {
+        id: 3,
+        title: "Recipe 3",
+        description: "Description 3",
+        thumb: "https://placehold.co/400",
+      },
+      {
+        id: 4,
+        title: "Recipe 4",
+        description: "Description 4",
+        thumb: "https://placehold.co/400",
+      },
+    ],
   },
   {
     id: 2,
     name: "User 2",
     ownRecipes: 2,
     avatarURL: "https://placehold.co/400",
+    recepiesTop: [
+      {
+        id: 1,
+        title: "Recipe 1",
+        description: "Description 1",
+        thumb: "https://placehold.co/400",
+      },
+      {
+        id: 2,
+        title: "Recipe 2",
+        description: "Description 2",
+        thumb: "https://placehold.co/400",
+      },
+    ],
   },
   {
     id: 3,
     name: "User 3",
     ownRecipes: 3,
     avatarURL: "https://placehold.co/400",
+    recepiesTop: [
+      {
+        id: 1,
+        title: "Recipe 1",
+        description: "Description 1",
+        thumb: "https://placehold.co/400",
+      },
+      {
+        id: 2,
+        title: "Recipe 2",
+        description: "Description 2",
+        thumb: "https://placehold.co/400",
+      },
+      {
+        id: 3,
+        title: "Recipe 3",
+        description: "Description 3",
+        thumb: "https://placehold.co/400",
+      },
+    ],
   },
 ];

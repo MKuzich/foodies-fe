@@ -1,6 +1,5 @@
-import { useEffect } from "react";
-import { Outlet } from "react-router-dom";
-import { useLocation, useParams } from "react-router-dom";
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
 import { useDispatch } from "react-redux";
 import { useSelector } from "react-redux";
 
@@ -12,87 +11,217 @@ import UserInfo from "../../components/UserInfo/UserInfo";
 import TabsList from "../../components/TabsList/TabsList";
 import TabItem from "../../components/TabItem/TabItem";
 import Button from "../../components/Button/Button";
-import { fetchUser, fetchUserRecipes } from "../../redux/users/operations";
+import { fetchUser } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
+  selectUserExists,
 } from "../../redux/users/selectors";
+import ListItems from "../../components/ListItems/ListItems";
 import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
-import UserRecepies from "../../components/UserRecepies/UserRecepies";
-
+import {
+  currentUserPageErrors,
+  userPageErrors,
+} from "../../utils/const/userPageErrors";
+import {
+  fetchUserRecipes,
+  fetchUserFavorites,
+  fetchUserFollowers,
+  fetchUserFollowing,
+} from "../../api/users";
 import css from "./UserPage.module.css";
+import clsx from "clsx";
+import { toast } from "react-hot-toast";
+import NotFound from "../NotFound/NotFound";
+import { selectLoading } from "../../redux/root/selectors";
+import { openLogout } from "../../redux/auth/authSlice";
 
 const UserPage = () => {
-  const { id } = useParams();
+  console.log("UserPage"); // with routes it have the same effect
 
+  const { id } = useParams();
   const dispatch = useDispatch();
+
+  const [tabOpened, setTabOpened] = useState("recipes");
+  const handleChange = (e, newValue) => {
+    setTabOpened(newValue);
+  };
 
   useEffect(() => {
     dispatch(fetchUser(id));
-    dispatch(fetchUserRecipes(id));
   }, [dispatch, id]);
 
-  const location = useLocation();
-
-  const isBaseUserPath =
-    location.pathname === `/user/${id}` || location.pathname === `/user/${id}/`;
-
+  const isLoading = useSelector(selectLoading);
+  const isUserExists = useSelector(selectUserExists);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
-  const openLogoutModal = () => {};
+  const [userRecipes, setUserRecipes] = useState(null);
+  const [userFavorites, setUserFavorites] = useState(null);
+  const [userFollowers, setUserFollowers] = useState(null);
+  const [userFollowing, setUserFollowing] = useState(null);
+
+  useEffect(() => {
+    const fetchRecipes = async () => {
+      try {
+        const recipes = await fetchUserRecipes(id);
+        setUserRecipes(recipes.results);
+      } catch (error) {
+        setUserRecipes(null);
+        toast.error(`Error loading recipes: ${error.message}`);
+      }
+    };
+    fetchRecipes();
+  }, [id]);
+
+  useEffect(() => {
+    const fetchExtraData = async () => {
+      try {
+        const followers = await fetchUserFollowers(id);
+        setUserFollowers(followers.results);
+        if (!isUserCurrentUser) return;
+        const favorites = await fetchUserFavorites(id);
+        setUserFavorites(favorites.results);
+        const following = await fetchUserFollowing(id);
+        setUserFollowing(following.results);
+      } catch (error) {
+        setUserFavorites(null);
+        setUserFollowers(null);
+        setUserFollowing(null);
+        toast.error(error.message);
+      }
+    };
+
+    if (!isLoading && isUserExists) fetchExtraData();
+  }, [isLoading, isUserExists]);
+
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
+
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
       dispatch(removeFromFollowing(id));
-      console.log("You can alway return it back :)");
+      toast.success("Successfully unfollowed from this user!");
       return;
     }
     dispatch(addToFollowing(id));
-    console.log("We remember that!");
+    toast.success("Successfully followed to this user!");
   };
+
+  const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   return (
     <>
-      <Container>
-        <PathInfo pathName={"home"} currentName={"profile"} />
-        <MainTitle>profile</MainTitle>
-        <Subtitle>
-          Reveal your culinary art, share your favorite recipe and create
-          gastronomic masterpieces with us.
-        </Subtitle>
-        <UserInfo />
-        {isUserCurrentUser ? (
-          <Button onClick={openLogoutModal} style={{ width: "100%" }}>
-            Log out
-          </Button>
-        ) : isUserIsFollowed ? (
-          <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-            Unfollow
-          </Button>
-        ) : (
-          <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-            Follow
-          </Button>
-        )}
-      </Container>
-      <div className={css.tabsContainer}>
-        <TabsList>
-          <TabItem name={recepieTabName} to={`/user/${id}`} />
-          {isUserCurrentUser && (
-            <TabItem name="My Favorites" to={`/user/${id}/favorites`} />
-          )}
-          <TabItem name="Followers" to={`/user/${id}/followers`} />
-          {isUserCurrentUser && (
-            <TabItem name="Following" to={`/user/${id}/following`} />
-          )}
-        </TabsList>
-        <Container>
-          <div className={css.tabsContent}>
-            {isBaseUserPath && <UserRecepies />}
-            <Outlet />
+      {isUserExists ? (
+        <section className={css.section}>
+          <div className={css.container}>
+            <PathInfo pathName={"home"} currentName={"profile"} />
+            <MainTitle>profile</MainTitle>
+            <Subtitle>
+              Reveal your culinary art, share your favorite recipe and create
+              gastronomic masterpieces with us.
+            </Subtitle>
           </div>
-        </Container>
-      </div>
+          <div className={css.userProfile}>
+            <div className={clsx(css.userProfile, css.container)}>
+              <div className={css.userProfileInfo}>
+                <UserInfo />
+                <div className={css.followButtonContainer}>
+                  <div className={css.followButtonWrapper}>
+                    {isUserCurrentUser ? (
+                      <Button
+                        onClick={() => dispatch(openLogout())}
+                        style={{ width: "100%" }}
+                      >
+                        Log out
+                      </Button>
+                    ) : isUserIsFollowed ? (
+                      <Button
+                        onClick={handleFollowClick}
+                        style={{ width: "100%" }}
+                      >
+                        Unfollow
+                      </Button>
+                    ) : (
+                      <Button
+                        onClick={handleFollowClick}
+                        style={{ width: "100%" }}
+                      >
+                        Follow
+                      </Button>
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div>
+              <div className={css.tabsWrapper}>
+                <TabsList>
+                  <TabItem
+                    name={recepieTabName}
+                    onClick={(e) => handleChange(e, "recipes")}
+                    isActive={tabOpened === "recipes"}
+                  />
+                  {isUserCurrentUser && (
+                    <TabItem
+                      name="My Favorites"
+                      onClick={(e) => handleChange(e, "favorites")}
+                      isActive={tabOpened === "favorites"}
+                    />
+                  )}
+                  <TabItem
+                    name="Followers"
+                    onClick={(e) => handleChange(e, "followers")}
+                    isActive={tabOpened === "followers"}
+                  />
+                  {isUserCurrentUser && (
+                    <TabItem
+                      name="Following"
+                      onClick={(e) => handleChange(e, "following")}
+                      isActive={tabOpened === "following"}
+                    />
+                  )}
+                </TabsList>
+              </div>
+              <div className={css.container}>
+                <div className={css.tabsContent}>
+                  <div className={css.tabContentActive}>
+                    {tabOpened === "recipes" && (
+                      <ListItems
+                        items={userRecipes}
+                        type="recipe"
+                        errorText={errorMap.noRecipes}
+                      />
+                    )}
+                    {tabOpened === "favorites" && (
+                      <ListItems
+                        items={userFavorites}
+                        type="recipe"
+                        errorText={errorMap.noFavorites}
+                      />
+                    )}
+                    {tabOpened === "followers" && (
+                      <ListItems
+                        items={userFollowers}
+                        type="user"
+                        errorText={errorMap.noFollowers}
+                      />
+                    )}
+                    {tabOpened === "following" && (
+                      <ListItems
+                        items={userFollowing}
+                        type="user"
+                        errorText={errorMap.noSubscriptions}
+                      />
+                    )}
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      ) : (
+        !isLoading && <NotFound />
+      )}
     </>
   );
 };
