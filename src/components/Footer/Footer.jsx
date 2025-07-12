@@ -1,6 +1,6 @@
-import styles from './Footer.module.css';
-import Container from '../Container/Container';
-import IconLink from '../IconLink/IconLink';
+import styles from "./Footer.module.css";
+import Container from "../Container/Container";
+import IconLink from "../IconLink/IconLink";
 
 const Footer = () => (
   <footer className={styles.footer}>
@@ -14,7 +14,6 @@ const Footer = () => (
             social
             className={styles.iconBtn}
             target="_blank"
-            
             rel="noopener noreferrer"
             aria-label="Facebook"
           />

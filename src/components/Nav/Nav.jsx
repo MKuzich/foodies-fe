@@ -35,4 +35,4 @@ const Nav = ({ isAuthenticated }) => {
   );
 };
 
-export default Nav; 
+export default Nav;

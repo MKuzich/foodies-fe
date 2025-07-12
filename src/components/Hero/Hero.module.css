@@ -1,120 +1,115 @@
 .hero {
-    max-width: 1440px;
+  max-width: 1440px;
 
-    margin-left: auto;
-    margin-right: auto;
-    background: transparent;
-    padding: 0 16px;
+  margin-left: auto;
+  margin-right: auto;
+  background: transparent;
+  padding: 0 16px;
 
-    margin-top: 20px;
+  margin-top: 20px;
 }
 
 .heroInner {
-
-    background: var(--color-bg-dark);
-    color: var(--color-text);
-    padding: 180px 0 40px 0;
-    text-align: center;
-    border-radius: var(--radius-card);
-    position: relative;
-    overflow: hidden;
+  background: var(--color-bg-dark);
+  color: var(--color-text);
+  padding: 180px 0 40px 0;
+  text-align: center;
+  border-radius: var(--radius-card);
+  position: relative;
+  overflow: hidden;
 }
 
 .title {
-    font-family: "Mulish", sans-serif;
-    font-weight: 800;
-    font-style: normal;
-    font-size: 90px;
-    line-height: 90px;
-    letter-spacing: -2%;
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 40px;
+  font-family: "Mulish", sans-serif;
+  font-weight: 800;
+  font-style: normal;
+  font-size: 90px;
+  line-height: 90px;
+  letter-spacing: -2%;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 
 .subtitle {
-    font-family: "Mulish", sans-serif;
-    font-weight: 500;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 24px;
-    letter-spacing: -2%;
-    text-align: center;
-    color: #e0e0e0;
-    margin-bottom: 32px;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+  font-family: "Mulish", sans-serif;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  letter-spacing: -2%;
+  text-align: center;
+  color: #e0e0e0;
+  margin-bottom: 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ctaBtn {
-    border-radius: var(--radius-pill);
-    padding: 16px 32px;
-    font-size: 1rem;
-    font-weight: 600;
-    cursor: pointer;
-    background: transparent;
-    border: 1px solid #fff;
-    color: #fff;
-    margin-bottom: 40px;
-    box-shadow: none;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
+  border-radius: var(--radius-pill);
+  padding: 16px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  background: transparent;
+  border: 1px solid #fff;
+  color: #fff;
+  margin-bottom: 40px;
+  box-shadow: none;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ctaBtn:hover {
-    background: var(--color-bg-dark);
-    color: var(--color-text);
-    border: 1px solid var(--color-bg-light);
+  background: var(--color-bg-dark);
+  color: var(--color-text);
+  border: 1px solid var(--color-bg-light);
 }
 
 @media (max-width: 1024px) {
-    .title {
+  .title {
+    font-size: 70px;
 
-        font-size: 70px;
+    line-height: 70px;
+  }
 
-        line-height: 70px;
-
-
-    }
-
-    .heroInner {
-        padding: 216px 0 24px 0;
-        border-radius: var(--radius-card-mobile);
-    }
+  .heroInner {
+    padding: 216px 0 24px 0;
+    border-radius: var(--radius-card-mobile);
+  }
 }
 
 @media (max-width: 768px) {
+  .heroInner {
+    padding: 180px 0 16px 0;
+  }
 
-    .heroInner {
-        padding: 180px 0 16px 0;
-    }
+  .title {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 20px;
+  }
 
-    .title {
-        font-size: 40px;
-        line-height: 40px;
-        margin-bottom: 20px;
-    }
+  .subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 20px;
+  }
 
-    .subtitle {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 20px;
-    }
-
-    .ctaBtn {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-    }
+  .ctaBtn {
+    padding: 10px 16px;
+    font-size: 0.9rem;
+  }
 }
 
 @media (max-width: 375px) {
-    .heroInner {
-        padding: 32px 0 8px 0;
-    }
+  .heroInner {
+    padding: 32px 0 8px 0;
+  }
 
-    .title {
-        font-size: 1.1rem;
-    }
+  .title {
+    font-size: 1.1rem;
+  }
 }

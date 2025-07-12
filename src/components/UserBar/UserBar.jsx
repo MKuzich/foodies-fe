@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
-import AvatarIcon from "../../AvatarIcon/AvatarIcon";
-import styles from "../Header.module.css";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
+import styles from "./UserBar.module.css";
 
 const UserBar = ({ onProfile, onLogout, className = "" }) => {
   const [open, setOpen] = useState(false);
