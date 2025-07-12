@@ -16,7 +16,7 @@ function CategoriesItem({ id, title, description, option = "category", onClick }
             dispatch(setSelectedCategory({
                 id: null,
                 title,
-                description 
+                description
             }));
         } else {
             dispatch(setSelectedCategory({
@@ -36,13 +36,14 @@ function CategoriesItem({ id, title, description, option = "category", onClick }
             container: styles.categoriesContainerShow,
             title: styles.categoriesTitleShow,
         },
-      };
+    };
 
     return (
         option === "category" ? (
-            <li className={styles.categoriesContainer} onClick={handleClick}>
-                <div
+            <li className={styles.categoriesContainer} >
+                <button
                     className={styles.categoriesImage}
+                    onClick={handleClick}
                     style={{
                         backgroundImage: `image-set(
                           url(${image}) 1x,
@@ -59,11 +60,13 @@ function CategoriesItem({ id, title, description, option = "category", onClick }
                             </svg>
                         </div>
                     </div>
-                </div>
+                </button>
             </li>
         ) : (
-            <li className={clsx(styles.categoriesContainer, optionClassMap[option].container)} onClick={handleClick}>
-                <p className={clsx(styles.categoriesTitleExtra, optionClassMap[option].title)}>{title}</p>
+            <li >
+                <button className={clsx(styles.categoriesContainer, optionClassMap[option].container)} onClick={handleClick}>
+                    <p className={clsx(styles.categoriesTitleExtra, optionClassMap[option].title)}>{title}</p>
+                </button>
             </li>
         )
     );

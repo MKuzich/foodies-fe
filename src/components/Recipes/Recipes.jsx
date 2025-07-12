@@ -16,9 +16,9 @@ function Recipes() {
 
     useEffect(() => {
         if (recipesRef.current) {
-          recipesRef.current.scrollIntoView({ behavior: 'smooth' });
+            recipesRef.current.scrollIntoView({ behavior: 'smooth' });
         }
-      }, []);
+    }, []);
 
     const handleBack = () => {
         dispatch(setSelectedCategory(null));
@@ -27,10 +27,12 @@ function Recipes() {
     return (
         <div className={styles.recipesContainer} ref={recipesRef}>
             <div className={styles.recipesBackContainer} onClick={handleBack}>
-                <svg className={styles.recipesBackIcon}>
-                    <use href="/src/assets/sprite.svg#icon-arrow-left" />
-                </svg>
-                <p className={styles.recipesBackText}>Back</p>
+                <button className={styles.recipesBackButton}>
+                    <svg className={styles.recipesBackIcon}>
+                        <use href="/src/assets/sprite.svg#icon-arrow-left" />
+                    </svg>
+                    <p className={styles.recipesBackText}>Back</p>
+                </button>
             </div>
             <MainTitle>{isSelectedCategory.title}</MainTitle>
             <Subtitle style={{ maxWidth: "540px" }}>{isSelectedCategory.description}</Subtitle>

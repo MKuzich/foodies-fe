@@ -13,13 +13,7 @@
         height: 369px;
     }
 
-    &:hover {
-        cursor: pointer;
-    }
-
-    &:hover .categoriesIconContainer {
-        background-color: var(--background-categories-color);
-    }
+  
 }
 
 .categoriesContainerAll {
@@ -49,6 +43,14 @@
     width: 100%;
     height: 100%;
     border-radius: 20px;
+
+    &:hover {
+        cursor: pointer;
+    }
+
+    &:hover .categoriesIconContainer {
+        background-color: var(--background-categories-color);
+    }
 }
 
 .categoriesTitleContainer {
@@ -111,8 +113,7 @@
     border: 1px solid var(--background-categories-color);
     border-radius: 50%;
     padding: 12px;
-    transition: var(--color-transition);
-
+    
    
 }
 
@@ -121,4 +122,6 @@
     height: 18px;
     fill: none;
     stroke: var(--white-color);
+    transition: var(--color-transition);
+
 }
