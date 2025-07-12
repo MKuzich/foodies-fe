@@ -87,5 +87,12 @@ export const refreshUser = createAsyncThunk(
         return rejectWithValue(error.message);
       }
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const state = getState();
+      const token = state.auth.userToken;
+      return token ? true : false;
+    },
   }
 );

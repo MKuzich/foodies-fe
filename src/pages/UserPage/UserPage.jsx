@@ -34,6 +34,7 @@ import clsx from "clsx";
 import { toast } from "react-hot-toast";
 import NotFound from "../NotFound/NotFound";
 import { selectLoading } from "../../redux/root/selectors";
+import { openLogout } from "../../redux/auth/authSlice";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -93,8 +94,6 @@ const UserPage = () => {
     if (!isLoading && isUserExists) fetchExtraData();
   }, [isLoading, isUserExists]);
 
-  const openLogoutModal = () => {};
-
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
 
   const handleFollowClick = () => {
@@ -129,7 +128,7 @@ const UserPage = () => {
                   <div className={css.followButtonWrapper}>
                     {isUserCurrentUser ? (
                       <Button
-                        onClick={openLogoutModal}
+                        onClick={() => dispatch(openLogout())}
                         style={{ width: "100%" }}
                       >
                         Log out
