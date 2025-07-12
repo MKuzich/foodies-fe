@@ -110,5 +110,6 @@ const slice = createSlice({
 });
 
 export const { openSignIn, openSignUp, openLogout, closeModal } = slice.actions;
-
+export const selectCurrentUser = (state) =>
+  state.auth.userToken ? true : false;
 export default slice.reducer;
