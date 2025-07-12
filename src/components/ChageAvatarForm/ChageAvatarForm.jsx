@@ -3,6 +3,7 @@ import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as Yup from "yup";
 import css from "./ChageAvatarForm.module.css";
+import toast from "react-hot-toast";
 
 const schema = Yup.object().shape({
   avatarFile: Yup.mixed()
@@ -38,7 +39,10 @@ const ChageAvatarForm = ({ onSubmit }) => {
 
     const submit = async () => {
       const isValid = await trigger("avatarFile");
-      if (!isValid) return;
+      if (!isValid) {
+        toast.error(errors.avatarFile.message);
+        return;
+      }
       await onSubmit({ avatarFile: userAvatarFieldValue });
       reset();
     };
@@ -48,9 +52,6 @@ const ChageAvatarForm = ({ onSubmit }) => {
   return (
     <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
       <input {...register("avatarFile")} type="file" className={css.input} />
-      {errors.avatarFile && (
-        <div className={css.error}>{errors.avatarFile.message}</div>
-      )}
     </form>
   );
 };
