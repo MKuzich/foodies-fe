@@ -39,14 +39,22 @@ const Header = () => {
 
   return (
     <header
-      className={`${styles.header} ${!isHome ? styles.headerDark : ""}  ${
-        isHome ? styles.headerAbsolute : styles.headerFlex
-      }`}
+      className={clsx(
+        styles.header,
+        isHome ? styles.headerAbsolute : styles.headerFlex,
+        !isHome && styles.headerDark
+      )}
     >
       <Container>
         <div className={styles.inner}>
           {/* Logo */}
-          <Link to="/" className={styles.logo}>
+          <Link 
+            to="/" 
+            className={clsx(
+              styles.logo,
+              !isHome && styles.logoDark
+            )}
+          >
             foodies
           </Link>
 
@@ -58,11 +66,11 @@ const Header = () => {
                   <Link
                     key={link.to}
                     to={link.to}
-                    className={
-                      location.pathname === link.to
-                        ? `${styles.navLink} ${styles.navLinkActive}`
-                        : styles.navLink
-                    }
+                    className={clsx(
+                      styles.navLink,
+                      location.pathname === link.to && styles.navLinkActive,
+                      !isHome && styles.navLinkDark
+                    )}
                   >
                     {link.label}
                   </Link>
@@ -75,30 +83,44 @@ const Header = () => {
             <AuthBar
               onSignIn={handleSignIn}
               onSignUp={handleSignUp}
-              className={styles.authBar}
+              isHome={isHome}
+              className={clsx(
+                styles.authBar,
+                !isHome && styles.authBarDark
+              )}
             />
           ) : (
             <UserBar
               user={user}
               onProfile={() => navigate("/user")}
               onLogout={handleLogOut}
-              className={clsx(styles.userBar, !isHome && styles.headerDark)}
+              isHome={isHome}
+              className={clsx(
+                styles.userBar,
+                !isHome && styles.userBarDark
+              )}
             />
           )}
 
           {/* Burger menu for mobile */}
-          {isAuthenticated && (
-            <button
-              className={styles.burger}
-              onClick={() => setMobileNavOpen(true)}
-              aria-label="Open navigation menu"
-              type="button"
+          <button
+            className={clsx(
+              styles.burger,
+              !isHome && styles.burgerDark
+            )}
+            onClick={() => setMobileNavOpen(true)}
+            aria-label="Open navigation menu"
+            type="button"
+          >
+            <svg 
+              width="28" 
+              height="28" 
+              className={styles.burgerIcon}
+              fill="currentColor"
             >
-              <svg width="28" height="28" className={styles.burgerIcon}>
-                <use href="src/assets/sprite.svg#icon-align-justify" />
-              </svg>
-            </button>
-          )}
+              <use href="src/assets/sprite.svg#icon-align-justify" />
+            </svg>
+          </button>
         </div>
       </Container>
 
@@ -110,6 +132,7 @@ const Header = () => {
           navLinks={navLinks}
           isAuthenticated={isAuthenticated}
           location={location}
+          isHome={isHome}
         />
       )}
     </header>

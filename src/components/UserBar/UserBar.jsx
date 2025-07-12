@@ -2,8 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { useSelector } from "react-redux";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import styles from "./UserBar.module.css";
+import clsx from "clsx";
 
-const UserBar = ({ onProfile, onLogout, className = "" }) => {
+const UserBar = ({ onProfile, onLogout, className = "", isHome = true }) => {
   const [open, setOpen] = useState(false);
   const ref = useRef();
   const user = useSelector((state) => state.auth.userInfo) || {
@@ -21,7 +22,7 @@ const UserBar = ({ onProfile, onLogout, className = "" }) => {
   }, [open]);
 
   return (
-    <div className={`${styles.userBar} ${className}`} ref={ref}>
+    <div className={clsx(styles.userBar, className)} ref={ref}>
       <button
         type="button"
         onClick={() => setOpen((v) => !v)}
@@ -40,21 +41,33 @@ const UserBar = ({ onProfile, onLogout, className = "" }) => {
         </svg>
       </button>
       {open && (
-        <div className={styles.dropdown}>
+        <div className={clsx(
+          styles.dropdown,
+          !isHome && styles.dropdownDark
+        )}>
           <button
             type="button"
-            className={styles.dropdownItem}
+            className={clsx(
+              styles.dropdownItem,
+              !isHome && styles.dropdownItemDark
+            )}
             onClick={onProfile}
           >
             PROFILE
           </button>
           <button
             type="button"
-            className={styles.dropdownItem}
+            className={clsx(
+              styles.dropdownItem,
+              !isHome && styles.dropdownItemDark
+            )}
             onClick={onLogout}
           >
             LOG OUT
-            <svg className={styles.arrowIcon} width="18" height="18">
+            <svg className={clsx(
+              styles.arrowIcon,
+              !isHome && styles.arrowIconDark
+            )} width="18" height="18">
               <use href="src/assets/sprite.svg#icon-arrow-up-right" />
             </svg>
           </button>

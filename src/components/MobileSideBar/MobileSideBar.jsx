@@ -1,27 +1,49 @@
 import { Link } from "react-router-dom";
 import HeroImages from "../HeroImages/HeroImages";
 import styles from "./MobileSideBar.module.css";
+import clsx from "clsx";
 
-const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated }) => {
+const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true }) => {
   if (!open) return null;
 
   return (
     <div className={styles.mobileNavOverlay} onClick={onClose}>
       <div
-        className={styles.mobileNavHero}
+        className={clsx(
+          styles.mobileNavHero,
+          !isHome && styles.mobileNavHeroDark
+        )}
         onClick={(e) => e.stopPropagation()}
       >
         <div className={styles.sidebarHeader}>
-          <Link to="/" className={styles.logo} onClick={onClose}>
+          <Link 
+            to="/" 
+            className={clsx(
+              styles.logo,
+              !isHome && styles.logoDark
+            )} 
+            onClick={onClose}
+          >
             foodies
           </Link>
           <button
             type="button"
             onClick={onClose}
-            className={styles.mobileClose}
+            className={clsx(
+              styles.mobileClose,
+              !isHome && styles.mobileCloseDark
+            )}
             aria-label="Close navigation menu"
           >
-            <svg width="28" height="28" fill="currentColor">
+            <svg 
+              width="28" 
+              height="28" 
+              fill="currentColor"
+              className={clsx(
+                styles.mobileCloseIcon,
+                !isHome && styles.mobileCloseIconDark
+              )}
+            >
               <use href="src/assets/sprite.svg#icon-x" />
             </svg>
           </button>
@@ -33,9 +55,11 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated }) => {
                 <Link
                   key={link.to}
                   to={link.to}
-                  className={`${styles.mobileNavButton} ${
-                    link.private ? "private" : ""
-                  }`}
+                  className={clsx(
+                    styles.mobileNavButton,
+                    link.private ? "private" : "",
+                    !isHome && styles.mobileNavButtonDark
+                  )}
                   onClick={onClose}
                 >
                   {link.label}

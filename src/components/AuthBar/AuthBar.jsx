@@ -1,7 +1,8 @@
 import { useState } from "react";
 import SegmentedSwitch from "../SegmentSwith/SegmentedSwitch";
+import clsx from "clsx";
 
-const AuthBar = ({ onSignIn, onSignUp, className = "" }) => {
+const AuthBar = ({ onSignIn, onSignUp, className = "", isHome = true }) => {
   const [mode, setMode] = useState("signIn");
 
   const handleChange = (val) => {
@@ -18,7 +19,8 @@ const AuthBar = ({ onSignIn, onSignUp, className = "" }) => {
       ]}
       value={mode}
       onChange={handleChange}
-      className={className}
+      isHome={isHome}
+      className={clsx(className, !isHome && "authBarDark")}
     />
   );
 };

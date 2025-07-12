@@ -29,6 +29,11 @@
     cursor: pointer;
     color: #fff;
     text-decoration: none;
+    transition: color var(--transition-main);
+}
+
+.logoDark {
+    color: #232323;
 }
 
 .nav {
@@ -56,9 +61,23 @@
         background var(--transition-main);
 }
 
+.navLinkDark {
+    color: #232323;
+    font-family: Mulish;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
 .navLinkActive {
     border: 1px solid #fff;
     color: #fff;
+}
+
+.navLinkDark.navLinkActive {
+    border: 1px solid #bfbebe;
+    color: #232323;
 }
 
 .navLinkNoBorder {
@@ -92,10 +111,40 @@
     padding: 8px;
     border-radius: 50%;
     stroke: var(--white-color);
+    fill: var(--white-color);
+    transition: stroke var(--transition-main), fill var(--transition-main);
+}
+
+.burgerDark {
+    stroke: #232323;
+    fill: #232323;
+}
+
+.burgerIcon {
+    stroke: inherit;
+    fill: inherit;
 }
 
 .mobileNavOverlay {
     display: none;
+}
+
+/* Auth Bar Styles */
+.authBar {
+    /* Default styles for home page */
+}
+
+.authBarDark {
+    /* Dark mode styles for other pages */
+}
+
+/* User Bar Styles */
+.userBar {
+    /* Default styles for home page */
+}
+
+.userBarDark {
+    /* Dark mode styles for other pages */
 }
 
 @media (max-width: 1024px) {
@@ -183,11 +232,6 @@
 
 .headerDark .navLinkActive {
     border: 1px solid #bfbebe;
-    color: #232323;
-}
-
-.headerDark .userBarBtn {
-    background: #fff;
     color: #232323;
 }
 

@@ -19,9 +19,19 @@
     position: relative;
 }
 
+.userBarBtnDark {
+    background: #fff;
+    border: 1px solid #232323;
+}
+
 .userBarBtn:focus,
 .userBarBtn:hover {
     background: #232323;
+}
+
+.userBarBtnDark:focus,
+.userBarBtnDark:hover {
+    background: #f5f5f5;
 }
 
 .chevronIcon {
@@ -29,6 +39,11 @@
     display: inline-block;
     vertical-align: middle;
     stroke: var(--white-color);
+    transition: stroke var(--transition-main);
+}
+
+.chevronIconDark {
+    stroke: #232323;
 }
 
 .arrowIcon {
@@ -39,6 +54,11 @@
     height: 18px;
 
     stroke: var(--white-color);
+    transition: stroke var(--transition-main);
+}
+
+.arrowIconDark {
+    stroke: #232323;
 }
 
 .avatar {
@@ -54,6 +74,11 @@
     font-size: 14px;
     font-weight: 500;
     color: var(--white-color);
+    transition: color var(--transition-main);
+}
+
+.userNameDark {
+    color: #232323;
 }
 
 .dropdown {
@@ -69,6 +94,14 @@
     display: flex;
     flex-direction: column;
     gap: 6px;
+    background: #232323;
+    transition: all var(--transition-main);
+}
+
+.dropdownDark {
+    background: #fff;
+    border: 1px solid #232323;
+    color: #232323;
 }
 
 .dropdownItem {
@@ -90,19 +123,28 @@
     text-transform: uppercase;
 }
 
+.dropdownItemDark {
+    color: #232323;
+}
+
 .dropdownItem:hover {
     background: #f5f5f5;
     color: #1a1a1a;
 }
 
-.headerDark .dropdown {
-    background: #fff;
-    border: 1px solid #232323;
+.dropdownItemDark:hover {
+    background: #f5f5f5;
     color: #232323;
 }
 
-.headerDark .dropdownItem {
+.headerDark .dropdown {
+    background: #fff;
+    border: 1px solid #232323 !important;
     color: #232323;
+}
+
+.headerDark .dropdown .dropdownItem {
+    color: #232323 !important;
 }
 
 @media (max-width: 768px) {
