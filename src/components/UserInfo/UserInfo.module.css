@@ -12,6 +12,7 @@
   align-items: center;
   padding: 30px;
   gap: 16px;
+  width: 100%;
 }
 
 @media (min-width: 768px) {
