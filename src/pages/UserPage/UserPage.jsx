@@ -27,9 +27,10 @@ import {
   fetchUserFavorites,
   fetchUserFollowers,
   fetchUserFollowing,
-} from "../../utils/api/users";
+} from "../../api/users";
 import css from "./UserPage.module.css";
 import clsx from "clsx";
+import { toast } from "react-hot-toast";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -38,13 +39,9 @@ const UserPage = () => {
   const dispatch = useDispatch();
 
   const [tabOpened, setTabOpened] = useState("recipes");
-  const [tabContentActive, setTabContentActive] = useState(true);
+
   const handleChange = (e, newValue) => {
-    setTabContentActive(false);
     setTabOpened(newValue);
-    setTimeout(() => {
-      setTabContentActive(true);
-    }, 300);
   };
 
   useEffect(() => {
@@ -72,80 +69,80 @@ const UserPage = () => {
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
       dispatch(removeFromFollowing(id));
-      console.log("You can alway return it back :)");
+      toast.success("Successfully unfollowed from this user!");
       return;
     }
     dispatch(addToFollowing(id));
-    console.log("We remember that!");
+    toast.success("Successfully followed to this user!");
   };
 
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   return (
-    <Container>
-      <PathInfo pathName={"home"} currentName={"profile"} />
-      <MainTitle>profile</MainTitle>
-      <Subtitle>
-        Reveal your culinary art, share your favorite recipe and create
-        gastronomic masterpieces with us.
-      </Subtitle>
-      <div className={css.userProfile}>
-        <div className={css.userProfileInfo}>
-          <UserInfo />
-          <div className={css.followButtonContainer}>
-            <div className={css.followButtonWrapper}>
-              {isUserCurrentUser ? (
-                <Button onClick={openLogoutModal} style={{ width: "100%" }}>
-                  Log out
-                </Button>
-              ) : isUserIsFollowed ? (
-                <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                  Unfollow
-                </Button>
-              ) : (
-                <Button onClick={handleFollowClick} style={{ width: "100%" }}>
-                  Follow
-                </Button>
-              )}
+    <div className={css.userProfile}>
+      <Container>
+        <PathInfo pathName={"home"} currentName={"profile"} />
+        <MainTitle>profile</MainTitle>
+        <Subtitle>
+          Reveal your culinary art, share your favorite recipe and create
+          gastronomic masterpieces with us.
+        </Subtitle>
+        <div className={css.userProfile}>
+          <div className={css.userProfileInfo}>
+            <UserInfo />
+            <div className={css.followButtonContainer}>
+              <div className={css.followButtonWrapper}>
+                {isUserCurrentUser ? (
+                  <Button onClick={openLogoutModal} style={{ width: "100%" }}>
+                    Log out
+                  </Button>
+                ) : isUserIsFollowed ? (
+                  <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                    Unfollow
+                  </Button>
+                ) : (
+                  <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                    Follow
+                  </Button>
+                )}
+              </div>
             </div>
           </div>
         </div>
-        <div className={css.userProfileTabsContainer}>
-          <div className={css.tabsContainer}>
-            <TabsList>
+      </Container>
+
+      <div className={css.userProfileTabsContainer}>
+        <div className={css.tabsWrapper}>
+          <TabsList>
+            <TabItem
+              name={recepieTabName}
+              onClick={(e) => handleChange(e, "recipes")}
+              isActive={tabOpened === "recipes"}
+            />
+            {isUserCurrentUser && (
               <TabItem
-                name={recepieTabName}
-                onClick={(e) => handleChange(e, "recipes")}
-                isActive={tabOpened === "recipes"}
+                name="My Favorites"
+                onClick={(e) => handleChange(e, "favorites")}
+                isActive={tabOpened === "favorites"}
               />
-              {isUserCurrentUser && (
-                <TabItem
-                  name="My Favorites"
-                  onClick={(e) => handleChange(e, "favorites")}
-                  isActive={tabOpened === "favorites"}
-                />
-              )}
+            )}
+            <TabItem
+              name="Followers"
+              onClick={(e) => handleChange(e, "followers")}
+              isActive={tabOpened === "followers"}
+            />
+            {isUserCurrentUser && (
               <TabItem
-                name="Followers"
-                onClick={(e) => handleChange(e, "followers")}
-                isActive={tabOpened === "followers"}
+                name="Following"
+                onClick={(e) => handleChange(e, "following")}
+                isActive={tabOpened === "following"}
               />
-              {isUserCurrentUser && (
-                <TabItem
-                  name="Following"
-                  onClick={(e) => handleChange(e, "following")}
-                  isActive={tabOpened === "following"}
-                />
-              )}
-            </TabsList>
-          </div>
+            )}
+          </TabsList>
+        </div>
+        <Container>
           <div className={css.tabsContent}>
-            <div
-              className={clsx(
-                css.tabContentActive,
-                tabContentActive && css.active
-              )}
-            >
+            <div className={css.tabContentActive}>
               {tabOpened === "recipes" && (
                 <ListItems
                   items={userRecipes}
@@ -176,9 +173,9 @@ const UserPage = () => {
               )}
             </div>
           </div>
-        </div>
+        </Container>
       </div>
-    </Container>
+    </div>
   );
 };
 

@@ -4,6 +4,7 @@ import { selectLoading } from "../../redux/root/selectors";
 import css from "./UserInfo.module.css";
 import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
 
 const UserInfo = () => {
   const user = useSelector(selectUser);
@@ -17,11 +18,7 @@ const UserInfo = () => {
     <div className={css.userInfoWrapper}>
       <div className={css.userInfo}>
         <div className={css.userAvatarContainer}>
-          <img
-            src={user.avatar}
-            alt={`Profile picture of user ${user.name}`}
-            className={css.userAvatar}
-          />
+          <AvatarIcon src={user.avatar} alt={user.name} large />
           {isUserCurrentUser && (
             <div className={css.changeAvatarWrapper}>
               <ChageAvatarForm onSubmit={changeAvatar} />

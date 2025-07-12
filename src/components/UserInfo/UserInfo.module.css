@@ -12,7 +12,6 @@
   align-items: center;
   padding: 30px;
   gap: 16px;
-  margin-bottom: 20px;
 }
 
 @media (min-width: 768px) {
@@ -53,12 +52,6 @@
 
 .changeAvatarWrapper::after {
   transform: translate(-50%, -50%) rotate(90deg);
-}
-
-.userAvatar {
-  max-width: 80px;
-  max-height: 80px;
-  border-radius: 100px;
 }
 
 .userName {

@@ -1,5 +1,6 @@
-import api from "./api";
-import { userPageRecipes, userPageFollowers } from "../data";
+import api from "../api/api";
+
+import { userPageRecipes, userPageFollowers } from "../utils/data";
 
 export const fetchUserRecipes = (id) => {
   const url = `/users/${id}/recipes`;
@@ -33,11 +34,33 @@ export const fetchUserFollowers = (id) => {
   }
 };
 
-export const fetchUserFollowing = (id) => {
-  const url = `/users/${id}/following`;
+export const fetchUserFollowing = () => {
+  const url = `/users/following`;
   try {
     // const { data } = await api.get(url);
     return userPageFollowers;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const followUser = (id) => {
+  const url = `/users/${id}/follow`;
+  try {
+    // const { data } = await api.post(url);
+    return userPageFollowers;
+    // return data;
+  } catch (error) {
+    return error;
+  }
+};
+
+export const unfollowUser = (id) => {
+  const url = `/users/${id}/unfollow`;
+  try {
+    // const { data } = await api.delete(url);
+    return userPageFollowers;
+    // return data;
   } catch (error) {
     return error;
   }

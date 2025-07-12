@@ -4,21 +4,6 @@
   z-index: 0;
 }
 
-.tabContentActive {
-  opacity: 0;
-  transform: translateX(100px);
-  transition: opacity 300ms ease, transform 300ms ease;
-  width: 100%;
-  height: 100%;
-  position: absolute;
-}
-
-.tabContentActive.active {
-  opacity: 1;
-  transform: translateX(0);
-  position: relative;
-}
-
 .followButtonContainer {
   display: flex;
   justify-content: center;
@@ -61,4 +46,24 @@
 
 .userProfileTabsContainer {
   width: 100%;
+}
+
+.tabsWrapper {
+  width: 100%;
+  margin: 0 auto;
+  max-width: 375px;
+}
+
+@media screen and (min-width: 768px) {
+  .tabsWrapper {
+    max-width: 768px;
+    padding: 0 32px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .tabsWrapper {
+    margin: 0;
+    padding: 0;
+  }
 }

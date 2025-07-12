@@ -1,9 +1,10 @@
-import { useEffect, useState } from 'react';
-import { useParams } from 'react-router-dom';
-import RecipeMainInfo from '../components/RecipeMainInfo';
-import RecipeIngredients from '../components/RecipeIngredients';
-import RecipePreparation from '../components/RecipePreparation';
-import styles from './recipePage.module.css';
+import { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+// import RecipeMainInfo from '../components/RecipeMainInfo';
+// import RecipeIngredients from "../components/RecipeIngredients";
+// import RecipePreparation from "../components/RecipePreparation";
+import styles from "./RecipePage.module.css";
+import Loader from "../../components/Loader/Loader";
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -17,7 +18,7 @@ const RecipePage = () => {
         const data = await response.json();
         setRecipe(data);
       } catch (error) {
-        console.error('Failed to fetch recipe:', error);
+        console.error("Failed to fetch recipe:", error);
       } finally {
         setLoading(false);
       }
@@ -33,25 +34,30 @@ const RecipePage = () => {
 
     try {
       await fetch(url, {
-        method: 'PATCH',
+        method: "PATCH",
         headers: {
-          'Content-Type': 'application/json',
+          "Content-Type": "application/json",
         },
         body: JSON.stringify({ favorite: !recipe.isFavorite }),
       });
 
       setRecipe({ ...recipe, isFavorite: !recipe.isFavorite });
     } catch (error) {
-      console.error('Error updating favorite status', error);
+      console.error("Error updating favorite status", error);
     }
   };
 
-  if (loading) return <div>Loading...</div>;
+  if (loading)
+    return (
+      <div>
+        <Loader />
+      </div>
+    );
   if (!recipe) return <div>Recipe not found</div>;
 
   return (
     <div className={styles.recipeInfo}>
-      <RecipeMainInfo
+      {/* <RecipeMainInfo
         image={recipe.image}
         title={recipe.title}
         category={recipe.category}
@@ -65,7 +71,7 @@ const RecipePage = () => {
         description={recipe.instructions}
         isFavorite={recipe.isFavorite}
         onToggleFavorite={handleToggleFavorite}
-      />
+      /> */}
     </div>
   );
 };

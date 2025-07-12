@@ -10,7 +10,7 @@ const slice = createSlice({
     setActiveLoading: (state) => {
       return {
         ...state,
-        isLoading: true,
+        loading: true,
       };
     },
   },
