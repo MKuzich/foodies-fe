@@ -1,8 +1,18 @@
-import { Navigate, Outlet } from "react-router-dom";
-import { useAuth } from "redux/useAuth";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { Navigate } from "react-router-dom";
+import { useAuth } from "../../hooks/useAuth";
+import { openSignIn } from "../../redux/auth/authSlice";
 
-export const PrivateRoute = ({ redirectTo = "/" }) => {
+const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
   const { user } = useAuth();
+  const dispatch = useDispatch();
 
-  return user ? <Outlet /> : <Navigate to={redirectTo} replace />;
+  useEffect(() => {
+    !user && dispatch(openSignIn());
+  }, [dispatch]);
+
+  return user ? <Component /> : <Navigate to={redirectTo} />;
 };
+
+export default PrivateRoute;
