@@ -1,39 +1,36 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
-import Container from "../../components/Container/Container";
-import PathInfo from "../../components/PathInfo/PathInfo";
-import MainTitle from "../../components/MainTitle/MainTitle";
-import Subtitle from "../../components/Subtitle/Subtitle";
-import UserInfo from "../../components/UserInfo/UserInfo";
-import TabsList from "../../components/TabsList/TabsList";
-import TabItem from "../../components/TabItem/TabItem";
+import {
+  fetchUserFavorites,
+  fetchUserFollowers,
+  fetchUserFollowing,
+  fetchUserRecipes,
+} from "../../api/users";
 import Button from "../../components/Button/Button";
+import Container from "../../components/Container/Container";
+import ListItems from "../../components/ListItems/ListItems";
+import MainTitle from "../../components/MainTitle/MainTitle";
+import PathInfo from "../../components/PathInfo/PathInfo";
+import Subtitle from "../../components/Subtitle/Subtitle";
+import TabItem from "../../components/TabItem/TabItem";
+import TabsList from "../../components/TabsList/TabsList";
+import UserInfo from "../../components/UserInfo/UserInfo";
+import { openLogout } from "../../redux/auth/authSlice";
+import { selectLoading } from "../../redux/root/selectors";
 import { fetchUser } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
   selectUserExists,
 } from "../../redux/users/selectors";
-import ListItems from "../../components/ListItems/ListItems";
 import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
-import {
-  currentUserPageErrors,
-  userPageErrors,
-} from "../../utils/const/userPageErrors";
-import {
-  fetchUserRecipes,
-  fetchUserFavorites,
-  fetchUserFollowers,
-  fetchUserFollowing,
-} from "../../api/users";
-import css from "./UserPage.module.css";
-import clsx from "clsx";
-import { toast } from "react-hot-toast";
+import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
-import { selectLoading } from "../../redux/root/selectors";
+import css from "./UserPage.module.css";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -93,8 +90,6 @@ const UserPage = () => {
     if (!isLoading && isUserExists) fetchExtraData();
   }, [isLoading, isUserExists]);
 
-  const openLogoutModal = () => {};
-
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
 
   const handleFollowClick = () => {
@@ -117,8 +112,8 @@ const UserPage = () => {
             <PathInfo pathName={"home"} currentName={"profile"} />
             <MainTitle>profile</MainTitle>
             <Subtitle>
-              Reveal your culinary art, share your favorite recipe and create
-              gastronomic masterpieces with us.
+              Reveal your culinary art, share your favorite recipe and create gastronomic
+              masterpieces with us.
             </Subtitle>
           </div>
           <div className={css.userProfile}>
@@ -128,24 +123,15 @@ const UserPage = () => {
                 <div className={css.followButtonContainer}>
                   <div className={css.followButtonWrapper}>
                     {isUserCurrentUser ? (
-                      <Button
-                        onClick={openLogoutModal}
-                        style={{ width: "100%" }}
-                      >
+                      <Button onClick={() => dispatch(openLogout())} style={{ width: "100%" }}>
                         Log out
                       </Button>
                     ) : isUserIsFollowed ? (
-                      <Button
-                        onClick={handleFollowClick}
-                        style={{ width: "100%" }}
-                      >
+                      <Button onClick={handleFollowClick} style={{ width: "100%" }}>
                         Unfollow
                       </Button>
                     ) : (
-                      <Button
-                        onClick={handleFollowClick}
-                        style={{ width: "100%" }}
-                      >
+                      <Button onClick={handleFollowClick} style={{ width: "100%" }}>
                         Follow
                       </Button>
                     )}
@@ -187,11 +173,7 @@ const UserPage = () => {
                 <div className={css.tabsContent}>
                   <div className={css.tabContentActive}>
                     {tabOpened === "recipes" && (
-                      <ListItems
-                        items={userRecipes}
-                        type="recipe"
-                        errorText={errorMap.noRecipes}
-                      />
+                      <ListItems items={userRecipes} type="recipe" errorText={errorMap.noRecipes} />
                     )}
                     {tabOpened === "favorites" && (
                       <ListItems

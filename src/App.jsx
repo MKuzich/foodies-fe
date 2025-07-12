@@ -1,12 +1,15 @@
-import { Routes, Route } from "react-router-dom";
+import "./App.css";
+
 import { lazy, Suspense, useEffect } from "react";
 import { useDispatch } from "react-redux";
-import { refreshUser } from "./redux/auth/authActions";
-import "./App.css";
-import SharedLayout from "./components/SharedLayout/SharedLayout";
-import Loader from "./components/Loader/Loader";
-import AuthModals from "./components/AuthModals";
+import { Route, Routes } from "react-router-dom";
+
 import css from "./App.module.css";
+import AuthModals from "./components/AuthModals";
+import Loader from "./components/Loader/Loader";
+import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
+import SharedLayout from "./components/SharedLayout/SharedLayout";
+import { refreshUser } from "./redux/auth/authActions";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -31,8 +34,8 @@ function App() {
       >
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/user/:id" element={<User />} />
-          <Route path="/recipe/add" element={<AddPecipe />} />
+          <Route path="/user/:id" element={<PrivateRoute component={User} />} />
+          <Route path="/recipe/add" element={<PrivateRoute component={AddPecipe} />} />
           <Route path="/recipe/:id" element={<Recipe />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
