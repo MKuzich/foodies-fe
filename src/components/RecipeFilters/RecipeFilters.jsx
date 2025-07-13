@@ -34,12 +34,7 @@ function RecipeFilters() {
   const [searchParams, setSearchParams] = useSearchParams();
 
   const handleClearAll = () => {
-    const params = Object.fromEntries(searchParams.entries());
-    if (params.page) {
-      setSearchParams({ page: 1 });
-    } else {
-      setSearchParams({});
-    }
+    setSearchParams({ page: 1 });
   }
 
   return (

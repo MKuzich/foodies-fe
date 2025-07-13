@@ -17,7 +17,6 @@ function CategoriesList() {
     const displayedCategories = showAll ? categories : categories.slice(0, width < 768 ? 6 : 11); 
 
 
-
   if (isLoading) {
     return (
       <div>
