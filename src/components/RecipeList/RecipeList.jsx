@@ -7,7 +7,6 @@ import { recipesSelector } from "@/redux/recipes/selectors";
 function RecipeList() {
   const recipes = useSelector(recipesSelector);
 
-  console.log(recipes);
 
   if (recipes.length === 0) {
     return (

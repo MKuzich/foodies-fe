@@ -12,6 +12,7 @@ import { errorSelector, isLoadingSelector, paginationSelector } from "@/redux/re
 import { fetchRecipes } from "@/redux/recipes/actions";
 import Loader from "../Loader/Loader";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { useIngredientsFetch } from "@/hooks/useIngredientsFetch";
 
 
 function Recipes() {
@@ -32,6 +33,8 @@ function Recipes() {
     const dispatch = useDispatch();
 
 
+    const { ingredients, isLoading: isLoadingIngredients, error: errorIngredients } = useIngredientsFetch();
+
     // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
     useEffect(() => {
         if (recipesRef.current) {
@@ -47,7 +50,6 @@ function Recipes() {
 
 
     useEffect(() => {
-        console.log("caalling useEffect");
         const params = {};
         if (searchParams.get('category')) params.category = searchParams.get('category');
         params.page = searchParams.get('page') || 1;
