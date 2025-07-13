@@ -1,7 +1,7 @@
 import api from "./api";
 
-export const fetchUserRecipes = async (id) => {
-  const url = `/users/${id}/recipes`;
+export const fetchUserRecipes = async (id, page = 1, limit = 9) => {
+  const url = `/users/${id}/recipes?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };

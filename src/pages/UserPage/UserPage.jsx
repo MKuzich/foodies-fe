@@ -35,6 +35,7 @@ import { toast } from "react-hot-toast";
 import NotFound from "../NotFound/NotFound";
 import { selectLoading } from "../../redux/root/selectors";
 import { openLogout } from "../../redux/auth/authSlice";
+import Pagination from "../../components/Pagination/Pagination";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -44,13 +45,15 @@ const UserPage = () => {
 
   const [tabOpened, setTabOpened] = useState("recipes");
   const handleChange = (e, newValue) => {
+    setPage(1);
     setTabOpened(newValue);
   };
 
   useEffect(() => {
     dispatch(fetchUser(id));
   }, [dispatch, id]);
-
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const isLoading = useSelector(selectLoading);
   const isUserExists = useSelector(selectUserExists);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
@@ -63,27 +66,38 @@ const UserPage = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const recipes = await fetchUserRecipes(id);
-        setUserRecipes(recipes.results);
+        const recipes = await fetchUserRecipes(id, page);
+        setUserRecipes(recipes.data);
+        setTotalPages(recipes.pagination.pages);
       } catch (error) {
         setUserRecipes(null);
         toast.error(`Error loading recipes: ${error.message}`);
       }
     };
-    fetchRecipes();
-  }, [id]);
+    if (tabOpened === "recipes") fetchRecipes();
+  }, [id, tabOpened, page]);
 
   useEffect(() => {
     const fetchExtraData = async () => {
       try {
-        const followers = await fetchUserFollowers(id);
-        setUserFollowers(followers.results);
+        if (tabOpened === "followers") {
+          const followers = await fetchUserFollowers(id);
+          setUserFollowers(followers.results);
+          setTotalPages(followers.pagination.pages);
+        }
         if (!isUserCurrentUser) return;
-        const favorites = await fetchUserFavorites(id);
-        setUserFavorites(favorites.results);
-        const following = await fetchUserFollowing(id);
-        setUserFollowing(following.results);
+        if (tabOpened === "favorites") {
+          const favorites = await fetchUserFavorites(id);
+          setUserFavorites(favorites.results);
+          setTotalPages(favorites.pagination.pages);
+        }
+        if (tabOpened === "following") {
+          const following = await fetchUserFollowing(id);
+          setUserFollowing(following.results);
+          setTotalPages(following.pagination.pages);
+        }
       } catch (error) {
+        setTotalPages(0);
         setUserFavorites(null);
         setUserFollowers(null);
         setUserFollowing(null);
@@ -92,7 +106,7 @@ const UserPage = () => {
     };
 
     if (!isLoading && isUserExists) fetchExtraData();
-  }, [isLoading, isUserExists]);
+  }, [isLoading, isUserExists, tabOpened, page]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
 
@@ -214,6 +228,14 @@ const UserPage = () => {
                       />
                     )}
                   </div>
+                  {totalPages > 1 && (
+                    <Pagination
+                      totalPages={totalPages}
+                      currentPage={page}
+                      onClick={setPage}
+                      borders
+                    />
+                  )}
                 </div>
               </div>
             </div>

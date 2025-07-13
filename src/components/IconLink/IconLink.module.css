@@ -23,6 +23,9 @@
   transition: var(--stroke-transition);
 }
 
+.iconLinkIcon.black {
+  fill: none;
+}
 
 .iconLinkIcon.white {
   stroke: var(--white-color);
@@ -47,10 +50,7 @@
   .iconLink.social {
     width: 36px;
     height: 36px;
-
   }
-
-
 }
 
 .iconLink:hover {
