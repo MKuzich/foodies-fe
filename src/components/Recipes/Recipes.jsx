@@ -8,6 +8,7 @@ import { selectedCategory } from "../../redux/categories/selectors";
 import { setSelectedCategory } from "../../redux/categories/slice";
 import { useEffect, useRef } from "react";
 import Icons from "../../assets/sprite.svg";
+import RecipePagination from "../RecipePagination/RecipePagination";
 
 function Recipes() {
     const isSelectedCategory = useSelector(selectedCategory);
@@ -39,7 +40,10 @@ function Recipes() {
             <Subtitle style={{ maxWidth: "540px" }}>{isSelectedCategory.description}</Subtitle>
             <div className={styles.recipesContent}>
                 <RecipeFilters />
-                <RecipeList />
+                <div>
+                    <RecipeList />
+                    <RecipePagination currentPage={1} lastPage={3} />
+                </div>
             </div>
         </div>
     );
