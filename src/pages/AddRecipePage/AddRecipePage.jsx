@@ -10,6 +10,7 @@ import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 const AddRecipePage = () => {
   return (
     <Container>
+      <Breadcrumbs />
       <PathInfo pathName={"home"} currentName={"Add recipe"} />
       <MainTitle>Add recipe</MainTitle>
       <Subtitle style={{ maxWidth: "443px" }}>
