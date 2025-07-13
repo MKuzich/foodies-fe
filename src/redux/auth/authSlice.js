@@ -105,6 +105,10 @@ const slice = createSlice({
       })
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.userInfo = payload;
+      })
+      .addCase(refreshUser.rejected, (state, { payload }) => {
+        state.userInfo = null;
+        state.userToken = null;
       });
   },
 });

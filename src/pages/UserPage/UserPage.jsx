@@ -1,40 +1,37 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { useSelector } from "react-redux";
 
-import Container from "../../components/Container/Container";
-import PathInfo from "../../components/PathInfo/PathInfo";
-import MainTitle from "../../components/MainTitle/MainTitle";
-import Subtitle from "../../components/Subtitle/Subtitle";
-import UserInfo from "../../components/UserInfo/UserInfo";
-import TabsList from "../../components/TabsList/TabsList";
-import TabItem from "../../components/TabItem/TabItem";
+import {
+  fetchUserFavorites,
+  fetchUserFollowers,
+  fetchUserFollowing,
+  fetchUserRecipes,
+} from "../../api/users";
 import Button from "../../components/Button/Button";
+import Container from "../../components/Container/Container";
+import ListItems from "../../components/ListItems/ListItems";
+import MainTitle from "../../components/MainTitle/MainTitle";
+import PathInfo from "../../components/PathInfo/PathInfo";
+import Subtitle from "../../components/Subtitle/Subtitle";
+import TabItem from "../../components/TabItem/TabItem";
+import TabsList from "../../components/TabsList/TabsList";
+import UserInfo from "../../components/UserInfo/UserInfo";
+import { openLogout } from "../../redux/auth/authSlice";
+import { selectLoading } from "../../redux/root/selectors";
 import { fetchUser } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
   selectUserExists,
 } from "../../redux/users/selectors";
-import ListItems from "../../components/ListItems/ListItems";
 import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
-import {
-  currentUserPageErrors,
-  userPageErrors,
-} from "../../utils/const/userPageErrors";
-import {
-  fetchUserRecipes,
-  fetchUserFavorites,
-  fetchUserFollowers,
-  fetchUserFollowing,
-} from "../../api/users";
-import css from "./UserPage.module.css";
-import clsx from "clsx";
-import { toast } from "react-hot-toast";
+import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
-import { selectLoading } from "../../redux/root/selectors";
-import { openLogout } from "../../redux/auth/authSlice";
+import css from "./UserPage.module.css";
+import Pagination from "../../components/Pagination/Pagination";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -44,13 +41,15 @@ const UserPage = () => {
 
   const [tabOpened, setTabOpened] = useState("recipes");
   const handleChange = (e, newValue) => {
+    setPage(1);
     setTabOpened(newValue);
   };
 
   useEffect(() => {
     dispatch(fetchUser(id));
   }, [dispatch, id]);
-
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
   const isLoading = useSelector(selectLoading);
   const isUserExists = useSelector(selectUserExists);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
@@ -63,27 +62,38 @@ const UserPage = () => {
   useEffect(() => {
     const fetchRecipes = async () => {
       try {
-        const recipes = await fetchUserRecipes(id);
-        setUserRecipes(recipes.results);
+        const recipes = await fetchUserRecipes(id, page);
+        setUserRecipes(recipes.data);
+        setTotalPages(recipes.pagination.pages);
       } catch (error) {
         setUserRecipes(null);
         toast.error(`Error loading recipes: ${error.message}`);
       }
     };
-    fetchRecipes();
-  }, [id]);
+    if (tabOpened === "recipes") fetchRecipes();
+  }, [id, tabOpened, page]);
 
   useEffect(() => {
     const fetchExtraData = async () => {
       try {
-        const followers = await fetchUserFollowers(id);
-        setUserFollowers(followers.results);
+        if (tabOpened === "followers") {
+          const followers = await fetchUserFollowers(id);
+          setUserFollowers(followers.results);
+          setTotalPages(followers.pagination.pages);
+        }
         if (!isUserCurrentUser) return;
-        const favorites = await fetchUserFavorites(id);
-        setUserFavorites(favorites.results);
-        const following = await fetchUserFollowing(id);
-        setUserFollowing(following.results);
+        if (tabOpened === "favorites") {
+          const favorites = await fetchUserFavorites(id);
+          setUserFavorites(favorites.results);
+          setTotalPages(favorites.pagination.pages);
+        }
+        if (tabOpened === "following") {
+          const following = await fetchUserFollowing(id);
+          setUserFollowing(following.results);
+          setTotalPages(following.pagination.pages);
+        }
       } catch (error) {
+        setTotalPages(0);
         setUserFavorites(null);
         setUserFollowers(null);
         setUserFollowing(null);
@@ -92,7 +102,7 @@ const UserPage = () => {
     };
 
     if (!isLoading && isUserExists) fetchExtraData();
-  }, [isLoading, isUserExists]);
+  }, [isLoading, isUserExists, tabOpened, page]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
 
@@ -116,8 +126,8 @@ const UserPage = () => {
             <PathInfo pathName={"home"} currentName={"profile"} />
             <MainTitle>profile</MainTitle>
             <Subtitle>
-              Reveal your culinary art, share your favorite recipe and create
-              gastronomic masterpieces with us.
+              Reveal your culinary art, share your favorite recipe and create gastronomic
+              masterpieces with us.
             </Subtitle>
           </div>
           <div className={css.userProfile}>
@@ -127,24 +137,15 @@ const UserPage = () => {
                 <div className={css.followButtonContainer}>
                   <div className={css.followButtonWrapper}>
                     {isUserCurrentUser ? (
-                      <Button
-                        onClick={() => dispatch(openLogout())}
-                        style={{ width: "100%" }}
-                      >
+                      <Button onClick={() => dispatch(openLogout())} style={{ width: "100%" }}>
                         Log out
                       </Button>
                     ) : isUserIsFollowed ? (
-                      <Button
-                        onClick={handleFollowClick}
-                        style={{ width: "100%" }}
-                      >
+                      <Button onClick={handleFollowClick} style={{ width: "100%" }}>
                         Unfollow
                       </Button>
                     ) : (
-                      <Button
-                        onClick={handleFollowClick}
-                        style={{ width: "100%" }}
-                      >
+                      <Button onClick={handleFollowClick} style={{ width: "100%" }}>
                         Follow
                       </Button>
                     )}
@@ -186,11 +187,7 @@ const UserPage = () => {
                 <div className={css.tabsContent}>
                   <div className={css.tabContentActive}>
                     {tabOpened === "recipes" && (
-                      <ListItems
-                        items={userRecipes}
-                        type="recipe"
-                        errorText={errorMap.noRecipes}
-                      />
+                      <ListItems items={userRecipes} type="recipe" errorText={errorMap.noRecipes} />
                     )}
                     {tabOpened === "favorites" && (
                       <ListItems
@@ -214,6 +211,14 @@ const UserPage = () => {
                       />
                     )}
                   </div>
+                  {totalPages > 1 && (
+                    <Pagination
+                      totalPages={totalPages}
+                      currentPage={page}
+                      onClick={setPage}
+                      borders
+                    />
+                  )}
                 </div>
               </div>
             </div>
