@@ -6,7 +6,6 @@ const api = axios.create({
     "https://foodies-be-oruu.onrender.com/api/",
 });
 
-
 export const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
