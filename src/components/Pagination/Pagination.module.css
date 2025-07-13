@@ -1,0 +1,62 @@
+.pagination {
+  display: flex;
+  justify-content: center;
+  margin-top: 32px;
+  gap: 6px;
+}
+
+@media screen and (min-width: 768px) {
+  .pagination {
+    margin-top: 60px;
+  }
+}
+
+.button {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+  color: var(--title-color);
+}
+
+.button.borders {
+  border: 1px solid var(--inactive-color);
+}
+
+.button.active {
+  border: 1px solid var(--title-color);
+}
+.ellipsis {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 16px;
+  color: var(--inactive-color);
+}
+
+@media screen and (min-width: 768px) {
+  .button {
+    border: none;
+  }
+  .button.borders {
+    border: none;
+  }
+  .button.active {
+    border: 1px solid var(--inactive-color);
+  }
+
+  .button.borders.active {
+    border: 1px solid var(--title-color);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .button.borders.active {
+    border: 1px solid var(--inactive-color);
+  }
+}
