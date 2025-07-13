@@ -1,4 +1,5 @@
 import styles from "./RecipeCard.module.css";
+import IconButton from "../IconButton/IconButton";
 
 function RecipeCard({ recipe, title = "Tart", image = "/src/assets/tart.png", description = "To make the pastry, measure the flour into a bowl and rub in the butter with your fingertips until the mixture resembles fine breadcrumbs." }) {
     return (
@@ -12,16 +13,21 @@ function RecipeCard({ recipe, title = "Tart", image = "/src/assets/tart.png", de
                     <p className={styles.recipeAvatarName}>Ivetta</p>
                 </div>
                 <div className={styles.recipeIconsWrapper}>
-                    <span className={styles.recipeIconContainer}>
+
+                    {/* <span className={styles.recipeIconContainer}>
                         <svg className={styles.recipeIcon}>
                             <use href="/src/assets/sprite.svg#icon-heart"></use>
                         </svg>
-                    </span>
-                    <span className={styles.recipeIconContainer}>
+                    </span> */}
+                      {/* <span className={styles.recipeIconContainer}>
                         <svg className={styles.recipeIcon}>
                             <use href="/src/assets/sprite.svg#icon-arrow-up-right" />
                         </svg>
-                    </span>
+                    </span> */}
+                    {/* TODO: correct styles size for tablet and desktop */}
+                    <IconButton name="like" />
+                    <IconButton name="arrowUpRight" style={{ width: "36px", height: "36px" }} />
+                  
                 </div>
             </div>
         </li>
