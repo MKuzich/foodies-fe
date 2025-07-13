@@ -1,5 +1,10 @@
 import styles from "./RecipeFilters.module.css";
 import Dropdown from "../Dropdown/Dropdown";
+import { categoriesSelector } from "../../redux/categories/selectors";
+import { useSelector } from "react-redux";
+import Button from "../Button/Button";
+import { useSearchParams } from "react-router-dom";
+
 
 const mockIngredients = [
   { id: 1, name: "Eggs" },
@@ -23,10 +28,26 @@ const mockArea = [
 
 
 function RecipeFilters() {
+
+  const categories = useSelector(categoriesSelector);
+
+  const [searchParams, setSearchParams] = useSearchParams();
+
+  const handleClearAll = () => {
+    const params = Object.fromEntries(searchParams.entries());
+    if (params.page) {
+      setSearchParams({ page: 1 });
+    } else {
+      setSearchParams({});
+    }
+  }
+
   return (
     <div className={styles.recipeFilters}>
-      <Dropdown placeholder="Ingredients" data={mockIngredients} />
-      <Dropdown placeholder="Area" data={mockArea} />
+      <Dropdown placeholder="Ingredient" data={mockIngredients} shouldSetUrl={true} />
+      <Dropdown placeholder="Area" data={mockArea} shouldSetUrl={true} />
+      <Dropdown placeholder="Category" data={categories} shouldSetUrl={true} />
+      <Button onClick={handleClearAll}>Clear all</Button>
     </div>
   );
 }

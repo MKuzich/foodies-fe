@@ -19,6 +19,20 @@
     max-width: 910px;
   }
 
+}
 
+.recipeListEmpty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  height: 100%;
+}
 
+.recipeListTitle {
+  font-size: 24px;
+  font-weight: 600;
+  line-height: 1.2;
+  text-align: center;
+  margin-bottom: 20px;
 }

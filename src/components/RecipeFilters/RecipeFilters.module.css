@@ -4,10 +4,12 @@
     gap: 16px;
 
     @media (min-width: 768px) {
-        flex-direction: row;
-        gap: 20px;
-    }
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        /* flex-direction: row;
 
+        gap: 20px; */
+    }
     @media (min-width: 1440px) {
         flex-direction: column;
         gap: 14px;
