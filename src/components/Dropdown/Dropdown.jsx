@@ -34,6 +34,7 @@ function Dropdown({
     DropdownList: CustomList,
     placeholder,
     data,
+    shouldSetUrl = false,
     ...props
   }) {
     const [isOpen, setIsOpen] = useState(false);
@@ -53,6 +54,9 @@ function Dropdown({
     }
     const handleSelectItem = (item) => {
         setSelectedItems(item.name);
+        if (shouldSetUrl) {
+            window.location.href = `/recipes?${item.name}`;
+        }
         setIsOpen(false);
     }
 

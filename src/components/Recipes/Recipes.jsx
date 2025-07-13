@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import { selectedCategory } from "../../redux/categories/selectors";
 import { setSelectedCategory } from "../../redux/categories/slice";
 import { useEffect, useRef } from "react";
+import Icons from "../../assets/sprite.svg";
+import RecipePagination from "../RecipePagination/RecipePagination";
 
 function Recipes() {
     const isSelectedCategory = useSelector(selectedCategory);
@@ -29,7 +31,7 @@ function Recipes() {
             <div className={styles.recipesBackContainer} onClick={handleBack}>
                 <button className={styles.recipesBackButton}>
                     <svg className={styles.recipesBackIcon}>
-                        <use href="/src/assets/sprite.svg#icon-arrow-left" />
+                        <use href={`${Icons}#icon-arrow-left`} />
                     </svg>
                     <p className={styles.recipesBackText}>Back</p>
                 </button>
@@ -38,7 +40,10 @@ function Recipes() {
             <Subtitle style={{ maxWidth: "540px" }}>{isSelectedCategory.description}</Subtitle>
             <div className={styles.recipesContent}>
                 <RecipeFilters />
-                <RecipeList />
+                <div>
+                    <RecipeList />
+                    <RecipePagination currentPage={1} lastPage={3} />
+                </div>
             </div>
         </div>
     );

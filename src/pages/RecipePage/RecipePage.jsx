@@ -3,8 +3,10 @@ import { useParams } from "react-router-dom";
 // import RecipeMainInfo from '../components/RecipeMainInfo';
 // import RecipeIngredients from "../components/RecipeIngredients";
 // import RecipePreparation from "../components/RecipePreparation";
+import PopularRecipes from "../../components/PopularRecipes/PopularRecipes";
 import styles from "./RecipePage.module.css";
 import Loader from "../../components/Loader/Loader";
+import Container from "../../components/Container/Container";
 
 const RecipePage = () => {
   const { id } = useParams();
@@ -56,8 +58,9 @@ const RecipePage = () => {
   if (!recipe) return <div>Recipe not found</div>;
 
   return (
-    <div className={styles.recipeInfo}>
-      {/* <RecipeMainInfo
+    <Container>
+      <div className={styles.recipeInfo}>
+        {/* <RecipeMainInfo
         image={recipe.image}
         title={recipe.title}
         category={recipe.category}
@@ -72,7 +75,9 @@ const RecipePage = () => {
         isFavorite={recipe.isFavorite}
         onToggleFavorite={handleToggleFavorite}
       /> */}
-    </div>
+        <PopularRecipes />
+      </div>
+    </Container>
   );
 };
 
