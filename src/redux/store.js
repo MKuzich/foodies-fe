@@ -8,12 +8,13 @@ import authReducer from './auth/authSlice';
 import { userReducer } from './users/slice';
 import { categoriesReducer } from './categories/slice';
 import { testimonialsReducer } from './testimonials/slice';
+import { recipesReducer } from './recipes/slice';
 
 
 const persistConfig = {
   key: "auth",
   storage,
-  blacklist: ['authModal', 'testimonials', 'categories'],
+  blacklist: ['authModal', 'testimonials', 'categories', 'recipes'],
   whitelist: ["userToken"],
 
 
@@ -27,6 +28,7 @@ const reducers = combineReducers({
   users: userReducer,
   categories: categoriesReducer,
   testimonials: testimonialsReducer,
+  recipes: recipesReducer,
 });
 
 export const store = configureStore({
