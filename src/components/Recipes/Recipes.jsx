@@ -6,7 +6,8 @@ import Subtitle from "@/components/Subtitle/Subtitle";
 import { useDispatch, useSelector } from "react-redux";
 import { useEffect, useRef } from "react";
 import Icons from "../../assets/sprite.svg";
-import RecipePagination from "../RecipePagination/RecipePagination";
+// import RecipePagination from "../RecipePagination/RecipePagination";
+import Pagination from "@/components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import { errorSelector, isLoadingSelector, paginationSelector } from "@/redux/recipes/selectors";
 import { fetchRecipes } from "@/redux/recipes/actions";
@@ -32,9 +33,6 @@ function Recipes() {
 
     const dispatch = useDispatch();
 
-
-    const { ingredients, isLoading: isLoadingIngredients, error: errorIngredients } = useIngredientsFetch();
-
     // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
     useEffect(() => {
         if (recipesRef.current) {
@@ -55,10 +53,10 @@ function Recipes() {
         params.page = searchParams.get('page') || 1;
         if (searchParams.get('ingredient')) params.ingredient = searchParams.get('ingredient');
         if (searchParams.get('area')) params.area = searchParams.get('area');
-        
+
 
         dispatch(fetchRecipes({ ...params, limit: limitPage }));
-      }, [dispatch, searchParams, limitPage]);
+    }, [dispatch, searchParams, limitPage]);
 
 
     const handleBack = () => {
@@ -66,17 +64,19 @@ function Recipes() {
     }
 
     const handlePaginationClick = (page) => {
+
         if (page <= pagination.pages) {
-          const params = {};
-          if (searchParams.get('category')) params.category = searchParams.get('category');
-          if (searchParams.get('ingredient')) params.ingredient = searchParams.get('ingredient');
-          if (searchParams.get('area')) params.area = searchParams.get('area');
-          params.page = page;
-      
-          dispatch(fetchRecipes({ ...params, limit: limitPage }));
-          setSearchParams(params);
+            const params = {};
+            if (searchParams.get('category')) params.category = searchParams.get('category');
+            if (searchParams.get('ingredient')) params.ingredient = searchParams.get('ingredient');
+            if (searchParams.get('area')) params.area = searchParams.get('area');
+            params.page = page;
+
+            dispatch(fetchRecipes({ ...params, limit: limitPage }));
+            setSearchParams(params);
         }
-      };
+    };
+
 
     return (
         <div className={styles.recipesContainer} ref={recipesRef}>
@@ -93,14 +93,21 @@ function Recipes() {
             <div className={styles.recipesContent}>
                 <RecipeFilters />
                 <div>
-                    {isLoading && <Loader />}
-                    {error && <div>Error: {error}</div>}
-                    {!isLoading && !error && (
-                        <div >
-                            <RecipeList />
-                            <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} />
-                        </div>
-                    )}
+                    <div >
+                        <RecipeList />
+                        {pagination.pages > 1 && (
+
+                            <Pagination
+                                currentPage={Number(pagination.page)}
+                                totalPages={Number(pagination.pages)}
+                                onClick={handlePaginationClick}
+                                borders={true}
+                                style={{ marginTop: "0" }}
+                            />
+                        )}
+                        {/* TODO: REMOVE THIS AFTER TESTING */}
+                        {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}
+                    </div>
                 </div>
             </div>
         </div>
