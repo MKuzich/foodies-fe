@@ -22,6 +22,12 @@
   background-color: transparent;
   border: none;
   color: var(--title-color);
+  transition: var(--color-transition);
+}
+
+.button:hover {
+  color: var(--white-color);
+  background-color: var(--title-color);
 }
 
 .button.borders {
