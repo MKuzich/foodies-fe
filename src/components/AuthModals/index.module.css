@@ -17,7 +17,7 @@
   border-radius: 20px;
   padding: 80px;
   max-width: 560px;
-  width: 90%;
+  width: 95%;
   box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
 }
 
@@ -50,6 +50,11 @@
   width: 100%;
   padding: 16px 18px;
   border-radius: 25px;
+
+  border: 1px solid #bfbebe;
+}
+
+.input:focus {
   border: 1px solid #050505;
 }
 
@@ -88,6 +93,7 @@
   background-color: transparent;
   border-radius: 30px;
   border: 1px solid #050505;
+  cursor: pointer;
 }
 
 .close {
@@ -144,6 +150,7 @@
   font-weight: 500;
   line-height: 18px;
   letter-spacing: -0.28px;
+  cursor: pointer;
 }
 
 .bottomTextLink {
@@ -170,5 +177,11 @@
 
   .logoutModal .bottomText {
     color: #bfbebe;
+  }
+}
+
+@media screen and (max-width: 375px) {
+  .modal {
+    padding: 60px 15px;
   }
 }
