@@ -11,7 +11,7 @@ import { useSearchParams } from "react-router-dom";
 import { errorSelector, isLoadingSelector, paginationSelector } from "@/redux/recipes/selectors";
 import { fetchRecipes } from "@/redux/recipes/actions";
 import Loader from "../Loader/Loader";
-import { useScreenWidth } from "@/hooks/useScreenWidth";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 
 function Recipes() {
@@ -22,8 +22,8 @@ function Recipes() {
 
     const recipesRef = useRef(null);
 
-    const windowWidth = useScreenWidth();
-    const limitPage = windowWidth < 768 ? 8 : 12;
+    const isMobile = useMediaQuery("(max-width: 375px)");
+    const limitPage = isMobile ? 8 : 12;
 
 
     const [searchParams, setSearchParams] = useSearchParams();
