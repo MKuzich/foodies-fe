@@ -22,7 +22,7 @@ function App() {
   }, [dispatch]);
 
   return (
-    <SharedLayout>
+    <>
       <Suspense
         fallback={
           <div className={css.loaderWrapper}>
@@ -31,18 +31,23 @@ function App() {
         }
       >
         <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/user/:id" element={<PrivateRoute component={User} />} />
-          <Route
-            path="/recipe/add"
-            element={<PrivateRoute component={AddPecipe} />}
-          />
-          <Route path="/recipe/:id" element={<Recipe />} />
-          <Route path="*" element={<NotFound />} />
+          <Route path="/" element={<SharedLayout />}>
+            <Route index element={<Home />} />
+            <Route
+              path="/user/:id"
+              element={<PrivateRoute component={User} />}
+            />
+            <Route
+              path="/recipe/add"
+              element={<PrivateRoute component={AddPecipe} />}
+            />
+            <Route path="/recipe/:id" element={<Recipe />} />
+            <Route path="*" element={<NotFound />} />
+          </Route>
         </Routes>
       </Suspense>
       <AuthModals />
-    </SharedLayout>
+    </>
   );
 }
 

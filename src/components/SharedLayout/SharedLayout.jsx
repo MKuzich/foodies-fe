@@ -6,8 +6,9 @@ import { fetchCategories } from "../../redux/categories/actions";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
 import Footer from "../Footer/Footer";
+import { Outlet } from "react-router-dom";
 
-const SharedLayout = ({ children }) => {
+const SharedLayout = () => {
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -19,8 +20,10 @@ const SharedLayout = ({ children }) => {
       <header>
         <Container>Header</Container>
       </header>
-      <main>{children}</main>
-     <Footer/>
+      <main>
+        <Outlet />
+      </main>
+      <Footer />
       <Toaster />
     </>
   );
