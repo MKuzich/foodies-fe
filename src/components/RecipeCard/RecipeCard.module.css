@@ -19,9 +19,8 @@
     }
 
     @media (min-width: 1440px) {
-        max-width: 290px;
-        width: 290px;
-        height: 235px;
+        max-width: 305px;
+        width: 100%;
     }
 }
 

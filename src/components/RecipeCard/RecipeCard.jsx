@@ -26,7 +26,7 @@ function RecipeCard({ recipe, title = "Tart", image = "/src/assets/tart.png", de
                     </span> */}
                     {/* TODO: correct styles size for tablet and desktop */}
                     <IconButton name="like" />
-                    <IconButton name="arrowUpRight" style={{ width: "36px", height: "36px" }} />
+                    <IconButton name="arrowUpRight" />
                   
                 </div>
             </div>
