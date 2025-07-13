@@ -118,7 +118,7 @@
     border: 1px solid var(--background-categories-color);
     border-radius: 50%;
     padding: 12px;
-    transition: var(--color-transition);
+    transition: var(--background-transition);
    
 }
 
