@@ -1,4 +1,4 @@
-import { apiTest } from "./api";
+import { api } from "./api";
 
 // export const mockRecipes = [
 //     {
@@ -78,7 +78,7 @@ import { apiTest } from "./api";
 
 export const getRecipesApi = async (category, page=1, ingredient, area, limit=8) => {
   try {
-    const response = await apiTest.get(`api/recipes`, {
+    const response = await api.get(`api/recipes`, {
       params: {
         category,
         page,
