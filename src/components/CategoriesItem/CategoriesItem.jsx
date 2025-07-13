@@ -1,9 +1,12 @@
 import { useDispatch } from "react-redux";
 import styles from "./CategoriesItem.module.css";
 import clsx from "clsx";
-import { setSelectedCategory } from "../../redux/categories/slice";
+import { setSelectedCategory } from "@/redux/categories/slice";
+import { useSearchParams,  } from "react-router-dom";
+import Icons from "../../assets/sprite.svg";
 
 function CategoriesItem({ id, title, description, option = "category", onClick }) {
+    const [searchParams, setSearchParams] = useSearchParams();
 
     const image = `/categories/${title}.webp`;
 
@@ -18,12 +21,14 @@ function CategoriesItem({ id, title, description, option = "category", onClick }
                 title,
                 description
             }));
+            setSearchParams({ category: title });
         } else {
             dispatch(setSelectedCategory({
                 id,
                 title,
                 description
             }));
+            setSearchParams({ category: title });
         }
     }
 
@@ -56,7 +61,7 @@ function CategoriesItem({ id, title, description, option = "category", onClick }
                         <p className={styles.categoriesTitle}>{title}</p>
                         <div className={styles.categoriesIconContainer} >
                             <svg className={styles.categoriesIcon} >
-                                <use href="/src/assets/sprite.svg#icon-arrow-up-right" />
+                                <use href={`${Icons}#icon-arrow-up-right`} />
                             </svg>
                         </div>
                     </div>
