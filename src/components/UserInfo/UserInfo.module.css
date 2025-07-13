@@ -16,7 +16,7 @@
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .userInfo {
     width: 394px;
     border-color: var(--title-color);
@@ -85,7 +85,7 @@
   text-transform: lowercase;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .userInfoListValue {
     color: var(--title-color);
   }

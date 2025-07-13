@@ -15,7 +15,7 @@
   width: 100%;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .followButtonWrapper {
     width: 394px;
   }
@@ -31,13 +31,13 @@
   gap: 64px;
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .userProfile {
     gap: 80px;
   }
 }
 
-@media (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
   .userProfile {
     flex-direction: row;
     gap: 40px;
@@ -96,7 +96,7 @@
   flex-direction: column;
 }
 
-@media (min-width: 1440px) {
+@media screen and (min-width: 1440px) {
   .section {
     padding: 0 80px;
     width: 1440px;
