@@ -28,6 +28,10 @@
   font-size: 14px;
   line-height: 1.42;
 
+  &:hover {
+    cursor: pointer;
+  }
+
 }
 
 .icon {
@@ -55,6 +59,7 @@
   border-radius: 15px;
   border: 1px solid var(--inactive-color);
   background-color: var(--white-color);
+
 }
 
 .dropdownItem {

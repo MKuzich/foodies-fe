@@ -38,6 +38,7 @@ const AddRecipeForm = () => {
 
   const categories = useSelector(categoriesSelector, shallowEqual);
 
+
   const maxLength = 200;
   const stepTime = 5;
   const currentTime = watch("cookingTime") || stepTime;

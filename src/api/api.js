@@ -6,11 +6,6 @@ const api = axios.create({
     "https://foodies-be-oruu.onrender.com/api/",
 });
 
-export const apiTest = axios.create({
-  baseURL:
-    "http://localhost:3000/",
-});
-
 export const setAuthToken = (token) => {
   if (token) {
     api.defaults.headers.common["Authorization"] = `Bearer ${token}`;
