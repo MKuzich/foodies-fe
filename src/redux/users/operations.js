@@ -31,3 +31,18 @@ export const unfollowUser = createAsyncThunk("users/unfollowUser", async (id, th
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+export const changeAvatar = createAsyncThunk(
+  "users/changeAvatar",
+  async (newAvatarFile, thunkAPI) => {
+    const url = "auth/avatars";
+    try {
+      const formData = new FormData();
+      formData.append("avatar", newAvatarFile, newAvatarFile.name);
+      const { data } = await api.patch(url, formData);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

@@ -1,10 +1,10 @@
 import clsx from "clsx";
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 
-import { changeAvatar } from "../../api/users";
 import { selectLoading } from "../../redux/root/selectors";
+import { changeAvatar } from "../../redux/users/operations";
 import { selectIsUserCurrentUser, selectUser } from "../../redux/users/selectors";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
@@ -12,21 +12,22 @@ import Loader from "../Loader/Loader";
 import css from "./UserInfo.module.css";
 
 const UserInfo = () => {
+  const dispatch = useDispatch();
   const user = useSelector(selectUser);
   const inputId = useId();
   const loading = useSelector(selectLoading);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const [cngAvatarLoading, setCngAvatarLoading] = useState(false);
+
   const changeAvatarHandler = async ({ avatarFile }) => {
-    try {
-      setCngAvatarLoading(true);
-      await changeAvatar(avatarFile[0]);
+    setCngAvatarLoading(true);
+    const result = await dispatch(changeAvatar(avatarFile[0]));
+    if (changeAvatar.fulfilled.match(result)) {
       toast.success("Avatar changed successfully");
-    } catch (error) {
-      toast.error(`Error changing avatar: ${error.message}`);
-    } finally {
-      setCngAvatarLoading(false);
+    } else {
+      toast.error(result.payload || "Failed to update avatar");
     }
+    setCngAvatarLoading(false);
   };
 
   return user ? (

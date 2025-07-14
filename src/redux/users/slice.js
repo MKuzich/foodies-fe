@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { userLogout } from "../auth/authActions";
-import { fetchUser, followUser, unfollowUser } from "./operations";
+import { changeAvatar, fetchUser, followUser, unfollowUser } from "./operations";
 
 const userSchema = {
   id: "",
@@ -38,6 +38,9 @@ const slice = createSlice({
     builder.addCase(unfollowUser.fulfilled, (state) => {
       state.user.followersCount -= 1;
       state.user.isFollowed = false;
+    });
+    builder.addCase(changeAvatar.fulfilled, (state, { payload }) => {
+      state.user.avatarURL = payload.avatarURL;
     });
   },
 });
