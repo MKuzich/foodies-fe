@@ -100,6 +100,64 @@ input:active, input:focus {
   gap: 8px;
 }
 
+
+/* ingredientList */
+.ingredientList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-top: 16px;
+}
+
+.ingredientCard {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  width: 150px;
+  padding: 12px;
+  border: 1px solid #dcdcdc;
+  border-radius: 20px;
+  background-color: #fff;
+  box-shadow: 0 0 2px rgba(0, 0, 0, 0.05);
+  text-align: center;
+  align-content: center;
+}
+
+.ingredientImage {
+  width: 64px;
+  height: 64px;
+  object-fit: cover;
+  border-radius: 12px;
+  margin-bottom: 8px;
+}
+
+.ingredientName {
+  font-size: 16px;
+  font-weight: 500;
+  color: #111;
+  margin-bottom: 4px;
+}
+
+.ingredientQty {
+  font-size: 14px;
+  color: #999;
+}
+
+.removeButton {
+  position: absolute;
+  top: 6px;
+  right: 6px;
+  background: none;
+  border: none;
+  font-size: 20px;
+  color: #111;
+  cursor: pointer;
+  line-height: 1;
+}
+
+/* end ingredientList */
+
 @media screen and (min-width: 768px) {
   .addRecipeForm {
     flex-direction: row;
