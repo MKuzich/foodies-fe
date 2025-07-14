@@ -5,6 +5,8 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import { shallowEqual, useSelector } from "react-redux";
 
 import IconButton from "@/components/IconButton/IconButton";
+import { useAreasFetch } from "@/hooks/useAreasFetch";
+import { useIngredientsFetch } from "@/hooks/useIngredientsFetch";
 
 import { categoriesSelector } from "../../redux/categories/selectors";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
@@ -13,19 +15,6 @@ import Dropdown from "../Dropdown/Dropdown";
 import Icon from "../Icon";
 import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
-
-const mockIngredients = [
-  { id: 1, name: "Eggs" },
-  { id: 2, name: "Flour" },
-  { id: 3, name: "Sugar" },
-  { id: 4, name: "Butter" },
-  { id: 5, name: "Milk" },
-  { id: 6, name: "Salt" },
-  { id: 7, name: "Baking Powder" },
-  { id: 8, name: "Vanilla Extract" },
-  { id: 9, name: "Chocolate" },
-  { id: 10, name: "Strawberries" },
-];
 
 const AddRecipeForm = () => {
   const methods = useForm({
@@ -42,6 +31,8 @@ const AddRecipeForm = () => {
   const { handleSubmit, watch, setValue } = methods;
 
   const categories = useSelector(categoriesSelector, shallowEqual);
+  const { ingredients } = useIngredientsFetch();
+  const { areas } = useAreasFetch();
 
   const maxLength = 200;
   const stepTime = 5;
@@ -55,30 +46,67 @@ const AddRecipeForm = () => {
   const recipePreparation = watch("recipePreparation") || "";
 
   const onSubmit = (data) => {
-    console.log("Form submitted", data);
+    const {
+      quantity: _quantity,
+      ingredientsList,
+      category,
+      area,
+      cookingTime,
+      recipePreparation,
+      ...rest
+    } = data;
+
+    const formattedIngredients = ingredientsList.map(({ id, quantity }) => ({
+      id,
+      measure: quantity,
+    }));
+
+    const payload = {
+      ...rest,
+      categoryId: category,
+      areaId: area,
+      title: data.title,
+      description: data.description,
+      instructions: recipePreparation,
+      time: `${cookingTime} min`,
+      ingredients: formattedIngredients,
+      // + добавим photo, если используем FormData
+    };
+
+    console.log("Payload ready to send:", payload);
   };
 
   const handleAddIngredient = () => {
-    const ingredient = methods.getValues("ingredients");
+    const selectedId = methods.getValues("ingredients");
     const quantity = methods.getValues("quantity");
 
-    if (!ingredient || !quantity) return;
+    const selectedIngredient = ingredients.find((item) => item.id === selectedId);
 
-    const exists = addedIngredients.some((item) => item.name === ingredient);
+    if (!selectedIngredient || !quantity) return;
+
+    const exists = addedIngredients.some((item) => item.id === selectedIngredient.id);
     if (exists) return;
 
+    const newEntry = {
+      id: selectedIngredient.id,
+      name: selectedIngredient.name,
+      preview: selectedIngredient.img,
+      quantity,
+    };
+
     setAddedIngredients((prev) => {
-      const updated = [...prev, { name: ingredient, quantity }];
+      const updated = [...prev, newEntry];
       methods.setValue("ingredientsList", updated);
       return updated;
     });
+
     methods.setValue("quantity", "");
   };
 
   const handleRemoveIngredient = (indexToRemove) => {
     const updated = addedIngredients.filter((_, index) => index !== indexToRemove);
     setAddedIngredients(updated);
-    methods.setValue("ingredientsList", updated); // ✅ сохраняем в форму
+    methods.setValue("ingredientsList", updated);
   };
 
   return (
@@ -154,6 +182,24 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
+            <div className={styles.formGroup}>
+              <div className={styles.formArea}>
+                <span className={styles.area}>Area</span>
+                <Controller
+                  name="area"
+                  control={methods.control}
+                  render={({ field }) => (
+                    <Dropdown
+                      placeholder="Area"
+                      data={areas}
+                      value={field.value}
+                      onChange={field.onChange}
+                    />
+                  )}
+                />
+              </div>
+            </div>
+
             <div className={clsx(styles.formGroup, styles.formIngredientsQuantity)}>
               <div className={styles.formIngredients}>
                 <span className={styles.ingredients}>Ingredients</span>
@@ -163,9 +209,11 @@ const AddRecipeForm = () => {
                   render={({ field }) => (
                     <Dropdown
                       placeholder="Add the ingredient"
-                      data={mockIngredients}
+                      data={ingredients}
                       value={field.value}
                       onChange={field.onChange}
+                      valueKey="id"
+                      labelKey="name"
                     />
                   )}
                 />
@@ -203,12 +251,13 @@ const AddRecipeForm = () => {
                         className={styles.removeButton}
                         onClick={() => handleRemoveIngredient(index)}
                       >
-                        &times;
+                        <Icon name="x" width={16} height={16} />
                       </button>
-
-                      <img src={item.url} alt={item.name} className={styles.ingredientImage} />
-                      <span className={styles.ingredientName}>{item.name}</span>
-                      <span className={styles.ingredientQty}>{item.quantity}</span>
+                      <img src={item.preview} alt={item.name} className={styles.ingredientImage} />
+                      <div className={styles.ingredientDetails}>
+                        <span className={styles.ingredientName}>{item.name}</span>
+                        <span className={styles.ingredientQty}>{item.quantity}</span>
+                      </div>
                     </div>
                   ))}
                 </div>
