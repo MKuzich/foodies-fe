@@ -21,7 +21,7 @@
   margin-bottom: 32px;
 }
 
-.formCategory, .formCookingtime, .formIngredients{
+.formCategory, .formArea, .formCookingtime, .formIngredients, .areas{
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -46,7 +46,7 @@ input:active, input:focus {
   outline: none;
 }
 
-.formGroup > label, .category, .cookingtime, .ingredients {
+.formGroup > label, .category, .area, .cookingtime, .ingredients {
   font-weight: 800;
   text-transform: uppercase;
 }
@@ -99,6 +99,64 @@ input:active, input:focus {
   align-items: center;
   gap: 8px;
 }
+
+
+/* ingredientList */
+.ingredientList {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.ingredientCard {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  height: 75px;
+  width: 155px;
+  text-align: center;
+  align-content: center;
+}
+.ingredientDetails{
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 4px;
+  width: 100%;
+}
+.ingredientImage {
+  border: 1px solid #dcdcdc;
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+  border-radius: 15px;
+}
+
+.ingredientName {
+  font-size: 16px;
+  font-weight: 500;
+  color: var(--title-color);
+  margin-bottom: 4px;
+}
+
+.ingredientQty {
+  font-size: 14px;
+  color: var(--inactive-color);
+}
+
+.removeButton {
+  position: absolute;
+  top: 0;
+  right: 0;
+  border: none;
+  background: none;
+  cursor: pointer;
+  color: var(--title-color);
+}
+
+/* end ingredientList */
 
 @media screen and (min-width: 768px) {
   .addRecipeForm {

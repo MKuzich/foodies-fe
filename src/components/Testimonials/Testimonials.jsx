@@ -4,14 +4,14 @@ import "./SwiperCustomStyles.css";
 import 'swiper/css';
 import { Swiper, SwiperSlide } from 'swiper/react';
 import { Autoplay, Pagination } from "swiper/modules";
-import { useScreenWidth } from "../../hooks/useScreenWidth";
 import { useDispatch, useSelector } from "react-redux";
 import { testimonialsSelector } from "@/redux/testimonials/selectors";
 import { fetchTestimonials } from "../../redux/testimonials/actions";
 import { useEffect } from "react";
+import useMediaQuery from "@/hooks/useMediaQuery";
 
 function Testimonials() {
-    const width = useScreenWidth();
+    const isMobile = useMediaQuery("(max-width: 375px)");
     const testimonials = useSelector(testimonialsSelector);
     const dispatch = useDispatch();
 
@@ -20,7 +20,7 @@ function Testimonials() {
     }, []);
 
 
-    const value = width <= 768 ? 64 : 80;
+    const value = isMobile ? 64 : 80;
 
 
     return (

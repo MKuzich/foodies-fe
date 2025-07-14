@@ -1,6 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { fetchUser } from "./operations";
+
 import { userLogout } from "../auth/authActions";
+import { fetchUser, followUser, unfollowUser } from "./operations";
 
 const userSchema = {
   id: "",
@@ -19,16 +20,7 @@ const slice = createSlice({
   initialState: {
     user: userSchema,
   },
-  reducers: {
-    addToFollowing: (state, action) => {
-      state.user.followersCount += 1;
-      state.user.isFollowed = true;
-    },
-    removeFromFollowing: (state, action) => {
-      state.user.followersCount -= 1;
-      state.user.isFollowed = false;
-    },
-  },
+  reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchUser.pending, (state) => {
       state.user = userSchema;
@@ -39,8 +31,15 @@ const slice = createSlice({
     builder.addCase(userLogout.fulfilled, (state) => {
       state.user = userSchema;
     });
+    builder.addCase(followUser.fulfilled, (state) => {
+      state.user.followersCount += 1;
+      state.user.isFollowed = true;
+    });
+    builder.addCase(unfollowUser.fulfilled, (state) => {
+      state.user.followersCount -= 1;
+      state.user.isFollowed = false;
+    });
   },
 });
 
-export const { addToFollowing, removeFromFollowing } = slice.actions;
 export const userReducer = slice.reducer;

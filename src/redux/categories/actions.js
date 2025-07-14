@@ -9,7 +9,6 @@ export const fetchCategories = createAsyncThunk(
         return categories;
       } catch (err) {
         return rejectWithValue(err.message || "Unknown error");
-
       }
     }
   );

@@ -5,7 +5,6 @@ import { fetchCategories } from "./actions";
 
 const initialState = {
   categories: [],
-  selectedCategory: null,
   showAll: false,
   isLoading: false,
   error: null,
@@ -15,9 +14,6 @@ const slice = createSlice({
   name: "categories",
   initialState,
   reducers: {
-    setSelectedCategory: (state, action) => {
-      state.selectedCategory = action.payload;
-    },
     toggleShowAll: (state) => {
       state.showAll = !state.showAll;
     },
@@ -38,6 +34,6 @@ const slice = createSlice({
   },
 });
 
-export const { setSelectedCategory, toggleShowAll } = slice.actions;
+export const {  toggleShowAll } = slice.actions;
 
 export const categoriesReducer = slice.reducer;

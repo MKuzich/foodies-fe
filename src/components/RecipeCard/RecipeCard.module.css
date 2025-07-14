@@ -1,7 +1,9 @@
 /* Start Generation Here */
 .recipeItem {
     position: relative;
-    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
 }
 
 
@@ -13,12 +15,12 @@
     border-radius: 20px;
     margin-bottom: 16px;
 
-    @media (min-width: 768px) {
+    @media screen and (min-width: 768px) {
         width: 342px;
         height: 275px;
     }
 
-    @media (min-width: 1440px) {
+    @media screen and (min-width: 1440px) {
         max-width: 305px;
         width: 100%;
     }
@@ -32,7 +34,7 @@
     color: var(--title-color);
     margin-bottom: 8px;
 
-    @media (min-width: 768px) {
+    @media screen and (min-width: 768px) {
         font-size: 20px;
         line-height: 1.2;
     }
@@ -44,7 +46,7 @@
     color: var(--title-color);
     margin-bottom: 8px;
 
-    @media (min-width: 768px) {
+    @media screen and (min-width: 768px) {
         font-size: 16px;
         line-height: 1.5;
     }
@@ -54,6 +56,7 @@
     display: flex;
     justify-content: space-between;
     align-items: center;
+    margin-top: auto;
 }
 
 .recipeAvatarWrapper {
@@ -70,7 +73,7 @@
     font-size: 14px;
     line-height: 1.42;
 
-    @media (min-width: 768px) {
+    @media screen and (min-width: 768px) {
         font-size: 16px;
         line-height: 1.5;
     }
@@ -97,7 +100,7 @@
     fill: none;
     stroke: var(--text-color);
 
-    @media (min-width: 768px) {
+    @media screen and (min-width: 768px) {
         width: 18px;
         height: 18px;
     }

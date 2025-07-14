@@ -41,6 +41,7 @@
 }
 
 .iconButton:hover {
+  cursor: pointer;
   border-color: var(--text-color);
   background-color: var(--text-color);
 }

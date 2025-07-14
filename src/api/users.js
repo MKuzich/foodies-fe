@@ -1,37 +1,37 @@
 import api from "./api";
 
 export const fetchUserRecipes = async (id, page = 1, limit = 9) => {
-  const url = `/users/${id}/recipes?page=${page}&limit=${limit}`;
+  const url = `users/${id}/recipes?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
 
-export const fetchUserFavorites = async (id) => {
-  const url = `/users/${id}/favorites`;
+export const fetchUserFavorites = async (id, page = 1, limit = 9) => {
+  const url = `users/recipes/favorites?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
 
-export const fetchUserFollowers = async (id) => {
-  const url = `/users/${id}/followers`;
+export const fetchUserFollowers = async (id, page = 1, limit = 9) => {
+  const url = `users/${id}/followers?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
 
-export const fetchUserFollowing = async (id) => {
-  const url = `/users/${id}/following`;
+export const fetchUserFollowing = async (id, page = 1, limit = 9) => {
+  const url = `users/following?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
 
 export const followUser = async (id) => {
-  const url = `/users/${id}/follow`;
+  const url = `users/${id}/follow`;
   const { data } = await api.post(url);
   return data;
 };
 
 export const unfollowUser = async (id) => {
-  const url = `/users/${id}/unfollow`;
+  const url = `users/${id}/unfollow`;
   const { data } = await api.delete(url);
   return data;
 };
@@ -39,7 +39,7 @@ export const unfollowUser = async (id) => {
 export const changeAvatar = async (newAvatarFile) => {
   const formData = new FormData();
   formData.append("avatar", newAvatarFile, newAvatarFile.name);
-  const url = "/auth/avatars";
+  const url = "auth/avatars";
   const { data } = await api.patch(url, formData);
   return data;
 };
