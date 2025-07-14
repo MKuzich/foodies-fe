@@ -7,19 +7,19 @@ export const fetchUserRecipes = async (id, page = 1, limit = 9) => {
 };
 
 export const fetchUserFavorites = async (id, page = 1, limit = 9) => {
-  const url = `users/${id}/recipes?page=${page}&limit=${limit}`;
+  const url = `users/recipes/favorites?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
 
-export const fetchUserFollowers = async (id) => {
-  const url = `users/${id}/followers`;
+export const fetchUserFollowers = async (id, page = 1, limit = 9) => {
+  const url = `users/${id}/followers?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
 
-export const fetchUserFollowing = async () => {
-  const url = `users/following`;
+export const fetchUserFollowing = async (id, page = 1, limit = 9) => {
+  const url = `users/following?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
