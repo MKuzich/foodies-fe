@@ -35,11 +35,3 @@ export const unfollowUser = async (id) => {
   const { data } = await api.delete(url);
   return data;
 };
-
-export const changeAvatar = async (newAvatarFile) => {
-  const formData = new FormData();
-  formData.append("avatar", newAvatarFile, newAvatarFile.name);
-  const url = "auth/avatars";
-  const { data } = await api.patch(url, formData);
-  return data;
-};

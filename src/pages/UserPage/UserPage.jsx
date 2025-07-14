@@ -135,14 +135,24 @@ const UserPage = () => {
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
-  const handleFollowClick = () => {
+  // since we need to update the followers list when following or unfollowing
+  // may be there is a better way to do this
+  // use redux for this ?
+
+  const handleFollowClick = async () => {
     if (isUserIsFollowed) {
-      dispatch(unfollowUser(id));
+      await dispatch(unfollowUser(id));
       toast.success("Successfully unfollowed from this user!");
-      return;
+    } else {
+      await dispatch(followUser(id));
+      toast.success("Successfully followed to this user!");
     }
-    dispatch(followUser(id));
-    toast.success("Successfully followed to this user!");
+    if (tabOpened === "followers") {
+      setPage(1);
+      setTotalPages(0);
+      const followers = await fetchUserFollowers(id, page);
+      setUserFollowers(followers.results);
+    }
   };
 
   const handleChange = (e, newValue) => {
