@@ -22,13 +22,12 @@ import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import { openLogout } from "../../redux/auth/authSlice";
 import { selectLoading } from "../../redux/root/selectors";
-import { fetchUser } from "../../redux/users/operations";
+import { fetchUser, followUser, unfollowUser } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
   selectUserExists,
 } from "../../redux/users/selectors";
-import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
 import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
 import css from "./UserPage.module.css";
@@ -108,11 +107,11 @@ const UserPage = () => {
 
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
-      dispatch(removeFromFollowing(id));
+      dispatch(unfollowUser(id));
       toast.success("Successfully unfollowed from this user!");
       return;
     }
-    dispatch(addToFollowing(id));
+    dispatch(followUser(id));
     toast.success("Successfully followed to this user!");
   };
 

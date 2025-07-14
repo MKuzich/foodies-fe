@@ -1,11 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  registerUser,
-  userLogin,
-  userLogout,
-  getUser,
-  refreshUser,
-} from "./authActions";
+
+import { getUser, refreshUser, registerUser, userLogin, userLogout } from "./authActions";
 
 const initialState = {
   loading: false,
@@ -106,7 +101,7 @@ const slice = createSlice({
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.userInfo = payload;
       })
-      .addCase(refreshUser.rejected, (state, { payload }) => {
+      .addCase(refreshUser.rejected, (state) => {
         state.userInfo = null;
         state.userToken = null;
       });
@@ -114,6 +109,6 @@ const slice = createSlice({
 });
 
 export const { openSignIn, openSignUp, openLogout, closeModal } = slice.actions;
-export const selectCurrentUser = (state) =>
-  state.auth.userToken ? true : false;
+export const selectCurrentUser = (state) => (state.auth.userToken ? true : false);
+export const selectUserInfo = (state) => state.auth.userInfo;
 export default slice.reducer;
