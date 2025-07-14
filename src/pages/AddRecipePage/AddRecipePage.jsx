@@ -1,11 +1,11 @@
 import React from "react";
 
 import AddRecipeForm from "../../components/AddRecipeForm/AddRecipeForm";
+import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 import Container from "../../components/Container/Container";
 import MainTitle from "../../components/MainTitle/MainTitle";
 import PathInfo from "../../components/PathInfo/PathInfo";
 import Subtitle from "../../components/Subtitle/Subtitle";
-import Breadcrumbs from "../../components/Breadcrumbs/Breadcrumbs";
 
 const AddRecipePage = () => {
   return (

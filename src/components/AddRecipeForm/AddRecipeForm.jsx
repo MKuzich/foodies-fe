@@ -1,16 +1,18 @@
-import React from "react";
-import { Controller, FormProvider, useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
-import styles from "./AddRecipeForm.module.css";
-import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
-import { recipeSchema } from "./validationSchema";
-import Button from "../Button/Button";
-import IconButton from "@/components/IconButton/IconButton";
-import Dropdown from "../Dropdown/Dropdown";
-import { shallowEqual, useSelector } from "react-redux";
-import { categoriesSelector } from "../../redux/categories/selectors";
-import Icon from "../Icon";
 import clsx from "clsx";
+import React, { useState } from "react";
+import { Controller, FormProvider, useForm } from "react-hook-form";
+import { shallowEqual, useSelector } from "react-redux";
+
+import IconButton from "@/components/IconButton/IconButton";
+
+import { categoriesSelector } from "../../redux/categories/selectors";
+import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
+import Button from "../Button/Button";
+import Dropdown from "../Dropdown/Dropdown";
+import Icon from "../Icon";
+import styles from "./AddRecipeForm.module.css";
+import { recipeSchema } from "./validationSchema";
 
 const mockIngredients = [
   { id: 1, name: "Eggs" },
@@ -31,13 +33,15 @@ const AddRecipeForm = () => {
     mode: "onChange",
     defaultValues: {
       cookingTime: 10,
+      ingredientsList: [],
     },
   });
+
+  const [addedIngredients, setAddedIngredients] = useState([]);
 
   const { handleSubmit, watch, setValue } = methods;
 
   const categories = useSelector(categoriesSelector, shallowEqual);
-
 
   const maxLength = 200;
   const stepTime = 5;
@@ -52,6 +56,29 @@ const AddRecipeForm = () => {
 
   const onSubmit = (data) => {
     console.log("Form submitted", data);
+  };
+
+  const handleAddIngredient = () => {
+    const ingredient = methods.getValues("ingredients");
+    const quantity = methods.getValues("quantity");
+
+    if (!ingredient || !quantity) return;
+
+    const exists = addedIngredients.some((item) => item.name === ingredient);
+    if (exists) return;
+
+    setAddedIngredients((prev) => {
+      const updated = [...prev, { name: ingredient, quantity }];
+      methods.setValue("ingredientsList", updated);
+      return updated;
+    });
+    methods.setValue("quantity", "");
+  };
+
+  const handleRemoveIngredient = (indexToRemove) => {
+    const updated = addedIngredients.filter((_, index) => index !== indexToRemove);
+    setAddedIngredients(updated);
+    methods.setValue("ingredientsList", updated); // ✅ сохраняем в форму
   };
 
   return (
@@ -71,9 +98,7 @@ const AddRecipeForm = () => {
                 {...methods.register("title")}
               />
               {methods.formState.errors.title && (
-                <p className={styles.error}>
-                  {methods.formState.errors.title.message}
-                </p>
+                <p className={styles.error}>{methods.formState.errors.title.message}</p>
               )}
             </div>
 
@@ -93,15 +118,11 @@ const AddRecipeForm = () => {
                 </span>
               </div>
               {methods.formState.errors.description && (
-                <p className={styles.error}>
-                  {methods.formState.errors.description.message}
-                </p>
+                <p className={styles.error}>{methods.formState.errors.description.message}</p>
               )}
             </div>
 
-            <div
-              className={clsx(styles.formGroup, styles.formCategoryCookingtime)}
-            >
+            <div className={clsx(styles.formGroup, styles.formCategoryCookingtime)}>
               <div className={styles.formCategory}>
                 <span className={styles.category}>Category</span>
                 <Controller
@@ -133,9 +154,7 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            <div
-              className={clsx(styles.formGroup, styles.formIngredientsQuantity)}
-            >
+            <div className={clsx(styles.formGroup, styles.formIngredientsQuantity)}>
               <div className={styles.formIngredients}>
                 <span className={styles.ingredients}>Ingredients</span>
                 <Controller
@@ -162,25 +181,39 @@ const AddRecipeForm = () => {
                 />
               </div>
               {methods.formState.errors.quantity && (
-                <p className={styles.error}>
-                  {methods.formState.errors.quantity.message}
-                </p>
+                <p className={styles.error}>{methods.formState.errors.quantity.message}</p>
               )}
             </div>
 
             <div className={styles.formGroup}>
               <div className={styles.buttonGroup}>
-                <Button
-                  type="button"
-                  outlined="true"
-                  onClick={() => {
-                    console.log("Add ingredient clicked");
-                  }}
-                >
+                <Button type="button" outlined="true" onClick={handleAddIngredient}>
                   Add ingredient <Icon name="plus" width={20} height={20} />
                 </Button>
               </div>
             </div>
+
+            {addedIngredients.length > 0 && (
+              <div className={styles.formGroup}>
+                <div className={styles.ingredientList}>
+                  {addedIngredients.map((item, index) => (
+                    <div key={index} className={styles.ingredientCard}>
+                      <button
+                        type="button"
+                        className={styles.removeButton}
+                        onClick={() => handleRemoveIngredient(index)}
+                      >
+                        &times;
+                      </button>
+
+                      <img src={item.url} alt={item.name} className={styles.ingredientImage} />
+                      <span className={styles.ingredientName}>{item.name}</span>
+                      <span className={styles.ingredientQty}>{item.quantity}</span>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
             <div className={styles.formGroup}>
               <div className={styles.textareaWrapper}>
@@ -198,9 +231,7 @@ const AddRecipeForm = () => {
                 </span>
               </div>
               {methods.formState.errors.recipePreparation && (
-                <p className={styles.error}>
-                  {methods.formState.errors.recipePreparation.message}
-                </p>
+                <p className={styles.error}>{methods.formState.errors.recipePreparation.message}</p>
               )}
             </div>
             <div className={styles.formGroup}>
