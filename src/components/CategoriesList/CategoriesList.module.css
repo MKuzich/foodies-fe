@@ -3,7 +3,7 @@
   flex-direction: column;
   gap: 16px;
 
-  @media (min-width: 768px) {
+  @media screen and (min-width: 768px) {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 20px;
@@ -13,7 +13,7 @@
     }
   }
 
-  @media (min-width: 1440px) {
+  @media screen and (min-width: 1440px) {
     display: flex;
     flex-direction: row;
     flex-wrap: wrap;
