@@ -42,7 +42,11 @@ const UserInfo = () => {
               <ChageAvatarForm onSubmit={changeAvatarHandler} inputId={inputId} />
             </div>
           )}
-          {cngAvatarLoading ? <Loader /> : <AvatarIcon src={user.avatar} name={user.name} large />}
+          {cngAvatarLoading ? (
+            <Loader />
+          ) : (
+            <AvatarIcon src={user.avatarURL} name={user.name} large />
+          )}
         </div>
         <div className={css.userName}>{user.name}</div>
         <ul className={css.userInfoList}>

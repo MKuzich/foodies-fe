@@ -11,7 +11,6 @@ import {
   fetchUserRecipes,
 } from "../../api/users";
 import Button from "../../components/Button/Button";
-import Container from "../../components/Container/Container";
 import ListItems from "../../components/ListItems/ListItems";
 import MainTitle from "../../components/MainTitle/MainTitle";
 import Pagination from "../../components/Pagination/Pagination";
@@ -21,7 +20,8 @@ import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import { openLogout } from "../../redux/auth/authSlice";
-import { selectLoading } from "../../redux/root/selectors";
+import { selectError, selectLoading } from "../../redux/root/selectors";
+import { setActiveLoading, setInactiveLoading } from "../../redux/root/slice";
 import { fetchUser, followUser, unfollowUser } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
@@ -33,33 +33,40 @@ import NotFound from "../NotFound/NotFound";
 import css from "./UserPage.module.css";
 
 const UserPage = () => {
-  console.log("UserPage"); // with routes it have the same effect
-
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const [tabOpened, setTabOpened] = useState("recipes");
-  const handleChange = (e, newValue) => {
-    setPage(1);
-    setTabOpened(newValue);
-  };
-
-  useEffect(() => {
-    dispatch(fetchUser(id));
-  }, [dispatch, id]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const isLoading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+
   const isUserExists = useSelector(selectUserExists);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
+
+  const [tabOpened, setTabOpened] = useState("recipes");
+
+  const [page, setPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+
   const [userRecipes, setUserRecipes] = useState(null);
   const [userFavorites, setUserFavorites] = useState(null);
   const [userFollowers, setUserFollowers] = useState(null);
   const [userFollowing, setUserFollowing] = useState(null);
 
   useEffect(() => {
+    setPage(1);
+    setTotalPages(0);
+    setUserRecipes(null);
+    setUserFavorites(null);
+    setUserFollowers(null);
+    setUserFollowing(null);
+    setTabOpened("recipes");
+    dispatch(fetchUser(id));
+  }, [dispatch, id]);
+
+  useEffect(() => {
     const fetchRecipes = async () => {
+      dispatch(setActiveLoading());
       try {
         const recipes = await fetchUserRecipes(id, page);
         setUserRecipes(recipes.data);
@@ -67,43 +74,66 @@ const UserPage = () => {
       } catch (error) {
         setUserRecipes(null);
         toast.error(`Error loading recipes: ${error.message}`);
+      } finally {
+        dispatch(setInactiveLoading());
       }
     };
     if (tabOpened === "recipes") fetchRecipes();
   }, [id, tabOpened, page]);
 
   useEffect(() => {
-    const fetchExtraData = async () => {
+    const fetchFavorites = async () => {
+      dispatch(setActiveLoading());
       try {
-        if (tabOpened === "followers") {
-          const followers = await fetchUserFollowers(id);
-          setUserFollowers(followers.results);
-          setTotalPages(followers.pagination.pages);
-        }
-        if (!isUserCurrentUser) return;
-        if (tabOpened === "favorites") {
-          const favorites = await fetchUserFavorites(id);
-          setUserFavorites(favorites.results);
-          setTotalPages(favorites.pagination.pages);
-        }
-        if (tabOpened === "following") {
-          const following = await fetchUserFollowing(id);
-          setUserFollowing(following.results);
-          setTotalPages(following.pagination.pages);
-        }
+        const favorites = await fetchUserFavorites(id, page);
+        setUserFavorites(favorites.data);
+        setTotalPages(favorites.pagination.pages);
       } catch (error) {
-        setTotalPages(0);
         setUserFavorites(null);
-        setUserFollowers(null);
-        setUserFollowing(null);
-        toast.error(error.message);
+        toast.error(`Error loading favorites: ${error.message}`);
+      } finally {
+        dispatch(setInactiveLoading());
       }
     };
+    if (tabOpened === "favorites" && isUserCurrentUser) fetchFavorites();
+  }, [id, tabOpened, page, isUserCurrentUser]);
 
-    if (!isLoading && isUserExists) fetchExtraData();
-  }, [isLoading, isUserExists, tabOpened, page]);
+  useEffect(() => {
+    const fetchFollowers = async () => {
+      dispatch(setActiveLoading());
+      try {
+        const followers = await fetchUserFollowers(id, page);
+        setUserFollowers(followers.results);
+        setTotalPages(followers.pagination.pages);
+      } catch (error) {
+        setUserFollowers(null);
+        toast.error(`Error loading followers: ${error.message}`);
+      } finally {
+        dispatch(setInactiveLoading());
+      }
+    };
+    if (tabOpened === "followers") fetchFollowers();
+  }, [id, tabOpened, page]);
+
+  useEffect(() => {
+    const fetchFollowing = async () => {
+      dispatch(setActiveLoading());
+      try {
+        const following = await fetchUserFollowing(id, page);
+        setUserFollowing(following.results);
+        setTotalPages(following.pagination.pages);
+      } catch (error) {
+        setUserFollowing(null);
+        toast.error(`Error loading following: ${error.message}`);
+      } finally {
+        dispatch(setInactiveLoading());
+      }
+    };
+    if (tabOpened === "following" && isUserCurrentUser) fetchFollowing();
+  }, [id, tabOpened, page, isUserCurrentUser]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
+  const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
@@ -115,7 +145,10 @@ const UserPage = () => {
     toast.success("Successfully followed to this user!");
   };
 
-  const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
+  const handleChange = (e, newValue) => {
+    setPage(1);
+    setTabOpened(newValue);
+  };
 
   return (
     <>
@@ -210,7 +243,7 @@ const UserPage = () => {
                       />
                     )}
                   </div>
-                  {totalPages > 1 && (
+                  {!isLoading && totalPages > 1 && (
                     <Pagination
                       totalPages={totalPages}
                       currentPage={page}
@@ -224,7 +257,7 @@ const UserPage = () => {
           </div>
         </section>
       ) : (
-        !isLoading && <NotFound />
+        !isLoading && error && <NotFound />
       )}
     </>
   );

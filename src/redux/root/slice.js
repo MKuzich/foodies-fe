@@ -13,6 +13,12 @@ const slice = createSlice({
         loading: true,
       };
     },
+    setInactiveLoading: (state) => {
+      return {
+        ...state,
+        loading: false,
+      };
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -21,23 +27,23 @@ const slice = createSlice({
         (state) => {
           state.loading = true;
           state.error = null;
-        }
+        },
       )
       .addMatcher(
         (action) => action.type.endsWith("/rejected"),
         (state, { error, payload }) => {
           state.error = payload.message ? payload.message : error;
           state.loading = false;
-        }
+        },
       )
       .addMatcher(
         (action) => action.type.endsWith("/fulfilled"),
         (state) => {
           state.loading = false;
-        }
+        },
       );
   },
 });
 
-export const { setActiveLoading } = slice.actions;
+export const { setActiveLoading, setInactiveLoading } = slice.actions;
 export const rootReducer = slice.reducer;
