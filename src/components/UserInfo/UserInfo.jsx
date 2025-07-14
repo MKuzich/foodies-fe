@@ -1,17 +1,19 @@
-import { useSelector } from "react-redux";
-import { selectUser } from "../../redux/users/selectors";
-import { selectLoading } from "../../redux/root/selectors";
-import css from "./UserInfo.module.css";
-import { selectIsUserCurrentUser } from "../../redux/users/selectors";
-import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
-import AvatarIcon from "../AvatarIcon/AvatarIcon";
-import { changeAvatar } from "../../api/users";
+import clsx from "clsx";
+import { useId, useState } from "react";
 import toast from "react-hot-toast";
-import { useState } from "react";
+import { useSelector } from "react-redux";
+
+import { changeAvatar } from "../../api/users";
+import { selectLoading } from "../../redux/root/selectors";
+import { selectIsUserCurrentUser, selectUser } from "../../redux/users/selectors";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
+import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
 import Loader from "../Loader/Loader";
+import css from "./UserInfo.module.css";
 
 const UserInfo = () => {
   const user = useSelector(selectUser);
+  const inputId = useId();
   const loading = useSelector(selectLoading);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const [cngAvatarLoading, setCngAvatarLoading] = useState(false);
@@ -31,16 +33,16 @@ const UserInfo = () => {
     <div className={css.userInfoWrapper}>
       <div className={css.userInfo}>
         <div className={css.userAvatarContainer}>
-          {cngAvatarLoading ? (
-            <Loader />
-          ) : (
-            <AvatarIcon src={user.avatar} alt={user.name} large />
-          )}
           {isUserCurrentUser && (
             <div className={css.changeAvatarWrapper}>
-              <ChageAvatarForm onSubmit={changeAvatarHandler} />
+              <label
+                className={clsx(css.changeAvatarLabel, cngAvatarLoading && css.loading)}
+                htmlFor={inputId}
+              ></label>
+              <ChageAvatarForm onSubmit={changeAvatarHandler} inputId={inputId} />
             </div>
           )}
+          {cngAvatarLoading ? <Loader /> : <AvatarIcon src={user.avatar} name={user.name} large />}
         </div>
         <div className={css.userName}>{user.name}</div>
         <ul className={css.userInfoList}>
@@ -55,17 +57,13 @@ const UserInfo = () => {
           {isUserCurrentUser && (
             <li>
               <span className={css.userInfoListTitle}>Favorites: </span>
-              <span className={css.userInfoListValue}>
-                {user.favoriteCount}
-              </span>
+              <span className={css.userInfoListValue}>{user.favoriteCount}</span>
             </li>
           )}
           {isUserCurrentUser && (
             <li>
               <span className={css.userInfoListTitle}>Following: </span>
-              <span className={css.userInfoListValue}>
-                {user.followingCount}
-              </span>
+              <span className={css.userInfoListValue}>{user.followingCount}</span>
             </li>
           )}
           <li>

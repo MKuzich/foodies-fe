@@ -14,6 +14,7 @@ import Button from "../../components/Button/Button";
 import Container from "../../components/Container/Container";
 import ListItems from "../../components/ListItems/ListItems";
 import MainTitle from "../../components/MainTitle/MainTitle";
+import Pagination from "../../components/Pagination/Pagination";
 import PathInfo from "../../components/PathInfo/PathInfo";
 import Subtitle from "../../components/Subtitle/Subtitle";
 import TabItem from "../../components/TabItem/TabItem";
@@ -21,17 +22,15 @@ import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import { openLogout } from "../../redux/auth/authSlice";
 import { selectLoading } from "../../redux/root/selectors";
-import { fetchUser } from "../../redux/users/operations";
+import { fetchUser, followUser, unfollowUser } from "../../redux/users/operations";
 import {
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
   selectUserExists,
 } from "../../redux/users/selectors";
-import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
 import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
 import css from "./UserPage.module.css";
-import Pagination from "../../components/Pagination/Pagination";
 
 const UserPage = () => {
   console.log("UserPage"); // with routes it have the same effect
@@ -108,11 +107,11 @@ const UserPage = () => {
 
   const handleFollowClick = () => {
     if (isUserIsFollowed) {
-      dispatch(removeFromFollowing(id));
+      dispatch(unfollowUser(id));
       toast.success("Successfully unfollowed from this user!");
       return;
     }
-    dispatch(addToFollowing(id));
+    dispatch(followUser(id));
     toast.success("Successfully followed to this user!");
   };
 
@@ -154,7 +153,7 @@ const UserPage = () => {
               </div>
             </div>
 
-            <div>
+            <div className={css.tabsContainer}>
               <div className={css.tabsWrapper}>
                 <TabsList>
                   <TabItem

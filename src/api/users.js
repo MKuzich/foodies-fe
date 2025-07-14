@@ -6,8 +6,8 @@ export const fetchUserRecipes = async (id, page = 1, limit = 9) => {
   return data;
 };
 
-export const fetchUserFavorites = async (id) => {
-  const url = `users/${id}/favorites`;
+export const fetchUserFavorites = async (id, page = 1, limit = 9) => {
+  const url = `users/${id}/recipes?page=${page}&limit=${limit}`;
   const { data } = await api.get(url);
   return data;
 };
@@ -18,8 +18,8 @@ export const fetchUserFollowers = async (id) => {
   return data;
 };
 
-export const fetchUserFollowing = async (id) => {
-  const url = `users/${id}/following`;
+export const fetchUserFollowing = async () => {
+  const url = `users/following`;
   const { data } = await api.get(url);
   return data;
 };
