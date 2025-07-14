@@ -7,7 +7,7 @@ import { openLogout, openSignIn, openSignUp } from "../../redux/auth/authSlice";
 import AuthBar from "../AuthBar/AuthBar";
 import Container from "../Container/Container";
 import MobileSidebar from "../MobileSideBar/MobileSideBar";
-import UserBar from "../UserBar/Userbar";
+import UserBar from "../UserBar/UserBar";
 import styles from "./Header.module.css";
 
 const Header = () => {
