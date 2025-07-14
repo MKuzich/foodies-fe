@@ -79,7 +79,7 @@ function Dropdown({
     setSelectedItems(item.name);
 
     if (props.onChange) {
-      props.onChange(item.name);
+      props.onChange(item.id);
     }
 
     if (shouldSetUrl) {
