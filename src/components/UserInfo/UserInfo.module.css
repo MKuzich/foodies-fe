@@ -45,9 +45,17 @@
   border-color: var(--title-color);
 }
 
+.changeAvatarWrapper input[type="file"] {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  cursor: pointer;
+  z-index: 2;
+}
 
-.changeAvatarWrapper::after {
-  content: "+";
+.changeAvatarLabel {
   position: absolute;
   background: var(--title-color);
   color: var(--white-color);
@@ -61,24 +69,27 @@
   align-items: center;
   border-radius: 50%;
   font-size: 18px;
-
   cursor: pointer;
-  z-index: 1;
-  /* keep it below input but above image */
-  pointer-events: none;
 }
 
-.changeAvatarWrapper input[type="file"] {
+.changeAvatarLabel::after,
+.changeAvatarLabel::before {
+  content: "";
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  cursor: pointer;
-  z-index: 2;
+  background: var(--white-color);
+  width: 11px;
+  height: 2px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.changeAvatarLabel::after {
+  transform: translate(-50%, -50%) rotate(90deg);
 }
 
-
+.changeAvatarLabel.loading {
+  display: none;
+}
 .userName {
   font-size: 18px;
   font-weight: 800;

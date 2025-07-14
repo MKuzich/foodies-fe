@@ -1,4 +1,5 @@
-import { useState } from "react";
+import clsx from "clsx";
+import { useId, useState } from "react";
 import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 
@@ -12,6 +13,7 @@ import css from "./UserInfo.module.css";
 
 const UserInfo = () => {
   const user = useSelector(selectUser);
+  const inputId = useId();
   const loading = useSelector(selectLoading);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const [cngAvatarLoading, setCngAvatarLoading] = useState(false);
@@ -32,10 +34,13 @@ const UserInfo = () => {
       <div className={css.userInfo}>
         <div className={css.userAvatarContainer}>
           {isUserCurrentUser && (
-            <>
-              <ChageAvatarForm onSubmit={changeAvatarHandler} />
-              <label className={css.changeAvatarWrapper}> </label>
-            </>
+            <div className={css.changeAvatarWrapper}>
+              <label
+                className={clsx(css.changeAvatarLabel, cngAvatarLoading && css.loading)}
+                htmlFor={inputId}
+              ></label>
+              <ChageAvatarForm onSubmit={changeAvatarHandler} inputId={inputId} />
+            </div>
           )}
           {cngAvatarLoading ? <Loader /> : <AvatarIcon src={user.avatar} name={user.name} large />}
         </div>
