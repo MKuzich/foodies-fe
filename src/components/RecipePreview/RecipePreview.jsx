@@ -23,8 +23,9 @@ const RecipePreview = ({ recipe }) => {
   };
 
   return isLoading ? (
-    <li className={css.recipePreview}>Loading...</li>
+    <li className={css.recipePreview}>Place for placeholder...</li>
   ) : (
+    // TODO: add placeholder
     <li className={css.recipePreview}>
       <img src={recipe.thumb} alt={recipe.title} className={css.recipePreviewImage} />
       <div className={css.recipePreviewWrapper}>
