@@ -1,20 +1,33 @@
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+
+import { selectLoading } from "../../redux/root/selectors";
+import { removeRecipe } from "../../redux/users/operations";
+import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 import IconButton from "../IconButton/IconButton";
 import IconLink from "../IconLink/IconLink";
-
 import css from "./RecipePreview.module.css";
-import { useSelector } from "react-redux";
-import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 
 const RecipePreview = ({ recipe }) => {
+  const isLoading = useSelector(selectLoading);
   const isCurrentUser = useSelector(selectIsUserCurrentUser);
+  const dispatch = useDispatch();
 
-  return (
+  const handleRemoveRecipe = async () => {
+    const result = await dispatch(removeRecipe(recipe.id));
+    if (removeRecipe.fulfilled.match(result)) {
+      toast.success("Successfully removed recipe!");
+    } else {
+      toast.error(result.payload.message || "Failed to remove recipe");
+    }
+  };
+
+  return isLoading ? (
+    <li className={css.recipePreview}>Place for placeholder...</li>
+  ) : (
+    // TODO: add placeholder
     <li className={css.recipePreview}>
-      <img
-        src={recipe.thumb}
-        alt={recipe.title}
-        className={css.recipePreviewImage}
-      />
+      <img src={recipe.thumb} alt={recipe.title} className={css.recipePreviewImage} />
       <div className={css.recipePreviewWrapper}>
         <div className={css.recipePreviewInfo}>
           {/* add as typography with variant="h2" UserCard has the same */}
@@ -24,7 +37,7 @@ const RecipePreview = ({ recipe }) => {
         </div>
         <div className={css.recipePreviewButtons}>
           <IconLink to={`/recipe/${recipe.id}`} name="arrow" black />
-          {isCurrentUser && <IconButton name="trash" />}
+          {isCurrentUser && <IconButton name="trash" onClick={handleRemoveRecipe} />}
         </div>
       </div>
     </li>

@@ -39,7 +39,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
         </>
       )}
       {/* if currentPage + 1 is not last page, show next button */}
-      {currentPage + 1 < totalPages && (
+      {currentPage + 1 <= totalPages && (
         <>
           <button
             className={clsx(
@@ -54,21 +54,19 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
         </>
       )}
       {/* last button disabled when currentPage is last page, does shows when totalPages is less than 3 */}
-      {totalPages > 3 && (
-        <>
-          {currentPage + 2 < totalPages && <span className={css.ellipsis}>...</span>}
-          <button
-            className={clsx(
-              css.button,
-              borders && css.borders,
-              currentPage === totalPages && css.active,
-            )}
-            onClick={() => onClick(totalPages)}
-            disabled={currentPage === totalPages}
-          >
-            {totalPages}
-          </button>
-        </>
+      {currentPage + 2 < totalPages && <span className={css.ellipsis}>...</span>}
+      {(currentPage === totalPages || totalPages > 3) && (
+        <button
+          className={clsx(
+            css.button,
+            borders && css.borders,
+            currentPage === totalPages && css.active,
+          )}
+          onClick={() => onClick(totalPages)}
+          disabled={currentPage === totalPages}
+        >
+          {totalPages}
+        </button>
       )}
     </div>
   );
