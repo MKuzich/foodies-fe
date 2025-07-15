@@ -39,7 +39,7 @@ const UserCard = ({ user }) => {
   return (
     <li className={css.userCard}>
       <div className={css.userCardInfo}>
-        <AvatarIcon src={user.avatarURL} name={user.name} medium />
+        <AvatarIcon src={user.avatarURL} name={user.name} to={`/user/${user.id}`} medium />
         <div className={css.userInfo}>
           {/* add as typography with variant="h2" RecipePreview has the same */}
           <h2 className={css.userName}>{user.name}</h2>

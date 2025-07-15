@@ -1,5 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+import { changeAvatar } from "../users/operations";
 import { getUser, refreshUser, registerUser, userLogin, userLogout } from "./authActions";
 
 const initialState = {
@@ -104,6 +105,9 @@ const slice = createSlice({
       .addCase(refreshUser.rejected, (state) => {
         state.userInfo = null;
         state.userToken = null;
+      })
+      .addCase(changeAvatar.fulfilled, (state, { payload }) => {
+        state.userInfo.avatarURL = payload.avatarURL;
       });
   },
 });

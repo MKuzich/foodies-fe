@@ -1,13 +1,15 @@
-import css from "./AvatarIcon.module.css";
 import clsx from "clsx";
+import { Link } from "react-router-dom";
 
-const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large }) => {
+import css from "./AvatarIcon.module.css";
+
+const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null }) => {
   const iconClassName = clsx(
     css.avatarIcon,
     xsmall && css.xsmall,
     small && css.small,
     medium && css.medium,
-    large && css.large
+    large && css.large,
   );
 
   const getAvatarName = (name) => {
@@ -17,10 +19,15 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large }) => {
   };
   const imgAlt = name ? `Profile picture of user ${name}` : alt;
   const avatarName = getAvatarName(name);
-  return src ? (
-    <img src={src} alt={imgAlt} className={iconClassName} />
-  ) : (
-    <div className={iconClassName}>{avatarName}</div>
+
+  return (
+    <Link to={to}>
+      {src ? (
+        <img src={src} alt={imgAlt} className={iconClassName} />
+      ) : (
+        <div className={iconClassName}>{avatarName}</div>
+      )}
+    </Link>
   );
 };
 
