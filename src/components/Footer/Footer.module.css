@@ -37,6 +37,16 @@
     cursor: pointer;
 }
 
+.iconBtn:hover {
+    cursor: pointer;
+    border-color: var(--text-color);
+    background-color: var(--text-color);
+    stroke: var(--white-color);
+    fill: var(--white-color);
+}
+
+
+
 
 .networkLinks .iconLink {
     stroke: var(--text-color);
