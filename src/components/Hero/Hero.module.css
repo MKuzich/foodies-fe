@@ -32,7 +32,6 @@
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: -2%;
     text-align: center;
     color: var(--white-color);
     margin-bottom: 32px;
@@ -45,7 +44,6 @@
     border-radius: var(--radius-card);
     padding: 16px 32px;
     font-weight: 700;
-    font-style: Bold;
     font-size: 16px;
     line-height: 24px;
     text-transform: uppercase;
@@ -75,7 +73,6 @@
 
     .title {
         font-size: 70px;
-
         line-height: 70px;
     }
 
@@ -83,9 +80,13 @@
         padding: 217px 0 94px 0;
         border-radius: var(--radius-card-mobile);
     }
+
+    .subtitle {
+        max-width: 577px;
+    }  
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
     .hero {
         padding: 0 16px 64px 16px;
     }
@@ -104,6 +105,8 @@
         font-size: 14px;
         line-height: 20px;
         margin-bottom: 20px;
+        max-width:100%;
+        padding: 0 16px;
     }
 
     .ctaBtn {
