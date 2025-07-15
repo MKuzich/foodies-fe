@@ -1,8 +1,26 @@
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+
 import RecipeIngredients from "../../components/RecipeIngredients/RecipeIngredients";
 import RecipePreparation from "../../components/RecipePreparation/RecipePreparation";
+import { openSignIn, selectCurrentUser } from "../../redux/auth/authSlice";
 import styles from "./RecipeMainInfo.module.css";
 
 const RecipeMainInfo = ({ recipe }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const isLoggedIn = useSelector(selectCurrentUser);
+
+  const authorId = recipe.owner.id;
+
+  const handleAuthorClick = () => {
+    if (!isLoggedIn) {
+      dispatch(openSignIn());
+    } else {
+      navigate(`/user/${authorId}`);
+    }
+  };
   const { owner: author } = recipe;
   return (
     <div className={styles.wrapper}>
@@ -18,7 +36,7 @@ const RecipeMainInfo = ({ recipe }) => {
 
           <p className={styles.description}>{recipe.description}</p>
 
-          <button className={styles.authorBtn}>
+          <button className={styles.authorBtn} onClick={handleAuthorClick}>
             <img src={author.avatarURL} alt={author.name} className={styles.avatar} />
             <div className={styles.authorInfo}>
               Created by: <span className={styles.authorName}>{author.name}</span>
