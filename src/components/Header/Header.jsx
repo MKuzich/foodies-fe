@@ -1,8 +1,9 @@
 import clsx from "clsx";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
+import Icons from "../../assets/sprite.svg";
 import { openLogout, openSignIn, openSignUp } from "../../redux/auth/slice";
 import AuthBar from "../AuthBar/AuthBar";
 import Container from "../Container/Container";
@@ -13,7 +14,6 @@ import styles from "./Header.module.css";
 const Header = () => {
   const [mobileNavOpen, setMobileNavOpen] = useState(false);
   const location = useLocation();
-  const navigate = useNavigate();
   const dispatch = useDispatch();
   const isHome = location.pathname === "/";
 
@@ -48,12 +48,9 @@ const Header = () => {
     >
       <Container>
         <div className={styles.inner}>
-          {/* Logo */}
           <Link to="/" className={clsx(styles.logo, !isHome && styles.logoDark)}>
             foodies
           </Link>
-
-          {/* Desktop Nav */}
           <nav className={styles.nav}>
             {navLinks.map(
               (link) =>
@@ -72,8 +69,6 @@ const Header = () => {
                 ),
             )}
           </nav>
-
-          {/* AuthBar or UserBar */}
           {!isAuthenticated ? (
             <AuthBar
               onSignIn={handleSignIn}
@@ -84,7 +79,6 @@ const Header = () => {
           ) : (
             <UserBar
               user={user}
-              onProfile={() => navigate("/user")}
               onLogout={handleLogOut}
               isHome={isHome}
               className={clsx(styles.userBar, !isHome && styles.userBarDark)}
@@ -98,8 +92,8 @@ const Header = () => {
             aria-label="Open navigation menu"
             type="button"
           >
-            <svg width="28" height="28" className={styles.burgerIcon} fill="currentColor">
-              <use href="src/assets/sprite.svg#icon-align-justify" />
+            <svg className={styles.burgerIcon} width="18" height="18">
+              <use href={`${Icons}#icon-align-justify`} />
             </svg>
           </button>
         </div>
