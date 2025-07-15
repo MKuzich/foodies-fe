@@ -1,30 +1,13 @@
 import styles from "./RecipeFilters.module.css";
 import Dropdown from "../Dropdown/Dropdown";
-import { categoriesSelector } from "../../redux/categories/selectors";
-import { useSelector } from "react-redux";
 import Button from "../Button/Button";
 import { useSearchParams } from "react-router-dom";
-import { useAreasFetch } from "@/hooks/useAreasFetch";
-
-
-const mockIngredients = [
-  { id: 1, name: "Eggs" },
-  { id: 2, name: "Flour" },
-  { id: 3, name: "Sugar" },
-  { id: 4, name: "Butter" },
-  { id: 5, name: "Milk" },
-  { id: 6, name: "Salt" },
-  { id: 7, name: "Baking Powder" },
-  { id: 8, name: "Vanilla Extract" },
-  { id: 9, name: "Chocolate" },
-  { id: 10, name: "Strawberries" },
-];
-
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 
 
 function RecipeFilters() {
 
-  const categories = useSelector(categoriesSelector);
+  const { categories, areas, ingredients } = useCategoriesAreasIngredientsFetch();
 
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
@@ -39,11 +22,10 @@ function RecipeFilters() {
 
   const shouldShowCategories = category ? false : true;
 
-  const { areas, isLoading: isLoadingAreas, error: errorAreas } = useAreasFetch();
 
   return (
     <div className={styles.recipeFilters}>
-      <Dropdown placeholder="Ingredient" data={mockIngredients} shouldSetUrl={true} />
+      <Dropdown placeholder="Ingredient" data={ingredients} shouldSetUrl={true} search={true} />
       <Dropdown placeholder="Area" data={areas} shouldSetUrl={true} />
       {shouldShowCategories && <Dropdown placeholder="Category" data={categories} shouldSetUrl={true} />}
       <Button onClick={handleClearAll}>Clear all</Button>

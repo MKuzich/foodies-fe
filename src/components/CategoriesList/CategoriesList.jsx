@@ -1,22 +1,22 @@
 import { useDispatch, useSelector } from "react-redux";
 import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import styles from "./CategoriesList.module.css";
-import { categoriesSelector, errorSelector, isLoadingSelector, showAllSelector } from "@/redux/categories/selectors";
+import { showAllSelector } from "@/redux/categories/selectors";
 import { toggleShowAll } from "@/redux/categories/slice";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Loader from "../Loader/Loader";
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 
 function CategoriesList() {
-  const categories = useSelector(categoriesSelector);
-  const isLoading = useSelector(isLoadingSelector);
-  const error = useSelector(errorSelector);
+  const { categories, isLoading, error } = useCategoriesAreasIngredientsFetch();
+
+
+  
   const showAll = useSelector(showAllSelector);
   const dispatch = useDispatch();
 
   const isMobile = useMediaQuery("(max-width: 375px)");
   const displayedCategories = showAll ? categories : categories.slice(0, isMobile ? 8 : 11);
-  console.log(isMobile);
-  console.log(displayedCategories);
 
   if (isLoading) {
     return (

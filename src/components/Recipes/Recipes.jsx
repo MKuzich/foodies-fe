@@ -13,13 +13,11 @@ import { errorSelector, isLoadingSelector, paginationSelector } from "@/redux/re
 import { fetchRecipes } from "@/redux/recipes/actions";
 import Loader from "../Loader/Loader";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { useIngredientsFetch } from "@/hooks/useIngredientsFetch";
 
 
 function Recipes() {
     const pagination = useSelector(paginationSelector);
     const isLoading = useSelector(isLoadingSelector);
-    const error = useSelector(errorSelector);
 
 
     const recipesRef = useRef(null);
@@ -51,10 +49,9 @@ function Recipes() {
         const params = {};
         if (searchParams.get('category')) params.category = searchParams.get('category');
         params.page = searchParams.get('page') || 1;
-        if (searchParams.get('ingredient')) params.ingredient = searchParams.get('ingredient');
-        if (searchParams.get('area')) params.area = searchParams.get('area');
-
-
+        if (searchParams.get('ingredient')) params.ingredient = decodeURIComponent(searchParams.get('ingredient'));
+        if (searchParams.get('area')) params.area = decodeURIComponent(searchParams.get('area'));
+        console.log(params);
         dispatch(fetchRecipes({ ...params, limit: limitPage }));
     }, [dispatch, searchParams, limitPage]);
 
