@@ -253,7 +253,7 @@ const UserPage = () => {
                       />
                     )}
                   </div>
-                  {!isLoading && totalPages > 1 && (
+                  {totalPages > 1 && (
                     <Pagination
                       totalPages={totalPages}
                       currentPage={page}
