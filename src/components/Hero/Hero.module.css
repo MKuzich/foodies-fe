@@ -3,7 +3,7 @@
     margin-left: auto;
     margin-right: auto;
     background: transparent;
-    padding: 0 16px;
+    padding: 0 16px 120px 16px;
     margin-top: 20px;
 }
 
@@ -44,8 +44,11 @@
 .ctaBtn {
     border-radius: var(--radius-card);
     padding: 16px 32px;
-    font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
+    font-style: Bold;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
     cursor: pointer;
     background: transparent;
     border: 1px solid var(--white-color);
@@ -55,15 +58,21 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    transition: all var(--transition-main);
 }
 
-.ctaBtn:hover {
-    background: var(--title-color);
-    color: var(--white-color);
+.ctaBtn:hover,
+.ctaBtn:focus {
+    background: var(--white-color);
+    color: var(--title-color);
     border: 1px solid var(--white-color);
 }
 
 @media (max-width: 1024px) {
+    .hero {
+        padding: 0 16px 100px 16px;
+    }
+
     .title {
         font-size: 70px;
 
@@ -77,6 +86,10 @@
 }
 
 @media (max-width: 768px) {
+    .hero {
+        padding: 0 16px 64px 16px;
+    }
+
     .heroInner {
         padding: 180px 0 16px 0;
     }
@@ -103,7 +116,7 @@
 
     .hero {
 
-        padding: 0 8px;
+        padding: 0 8px 64px 8px;
         margin-top: 10px;
     }
 
