@@ -1,6 +1,15 @@
 .recipeInfo {
-  display: flex;
-  flex-direction: column;
-  gap: 24px;
-  margin: 20px 0;
+  margin-bottom: 32px;
+}
+
+@media (min-width: 768px) {
+  .recipeInfo {
+    margin-bottom: 100px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .recipeInfo {
+    margin-bottom: 120px;
+  }
 }

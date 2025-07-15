@@ -37,7 +37,7 @@ function App() {
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
             <Route path="/user/:id" element={<PrivateRoute component={User} />} />
-            <Route path="/recipe/add" element={<PrivateRoute component={AddRecipe} />} />
+            <Route path="/recipe/add" element={<AddRecipe />} /> {/* TODO: add private route */}
             <Route path="/recipe/:id" element={<Recipe />} />
             <Route path="/test" element={<Test />} />
             <Route path="*" element={<NotFound />} />
