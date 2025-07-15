@@ -44,7 +44,7 @@ const RecipeMainInfo = ({ recipe }) => {
           </button>
         </div>
         <RecipeIngredients ingredients={recipe.ingredients} />
-        <RecipePreparation instructions={recipe.instructions} />
+        <RecipePreparation recipe={recipe} />
       </div>
     </div>
   );
