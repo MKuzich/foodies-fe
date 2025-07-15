@@ -2,14 +2,16 @@ import { useDispatch } from "react-redux";
 import styles from "./CategoriesItem.module.css";
 import clsx from "clsx";
 import { useSearchParams,  } from "react-router-dom";
-import Icons from "../../assets/sprite.svg";
+import Icons from "@/assets/sprite.svg";
+import { setQuery, setShowAllRecipes } from "@/redux/recipes/slice";
+
 
 function CategoriesItem({ id, name, description, option = "category", onClick }) {
+    const dispatch = useDispatch();
     const [searchParams, setSearchParams] = useSearchParams();
 
     const image = `/categories/${name}.webp`;
 
-    const dispatch = useDispatch();
 
     const handleClick = () => {
         if (option === "All") {
@@ -18,6 +20,8 @@ function CategoriesItem({ id, name, description, option = "category", onClick })
             setSearchParams({page: 1});
         } else {
             setSearchParams({ category: name });
+            dispatch(setQuery({ key: "category", value: name }));
+            dispatch(setShowAllRecipes(false));
         }
     }
 

@@ -7,6 +7,11 @@ import useMediaQuery from "@/hooks/useMediaQuery";
 import Loader from "../Loader/Loader";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
+import { setQuery } from "@/redux/recipes/slice";
+import { useEffect } from "react";
+import { querySelector } from "@/redux/recipes/selectors";
+
+
 
 
 function CategoriesList() {
@@ -16,10 +21,17 @@ function CategoriesList() {
   const error = useSelector(errorCategoriesSelector);
   const showAll = useSelector(showAllSelector);
 
+
   const dispatch = useDispatch();
+
+
 
   const isMobile = useMediaQuery("(max-width: 375px)");
   const displayedCategories = showAll ? categories : categories.slice(0, isMobile ? 8 : 11);
+
+  useEffect(() => {
+    dispatch(setQuery({ key: "category", value: "" }));
+  }, []);
 
   if (isLoading) {
     return (

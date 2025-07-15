@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { areasSelector, isLoadingSelector, errorSelector } from "@/redux/areas/selectors";
-import { ingredientsSelector,  isLoadingIngredientsSelector,  errorIngredientsSelector } from "@/redux/ingredients/selectors";
-import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
+import { areasSelector } from "@/redux/areas/selectors";
+import { ingredientsSelector } from "@/redux/ingredients/selectors";
+import { categoriesSelector } from "@/redux/categories/selectors";
 import { _fetchAreas } from "@/redux/areas/actions";
 import { _fetchIngredients } from "@/redux/ingredients/actions";
 import { _fetchCategories } from "@/redux/categories/actions";
