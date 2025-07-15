@@ -5,7 +5,7 @@ import api from "../../api/api";
 import Loader from "../../components/Loader/Loader";
 import RecipeMainInfo from "../../components/RecipeMainInfo/RecipeMainInfo";
 
-const RecipePage = () => {
+const RecipeInfo = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [loading, setLoading] = useState(true);
@@ -36,4 +36,4 @@ const RecipePage = () => {
   return <RecipeMainInfo recipe={recipe} />;
 };
 
-export default RecipePage;
+export default RecipeInfo;
