@@ -1,15 +1,22 @@
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
+
 import clsx from "clsx";
 
-import styles from "./Dropdown.module.css";
+import styles from "../Dropdown/Dropdown.module.css";
 
-const DefaultDropdownButton = ({ placeholder, selectedItems, handleToggle, ...props }) => {
+const SearchableDropdownInput = ({ placeholder, selectedItems, handleToggle, onSearch, searchValue, ...props }) => {
   return (
     <div style={{ position: "relative" }}>
-      <button type="button" className={styles.inputField} onClick={handleToggle} {...props}>
-        {selectedItems ? selectedItems : placeholder}
-      </button>
+      <input
+        type="text"
+        className={styles.inputField}
+        placeholder={selectedItems ? selectedItems.split("_").join(" ") : placeholder}
+        value={searchValue}
+        onChange={(e) => onSearch(e.target.value)}
+        onClick={handleToggle}
+        {...props}
+      />
       <svg className={styles.icon} width="20" height="20" viewBox="0 0 20 20">
         <use href="/src/assets/sprite.svg#icon-chevron-down" />
       </svg>
@@ -17,29 +24,40 @@ const DefaultDropdownButton = ({ placeholder, selectedItems, handleToggle, ...pr
   );
 };
 
-const DefaultDropdownList = ({ data, handleSelectItem }) => {
+const SearchableDropdownList = ({ data, handleSelectItem }) => {
+  const displayData = data.slice(0, 10); // Ограничиваем до 10 элементов
+  
   return (
     <ul className={clsx(styles.dropdown)}>
-      {data.map((item) => (
-        <li key={item.id} className={styles.dropdownItem} onClick={() => handleSelectItem(item)}>
-          {item.name}
+      {displayData.length === 0 ? (
+        <li className={clsx(styles.dropdownItem, styles.noResults)}>
+          No results found
         </li>
-      ))}
+      ) : (
+        displayData.map((item) => (
+          <li key={item.id} className={styles.dropdownItem} onClick={() => handleSelectItem(item)}>
+            {item.name}
+          </li>
+        ))
+      )}
     </ul>
   );
 };
 
-function Dropdown({
-  DropdownButton: CustomButton,
+function DropdownSearch({
   DropdownList: CustomList,
   placeholder,
   data,
   shouldSetUrl = false,
   resetSignal = false,
+  value,
+  onChange,
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState("");
+  const [searchValue, setSearchValue] = useState("");
+  const [filteredData, setFilteredData] = useState(data);
   const buttonRef = useRef(null);
   const wrapperRef = useRef(null);
   const [buttonHeight, setButtonHeight] = useState(0);
@@ -51,11 +69,24 @@ function Dropdown({
     }
   }, []);
 
-  // Сброс состояния при изменении resetSignal
+  // Clear values when resetSignal is true
   useEffect(() => {
     setSelectedItems("");
+    setSearchValue("");
     setIsOpen(false);
   }, [resetSignal]);
+
+  // Update selectedItems when value prop changes
+  useEffect(() => {
+    if (value) {
+      const selectedItem = data.find(item => item.id === value);
+      if (selectedItem) {
+        setSelectedItems(selectedItem.name);
+      }
+    } else {
+      setSelectedItems("");
+    }
+  }, [value, data]);
 
   useEffect(() => {
     if (!isOpen) return;
@@ -63,6 +94,7 @@ function Dropdown({
     const handleClickOutside = (event) => {
       if (wrapperRef.current && !wrapperRef.current.contains(event.target)) {
         setIsOpen(false);
+        setSearchValue("");
       }
     };
 
@@ -80,15 +112,34 @@ function Dropdown({
     }
   }, [searchParams, placeholder]);
 
+  useEffect(() => {
+    if (searchValue) {
+      const filtered = data.filter(item =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase())
+      );
+      setFilteredData(filtered);
+    } else {
+      setFilteredData(data);
+    }
+  }, [searchValue, data]);
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
   };
 
+  const handleSearch = (value) => {
+    setSearchValue(value);
+    if (!isOpen) {
+      setIsOpen(true);
+    }
+  };
+
   const handleSelectItem = (item) => {
     setSelectedItems(item.name);
+    setSearchValue("");
 
-    if (props.onChange) {
-      props.onChange(item.id);
+    if (onChange) {
+      onChange(item.id);
     }
 
     if (shouldSetUrl) {
@@ -101,26 +152,27 @@ function Dropdown({
     setIsOpen(false);
   };
 
-  const Button = CustomButton || DefaultDropdownButton;
-  const List = CustomList || DefaultDropdownList;
+  const List = CustomList || SearchableDropdownList;
 
   return (
     <div className={styles.inputWrapper} ref={wrapperRef}>
-      <Button
+      <SearchableDropdownInput
         ref={buttonRef}
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        onSearch={handleSearch}
+        searchValue={searchValue}
         {...props}
       />
 
       {isOpen && (
-        <div className={styles.inputContainer} style={{ top: buttonHeight + 10 }}>
-          <List data={data} handleSelectItem={handleSelectItem} />
+        <div className={clsx(styles.inputContainer, styles.searchContainer)} style={{ top: buttonHeight + 10 }}>
+          <List data={filteredData} handleSelectItem={handleSelectItem} />
         </div>
       )}
     </div>
   );
 }
 
-export default Dropdown;
+export default DropdownSearch; 

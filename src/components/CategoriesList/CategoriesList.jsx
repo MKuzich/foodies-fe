@@ -6,13 +6,16 @@ import { toggleShowAll } from "@/redux/categories/slice";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Loader from "../Loader/Loader";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
+
 
 function CategoriesList() {
-  const { categories, isLoading, error } = useCategoriesAreasIngredientsFetch();
-
-
-  
+  useCategoriesAreasIngredientsFetch();
+  const categories = useSelector(categoriesSelector);
+  const isLoading = useSelector(isLoadingCategoriesSelector);
+  const error = useSelector(errorCategoriesSelector);
   const showAll = useSelector(showAllSelector);
+
   const dispatch = useDispatch();
 
   const isMobile = useMediaQuery("(max-width: 375px)");
