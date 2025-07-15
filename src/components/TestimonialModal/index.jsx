@@ -1,7 +1,7 @@
 import { useState } from "react";
 
 import Button from "../Button/Button";
-import { ModalPortal } from "../ModalPortal/ModalPortal";
+import ModalPortal from "../ModalPortal/ModalPortal";
 import TestimonialModal from "./TestimonialModal";
 
 const OpenModalButton = ({ recipeId }) => {

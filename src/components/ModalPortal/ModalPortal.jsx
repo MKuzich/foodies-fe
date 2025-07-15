@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { createPortal } from "react-dom";
 
-export const ModalPortal = ({ children }) => {
+const ModalPortal = ({ children }) => {
   const [modalRoot, setModalRoot] = useState(null);
 
   useEffect(() => {
@@ -13,3 +13,5 @@ export const ModalPortal = ({ children }) => {
 
   return createPortal(children, modalRoot);
 };
+
+export default ModalPortal;

@@ -8,7 +8,7 @@ import * as yup from "yup";
 
 import { userLogin } from "../../redux/auth/actions";
 import Icon from "../Icon";
-import { ModalPortal } from "../ModalPortal/ModalPortal";
+import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
 
 const modalVariants = {

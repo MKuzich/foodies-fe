@@ -7,7 +7,7 @@ import * as yup from "yup";
 
 import api from "../../api";
 import Icon from "../Icon";
-import { ModalPortal } from "../ModalPortal/ModalPortal";
+import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./TestimonialModal.module.css";
 
 const modalVariants = {
