@@ -1,8 +1,9 @@
-import { useSelector, useDispatch } from 'react-redux';
-import SignInModal from './SignInModal';
-import SignUpModal from './SignUpModal';
-import LogoutModal from './LogoutModal';
-import { closeModal, openSignIn, openSignUp } from '../../redux/auth/authSlice';
+import { useDispatch, useSelector } from "react-redux";
+
+import { closeModal, openSignIn, openSignUp } from "../../redux/auth/authSlice";
+import LogoutModal from "./LogoutModal";
+import SignInModal from "./SignInModal";
+import SignUpModal from "./SignUpModal";
 
 const AuthModals = () => {
   const dispatch = useDispatch();
@@ -11,18 +12,18 @@ const AuthModals = () => {
   const close = () => dispatch(closeModal());
 
   const handleOpenSignIn = () => dispatch(openSignIn());
-  
+
   const handleOpenSignUp = () => dispatch(openSignUp());
 
-  if (modalType === 'signin') {
+  if (modalType === "signin") {
     return <SignInModal onClose={close} onSwitch={handleOpenSignUp} />;
   }
 
-  if (modalType === 'signup') {
+  if (modalType === "signup") {
     return <SignUpModal onClose={close} onSwitch={handleOpenSignIn} />;
   }
-  
-  if (modalType === 'logout') {
+
+  if (modalType === "logout") {
     return <LogoutModal onClose={close} />;
   }
 

@@ -14,39 +14,42 @@
   height: 40px;
   border: 1px solid rgba(255, 255, 255, 0.2);
 }
+
 .iconLinkIcon {
   width: 16px;
   height: 16px;
-  fill: none;
+  fill: var(--text-color);
   stroke: var(--text-color);
   transition: var(--stroke-transition);
+}
+
+.iconLinkIcon.black {
+  fill: none;
 }
 
 .iconLinkIcon.white {
   stroke: var(--white-color);
 }
 
-@media (min-width: 768px) {
+@media screen and (min-width: 768px) {
   .iconLink {
     width: 42px;
     height: 42px;
   }
+
   .iconLinkIcon {
     width: 18px;
     height: 18px;
   }
+
   .iconLink.white {
     width: 44px;
     height: 44px;
   }
 
   .iconLink.social {
-    width: 40px;
-    height: 40px;
-  }
-  .iconLink.social {
-    width: 20px;
-    height: 20px;
+    width: 36px;
+    height: 36px;
   }
 }
 
@@ -54,6 +57,7 @@
   border-color: var(--text-color);
   background-color: var(--text-color);
 }
+
 .iconLink:hover .iconLinkIcon {
   stroke: var(--white-color);
 }

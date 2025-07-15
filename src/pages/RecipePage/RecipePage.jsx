@@ -63,15 +63,21 @@ const RecipePage = () => {
 
   return (
     <div className={styles.recipeInfo}>
-      <RecipeMainInfo
-        image={thumb}
-        title={title}
-        category={categoryName}
-        time={time}
-        description={description}
-        author={author}
-        ingredients={ingredients}
+      {/* <RecipeMainInfo
+        image={recipe.image}
+        title={recipe.title}
+        category={recipe.category}
+        description={recipe.description}
+        author={recipe.author}
       />
+
+      <RecipeIngredients ingredients={recipe.ingredients} />
+
+      <RecipePreparation
+        description={recipe.instructions}
+        isFavorite={recipe.isFavorite}
+        onToggleFavorite={handleToggleFavorite}
+      /> */}
     </div>
   );
 };

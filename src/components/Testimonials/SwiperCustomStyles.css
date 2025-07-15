@@ -1,29 +1,35 @@
 .swiper-pagination {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    gap: 8px;
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 8px;
+  margin-top: 40px;
 
-    @media (min-width: 768px) {
-        gap: 12px;
-    }
-
+  @media screen and (min-width: 768px) {
+    gap: 12px;
   }
+
+  &:hover {
+    cursor: pointer;
+  }
+
+  @media screen and (min-width: 768px) {}
+
+}
 
 .swiper-pagination-bullet {
-    display: inline-block;
-    width: 14px;
-    height: 14px;
-    border-radius: 50%;
-    background: var(--inactive-color);
+  display: inline-block;
+  width: 14px;
+  height: 14px;
+  border-radius: 50%;
+  background: var(--inactive-color);
 
-    @media (min-width: 768px) {
-        width: 16px;
-        height: 16px;
-    }
+  @media screen and (min-width: 768px) {
+    width: 16px;
+    height: 16px;
   }
-  
-  .swiper-pagination-bullet-active {
-    background: var(--title-color);
-  }
+}
+
+.swiper-pagination-bullet-active {
+  background: var(--title-color);
+}

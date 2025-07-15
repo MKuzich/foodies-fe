@@ -6,6 +6,7 @@ import css from "./IconLink.module.css";
 const IconLink = ({
   children,
   to,
+  black,
   white,
   social,
   name,
@@ -23,11 +24,17 @@ const IconLink = ({
     <Link
       to={to}
       {...props}
-      className={clsx(css.iconLink, white && css.white, social && css.social)}
+      className={clsx(
+        css.iconLink,
+        black && css.black,
+        white && css.white,
+        social && css.social
+      )}
     >
       <svg
         className={clsx(
           css.iconLinkIcon,
+          black && css.black,
           white && css.white,
           social && css.social
         )}

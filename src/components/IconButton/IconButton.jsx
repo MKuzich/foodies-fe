@@ -18,6 +18,7 @@ const IconButton = ({
     trash: "trash",
     plus: "plus",
     minus: "minus",
+    arrowUpRight: "arrow-up-right",
   };
   return (
     <button

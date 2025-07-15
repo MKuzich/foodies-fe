@@ -1,0 +1,163 @@
+.mobileNavOverlay {
+    display: none;
+}
+
+@media (max-width: 768px) {
+
+    .logo {
+        color: var(--white-color);
+    }
+
+    .mobileNavOverlay {
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh;
+        background: var(--text-color);
+        z-index: 100000;
+        display: flex;
+        justify-content: flex-end;
+    }
+
+    .mobileNav {
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 40vh;
+        padding: 218px 0 132px 0;
+        gap: 32px;
+        padding-top: 48px;
+    }
+
+    .SideBarLink {
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 14px;
+        line-height: 20px;
+        letter-spacing: -2%;
+        text-transform: uppercase;
+        color: var(--white-color);
+    }
+
+    .sideBarImages {
+        display: flex;
+        flex-direction: row;
+        justify-content: center;
+        align-items: center;
+        gap: 16px;
+        margin-bottom: 40px;
+        z-index: 1000000;
+    }
+
+    .mobileNavHero {
+        color: var(--white-color);
+        height: 100vh;
+        width: 100vw;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: start;
+        position: fixed;
+        top: 0;
+        right: 0;
+        z-index: 1001;
+        padding: 0 16px;
+        animation: slideIn var(--background-transition);
+    }
+
+    .headerDark .mobileClose {
+        stroke: var(--white-color);
+    }
+
+    .mobileNavButtons {
+        display: flex;
+        flex-direction: column;
+        height: 40vh;
+        gap: 20px;
+        width: 100%;
+        align-items: center;
+    }
+
+
+    .sidebarHeader {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 24px 24px 16px 24px;
+    }
+
+    .mobileClose {
+        align-self: flex-end;
+        background: none;
+        border: none;
+        cursor: pointer;
+        stroke: var(--white-color);
+        color: var(--white-color);
+        font-size: 28px;
+        padding: 8px;
+        border-radius: 50%;
+        transition: background 0.2s;
+    }
+
+    .mobileClose:focus,
+    .mobileClose:hover {
+        background: var(--inactive-color);
+    }
+
+
+
+    .mobileNav .navLinkActive {
+        background: var(--text-color);
+        color: var(--white-color);
+    }
+
+    .mobileNav .navLink:focus,
+    .mobileNav .navLink:hover {
+        background: var(--inactive-color);
+        color: var(--text-color);
+    }
+
+    .mobileNavButtons {
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        gap: 20px;
+        width: 100%;
+        align-items: center;
+    }
+
+    .mobileNavButton {
+        font-family: Mulish;
+        font-weight: 700;
+        font-style: Bold;
+        font-size: 14px;
+        color: var(--white-color);
+        line-height: 20px;
+        letter-spacing: -2%;
+        text-transform: uppercase;
+
+    }
+
+    @keyframes slideIn {
+        from {
+            right: -100vw;
+        }
+
+        to {
+            right: 0;
+        }
+    }
+
+    .inner {
+        padding: 0 16px;
+    }
+
+    .logo {
+        font-size: 20px;
+        line-height: 24px;
+    }
+}

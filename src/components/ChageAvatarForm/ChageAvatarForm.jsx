@@ -1,9 +1,10 @@
-import { useForm } from "react-hook-form";
-import { useEffect } from "react";
 import { yupResolver } from "@hookform/resolvers/yup";
-import * as Yup from "yup";
-import css from "./ChageAvatarForm.module.css";
+import { useEffect } from "react";
+import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
+import * as Yup from "yup";
+
+import css from "./ChageAvatarForm.module.css";
 
 const schema = Yup.object().shape({
   avatarFile: Yup.mixed()
@@ -12,14 +13,11 @@ const schema = Yup.object().shape({
       return value && value[0].size <= 1024 * 1024;
     })
     .test("fileFormat", "File format must be .png, .jpg, .jpeg", (value) => {
-      return (
-        value &&
-        (value[0].type === "image/png" || value[0].type === "image/jpeg")
-      );
+      return value && (value[0].type === "image/png" || value[0].type === "image/jpeg");
     }),
 });
 
-const ChageAvatarForm = ({ onSubmit }) => {
+const ChageAvatarForm = ({ onSubmit, inputId }) => {
   const {
     register,
     handleSubmit,
@@ -51,7 +49,7 @@ const ChageAvatarForm = ({ onSubmit }) => {
 
   return (
     <form className={css.form} onSubmit={handleSubmit(onSubmit)}>
-      <input {...register("avatarFile")} type="file" className={css.input} />
+      <input {...register("avatarFile")} type="file" className={css.input} id={inputId} />
     </form>
   );
 };
