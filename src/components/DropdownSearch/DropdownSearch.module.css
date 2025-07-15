@@ -81,4 +81,7 @@
   cursor: pointer;
 }
 
+.noResults {
+  cursor: default;
+}
 

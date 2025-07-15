@@ -18,11 +18,20 @@ import Icon from "../Icon";
 import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+import { areasSelector } from "@/redux/areas/selectors";
+import { ingredientsSelector } from "@/redux/ingredients/selectors";
+import { categoriesSelector } from "@/redux/categories/selectors";
+import DropdownSearch from "../DropdownSearch/DropdownSearch";
+
 
 const AddRecipeForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
+
   const recipeCreated = useSelector(selectAddRecipeSuccess);
+
+
+  useCategoriesAreasIngredientsFetch();
 
   useEffect(() => {
     if (recipeCreated) {
@@ -45,7 +54,10 @@ const AddRecipeForm = () => {
 
   const { handleSubmit, watch, setValue } = methods;
 
-  const { areas, ingredients, categories } = useCategoriesAreasIngredientsFetch();
+  const areas = useSelector(areasSelector);
+  const ingredients = useSelector(ingredientsSelector);
+  const categories = useSelector(categoriesSelector);
+
   const [resetSignal, setResetSignal] = useState(false);
 
   const maxLength = 200;
@@ -102,8 +114,10 @@ const AddRecipeForm = () => {
   };
 
   const onSubmit = async (data) => {
-    const formData = buildFormData(data);
-    dispatch(submitRecipeThunk(formData));
+    console.log(data);
+    // const formData = buildFormData(data);
+    // dispatch(submitRecipeThunk(formData));
+    setResetSignal((prev) => !prev);
   };
 
   const handleAddIngredient = () => {
@@ -155,6 +169,7 @@ const AddRecipeForm = () => {
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
+
 
   return (
     <div className={styles.addRecipeForm}>
@@ -212,6 +227,7 @@ const AddRecipeForm = () => {
                       data={categories}
                       value={field.value}
                       onChange={field.onChange}
+                      resetSignal={resetSignal}
                     />
                   )}
                 />
@@ -258,6 +274,7 @@ const AddRecipeForm = () => {
                       data={areas}
                       value={field.value}
                       onChange={field.onChange}
+                      resetSignal={resetSignal}
                     />
                   )}
                 />
@@ -276,13 +293,14 @@ const AddRecipeForm = () => {
                   name="ingredients"
                   control={methods.control}
                   render={({ field }) => (
-                    <Dropdown
+                    <DropdownSearch
                       placeholder="Add the ingredient"
                       data={ingredients}
                       value={field.value}
                       onChange={field.onChange}
-                      valueKey="id"
-                      labelKey="name"
+                      valueKey="id"    //  TODO: DELETE THIS CAUSE ERRORS
+                      labelKey="name"  //  TODO: DELETE THIS CAUSE ERRORS
+                      resetSignal={resetSignal}
                     />
                   )}
                 />

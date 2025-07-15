@@ -7,49 +7,27 @@ import { _fetchAreas } from "@/redux/areas/actions";
 import { _fetchIngredients } from "@/redux/ingredients/actions";
 import { _fetchCategories } from "@/redux/categories/actions";
 
+// Simple hook for fetching data with store check
 export const useCategoriesAreasIngredientsFetch = () => {
   const dispatch = useDispatch();
-  console.log("useCategoriesAreasIngredientsFetc  TEST FOR RERENDER CONTROL");
-
+  
+  // Check if data exists in store
   const areas = useSelector(areasSelector);
-  const isLoading = useSelector(isLoadingSelector);
-  const error = useSelector(errorSelector);
-
   const ingredients = useSelector(ingredientsSelector);
-  const isLoadingIngredients = useSelector(isLoadingIngredientsSelector);
-  const errorIngredients = useSelector(errorIngredientsSelector);
-
   const categories = useSelector(categoriesSelector);
-  const isLoadingCategories = useSelector(isLoadingCategoriesSelector);
-  const errorCategories = useSelector(errorCategoriesSelector);
 
   useEffect(() => {
-    if (areas.length === 0 && !isLoading && !error) {
+    // Fetch only if data doesn't exist
+    if (areas.length === 0) {
       dispatch(_fetchAreas());
     }
-  }, [dispatch, areas.length, isLoading, error]);
-
-  useEffect(() => {
-    if (ingredients.length === 0 && !isLoadingIngredients && !errorIngredients) {
+    if (ingredients.length === 0) {
       dispatch(_fetchIngredients());
     }
-  }, [dispatch, ingredients.length, isLoadingIngredients, errorIngredients]);
-
-  useEffect(() => {
-    if (categories.length === 0 && !isLoadingCategories && !errorCategories) {
+    if (categories.length === 0) {
       dispatch(_fetchCategories());
     }
-  }, [dispatch, categories.length, isLoadingCategories, errorCategories]);
+  }, [dispatch, areas.length, ingredients.length, categories.length]);
 
-  return { 
-    areas, 
-    isLoading, 
-    error,
-    ingredients,
-    isLoadingIngredients,
-    errorIngredients,
-    categories,
-    isLoadingCategories,
-    errorCategories
-  };
+  // Hook doesn't return anything, get data through selectors
 };
