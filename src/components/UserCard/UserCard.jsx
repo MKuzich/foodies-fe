@@ -1,32 +1,53 @@
-import css from "./UserCard.module.css";
+import { toast } from "react-hot-toast";
+import { useDispatch, useSelector } from "react-redux";
+
+import { selectUserInfo } from "../../redux/auth/slice";
+import { followUser, unfollowUser } from "../../redux/users/operations";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import Button from "../Button/Button";
-import { useSelector } from "react-redux";
-import { selectIsUserCurrentUser } from "../../redux/users/selectors";
-import { useWindowDimensions } from "../../hooks/useWindowDimensions";
-import { useState, useEffect } from "react";
+// import { useWindowDimensions } from "../../hooks/useWindowDimensions";
+// import { useState, useEffect } from "react";
 import IconLink from "../IconLink/IconLink";
+import css from "./UserCard.module.css";
 
-const UserCard = ({ user }) => {
-  const { _, width } = useWindowDimensions();
-  const [visibleCount, setVisibleCount] = useState(3);
-  useEffect(() => {
-    if (width >= 1440) {
-      setVisibleCount(4);
+const UserCard = ({ user, following }) => {
+  const dispatch = useDispatch();
+  // const { _, width } = useWindowDimensions();
+  // const [visibleCount, setVisibleCount] = useState(3);
+  // useEffect(() => {
+  //   if (width >= 1440) {
+  //     setVisibleCount(4);
+  //   } else {
+  //     setVisibleCount(3);
+  // }
+  // }, [width]);
+
+  const me = useSelector(selectUserInfo);
+  const isMe = me.id === user.id;
+  const isUserIsFollowed = user.isFollowed || following;
+
+  const handleFollowClick = async () => {
+    if (isUserIsFollowed) {
+      const result = await dispatch(unfollowUser(user.id));
+      if (unfollowUser.fulfilled.match(result)) {
+        toast.success("Successfully unfollowed from this user!");
+      } else {
+        toast.error(result.payload.message || "Failed to unfollow user");
+      }
     } else {
-      setVisibleCount(3);
+      const result = await dispatch(followUser(user.id));
+      if (followUser.fulfilled.match(result)) {
+        toast.success("Successfully followed to this user!");
+      } else {
+        toast.error(result.payload.message || "Failed to follow user");
+      }
     }
-  }, [width]);
-
-  const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
+  };
 
   return (
     <li className={css.userCard}>
       <div className={css.userCardInfo}>
-        <img
-          src={user.avatarURL}
-          alt={`User avatar picture ${user.name}`}
-          className={css.userAvatar}
-        />
+        <AvatarIcon src={user.avatarURL} name={user.name} to={`/user/${user.id}`} medium />
         <div className={css.userInfo}>
           {/* add as typography with variant="h2" RecipePreview has the same */}
           <h2 className={css.userName}>{user.name}</h2>
@@ -44,13 +65,15 @@ const UserCard = ({ user }) => {
               fontSize: "14px", // TODO: rewrite with props ?
               lineHeight: "1.43",
             }}
+            onClick={handleFollowClick}
+            disabled={isMe}
           >
-            {isUserCurrentUser ? "Following" : "Follow"}
+            {isMe ? "It's you" : isUserIsFollowed ? "Following" : "Follow"}
           </Button>
         </div>
       </div>
       <ul className={css.userRecepiesTop}>
-        {user.recepiesTop.slice(0, visibleCount).map((recipe) => (
+        {/* {user.recepiesTop.slice(0, visibleCount).map((recipe) => (
           <li key={recipe.id} className={css.userRecepiesTopItem}>
             <img
               src={recipe.thumb}
@@ -58,11 +81,11 @@ const UserCard = ({ user }) => {
               className={css.userRecepiesTopItemImg}
             />
           </li>
-        ))}
+        ))} */}
       </ul>
 
       <div className={css.userCardButtons}>
-        <IconLink to={`/user/${user.id}`} name="arrow" />
+        <IconLink to={`/user/${user.id}`} name="arrow" black />
       </div>
     </li>
   );

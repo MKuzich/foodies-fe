@@ -1,12 +1,13 @@
-import React from "react";
-// import css from "./SharedLayout.module.css";
-import Container from "../Container/Container";
-import { useDispatch } from "react-redux";
-import { fetchCategories } from "../../redux/categories/actions";
 import { useEffect } from "react";
 import { Toaster } from "react-hot-toast";
-import Footer from "../Footer/Footer";
+import { useDispatch } from "react-redux";
 import { Outlet } from "react-router-dom";
+
+import { fetchCategories } from "../../redux/categories/actions";
+// import css from "./SharedLayout.module.css";
+//import Container from "../Container/Container";
+import Footer from "../Footer/Footer";
+import Header from "../Header/Header";
 
 const SharedLayout = () => {
   const dispatch = useDispatch();
@@ -17,9 +18,7 @@ const SharedLayout = () => {
 
   return (
     <>
-      <header>
-        <Container>Header</Container>
-      </header>
+      <Header />
       <main>
         <Outlet />
       </main>

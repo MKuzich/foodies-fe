@@ -1,11 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
-import {
-  registerUser,
-  userLogin,
-  userLogout,
-  getUser,
-  refreshUser,
-} from "./authActions";
+
+import { changeAvatar } from "../users/operations";
+import { getUser, refreshUser, registerUser, userLogin, userLogout } from "./actions";
 
 const initialState = {
   loading: false,
@@ -106,14 +102,17 @@ const slice = createSlice({
       .addCase(refreshUser.fulfilled, (state, { payload }) => {
         state.userInfo = payload;
       })
-      .addCase(refreshUser.rejected, (state, { payload }) => {
+      .addCase(refreshUser.rejected, (state) => {
         state.userInfo = null;
         state.userToken = null;
+      })
+      .addCase(changeAvatar.fulfilled, (state, { payload }) => {
+        state.userInfo.avatarURL = payload.avatarURL;
       });
   },
 });
 
 export const { openSignIn, openSignUp, openLogout, closeModal } = slice.actions;
-export const selectCurrentUser = (state) =>
-  state.auth.userToken ? true : false;
+export const selectCurrentUser = (state) => (state.auth.userToken ? true : false);
+export const selectUserInfo = (state) => state.auth.userInfo;
 export default slice.reducer;

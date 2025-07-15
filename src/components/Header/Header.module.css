@@ -1,0 +1,259 @@
+.header {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    padding: 40px 0 24px 0;
+    z-index: 1;
+    background: transparent;
+}
+
+.inner {
+    margin: 0 auto;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    min-height: 80px;
+}
+
+.logo {
+    font-weight: 800;
+    font-style: normal;
+    font-size: 24px;
+    line-height: 28px;
+    text-transform: lowercase;
+    cursor: pointer;
+    color: var(--white-color);
+    text-decoration: none;
+    transition: color var(--color-transition);
+}
+
+.logoDark {
+    color: var(--text-color);
+}
+
+.nav {
+    display: flex;
+    gap: 40px;
+}
+
+.navLink {
+    font-size: 14px;
+    color: var(--white-color);
+    text-decoration: none;
+    padding: 14px 10px;
+    border-radius: 30px;
+    height: 46px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 10px;
+    background: transparent;
+    opacity: 1;
+    transition:
+        border var(--transition-main),
+        color var(--transition-main),
+        background var(--transition-main);
+}
+
+.navLinkDark {
+    color: var(--text-color);
+    font-family: Mulish;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+.navLinkActive {
+    border: 1px solid var(--white-color);
+    color: var(--white-color);
+}
+
+.navLinkDark.navLinkActive {
+    border: 1px solid var(--inactive-color);
+    color: var(--text-color);
+}
+
+.navLinkNoBorder {
+    border: none;
+    color: var(--inactive-color);
+    background: transparent;
+}
+
+.chevronIcon {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    fill: var(--white-color);
+}
+
+.arrowIcon {
+    margin-left: 8px;
+    display: inline-block;
+    vertical-align: middle;
+    width: 18px;
+    height: 18px;
+    fill: none;
+    stroke: var(--white-color);
+}
+
+.burger {
+    display: none;
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    stroke: var(--white-color);
+    fill: var(--white-color);
+    transition: stroke var(--stroke-transition), fill var(--fill-transition);
+}
+
+.burgerDark {
+    stroke: var(--text-color);
+    fill: var(--text-color);
+}
+
+.burgerIcon {
+    stroke: inherit;
+    fill: inherit;
+}
+
+.mobileNavOverlay {
+    display: none;
+}
+
+
+
+@media (max-width: 1024px) {
+    .mobileNav .navLink {
+        font-size: 20px;
+        color: var(--text-color);
+        text-decoration: none;
+        padding: 16px 0;
+        width: 100%;
+        border-radius: 8px;
+        text-align: left;
+        transition:
+            background 0.2s,
+            color 0.2s;
+    }
+
+    .mobileNav .navLinkActive {
+        background: var(--text-color);
+        color: var(--white-color);
+    }
+
+    .mobileNav .navLink:focus,
+    .mobileNav .navLink:hover {
+        background: var(--inactive-color);
+        color: var(--text-color);
+    }
+
+
+
+    .nav {
+        display: none;
+    }
+
+
+
+    .inner {
+        padding: 0 16px;
+    }
+
+    .headerDark .inner {
+        padding: 0;
+    }
+
+    .logo {
+        font-size: 20px;
+        line-height: 24px;
+    }
+}
+
+@media (max-width: 768px) {
+    .inner {
+        padding: 0 8px;
+    }
+
+    .headerDark .inner {
+        padding: 0;
+    }
+
+    .burger {
+        display: block;
+    }
+}
+
+@media (max-width: 375px) {
+    .inner {
+        padding: 0 4px;
+    }
+
+    .logo {
+        font-size: 14px;
+    }
+}
+
+.headerDark {
+    background: transparent;
+    color: var(--text-color);
+}
+
+.headerDark .logo {
+    color: var(--text-color);
+}
+
+.headerDark .navLink {
+    color: var(--text-color);
+    font-family: Mulish;
+    font-weight: 700;
+    font-size: 12px;
+    line-height: 18px;
+    text-transform: uppercase;
+}
+
+.headerDark .navLinkActive {
+    border: 1px solid #bfbebe;
+    color: var(--text-color);
+}
+
+.headerDark .chevronIcon,
+.headerDark .arrowIcon {
+    fill: var(--text-color);
+}
+
+.header {
+    width: 100%;
+    z-index: 1;
+}
+
+.headerAbsolute {
+    position: absolute;
+    top: 0;
+    left: 0;
+}
+
+.headerFlex {
+    display: flex;
+    position: static;
+    padding: 0;
+}
+
+.headerDark .inner {
+    padding-top: 40px;
+    padding-bottom: 80px;
+    min-height: 50px;
+}
+
+.headerDark .dropdown {
+    background: var(--white-color);
+    border: 1px solid var(--title-color);
+    color: var(--title-color);
+}
+
+.headerDark .dropdown .dropdownItem {
+    color: var(--title-color);
+}

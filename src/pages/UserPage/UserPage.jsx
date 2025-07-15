@@ -1,122 +1,102 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
-import {
-  fetchUserFavorites,
-  fetchUserFollowers,
-  fetchUserFollowing,
-  fetchUserRecipes,
-} from "../../api/users";
 import Button from "../../components/Button/Button";
-import Container from "../../components/Container/Container";
 import ListItems from "../../components/ListItems/ListItems";
 import MainTitle from "../../components/MainTitle/MainTitle";
+import Pagination from "../../components/Pagination/Pagination";
 import PathInfo from "../../components/PathInfo/PathInfo";
 import Subtitle from "../../components/Subtitle/Subtitle";
 import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
-import { openLogout } from "../../redux/auth/authSlice";
-import { selectLoading } from "../../redux/root/selectors";
-import { fetchUser } from "../../redux/users/operations";
+import { openLogout } from "../../redux/auth/slice";
+import { selectError, selectLoading } from "../../redux/root/selectors";
 import {
+  fetchUser,
+  fetchUserFavorites,
+  fetchUserFollowers,
+  fetchUserFollowing,
+  fetchUserRecipes,
+  followUser,
+  unfollowUser,
+} from "../../redux/users/operations";
+import {
+  selectFilter,
   selectIsUserCurrentUser,
   selectIsUserIsFollowed,
+  selectPage,
+  selectTabOpened,
+  selectTotalPages,
   selectUserExists,
+  selectUserFavorites,
+  selectUserFollowers,
+  selectUserFollowing,
+  selectUserRecipes,
 } from "../../redux/users/selectors";
-import { addToFollowing, removeFromFollowing } from "../../redux/users/slice";
+import { changePage, changeTab } from "../../redux/users/slice";
 import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
 import css from "./UserPage.module.css";
-import Pagination from "../../components/Pagination/Pagination";
 
 const UserPage = () => {
-  console.log("UserPage"); // with routes it have the same effect
-
-  const { id } = useParams();
   const dispatch = useDispatch();
+  const { id } = useParams();
 
-  const [tabOpened, setTabOpened] = useState("recipes");
-  const handleChange = (e, newValue) => {
-    setPage(1);
-    setTabOpened(newValue);
-  };
-
-  useEffect(() => {
-    dispatch(fetchUser(id));
-  }, [dispatch, id]);
-  const [page, setPage] = useState(1);
-  const [totalPages, setTotalPages] = useState(0);
   const isLoading = useSelector(selectLoading);
+  const error = useSelector(selectError);
+
   const isUserExists = useSelector(selectUserExists);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
-  const [userRecipes, setUserRecipes] = useState(null);
-  const [userFavorites, setUserFavorites] = useState(null);
-  const [userFollowers, setUserFollowers] = useState(null);
-  const [userFollowing, setUserFollowing] = useState(null);
+  const tabOpened = useSelector(selectTabOpened);
+  const currentPage = useSelector(selectPage);
+  const filter = useSelector(selectFilter);
+  const totalPages = useSelector(selectTotalPages);
+
+  const userRecipes = useSelector(selectUserRecipes);
+  const userFavorites = useSelector(selectUserFavorites);
+  const userFollowers = useSelector(selectUserFollowers);
+  const userFollowing = useSelector(selectUserFollowing);
 
   useEffect(() => {
-    const fetchRecipes = async () => {
-      try {
-        const recipes = await fetchUserRecipes(id, page);
-        setUserRecipes(recipes.data);
-        setTotalPages(recipes.pagination.pages);
-      } catch (error) {
-        setUserRecipes(null);
-        toast.error(`Error loading recipes: ${error.message}`);
-      }
-    };
-    if (tabOpened === "recipes") fetchRecipes();
-  }, [id, tabOpened, page]);
+    dispatch(changeTab("recipes"));
+    dispatch(fetchUser(id));
+  }, [dispatch, id]);
 
   useEffect(() => {
-    const fetchExtraData = async () => {
-      try {
-        if (tabOpened === "followers") {
-          const followers = await fetchUserFollowers(id);
-          setUserFollowers(followers.results);
-          setTotalPages(followers.pagination.pages);
-        }
-        if (!isUserCurrentUser) return;
-        if (tabOpened === "favorites") {
-          const favorites = await fetchUserFavorites(id);
-          setUserFavorites(favorites.results);
-          setTotalPages(favorites.pagination.pages);
-        }
-        if (tabOpened === "following") {
-          const following = await fetchUserFollowing(id);
-          setUserFollowing(following.results);
-          setTotalPages(following.pagination.pages);
-        }
-      } catch (error) {
-        setTotalPages(0);
-        setUserFavorites(null);
-        setUserFollowers(null);
-        setUserFollowing(null);
-        toast.error(error.message);
-      }
-    };
-
-    if (!isLoading && isUserExists) fetchExtraData();
-  }, [isLoading, isUserExists, tabOpened, page]);
+    console.log(tabOpened, filter, "effect");
+    tabOpened === "recipes" && dispatch(fetchUserRecipes({ id, ...filter }));
+    tabOpened === "favorites" &&
+      isUserCurrentUser &&
+      dispatch(fetchUserFavorites({ id, ...filter }));
+    tabOpened === "followers" && dispatch(fetchUserFollowers({ id, ...filter }));
+    tabOpened === "following" && isUserCurrentUser && dispatch(fetchUserFollowing());
+  }, [dispatch, filter, tabOpened]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
-
-  const handleFollowClick = () => {
-    if (isUserIsFollowed) {
-      dispatch(removeFromFollowing(id));
-      toast.success("Successfully unfollowed from this user!");
-      return;
-    }
-    dispatch(addToFollowing(id));
-    toast.success("Successfully followed to this user!");
-  };
-
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
+
+  const handleFollowClick = async () => {
+    if (isUserIsFollowed) {
+      const result = await dispatch(unfollowUser(id));
+      if (unfollowUser.fulfilled.match(result)) {
+        toast.success("Successfully unfollowed from this user!");
+      } else {
+        toast.error(result.payload.message || "Failed to unfollow user");
+      }
+    } else {
+      const result = await dispatch(followUser(id));
+      if (followUser.fulfilled.match(result)) {
+        toast.success("Successfully followed to this user!");
+      } else {
+        toast.error(result.payload.message || "Failed to follow user");
+      }
+    }
+  };
 
   return (
     <>
@@ -137,15 +117,27 @@ const UserPage = () => {
                 <div className={css.followButtonContainer}>
                   <div className={css.followButtonWrapper}>
                     {isUserCurrentUser ? (
-                      <Button onClick={() => dispatch(openLogout())} style={{ width: "100%" }}>
+                      <Button
+                        onClick={() => dispatch(openLogout())}
+                        disabled={isLoading}
+                        style={{ width: "100%" }}
+                      >
                         Log out
                       </Button>
                     ) : isUserIsFollowed ? (
-                      <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                      <Button
+                        onClick={handleFollowClick}
+                        disabled={isLoading}
+                        style={{ width: "100%" }}
+                      >
                         Unfollow
                       </Button>
                     ) : (
-                      <Button onClick={handleFollowClick} style={{ width: "100%" }}>
+                      <Button
+                        onClick={handleFollowClick}
+                        disabled={isLoading}
+                        style={{ width: "100%" }}
+                      >
                         Follow
                       </Button>
                     )}
@@ -154,30 +146,30 @@ const UserPage = () => {
               </div>
             </div>
 
-            <div>
+            <div className={css.tabsContainer}>
               <div className={css.tabsWrapper}>
                 <TabsList>
                   <TabItem
                     name={recepieTabName}
-                    onClick={(e) => handleChange(e, "recipes")}
+                    onClick={() => dispatch(changeTab("recipes"))}
                     isActive={tabOpened === "recipes"}
                   />
                   {isUserCurrentUser && (
                     <TabItem
                       name="My Favorites"
-                      onClick={(e) => handleChange(e, "favorites")}
+                      onClick={() => dispatch(changeTab("favorites"))}
                       isActive={tabOpened === "favorites"}
                     />
                   )}
                   <TabItem
                     name="Followers"
-                    onClick={(e) => handleChange(e, "followers")}
+                    onClick={() => dispatch(changeTab("followers"))}
                     isActive={tabOpened === "followers"}
                   />
                   {isUserCurrentUser && (
                     <TabItem
                       name="Following"
-                      onClick={(e) => handleChange(e, "following")}
+                      onClick={() => dispatch(changeTab("following"))}
                       isActive={tabOpened === "following"}
                     />
                   )}
@@ -208,14 +200,16 @@ const UserPage = () => {
                         items={userFollowing}
                         type="user"
                         errorText={errorMap.noSubscriptions}
+                        following
                       />
+                      // TODO : remove following props after BE fix
                     )}
                   </div>
                   {totalPages > 1 && (
                     <Pagination
                       totalPages={totalPages}
-                      currentPage={page}
-                      onClick={setPage}
+                      currentPage={currentPage}
+                      onClick={(newValue) => dispatch(changePage(newValue))}
                       borders
                     />
                   )}
@@ -225,7 +219,7 @@ const UserPage = () => {
           </div>
         </section>
       ) : (
-        !isLoading && <NotFound />
+        !isLoading && error && <NotFound />
       )}
     </>
   );

@@ -1,9 +1,10 @@
+import clsx from "clsx";
+
 import RecipePreview from "../RecipePreview/RecipePreview";
 import UserCard from "../UserCard/UserCard";
 import css from "./ListItems.module.css";
-import clsx from "clsx";
 
-const ListItems = ({ items, type, errorText }) => {
+const ListItems = ({ items, type, errorText, following }) => {
   return (
     <div className={css.listItemsWrap}>
       {!items || items.length === 0 ? (
@@ -15,7 +16,7 @@ const ListItems = ({ items, type, errorText }) => {
               return <RecipePreview key={item.id} recipe={item} />;
             }
             if (type === "user") {
-              return <UserCard key={item.id} user={item} />;
+              return <UserCard key={item.id} user={item} following={following} />; // TODO : remove following props after BE fix
             }
           })}
         </ul>

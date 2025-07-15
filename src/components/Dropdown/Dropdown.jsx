@@ -77,6 +77,11 @@ function Dropdown({
   };
   const handleSelectItem = (item) => {
     setSelectedItems(item.name);
+
+    if (props.onChange) {
+      props.onChange(item.id);
+    }
+
     if (shouldSetUrl) {
       const params = Object.fromEntries(searchParams.entries());
       setSearchParams({
