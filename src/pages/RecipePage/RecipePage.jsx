@@ -2,9 +2,8 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Container from "../../components/Container/Container";
-// import RecipePreparation from "../components/RecipePreparation";
-// import PopularRecipes from "../../components/PopularRecipes/PopularRecipes";
 import Loader from "../../components/Loader/Loader";
+import PopularRecipes from "../../components/PopularRecipes/PopularRecipes";
 import RecipeMainInfo from "../../components/RecipeMainInfo/RecipeMainInfo";
 
 const RecipePage = () => {
@@ -39,7 +38,7 @@ const RecipePage = () => {
   return (
     <Container>
       <RecipeMainInfo recipe={recipe} />
-      {/* <PopularRecipes /> */}
+      <PopularRecipes />
     </Container>
   );
 };
