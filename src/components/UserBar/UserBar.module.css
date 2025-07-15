@@ -11,12 +11,18 @@
   display: flex;
   align-items: center;
   cursor: pointer;
-  padding-right: 18px;
+  padding-right: 6px;
   gap: 6px;
 
   border-radius: 30px;
   transition: var(--background-transition);
   position: relative;
+}
+
+@media screen and (min-width: 768px) {
+  .userBarBtn {
+    padding-right: 14px;
+  }
 }
 
 .userBarBtnDark {
@@ -69,9 +75,10 @@
 
 .userName {
   font-size: 14px;
-  font-weight: 500;
+  font-weight: 700;
   color: var(--white-color);
   transition: var(--color-transition);
+  text-transform: uppercase;
 }
 
 .userNameDark {
@@ -127,14 +134,25 @@
 }
 
 .dropdownItem:hover,
-.dropdownItem:hover {
+.dropdownItem:focus {
   background-color: var(--white-color);
   color: var(--text-color);
 }
 
-.dropdownItemDark:hover {
-  background: var(--inactive-color);
-  color: var(--text-color);
+.dropdownItem:hover .arrowIcon,
+.dropdownItem:focus .arrowIcon {
+  stroke: var(--text-color);
+}
+
+.dropdownItemDark:hover .arrowIcon,
+.dropdownItemDark:focus .arrowIcon {
+  stroke: var(--white-color);
+}
+
+.dropdownItemDark:hover,
+.dropdownItemDark:focus {
+  background: var(--text-color);
+  color: var(--white-color);
 }
 
 .headerDark .dropdown {
@@ -156,10 +174,5 @@
   .dropdown {
     top: 40px;
     right: 0;
-  }
-
-  .userBarBtn {
-    padding: 7px 12px 7px 0;
-    height: 32px;
   }
 }

@@ -14,7 +14,7 @@ const SegmentedSwitch = ({ options, value, onChange, className = "", isHome = tr
         )}
         onClick={() => onChange(opt.value)}
       >
-        {opt.label}
+        <span>{opt.label}</span>
       </button>
     ))}
   </div>

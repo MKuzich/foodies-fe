@@ -13,6 +13,7 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
   const user = useSelector((state) => state.auth.userInfo) || {
     name: "",
     avatar: "",
+    id: "",
   };
 
   useEffect(() => {
@@ -35,7 +36,10 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
       </button>
       {open && (
         <div className={clsx(css.dropdown, !isHome && css.dropdownDark)}>
-          <Link className={clsx(css.dropdownItem, !isHome && css.dropdownItemDark)} to="/user">
+          <Link
+            className={clsx(css.dropdownItem, !isHome && css.dropdownItemDark)}
+            to={`/user/${user.id}`}
+          >
             PROFILE
           </Link>
           <button
