@@ -1,26 +1,26 @@
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { selectUserInfo } from "../../redux/auth/slice";
 import { followUser, unfollowUser } from "../../redux/users/operations";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import Button from "../Button/Button";
-// import { useWindowDimensions } from "../../hooks/useWindowDimensions";
-// import { useState, useEffect } from "react";
 import IconLink from "../IconLink/IconLink";
 import css from "./UserCard.module.css";
 
 const UserCard = ({ user, following }) => {
   const dispatch = useDispatch();
-  // const { _, width } = useWindowDimensions();
-  // const [visibleCount, setVisibleCount] = useState(3);
-  // useEffect(() => {
-  //   if (width >= 1440) {
-  //     setVisibleCount(4);
-  //   } else {
-  //     setVisibleCount(3);
-  // }
-  // }, [width]);
+  const { _, width } = useWindowDimensions();
+  const [visibleCount, setVisibleCount] = useState(3);
+  useEffect(() => {
+    if (width >= 1440) {
+      setVisibleCount(4);
+    } else {
+      setVisibleCount(3);
+    }
+  }, [width]);
 
   const me = useSelector(selectUserInfo);
   const isMe = me.id === user.id;
@@ -73,15 +73,11 @@ const UserCard = ({ user, following }) => {
         </div>
       </div>
       <ul className={css.userRecepiesTop}>
-        {/* {user.recepiesTop.slice(0, visibleCount).map((recipe) => (
+        {user.popularRecipes.slice(0, visibleCount).map((recipe) => (
           <li key={recipe.id} className={css.userRecepiesTopItem}>
-            <img
-              src={recipe.thumb}
-              alt={recipe.title}
-              className={css.userRecepiesTopItemImg}
-            />
+            <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
           </li>
-        ))} */}
+        ))}
       </ul>
 
       <div className={css.userCardButtons}>

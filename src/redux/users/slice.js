@@ -110,13 +110,16 @@ const slice = createSlice({
         if (state.user.id === parsedId) {
           state.user.followersCount += 1;
           state.user.isFollowed = true;
-          state.user.followers = [...state.user.followers, currentUserInfo];
+          state.user.followers = [
+            ...state.user.followers,
+            { ...currentUserInfo, popularRecipes: [] }, // TODO: remove after BE fix
+          ];
         }
 
         // case 2
         if (state.user.id === currentUserInfo.id) {
           state.user.followingCount += 1;
-          state.user.following = [...state.user.following, data];
+          state.user.following = [...state.user.following, data]; // TODO: remove after BE fix
         }
       })
       .addCase(removeRecipe.fulfilled, (state, { payload }) => {
