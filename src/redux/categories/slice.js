@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { fetchCategories } from "./actions";
-
-
 
 const initialState = {
   categories: [],
@@ -20,20 +19,20 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-    .addCase(fetchCategories.pending, (state) => {
-      state.isLoading = true;
-    })
-    .addCase(fetchCategories.fulfilled, (state, action) => {
-      state.categories = action.payload;
-      state.isLoading = false;
-    })
-    .addCase(fetchCategories.rejected, (state, action) => {
-      state.error = action.payload;
-      state.isLoading = false;
-    });
+      .addCase(fetchCategories.pending, (state) => {
+        state.isLoading = true;
+      })
+      .addCase(fetchCategories.fulfilled, (state, action) => {
+        state.categories = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchCategories.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
+      });
   },
 });
 
-export const {  toggleShowAll } = slice.actions;
+export const { toggleShowAll } = slice.actions;
 
 export const categoriesReducer = slice.reducer;

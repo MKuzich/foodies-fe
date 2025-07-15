@@ -1,6 +1,6 @@
 import { useDispatch, useSelector } from "react-redux";
 
-import { closeModal, openSignIn, openSignUp } from "../../redux/auth/authSlice";
+import { closeModal, openSignIn, openSignUp } from "../../redux/auth/slice";
 import LogoutModal from "./LogoutModal";
 import SignInModal from "./SignInModal";
 import SignUpModal from "./SignUpModal";

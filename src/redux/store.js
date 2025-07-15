@@ -1,25 +1,22 @@
+import { configureStore } from "@reduxjs/toolkit";
+import { combineReducers } from "redux";
+import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from "redux-persist";
+import storage from "redux-persist/lib/storage";
 
-import { configureStore } from '@reduxjs/toolkit';
-import { persistReducer, FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER } from 'redux-persist';
-import storage from 'redux-persist/lib/storage';
-import { combineReducers } from 'redux';
-import { rootReducer } from './root/slice';
-import authReducer from './auth/authSlice';
-import { userReducer } from './users/slice';
-import { categoriesReducer } from './categories/slice';
-import { testimonialsReducer } from './testimonials/slice';
-import { recipesReducer } from './recipes/slice';
-import { ingredientsReducer } from './ingredients/slice';
-import { areasReducer } from './areas/slice';
-
+import { areasReducer } from "./areas/slice";
+import authReducer from "./auth/slice";
+import { categoriesReducer } from "./categories/slice";
+import { ingredientsReducer } from "./ingredients/slice";
+import { recipesReducer } from "./recipes/slice";
+import { rootReducer } from "./root/slice";
+import { testimonialsReducer } from "./testimonials/slice";
+import { userReducer } from "./users/slice";
 
 const persistConfig = {
   key: "auth",
   storage,
-  blacklist: ['authModal', 'testimonials', 'categories', 'recipes', 'ingredients', 'areas'],
+  blacklist: ["authModal", "testimonials", "categories", "recipes", "ingredients", "areas"],
   whitelist: ["userToken"],
-
-
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);

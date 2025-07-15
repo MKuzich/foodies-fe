@@ -1,7 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
+
 import { fetchRecipes } from "./actions";
-
-
 
 const initialState = {
   recipes: [],
@@ -45,6 +44,5 @@ const slice = createSlice({
 });
 
 export const { setQuery, resetQuery } = slice.actions;
-
 
 export const recipesReducer = slice.reducer;

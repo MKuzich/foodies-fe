@@ -3,13 +3,12 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
-import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 
-import { userLogin } from "../../redux/auth/actions";
+import api from "../../api";
 import Icon from "../Icon";
 import { ModalPortal } from "../ModalPortal/ModalPortal";
-import s from "./index.module.css";
+import s from "./TestimonialModal.module.css";
 
 const modalVariants = {
   hidden: { opacity: 0, scale: 0.9, y: -50 },
@@ -18,22 +17,17 @@ const modalVariants = {
 };
 
 const schema = yup.object({
-  email: yup.string().email("Invalid email").required("Email is required"),
-  password: yup
-    .string()
-    .min(6, "Password must be at least 6 characters")
-    .required("Password is required"),
+  text: yup.string().min(3, "Text must be at least 3 characters").required("Text is required"),
 });
 
-const SignInModal = ({ onClose, onSwitch }) => {
+const TestimonialModal = ({ onClose, recipeId }) => {
   const {
     register,
     handleSubmit,
     formState: { errors },
   } = useForm({ resolver: yupResolver(schema) });
-  const [showPassword, setShowPassword] = useState(false);
-  const dispatch = useDispatch();
-  const { loading, error } = useSelector((state) => state.auth);
+  const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState(null);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -49,7 +43,18 @@ const SignInModal = ({ onClose, onSwitch }) => {
     };
   }, [onClose]);
 
-  const onSubmit = (data) => dispatch(userLogin(data));
+  const onSubmit = async (data) => {
+    data.recipeId = recipeId;
+    try {
+      setIsLoading(true);
+      await api.testimonials.createTestimonial(data);
+    } catch (error) {
+      setError(error.response?.data?.message || "Failed to create testimonial");
+      console.error("Error create testimonial:", error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
   const handleKeyClose = (e) => {
     if (e.key === "Escape") {
@@ -77,44 +82,23 @@ const SignInModal = ({ onClose, onSwitch }) => {
             <button className={s.close} onClick={onClose}>
               <Icon name="x" />
             </button>
-            <h2 className={s.title}>Sign in</h2>
+            <h2 className={s.title}>Add testimonial</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className={s.inputGroup}>
-                <input
-                  className={clsx(s.input, errors.email && s.error)}
-                  {...register("email")}
-                  placeholder="Email*"
-                  autoComplete="on"
+                <textarea
+                  className={clsx(s.input, errors.text && s.error)}
+                  {...register("text")}
+                  placeholder="Enter text"
+                  autoComplete="off"
+                  style={{ resize: "none", minHeight: "200px" }}
                 />
-                {errors.email && <p className={s.errorInput}>{errors.email.message}</p>}
+                {errors.text && <p className={s.errorInput}>{errors.text.message}</p>}
               </div>
-              <div className={s.inputGroup}>
-                <input
-                  className={clsx(s.input, errors.password && s.error)}
-                  {...register("password")}
-                  type={showPassword ? "text" : "password"}
-                  placeholder="Password"
-                />
-                <button
-                  type="button"
-                  className={s.eyeButton}
-                  onClick={() => setShowPassword((prev) => !prev)}
-                >
-                  <Icon name={showPassword ? "eye-on" : "eye-off"} width="30" height="30" />
-                </button>
-                {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
-              </div>
-              <button className={s.buttonSubmit} type="submit" disabled={loading}>
-                Sign in
+              <button className={s.buttonSubmit} type="submit" disabled={isLoading}>
+                Create
               </button>
             </form>
             {error && <p className={s.errorForm}>{error}</p>}
-            <p className={s.bottomText}>
-              Don't have an account?{" "}
-              <span className={s.bottomTextLink} onClick={onSwitch}>
-                Create an account
-              </span>
-            </p>
           </motion.div>
         </div>
       </AnimatePresence>
@@ -122,4 +106,4 @@ const SignInModal = ({ onClose, onSwitch }) => {
   );
 };
 
-export default SignInModal;
+export default TestimonialModal;

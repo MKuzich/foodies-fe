@@ -4,7 +4,7 @@ import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
-import { userLogout } from "../../redux/auth/authActions";
+import { userLogout } from "../../redux/auth/actions";
 import Icon from "../Icon";
 import { ModalPortal } from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";

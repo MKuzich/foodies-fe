@@ -1,6 +1,6 @@
 import api from "./api";
 
-export const getRecipesApi = async (category, page=1, ingredient, area, limit=8) => {
+export const getRecipesApi = async (category, page = 1, ingredient, area, limit = 8) => {
   try {
     const response = await api.get(`recipes`, {
       params: {
@@ -8,8 +8,8 @@ export const getRecipesApi = async (category, page=1, ingredient, area, limit=8)
         page,
         limit,
         ingredient,
-        area
-      }
+        area,
+      },
     });
 
     return response.data;

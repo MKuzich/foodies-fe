@@ -1,5 +1,3 @@
-
-
 export const recipesSelector = (state) => state.recipes.recipes;
 export const paginationSelector = (state) => state.recipes.pagination;
 export const querySelector = (state) => state.recipes.query;

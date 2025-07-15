@@ -3,7 +3,7 @@ import { useDispatch } from "react-redux";
 import { Navigate } from "react-router-dom";
 
 import { useAuth } from "../../hooks/useAuth";
-import { openSignIn } from "../../redux/auth/authSlice";
+import { openSignIn } from "../../redux/auth/slice";
 
 const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
   const { user } = useAuth();
