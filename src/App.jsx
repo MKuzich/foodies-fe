@@ -16,6 +16,7 @@ const User = lazy(() => import("./pages/UserPage/UserPage"));
 const AddRecipe = lazy(() => import("./pages/AddRecipePage/AddRecipePage"));
 const Recipe = lazy(() => import("./pages/RecipePage/RecipePage"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
+const Test = lazy(() => import("./pages/TestPage/TestPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -36,8 +37,9 @@ function App() {
           <Route path="/" element={<SharedLayout />}>
             <Route index element={<Home />} />
             <Route path="/user/:id" element={<PrivateRoute component={User} />} />
-            <Route path="/recipe/add" element={<AddRecipe />} /> {/* TODO: add private route */}
+            <Route path="/recipe/add" element={<PrivateRoute component={AddRecipe} />} />
             <Route path="/recipe/:id" element={<Recipe />} />
+            <Route path="/test" element={<Test />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>

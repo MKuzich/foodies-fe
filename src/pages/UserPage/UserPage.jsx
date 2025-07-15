@@ -100,10 +100,10 @@ const UserPage = () => {
 
   return (
     <>
+      <PathInfo name={"Profile"} />
       {isUserExists ? (
         <section className={css.section}>
           <div className={css.container}>
-            <PathInfo pathName={"home"} currentName={"profile"} />
             <MainTitle>profile</MainTitle>
             <Subtitle>
               Reveal your culinary art, share your favorite recipe and create gastronomic
