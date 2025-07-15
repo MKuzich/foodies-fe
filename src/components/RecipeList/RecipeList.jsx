@@ -12,7 +12,7 @@ function RecipeList() {
   const recipesHeight = useRef(null);
   const [containerHeight, setContainerHeight] = useState(400); // Минимальная высота
 
-  // Обновляем высоту когда компонент монтируется или рецепты загружаются
+  // 
   useEffect(() => {
     if (recipesHeight.current) {
       setContainerHeight(recipesHeight.current.offsetHeight);
