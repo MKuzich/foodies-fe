@@ -10,7 +10,7 @@ import Button from "../Button/Button";
 import IconLink from "../IconLink/IconLink";
 import css from "./UserCard.module.css";
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, following }) => {
   const dispatch = useDispatch();
   // const { _, width } = useWindowDimensions();
   // const [visibleCount, setVisibleCount] = useState(3);
@@ -24,22 +24,30 @@ const UserCard = ({ user }) => {
 
   const me = useSelector(selectUserInfo);
   const isMe = me.id === user.id;
-  const isUserIsFollowed = user.follow.followerId === me.id || user.follow.followingId === me.id;
+  const isUserIsFollowed = user.isFollowed || following;
 
-  const handleFollowClick = () => {
+  const handleFollowClick = async () => {
     if (isUserIsFollowed) {
-      dispatch(unfollowUser(user.id));
-      toast.success("Successfully unfollowed from this user!");
-      return;
+      const result = await dispatch(unfollowUser(user.id));
+      if (unfollowUser.fulfilled.match(result)) {
+        toast.success("Successfully unfollowed from this user!");
+      } else {
+        toast.error(result.payload.message || "Failed to unfollow user");
+      }
+    } else {
+      const result = await dispatch(followUser(user.id));
+      if (followUser.fulfilled.match(result)) {
+        toast.success("Successfully followed to this user!");
+      } else {
+        toast.error(result.payload.message || "Failed to follow user");
+      }
     }
-    dispatch(followUser(user.id));
-    toast.success("Successfully followed to this user!");
   };
 
   return (
     <li className={css.userCard}>
       <div className={css.userCardInfo}>
-        <AvatarIcon src={user.avatarURL} name={user.name} medium />
+        <AvatarIcon src={user.avatarURL} name={user.name} to={`/user/${user.id}`} medium />
         <div className={css.userInfo}>
           {/* add as typography with variant="h2" RecipePreview has the same */}
           <h2 className={css.userName}>{user.name}</h2>

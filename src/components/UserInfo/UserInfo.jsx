@@ -14,8 +14,8 @@ import css from "./UserInfo.module.css";
 const UserInfo = () => {
   const dispatch = useDispatch();
   const user = useSelector(selectUser);
-  const inputId = useId();
   const loading = useSelector(selectLoading);
+  const inputId = useId();
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const [cngAvatarLoading, setCngAvatarLoading] = useState(false);
 
@@ -25,7 +25,7 @@ const UserInfo = () => {
     if (changeAvatar.fulfilled.match(result)) {
       toast.success("Avatar changed successfully");
     } else {
-      toast.error(result.payload || "Failed to update avatar");
+      toast.error(result.payload.message || "Failed to update avatar");
     }
     setCngAvatarLoading(false);
   };
