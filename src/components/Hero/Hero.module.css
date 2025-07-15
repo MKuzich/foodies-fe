@@ -10,7 +10,7 @@
 .heroInner {
     background: var(--title-color);
     color: var(--white-color);
-    padding: 180px 0 40px 0;
+    padding: 154px 0 81px 0;
     text-align: center;
     border-radius: var(--radius-card);
     position: relative;
@@ -80,7 +80,7 @@
     }
 
     .heroInner {
-        padding: 216px 0 24px 0;
+        padding: 217px 0 94px 0;
         border-radius: var(--radius-card-mobile);
     }
 }
@@ -91,7 +91,7 @@
     }
 
     .heroInner {
-        padding: 180px 0 16px 0;
+        padding: 194px 0 100px 0;
     }
 
     .title {
