@@ -11,6 +11,7 @@
 }
 
 .formGroup {
+  position: relative;
   display: flex;
   flex-direction: column;
   align-items: start;
@@ -74,6 +75,12 @@ input:active, input:focus {
   border-bottom: 1px solid var(--inactive-color);
   box-sizing: border-box;
   background-color: transparent;
+}
+.timeInput{
+  width: 44px;
+  border: none;
+  font-size: 14px;
+  text-align: center;
 }
 
 .description, .recipePreparation{
@@ -157,6 +164,13 @@ input:active, input:focus {
 }
 
 /* end ingredientList */
+
+.error {
+  color: red;
+  font-size: 12px;
+  position: absolute;
+  top: -15px;
+}
 
 @media screen and (min-width: 768px) {
   .addRecipeForm {

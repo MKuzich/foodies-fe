@@ -21,7 +21,7 @@ const AddRecipeForm = () => {
     resolver: yupResolver(recipeSchema),
     mode: "onChange",
     defaultValues: {
-      cookingTime: 10,
+      cookingTime: 5,
       ingredientsList: [],
     },
   });
@@ -70,7 +70,6 @@ const AddRecipeForm = () => {
       instructions: recipePreparation,
       time: `${cookingTime} min`,
       ingredients: formattedIngredients,
-      // + добавим photo, если используем FormData
     };
 
     console.log("Payload ready to send:", payload);
@@ -82,7 +81,23 @@ const AddRecipeForm = () => {
 
     const selectedIngredient = ingredients.find((item) => item.id === selectedId);
 
-    if (!selectedIngredient || !quantity) return;
+    methods.clearErrors("quantity");
+
+    if (!selectedIngredient) {
+      methods.setError("ingredients", {
+        type: "manual",
+        message: "Choose an ingredient",
+      });
+      return;
+    }
+
+    if (!quantity || quantity.trim() === "") {
+      methods.setError("quantity", {
+        type: "manual",
+        message: "Quantity is required",
+      });
+      return;
+    }
 
     const exists = addedIngredients.some((item) => item.id === selectedIngredient.id);
     if (exists) return;
@@ -101,6 +116,7 @@ const AddRecipeForm = () => {
     });
 
     methods.setValue("quantity", "");
+    methods.clearErrors(["ingredients", "quantity"]);
   };
 
   const handleRemoveIngredient = (indexToRemove) => {
@@ -117,6 +133,9 @@ const AddRecipeForm = () => {
 
           <div className={styles.fieldsGroup}>
             <div className={styles.formGroup}>
+              {methods.formState.errors.title && (
+                <span className={styles.error}>{methods.formState.errors.title.message}</span>
+              )}
               <input
                 id="title"
                 className={styles.titleInput}
@@ -125,12 +144,12 @@ const AddRecipeForm = () => {
                 placeholder="The name of the recipe"
                 {...methods.register("title")}
               />
-              {methods.formState.errors.title && (
-                <p className={styles.error}>{methods.formState.errors.title.message}</p>
-              )}
             </div>
 
             <div className={styles.formGroup}>
+              {methods.formState.errors.description && (
+                <span className={styles.error}>{methods.formState.errors.description.message}</span>
+              )}
               <div className={styles.textareaWrapper}>
                 <textarea
                   id="description"
@@ -145,13 +164,13 @@ const AddRecipeForm = () => {
                   {description.length}/{maxLength}
                 </span>
               </div>
-              {methods.formState.errors.description && (
-                <p className={styles.error}>{methods.formState.errors.description.message}</p>
-              )}
             </div>
 
             <div className={clsx(styles.formGroup, styles.formCategoryCookingtime)}>
               <div className={styles.formCategory}>
+                {methods.formState.errors.category && (
+                  <span className={styles.error}>{methods.formState.errors.category.message}</span>
+                )}
                 <span className={styles.category}>Category</span>
                 <Controller
                   name="category"
@@ -168,6 +187,11 @@ const AddRecipeForm = () => {
               </div>
 
               <div className={styles.formCookingtime}>
+                {methods.formState.errors.cookingTime && (
+                  <span className={styles.error}>
+                    {methods.formState.errors.cookingTime.message}
+                  </span>
+                )}
                 <span className={styles.cookingtime}>COOKING TIME</span>
                 <div className={styles.buttonGroup}>
                   <IconButton
@@ -176,7 +200,13 @@ const AddRecipeForm = () => {
                     onClick={decrease}
                     disabled={currentTime <= stepTime}
                   />
-                  <span className={styles.timeDisplay}>{currentTime} min</span>
+                  <input
+                    name="cookingTime"
+                    type="number"
+                    autoComplete="off"
+                    className={styles.timeInput}
+                    {...methods.register("cookingTime", { valueAsNumber: true })}
+                  />
                   <IconButton type="button" name="plus" onClick={increase} />
                 </div>
               </div>
@@ -184,6 +214,9 @@ const AddRecipeForm = () => {
 
             <div className={styles.formGroup}>
               <div className={styles.formArea}>
+                {methods.formState.errors.area && (
+                  <span className={styles.error}>{methods.formState.errors.area.message}</span>
+                )}
                 <span className={styles.area}>Area</span>
                 <Controller
                   name="area"
@@ -202,6 +235,11 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup, styles.formIngredientsQuantity)}>
               <div className={styles.formIngredients}>
+                {methods.formState.errors.ingredients && (
+                  <span className={styles.error}>
+                    {methods.formState.errors.ingredients.message}
+                  </span>
+                )}
                 <span className={styles.ingredients}>Ingredients</span>
                 <Controller
                   name="ingredients"
@@ -218,19 +256,21 @@ const AddRecipeForm = () => {
                   )}
                 />
               </div>
+
               <div className={styles.formQuantity}>
+                {methods.formState.errors.quantity && (
+                  <span className={styles.error}>{methods.formState.errors.quantity.message}</span>
+                )}
                 <input
                   id="quantity"
                   className={styles.quantity}
                   name="quantity"
                   type="text"
+                  autoComplete="off"
                   placeholder="Enter quantity"
                   {...methods.register("quantity")}
                 />
               </div>
-              {methods.formState.errors.quantity && (
-                <p className={styles.error}>{methods.formState.errors.quantity.message}</p>
-              )}
             </div>
 
             <div className={styles.formGroup}>
@@ -241,8 +281,8 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            {addedIngredients.length > 0 && (
-              <div className={styles.formGroup}>
+            <div className={styles.formGroup}>
+              {addedIngredients.length > 0 && (
                 <div className={styles.ingredientList}>
                   {addedIngredients.map((item, index) => (
                     <div key={index} className={styles.ingredientCard}>
@@ -261,10 +301,20 @@ const AddRecipeForm = () => {
                     </div>
                   ))}
                 </div>
-              </div>
-            )}
+              )}
+              {methods.formState.errors.ingredientsList && (
+                <span className={styles.error}>
+                  {methods.formState.errors.ingredientsList.message}
+                </span>
+              )}
+            </div>
 
             <div className={styles.formGroup}>
+              {methods.formState.errors.recipePreparation && (
+                <span className={styles.error}>
+                  {methods.formState.errors.recipePreparation.message}
+                </span>
+              )}
               <div className={styles.textareaWrapper}>
                 <textarea
                   id="recipePreparation"
@@ -279,9 +329,6 @@ const AddRecipeForm = () => {
                   {recipePreparation.length}/{maxLength}
                 </span>
               </div>
-              {methods.formState.errors.recipePreparation && (
-                <p className={styles.error}>{methods.formState.errors.recipePreparation.message}</p>
-              )}
             </div>
             <div className={styles.formGroup}>
               <div className={styles.buttonGroup}>
