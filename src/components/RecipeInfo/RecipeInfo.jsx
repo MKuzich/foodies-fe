@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import api from "../../api/api";
 import Loader from "../../components/Loader/Loader";
 import RecipeMainInfo from "../../components/RecipeMainInfo/RecipeMainInfo";
 
@@ -12,8 +13,7 @@ const RecipePage = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const response = await fetch(`/api/recipes/${id}`);
-        const data = await response.json();
+        const { data } = await api.get(`recipes/${id}`);
         setRecipe(data);
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
