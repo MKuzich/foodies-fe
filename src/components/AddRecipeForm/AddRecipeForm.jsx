@@ -7,19 +7,17 @@ import { shallowEqual, useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import IconButton from "@/components/IconButton/IconButton";
-import { useAreasFetch } from "@/hooks/useAreasFetch";
-import { useIngredientsFetch } from "@/hooks/useIngredientsFetch";
 import { submitRecipeThunk } from "@/redux/addRecipe/actions";
 import { selectAddRecipeSuccess } from "@/redux/addRecipe/selectors";
 import { clearSuccess } from "@/redux/addRecipe/slice";
 
-import { categoriesSelector } from "../../redux/categories/selectors";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import Icon from "../Icon";
 import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 
 const AddRecipeForm = () => {
   const navigate = useNavigate();
@@ -47,9 +45,7 @@ const AddRecipeForm = () => {
 
   const { handleSubmit, watch, setValue } = methods;
 
-  const categories = useSelector(categoriesSelector, shallowEqual);
-  const { ingredients } = useIngredientsFetch();
-  const { areas } = useAreasFetch();
+  const { areas, ingredients, categories } = useCategoriesAreasIngredientsFetch();
   const [resetSignal, setResetSignal] = useState(false);
 
   const maxLength = 200;
