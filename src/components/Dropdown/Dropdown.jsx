@@ -95,6 +95,7 @@ function Dropdown({
       const params = Object.fromEntries(searchParams.entries());
       setSearchParams({
         ...params,
+        page: 1,
         [placeholder.toLowerCase()]: item.name.split(" ").join("_"),
       });
     }
