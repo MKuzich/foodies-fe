@@ -1,0 +1,27 @@
+.itemTitle {
+  margin-bottom: 20px;
+  text-align: left;
+  margin-top: 32px;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 133%;
+  text-transform: uppercase;
+  color: var(--text-color);
+}
+.description {
+  font-size: 14px;
+  line-height: 143%;
+  color: var(--inactive-color);
+  margin-bottom: 20px;
+}
+
+@media (min-width: 768px) {
+  .itemTitle {
+    margin-top: 40px;
+    font-size: 20px;
+  }
+  .description {
+    line-height: 150%;
+    color: var(--text-color);
+  }
+}
