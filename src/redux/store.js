@@ -3,6 +3,7 @@ import { combineReducers } from "redux";
 import { FLUSH, PAUSE, PERSIST, persistReducer, PURGE, REGISTER, REHYDRATE } from "redux-persist";
 import storage from "redux-persist/lib/storage";
 
+import { addRecipeReducer } from "./addRecipe/slice";
 import { areasReducer } from "./areas/slice";
 import authReducer from "./auth/slice";
 import { categoriesReducer } from "./categories/slice";
@@ -30,6 +31,7 @@ const reducers = combineReducers({
   recipes: recipesReducer,
   ingredients: ingredientsReducer,
   areas: areasReducer,
+  addRecipe: addRecipeReducer,
 });
 
 export const store = configureStore({

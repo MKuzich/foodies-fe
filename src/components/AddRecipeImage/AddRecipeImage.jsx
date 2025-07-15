@@ -1,11 +1,13 @@
-import React, { useState, useEffect, useCallback } from "react";
-import { useFormContext } from "react-hook-form";
-import styles from "./AddRecipeImage.module.css";
+import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
+import { useFormContext } from "react-hook-form";
 
-const AddRecipeImage = () => {
+import styles from "./AddRecipeImage.module.css";
+
+const AddRecipeImage = ({ resetSignal }) => {
   const {
     setValue,
+    register,
     formState: { errors },
   } = useFormContext();
 
@@ -13,10 +15,20 @@ const AddRecipeImage = () => {
   const [localError, setLocalError] = useState(null);
 
   useEffect(() => {
+    register("photo");
+  }, [register]);
+
+  useEffect(() => {
     return () => {
       if (previewUrl) URL.revokeObjectURL(previewUrl);
     };
   }, [previewUrl]);
+
+  useEffect(() => {
+    setPreviewUrl(null);
+    setLocalError(null);
+    setValue("photo", null, { shouldValidate: false });
+  }, [resetSignal, setValue]);
 
   const onDropAccepted = useCallback(
     (acceptedFiles) => {
@@ -25,7 +37,7 @@ const AddRecipeImage = () => {
       setPreviewUrl(URL.createObjectURL(file));
       setLocalError(null);
     },
-    [setValue]
+    [setValue],
   );
 
   const onDropRejected = useCallback(
@@ -35,7 +47,7 @@ const AddRecipeImage = () => {
       setLocalError(reason || "Invalid file");
       setValue("photo", null, { shouldValidate: true });
     },
-    [setValue]
+    [setValue],
   );
 
   const { getRootProps, getInputProps, isDragActive } = useDropzone({
@@ -58,11 +70,7 @@ const AddRecipeImage = () => {
         }`}
       >
         {previewUrl ? (
-          <img
-            src={previewUrl}
-            alt="Preview of uploaded recipe image"
-            className={styles.preview}
-          />
+          <img src={previewUrl} alt="Preview" className={styles.preview} />
         ) : (
           <label htmlFor="photo-upload" className={styles.labelWrapper}>
             <svg className={styles.icon}>
@@ -71,12 +79,9 @@ const AddRecipeImage = () => {
             <span className={styles.uploadText}>Upload a photo</span>
           </label>
         )}
-
-        <input
-          {...getInputProps()}
-          id="photo-upload"
-          className={styles.fileInput}
-        />
+        <input {...getInputProps()} id="photo-upload" className={styles.fileInput} />
+        {localError && <span className={styles.error}>{localError}</span>}
+        {errors?.photo && <span className={styles.error}>{errors.photo.message}</span>}
       </div>
 
       {previewUrl && (
@@ -84,8 +89,6 @@ const AddRecipeImage = () => {
           Upload another photo
         </label>
       )}
-      {localError && <p className={styles.error}>{localError}</p>}
-      {errors?.photo && <p className={styles.error}>{errors.photo.message}</p>}
     </div>
   );
 };
