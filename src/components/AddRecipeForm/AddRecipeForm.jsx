@@ -1,12 +1,17 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
-import { shallowEqual, useSelector } from "react-redux";
+import toast from "react-hot-toast";
+import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 
 import IconButton from "@/components/IconButton/IconButton";
 import { useAreasFetch } from "@/hooks/useAreasFetch";
 import { useIngredientsFetch } from "@/hooks/useIngredientsFetch";
+import { submitRecipeThunk } from "@/redux/addRecipe/actions";
+import { selectAddRecipeSuccess } from "@/redux/addRecipe/selectors";
+import { clearSuccess } from "@/redux/addRecipe/slice";
 
 import { categoriesSelector } from "../../redux/categories/selectors";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
@@ -17,6 +22,18 @@ import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
 
 const AddRecipeForm = () => {
+  const navigate = useNavigate();
+  const dispatch = useDispatch();
+  const recipeCreated = useSelector(selectAddRecipeSuccess);
+
+  useEffect(() => {
+    if (recipeCreated) {
+      toast.success("Recipe successfully created!");
+      dispatch(clearSuccess());
+      navigate("/recipes");
+    }
+  }, [recipeCreated, dispatch]);
+
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
     mode: "onChange",
@@ -33,6 +50,7 @@ const AddRecipeForm = () => {
   const categories = useSelector(categoriesSelector, shallowEqual);
   const { ingredients } = useIngredientsFetch();
   const { areas } = useAreasFetch();
+  const [resetSignal, setResetSignal] = useState(false);
 
   const maxLength = 200;
   const stepTime = 5;
@@ -45,34 +63,51 @@ const AddRecipeForm = () => {
   const description = watch("description") || "";
   const recipePreparation = watch("recipePreparation") || "";
 
-  const onSubmit = (data) => {
-    const {
-      quantity: _quantity,
-      ingredientsList,
-      category,
-      area,
-      cookingTime,
-      recipePreparation,
-      ...rest
-    } = data;
+  const buildFormData = (data) => {
+    const formData = new FormData();
 
-    const formattedIngredients = ingredientsList.map(({ id, quantity }) => ({
+    formData.append("thumb", data.photo);
+    formData.append("title", data.title);
+    formData.append("description", data.description);
+    formData.append("instructions", data.recipePreparation);
+    formData.append("categoryId", data.category);
+    formData.append("areaId", data.area);
+    formData.append("time", `${data.cookingTime} min`);
+
+    const formattedIngredients = data.ingredientsList.map(({ id, quantity }) => ({
       id,
       measure: quantity,
     }));
 
-    const payload = {
-      ...rest,
-      categoryId: category,
-      areaId: area,
-      title: data.title,
-      description: data.description,
-      instructions: recipePreparation,
-      time: `${cookingTime} min`,
-      ingredients: formattedIngredients,
-    };
+    formData.append("ingredients", JSON.stringify(formattedIngredients));
 
-    console.log("Payload ready to send:", payload);
+    return formData;
+  };
+
+  const handleReset = () => {
+    methods.reset(
+      {
+        photo: null,
+        title: "",
+        description: "",
+        category: null,
+        area: null,
+        cookingTime: 5,
+        ingredientsList: [],
+        recipePreparation: "",
+      },
+      {
+        keepDefaultValues: true,
+      },
+    );
+    setAddedIngredients([]);
+    methods.clearErrors("photo");
+    setResetSignal((prev) => !prev);
+  };
+
+  const onSubmit = async (data) => {
+    const formData = buildFormData(data);
+    dispatch(submitRecipeThunk(formData));
   };
 
   const handleAddIngredient = () => {
@@ -129,7 +164,7 @@ const AddRecipeForm = () => {
     <div className={styles.addRecipeForm}>
       <FormProvider {...methods}>
         <form className={styles.formAdd} onSubmit={handleSubmit(onSubmit)}>
-          <AddRecipeImage />
+          <AddRecipeImage resetSignal={resetSignal} />
 
           <div className={styles.fieldsGroup}>
             <div className={styles.formGroup}>
@@ -332,7 +367,7 @@ const AddRecipeForm = () => {
             </div>
             <div className={styles.formGroup}>
               <div className={styles.buttonGroup}>
-                <IconButton type="button" name="trash" disabled />
+                <IconButton type="button" name="trash" onClick={handleReset} />
                 <Button type="submit">Publish</Button>
               </div>
             </div>
