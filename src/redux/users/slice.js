@@ -9,6 +9,7 @@ import {
   fetchUserFollowing,
   fetchUserRecipes,
   followUser,
+  removeRecipe,
   unfollowUser,
 } from "./operations";
 
@@ -117,6 +118,11 @@ const slice = createSlice({
           state.user.followingCount += 1;
           state.user.following = [...state.user.following, data];
         }
+      })
+      .addCase(removeRecipe.fulfilled, (state, { payload }) => {
+        state.user.recipes = payload.data;
+        state.totalPages = payload.pagination.pages;
+        state.filter.page = 1;
       });
   },
 });

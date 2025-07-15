@@ -68,13 +68,14 @@ const UserPage = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
+    console.log(tabOpened, filter, "effect");
     tabOpened === "recipes" && dispatch(fetchUserRecipes({ id, ...filter }));
     tabOpened === "favorites" &&
       isUserCurrentUser &&
       dispatch(fetchUserFavorites({ id, ...filter }));
     tabOpened === "followers" && dispatch(fetchUserFollowers({ id, ...filter }));
     tabOpened === "following" && isUserCurrentUser && dispatch(fetchUserFollowing());
-  }, [dispatch, filter, tabOpened, isUserCurrentUser]);
+  }, [dispatch, filter, tabOpened]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;

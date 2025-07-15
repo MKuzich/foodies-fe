@@ -27,8 +27,8 @@ export const fetchUserRecipes = createAsyncThunk(
 
 export const fetchUserFavorites = createAsyncThunk(
   "users/fetchUserFavorites",
-  async ({ id, page, limit }, thunkAPI) => {
-    const url = `/users/${id}/favorites?page=${page}&limit=${limit}`;
+  async ({ page, limit }, thunkAPI) => {
+    const url = `/recipes/favorites?page=${page}&limit=${limit}`;
     try {
       const { data } = await api.get(url);
       return data;
@@ -98,6 +98,37 @@ export const changeAvatar = createAsyncThunk(
       const formData = new FormData();
       formData.append("avatar", newAvatarFile, newAvatarFile.name);
       const { data } = await api.patch(url, formData);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const removeRecipe = createAsyncThunk("users/removeRecipe", async (id, thunkAPI) => {
+  const url = `/recipes/${id}`;
+  const state = thunkAPI.getState();
+  try {
+    await api.delete(url);
+    const { data } = await api.get(
+      `/users/${state.users.user.id}/recipes?page=1&limit=${state.users.filter.limit}`,
+    );
+    return data;
+  } catch (error) {
+    return thunkAPI.rejectWithValue(error);
+  }
+});
+
+export const removeFavoriteRecipe = createAsyncThunk(
+  "users/removeFavoriteRecipe",
+  async (id, thunkAPI) => {
+    const url = `/recipes/${id}`;
+    const state = thunkAPI.getState();
+    try {
+      await api.delete(url);
+      const { data } = await api.get(
+        `/users/${state.users.user.id}/favorites?page=1&limit=${state.users.filter.limit}`,
+      );
       return data;
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
