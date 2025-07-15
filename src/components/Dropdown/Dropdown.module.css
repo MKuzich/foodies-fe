@@ -32,6 +32,18 @@
     cursor: pointer;
   }
 
+  /* Отключаем фокус бордер */
+  &:focus {
+    outline: none;
+    border: 1px solid var(--inactive-color);
+  }
+
+  /* Для браузеров, которые не поддерживают :focus */
+  &:focus-visible {
+    outline: none;
+    border: 1px solid var(--inactive-color);
+  }
+
 }
 
 .icon {
@@ -70,6 +82,24 @@
   color: var(--title-color);
   cursor: pointer;
 }
+
+.inputField {
+  &:focus {
+    outline: none;
+    border: 1px solid var(--inactive-color);
+  }
+
+  /* Для браузеров, которые не поддерживают :focus */
+  &:focus-visible {
+    outline: none;
+    border: 1px solid var(--inactive-color);
+  }
+}
+
+.noResults {
+  cursor: default;
+}
+
 
 /* .dropdownItem:hover {
     background-color: var(--background-categories-color);
