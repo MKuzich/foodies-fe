@@ -121,6 +121,7 @@ const slice = createSlice({
       })
       .addCase(removeRecipe.fulfilled, (state, { payload }) => {
         state.user.recipes = payload.data;
+        state.user.createdCount = payload.pagination.total;
         state.totalPages = payload.pagination.pages;
         state.filter.page = 1;
       });
