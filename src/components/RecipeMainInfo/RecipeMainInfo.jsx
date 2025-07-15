@@ -1,4 +1,5 @@
-import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
+import RecipeIngredients from "../../components/RecipeIngredients/RecipeIngredients";
+import RecipePreparation from "../../components/RecipePreparation/RecipePreparation";
 import styles from "./RecipeMainInfo.module.css";
 
 const RecipeMainInfo = ({ recipe }) => {
@@ -24,10 +25,8 @@ const RecipeMainInfo = ({ recipe }) => {
             </div>
           </button>
         </div>
-        <h3 className={styles.itemTitle}>Ingredients</h3>
         <RecipeIngredients ingredients={recipe.ingredients} />
-        <h3 className={styles.itemTitle}>Recipe Preparation</h3>
-        <p className={styles.description}>{recipe.instructions}</p>
+        <RecipePreparation instructions={recipe.instructions} />
       </div>
     </div>
   );
