@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 
 import RecipeIngredients from "../../components/RecipeIngredients/RecipeIngredients";
 import RecipePreparation from "../../components/RecipePreparation/RecipePreparation";
-import { openSignIn, selectCurrentUser } from "../../redux/auth/authSlice";
+import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
 import styles from "./RecipeMainInfo.module.css";
 
 const RecipeMainInfo = ({ recipe }) => {

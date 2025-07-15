@@ -1,23 +1,31 @@
+import api from "./api";
 
-const mockData = [
-    {
-        id: 1,
-        author: "Larry Pageim",
-        comment: "Amazing collection of recipes! The step-by-step instructions make cooking so much easier. I've tried several dishes and they all turned out perfect. Highly recommend!",
-    },
-    {
-        id: 2,
-        author: "Sarah Johnson",
-        comment: "I've been using this app for a few weeks now, and I've already tried several recipes. They all turned out great, and the app's interface is really user-friendly. I'm definitely going to continue using it!",
-    },
-    {
-        id: 3,
-        author: "John Doe",
-        comment: "I've been using this app for a few weeks now, and I've already tried several recipes. They all turned out great, and the app's interface is really user-friendly. I'm definitely going to continue using it!",
-    },
-];
+export const fetchTestimonials = async () => {
+  try {
+    const { data } = await api.get("/testimonials", {});
+    return data;
+  } catch (error) {
+    console.error("Error fetching testimonials:", error);
+    throw error;
+  }
+};
 
-export const getTestimonialsApi = async () => {
-    await new Promise(resolve => setTimeout(resolve, 1000));
-    return mockData;
+export const createTestimonial = async ({ text, recipeId }) => {
+  try {
+    const { data } = await api.post("/testimonials", { text, recipeId });
+    return data;
+  } catch (error) {
+    console.error("Error create testimonial:", error);
+    throw error;
+  }
+};
+
+export const fetchTestimonialsByRecipeId = async ({ recipeId }) => {
+  try {
+    const { data } = await api.get(`/testimonials/${recipeId}`, {});
+    return data;
+  } catch (error) {
+    console.error("Error fetching testimonials by recipeId:", error);
+    throw error;
+  }
 };

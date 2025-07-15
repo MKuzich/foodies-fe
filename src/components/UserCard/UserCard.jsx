@@ -1,7 +1,7 @@
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectUserInfo } from "../../redux/auth/authSlice";
+import { selectUserInfo } from "../../redux/auth/slice";
 import { followUser, unfollowUser } from "../../redux/users/operations";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import Button from "../Button/Button";

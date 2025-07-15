@@ -5,7 +5,7 @@ import storage from "redux-persist/lib/storage";
 
 import { addRecipeReducer } from "./addRecipe/slice";
 import { areasReducer } from "./areas/slice";
-import authReducer from "./auth/authSlice";
+import authReducer from "./auth/slice";
 import { categoriesReducer } from "./categories/slice";
 import { ingredientsReducer } from "./ingredients/slice";
 import { recipesReducer } from "./recipes/slice";

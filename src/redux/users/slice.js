@@ -1,6 +1,6 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { userLogout } from "../auth/authActions";
+import { userLogout } from "../auth/actions";
 import { changeAvatar, fetchUser, followUser, unfollowUser } from "./operations";
 
 const userSchema = {

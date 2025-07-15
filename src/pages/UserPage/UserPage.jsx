@@ -19,7 +19,7 @@ import Subtitle from "../../components/Subtitle/Subtitle";
 import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
-import { openLogout } from "../../redux/auth/authSlice";
+import { openLogout } from "../../redux/auth/slice";
 import { selectError, selectLoading } from "../../redux/root/selectors";
 import { setActiveLoading, setInactiveLoading } from "../../redux/root/slice";
 import { fetchUser, followUser, unfollowUser } from "../../redux/users/operations";
