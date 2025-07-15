@@ -1,43 +1,33 @@
-import styles from './RecipeMainInfo.module.css';
-import RecipeIngredients from '../RecipeIngredients/RecipeIngredients';
+import RecipeIngredients from "../RecipeIngredients/RecipeIngredients";
+import styles from "./RecipeMainInfo.module.css";
 
-const RecipeMainInfo = ({
-  image,
-  title,
-  category,
-  time,
-  description,
-  author,
-  ingredients,
-}) => {
+const RecipeMainInfo = ({ recipe }) => {
+  const { owner: author } = recipe;
   return (
     <div className={styles.wrapper}>
-      <img src={image} alt={title} className={styles.image} />
+      <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.mainInfo}>
-          <h1 className={styles.title}>{title}</h1>
+          <h1 className={styles.title}>{recipe.title}</h1>
 
           <div className={styles.meta}>
-            <span className={styles.category}>{category}</span>
-            <span className={styles.category}>{time}</span>
+            <span className={styles.category}>{recipe.category}</span>
+            <span className={styles.category}>{recipe.time}</span>
           </div>
 
-          <p className={styles.description}>{description}</p>
+          <p className={styles.description}>{recipe.description}</p>
 
           <button className={styles.authorBtn}>
-            <img
-              src={author.avatarURL}
-              alt={author.name}
-              className={styles.avatar}
-            />
+            <img src={author.avatarURL} alt={author.name} className={styles.avatar} />
             <div className={styles.authorInfo}>
-              Created by:{' '}
-              <span className={styles.authorName}>{author.name}</span>
+              Created by: <span className={styles.authorName}>{author.name}</span>
             </div>
           </button>
         </div>
         <h3 className={styles.itemTitle}>Ingredients</h3>
-        <RecipeIngredients ingredients={ingredients} />
+        <RecipeIngredients ingredients={recipe.ingredients} />
+        <h3 className={styles.itemTitle}>Recipe Preparation</h3>
+        <p className={styles.description}>{recipe.instructions}</p>
       </div>
     </div>
   );
