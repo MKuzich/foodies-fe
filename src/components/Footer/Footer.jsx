@@ -1,12 +1,18 @@
-import styles from "./Footer.module.css";
+import { Link } from "react-router-dom";
+
 import Container from "../Container/Container";
 import IconLink from "../IconLink/IconLink";
+import styles from "./Footer.module.css";
+
+const getCurrentYear = () => new Date().getFullYear();
 
 const Footer = () => (
   <footer className={styles.footer}>
     <Container>
       <div className={styles.topRow}>
-        <div className={styles.logo}>foodies</div>
+        <Link to="/" className={styles.logo}>
+          foodies
+        </Link>
         <nav className={styles.networkLinks} aria-label="Social media links">
           <IconLink
             to="https://facebook.com"
@@ -38,9 +44,7 @@ const Footer = () => (
         </nav>
       </div>
       <div className={styles.divider} />
-      <div className={styles.copyright}>
-        &copy;2024, Foodies. All rights reserved
-      </div>
+      <div className={styles.copyright}>© {getCurrentYear()}, Foodies. All rights reserved</div>
     </Container>
   </footer>
 );
