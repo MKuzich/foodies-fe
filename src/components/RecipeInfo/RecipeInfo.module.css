@@ -1,0 +1,22 @@
+.wrapper {
+  display: flex;
+  flex-direction: row;
+  gap: 32px;
+  align-items: flex-start;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 40px auto;
+  padding: 20px;
+  max-width: 1200px;
+}
+
+.left {
+  flex: 1;
+  min-width: 300px;
+  max-width: 400px;
+}
+
+.right {
+  flex: 2;
+  min-width: 300px;
+}

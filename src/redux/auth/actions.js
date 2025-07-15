@@ -1,18 +1,18 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import api, { setAuthToken } from "../../api/api";
+import api from "../../api";
 
 export const registerUser = createAsyncThunk(
   "auth/register",
   async ({ name, email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("auth/register", {
+      const response = await api.auth.registerUser({
         name,
         email,
         password,
       });
-      setAuthToken(data.token);
-      return data;
+      api.setAuthToken(response.token);
+      return response;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -27,9 +27,9 @@ export const userLogin = createAsyncThunk(
   "auth/login",
   async ({ email, password }, { rejectWithValue }) => {
     try {
-      const { data } = await api.post("auth/login", { email, password });
-      setAuthToken(data.token);
-      return data;
+      const response = await api.auth.loginUser({ email, password });
+      api.setAuthToken(response.token);
+      return response;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);
@@ -42,8 +42,8 @@ export const userLogin = createAsyncThunk(
 
 export const userLogout = createAsyncThunk("auth/logout", async (_, { rejectWithValue }) => {
   try {
-    await api.post("/auth/logout", {});
-    setAuthToken(null);
+    await api.auth.logoutUser();
+    api.setAuthToken(null);
   } catch (error) {
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message);
@@ -55,8 +55,8 @@ export const userLogout = createAsyncThunk("auth/logout", async (_, { rejectWith
 
 export const getUser = createAsyncThunk("auth/current", async (_, { rejectWithValue }) => {
   try {
-    const { data } = await api.get("/auth/current", {});
-    return data;
+    const response = await api.auth.fetchUser();
+    return response;
   } catch (error) {
     if (error.response && error.response.data.message) {
       return rejectWithValue(error.response.data.message);
@@ -72,9 +72,9 @@ export const refreshUser = createAsyncThunk(
     try {
       const state = getState();
       const token = state.auth.userToken;
-      setAuthToken(token);
-      const { data } = await api.get("auth/current", {});
-      return data;
+      api.setAuthToken(token);
+      const response = await api.auth.fetchUser();
+      return response;
     } catch (error) {
       if (error.response && error.response.data.message) {
         return rejectWithValue(error.response.data.message);

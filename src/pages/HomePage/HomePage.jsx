@@ -1,22 +1,23 @@
-import React, { useEffect, useState } from "react";
-import { useDispatch } from "react-redux";
-import Button from "@/components/Button/Button";
-import Container from "@/components/Container/Container";
-import Categories from "@/components/Categories/Categories";
-import Testimonials from "@/components/Testimonials/Testimonials";
-import Recipes from "@/components/Recipes/Recipes";
-import Hero from "@/components/Hero/Hero";
-import { selectedCategory } from "../../redux/categories/selectors";
-import { useSelector } from "react-redux";
-import { openSignIn, openSignUp, openLogout } from "../../redux/auth/authSlice";
-import { getUser } from "../../redux/auth/authActions";
-import IconButton from "@/components/IconButton/IconButton";
-import AvatarIcon from "@/components/AvatarIcon/AvatarIcon";
+import { useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { setQuery } from "../../redux/recipes/slice";
+
+import AvatarIcon from "@/components/AvatarIcon/AvatarIcon";
+import Button from "@/components/Button/Button";
+import Categories from "@/components/Categories/Categories";
+import Container from "@/components/Container/Container";
+import Hero from "@/components/Hero/Hero";
+import IconButton from "@/components/IconButton/IconButton";
+import Recipes from "@/components/Recipes/Recipes";
+import TestimonialModal from "@/components/TestimonialModal";
+import Testimonials from "@/components/Testimonials/Testimonials";
+// import { selectedCategory } from "../../redux/categories/selectors";
+// import { setQuery } from "../../redux/recipes/slice";
 
 const HomePage = () => {
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [
+    searchParams,
+    // setSearchParams
+  ] = useSearchParams();
   const [isSearchParams, setIsSearchParams] = useState(false);
 
   useEffect(() => {
@@ -29,17 +30,11 @@ const HomePage = () => {
     }
   }, [searchParams]);
 
-
-  const dispatch = useDispatch();
-
   return (
     <div>
       <Hero />
       <nav>
-        <button onClick={() => dispatch(openSignIn())}>Sign In</button>
-        <button onClick={() => dispatch(openSignUp())}>Sign Up</button>
-        <button onClick={() => dispatch(openLogout())}>Logout</button>
-        <button onClick={() => dispatch(getUser())}>Get User</button>
+        <TestimonialModal recipeId={6} />
       </nav>
       {/* TODO: Delete example below, just show-case of using Button */}
       <Container>
@@ -53,30 +48,18 @@ const HomePage = () => {
             }}
           >
             <h2>Example of using Button component in different variants</h2>
-            <Button onClick={() => console.log("Button clicked!")}>
-              Default Button
-            </Button>
-            <Button
-              outlined={true}
-              onClick={() => console.log("Button clicked!")}
-            >
+            <Button onClick={() => console.log("Button clicked!")}>Default Button</Button>
+            <Button outlined={true} onClick={() => console.log("Button clicked!")}>
               Outlined Button
             </Button>
-            <Button
-              onClick={() => console.log("Button clicked!")}
-              type="submit"
-              inactive
-            >
+            <Button onClick={() => console.log("Button clicked!")} type="submit" inactive>
               Inactive button
             </Button>
           </div>
           <h2>Example of using IconButton component in different variants</h2>
           <div style={{ display: "flex", gap: "2rem", alignItems: "start" }}>
             <IconButton name="trash" disabled />
-            <IconButton
-              name="like"
-              onClick={() => console.log("Like Button clicked!")}
-            />
+            <IconButton name="like" onClick={() => console.log("Like Button clicked!")} />
             <IconButton name="plus" />
             <IconButton name="minus" />
           </div>

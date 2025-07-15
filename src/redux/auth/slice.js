@@ -1,7 +1,7 @@
 import { createSlice } from "@reduxjs/toolkit";
 
 import { changeAvatar } from "../users/operations";
-import { getUser, refreshUser, registerUser, userLogin, userLogout } from "./authActions";
+import { getUser, refreshUser, registerUser, userLogin, userLogout } from "./actions";
 
 const initialState = {
   loading: false,

@@ -6,9 +6,9 @@ import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 
-import { userLogin } from "../../redux/auth/authActions";
+import { userLogin } from "../../redux/auth/actions";
 import Icon from "../Icon";
-import { ModalPortal } from "../ModalPortal/ModalPortal";
+import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
 
 const modalVariants = {

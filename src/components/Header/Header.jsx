@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { Link, useLocation, useNavigate } from "react-router-dom";
 
-import { openLogout, openSignIn, openSignUp } from "../../redux/auth/authSlice";
+import { openLogout, openSignIn, openSignUp } from "../../redux/auth/slice";
 import AuthBar from "../AuthBar/AuthBar";
 import Container from "../Container/Container";
 import MobileSidebar from "../MobileSideBar/MobileSideBar";
