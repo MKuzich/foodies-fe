@@ -18,3 +18,13 @@ export const getRecipesApi = async (category, page = 1, ingredient, area, limit 
     throw error;
   }
 };
+
+export const getPopularRecipesApi = async () => {
+  try {
+    const response = await api.get("recipes/popular");
+    return response.data;
+  } catch (error) {
+    console.error("Error fetching popular recipes:", error);
+    throw error;
+  }
+};

@@ -1,9 +1,10 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { fetchRecipes } from "./actions";
+import { fetchPopularRecipes, fetchRecipes } from "./actions";
 
 const initialState = {
   recipes: [],
+  popularRecipes: [],
   pagination: {
     total: 0,
     page: 1,
@@ -39,6 +40,19 @@ const slice = createSlice({
       .addCase(fetchRecipes.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+      })
+
+      .addCase(fetchPopularRecipes.pending, (state) => {
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchPopularRecipes.fulfilled, (state, action) => {
+        state.popularRecipes = action.payload;
+        state.isLoading = false;
+      })
+      .addCase(fetchPopularRecipes.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
       });
   },
 });
@@ -46,3 +60,5 @@ const slice = createSlice({
 export const { setQuery, resetQuery } = slice.actions;
 
 export const recipesReducer = slice.reducer;
+
+export { fetchPopularRecipes };
