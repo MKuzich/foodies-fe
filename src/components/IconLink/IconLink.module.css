@@ -61,3 +61,13 @@
 .iconLink:hover .iconLinkIcon {
   stroke: var(--white-color);
 }
+
+.iconLink.social:hover {
+  border-color: var(--text-color);
+  background-color: var(--text-color);
+}
+
+.iconLink.social:hover .iconLinkIcon {
+  stroke: var(--white-color);
+  fill: var(--white-color);
+}

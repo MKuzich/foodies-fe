@@ -9,17 +9,15 @@ import Icons from "../../assets/sprite.svg";
 // import RecipePagination from "../RecipePagination/RecipePagination";
 import Pagination from "@/components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
-import { errorSelector, isLoadingSelector, paginationSelector } from "@/redux/recipes/selectors";
+import { isLoadingSelector, paginationSelector } from "@/redux/recipes/selectors";
 import { fetchRecipes } from "@/redux/recipes/actions";
-import Loader from "../Loader/Loader";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { useIngredientsFetch } from "@/hooks/useIngredientsFetch";
-
+import { selectCategoryByName } from "../../redux/categories/selectors";
+import { querySelector } from "@/redux/recipes/selectors";
 
 function Recipes() {
     const pagination = useSelector(paginationSelector);
     const isLoading = useSelector(isLoadingSelector);
-    const error = useSelector(errorSelector);
 
 
     const recipesRef = useRef(null);
@@ -51,10 +49,8 @@ function Recipes() {
         const params = {};
         if (searchParams.get('category')) params.category = searchParams.get('category');
         params.page = searchParams.get('page') || 1;
-        if (searchParams.get('ingredient')) params.ingredient = searchParams.get('ingredient');
-        if (searchParams.get('area')) params.area = searchParams.get('area');
-
-
+        if (searchParams.get('ingredient')) params.ingredient = decodeURIComponent(searchParams.get('ingredient'));
+        if (searchParams.get('area')) params.area = decodeURIComponent(searchParams.get('area'));
         dispatch(fetchRecipes({ ...params, limit: limitPage }));
     }, [dispatch, searchParams, limitPage]);
 
@@ -77,7 +73,10 @@ function Recipes() {
         }
     };
 
-
+    const category = useSelector(selectCategoryByName(searchParams.get('category')));
+    
+    const CategoryDescription =  category ? category.description : 'A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.';
+    const CategoryName = category ? category.name : 'All recipes';
     return (
         <div className={styles.recipesContainer} ref={recipesRef}>
             <div className={styles.recipesBackContainer} onClick={handleBack}>
@@ -88,15 +87,14 @@ function Recipes() {
                     <p className={styles.recipesBackText}>Back</p>
                 </button>
             </div>
-            <MainTitle>{searchParams.get('category') ? searchParams.get('category') : 'All recipes'}</MainTitle>
-            <Subtitle style={{ maxWidth: "540px" }}>Description</Subtitle>
+            <MainTitle>{CategoryName}</MainTitle>
+            <Subtitle style={{ maxWidth: "540px" }}>{CategoryDescription}</Subtitle>
             <div className={styles.recipesContent}>
                 <RecipeFilters />
                 <div>
                     <div >
                         <RecipeList />
                         {pagination.pages > 1 && (
-
                             <Pagination
                                 currentPage={Number(pagination.page)}
                                 totalPages={Number(pagination.pages)}
