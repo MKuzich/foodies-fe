@@ -40,8 +40,8 @@ export const getUserFollowers = async ({ id, page = 1, limit = 9 }) => {
   }
 };
 
-export const getUserFollowing = async () => {
-  const url = "/users/following";
+export const getUserFollowing = async ({ page = 1, limit = 9 }) => {
+  const url = `/users/following?page=${page}&limit=${limit}`;
   try {
     const { data } = await api.get(url);
     return data;
@@ -50,23 +50,27 @@ export const getUserFollowing = async () => {
   }
 };
 
-export const followUserById = async ({ id, userId, ...params }) => {
+export const followUserById = async ({ id, userId, callback, ...params }) => {
   const url = `/users/${id}/follow`;
   try {
-    const { data } = await api.post(url);
-    data.userFollowers = await getUserFollowers({ id: userId, ...params });
-    return data;
+    await api.post(url);
+    if (callback) {
+      const data = await callback({ id: userId, ...params });
+      return data;
+    }
   } catch (error) {
     throw error;
   }
 };
 
-export const unfollowUserById = async ({ id, userId, ...params }) => {
+export const unfollowUserById = async ({ id, userId, callback, ...params }) => {
   const url = `/users/${id}/unfollow`;
   try {
-    const { data } = await api.delete(url);
-    data.userFollowers = await getUserFollowers({ id: userId, ...params });
-    return data;
+    await api.delete(url);
+    if (callback) {
+      const data = await callback({ id: userId, ...params });
+      return data;
+    }
   } catch (error) {
     throw error;
   }

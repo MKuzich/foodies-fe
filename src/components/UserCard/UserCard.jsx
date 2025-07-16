@@ -6,16 +6,17 @@ import { useDispatch, useSelector } from "react-redux";
 import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { selectUserInfo } from "../../redux/auth/slice";
 import { followUser, unfollowUser } from "../../redux/users/operations";
-import { selectUsersFollowLoading } from "../../redux/users/selectors";
+import { selectTabOpened, selectUsersFollowLoading } from "../../redux/users/selectors";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import Button from "../Button/Button";
 import IconLink from "../IconLink/IconLink";
 import skeletonCss from "../Skeleton/Skeleton.module.css";
 import css from "./UserCard.module.css";
 
-const UserCard = ({ user, following }) => {
+const UserCard = ({ user }) => {
   const dispatch = useDispatch();
   const loading = useSelector(selectUsersFollowLoading);
+  const tabOpened = useSelector(selectTabOpened);
   const { _, width } = useWindowDimensions();
   const [visibleCount, setVisibleCount] = useState(3);
   useEffect(() => {
@@ -28,7 +29,7 @@ const UserCard = ({ user, following }) => {
 
   const me = useSelector(selectUserInfo);
   const isMe = me.id === user.id;
-  const isUserIsFollowed = user.isFollowing || following;
+  const isUserIsFollowed = user.isFollowing || tabOpened === "following";
 
   const handleFollowClick = async () => {
     if (isUserIsFollowed) {
