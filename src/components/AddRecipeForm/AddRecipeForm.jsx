@@ -3,43 +3,43 @@ import clsx from "clsx";
 import React, { useEffect, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { shallowEqual, useDispatch, useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
 import IconButton from "@/components/IconButton/IconButton";
-import { submitRecipeThunk } from "@/redux/addRecipe/actions";
-import { selectAddRecipeSuccess } from "@/redux/addRecipe/selectors";
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+import { fetchRecipeThunk } from "@/redux/addRecipe/actions";
+import { selectAddRecipeSuccess, selectCreatedRecipeId } from "@/redux/addRecipe/selectors";
 import { clearSuccess } from "@/redux/addRecipe/slice";
+import { areasSelector } from "@/redux/areas/selectors";
+import { categoriesSelector } from "@/redux/categories/selectors";
+import { ingredientsSelector } from "@/redux/ingredients/selectors";
 
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
+import DropdownSearch from "../DropdownSearch/DropdownSearch";
 import Icon from "../Icon";
 import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
-import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
-import { areasSelector } from "@/redux/areas/selectors";
-import { ingredientsSelector } from "@/redux/ingredients/selectors";
-import { categoriesSelector } from "@/redux/categories/selectors";
-import DropdownSearch from "../DropdownSearch/DropdownSearch";
-
 
 const AddRecipeForm = () => {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
   const recipeCreated = useSelector(selectAddRecipeSuccess);
-
+  const createdRecipeId = useSelector(selectCreatedRecipeId);
 
   useCategoriesAreasIngredientsFetch();
 
   useEffect(() => {
-    if (recipeCreated) {
+    if (recipeCreated && createdRecipeId) {
+      console.log(createdRecipeId);
       toast.success("Recipe successfully created!");
       dispatch(clearSuccess());
-      navigate("/recipes");
+      navigate(`/recipe/${createdRecipeId}`);
     }
-  }, [recipeCreated, dispatch]);
+  }, [recipeCreated, createdRecipeId, dispatch]);
 
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
@@ -114,9 +114,8 @@ const AddRecipeForm = () => {
   };
 
   const onSubmit = async (data) => {
-    console.log(data);
-    // const formData = buildFormData(data);
-    // dispatch(submitRecipeThunk(formData));
+    const formData = buildFormData(data);
+    dispatch(fetchRecipeThunk(formData));
     setResetSignal((prev) => !prev);
   };
 
@@ -169,7 +168,6 @@ const AddRecipeForm = () => {
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
-
 
   return (
     <div className={styles.addRecipeForm}>
@@ -298,8 +296,8 @@ const AddRecipeForm = () => {
                       data={ingredients}
                       value={field.value}
                       onChange={field.onChange}
-                      valueKey="id"    //  TODO: DELETE THIS CAUSE ERRORS
-                      labelKey="name"  //  TODO: DELETE THIS CAUSE ERRORS
+                      valueKey="id" //  TODO: DELETE THIS CAUSE ERRORS
+                      labelKey="name" //  TODO: DELETE THIS CAUSE ERRORS
                       resetSignal={resetSignal}
                     />
                   )}

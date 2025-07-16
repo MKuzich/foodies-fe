@@ -68,9 +68,9 @@ export const fetchUserFollowers = createAsyncThunk(
 
 export const fetchUserFollowing = createAsyncThunk(
   "users/fetchUserFollowing",
-  async (_, thunkAPI) => {
+  async ({ page, limit }, thunkAPI) => {
     try {
-      return await getUserFollowing();
+      return await getUserFollowing({ page, limit });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -79,12 +79,31 @@ export const fetchUserFollowing = createAsyncThunk(
 
 export const followUser = createAsyncThunk("users/followUserById", async (id, thunkAPI) => {
   const state = thunkAPI.getState();
-  const currentUserInfo = state.auth.userInfo;
+  const userId = state.users.user.id;
+  const currentUserId = state.auth.userInfo.id;
+  const tab = state.users.tab;
   try {
+    if (tab === "following") {
+      const data = await followUserById({
+        id,
+        userId,
+        callback: getUserFollowing,
+      });
+      return { id, data, currentUserId };
+    }
+
+    if (tab === "followers") {
+      const data = await followUserById({
+        id,
+        userId,
+        callback: getUserFollowers,
+      });
+      return { id, data, currentUserId };
+    }
     return {
       id,
-      data: await followUserById({ id, userId: currentUserInfo.id }),
-      currentUserInfo,
+      data: await followUserById({ id, userId }),
+      currentUserId,
     };
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
@@ -93,13 +112,33 @@ export const followUser = createAsyncThunk("users/followUserById", async (id, th
 
 export const unfollowUser = createAsyncThunk("users/unfollowUser", async (id, thunkAPI) => {
   const state = thunkAPI.getState();
-  const currentUserInfo = state.auth.userInfo;
+  const userId = state.users.user.id;
+  const tab = state.users.tab;
+  const currentUserId = state.auth.userInfo.id;
 
   try {
+    if (tab === "following") {
+      const data = await unfollowUserById({
+        id,
+        userId,
+        callback: getUserFollowing,
+      });
+      return { id, data, currentUserId };
+    }
+
+    if (tab === "followers") {
+      const data = await unfollowUserById({
+        id,
+        userId,
+        callback: getUserFollowers,
+      });
+      return { id, data, currentUserId };
+    }
+
     return {
       id,
-      data: await unfollowUserById({ id, userId: currentUserInfo.id }),
-      currentUserInfo,
+      data: await unfollowUserById({ id, userId }),
+      currentUserId,
     };
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
