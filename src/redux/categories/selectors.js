@@ -8,13 +8,9 @@ export const showAllSelector = (state) => state.categories.showAll;
 
 // Selector for getting a category by name (exact match)
 export const selectCategoryByName = (categoryName) =>
-  createSelector(
-    categoriesSelector,
-    (categories) => {
-      if (!categoryName) return null;
-      return categories.find(category => 
-        category.name.toLowerCase() === categoryName.toLowerCase()
-      );
-    }
-  );
-
+  createSelector(categoriesSelector, (categories) => {
+    if (!categoryName) return null;
+    return categories.find(
+      (category) => category.name.toLowerCase() === categoryName.toLowerCase(),
+    );
+  });

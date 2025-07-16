@@ -10,6 +10,9 @@
   cursor: pointer;
   user-select: none; /* disables text selection */
   object-fit: cover;
+  box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.57);
+  -webkit-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.57);
+  -moz-box-shadow: 0px 1px 5px -1px rgba(0, 0, 0, 0.57);
 }
 
 .avatarIcon.small,

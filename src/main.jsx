@@ -1,12 +1,14 @@
-import { createRoot } from "react-dom/client";
-import App from "./App.jsx";
-import { BrowserRouter } from "react-router-dom";
 import "modern-normalize/modern-normalize.css";
 import "./index.css";
+
+import { createRoot } from "react-dom/client";
 import { Provider } from "react-redux";
-import store from "./redux/store.js";
+import { BrowserRouter } from "react-router-dom";
 import { persistStore } from "redux-persist";
 import { PersistGate } from "redux-persist/integration/react";
+
+import App from "./App.jsx";
+import store from "./redux/store.js";
 
 const persistor = persistStore(store);
 
@@ -17,5 +19,5 @@ createRoot(document.getElementById("root")).render(
         <App />
       </BrowserRouter>
     </PersistGate>
-  </Provider>
+  </Provider>,
 );
