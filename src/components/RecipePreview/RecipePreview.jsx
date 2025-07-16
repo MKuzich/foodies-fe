@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
@@ -9,8 +10,8 @@ import IconLink from "../IconLink/IconLink";
 import css from "./RecipePreview.module.css";
 
 const RecipePreview = ({ recipe }) => {
-  const isLoading = useSelector(selectLoading);
   const isCurrentUser = useSelector(selectIsUserCurrentUser);
+  const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
 
   const handleRemoveRecipe = async () => {
@@ -23,9 +24,20 @@ const RecipePreview = ({ recipe }) => {
   };
 
   return isLoading ? (
-    <li className={css.recipePreview}>Place for placeholder...</li>
+    <div className={css.recipePreview}>
+      <div className={clsx(css.skeleton, css.skeletonImageCard)}></div>
+      <div className={css.recipePreviewWrapper}>
+        <div className={css.recipePreviewInfo}>
+          <div className={clsx(css.skeleton, css.skeletonTitle)}></div>
+          <div className={clsx(css.skeleton, css.skeletonDescription)}></div>
+        </div>
+        <div className={css.recipePreviewButtons}>
+          <IconLink name="arrow" black disabled />
+          {isCurrentUser && <IconButton name="trash" disabled />}
+        </div>
+      </div>
+    </div>
   ) : (
-    // TODO: add placeholder
     <li className={css.recipePreview}>
       <img src={recipe.thumb} alt={recipe.title} className={css.recipePreviewImage} />
       <div className={css.recipePreviewWrapper}>

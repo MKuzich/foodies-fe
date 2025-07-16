@@ -23,6 +23,7 @@
 }
 
 .userName {
+  user-select: none;
   line-height: 1.5;
   text-transform: uppercase;
   color: var(--title-color);
@@ -70,4 +71,18 @@
   .userCardButtons {
     margin-left: auto;
   }
+}
+
+.userCardButton {
+  border-color: var(--inactive-color);
+  margin-top: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.userCardButton.inactive {
+  color: var(--inactive-color);
+  border-color: var(--inactive-color);
+  pointer-events: none;
 }
