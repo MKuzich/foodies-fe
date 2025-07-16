@@ -1,34 +1,13 @@
-import React, { useEffect } from "react";
-import { useParams } from "react-router-dom";
-
-import api from "../../api";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import s from "./RecipeTestimonials.module.css";
 
-export default function RecipeTestimonials() {
-  const { id } = useParams();
-  const [testimonials, setTestimonials] = React.useState([]);
-
-  useEffect(() => {
-    const fetchTestimonials = async () => {
-      try {
-        const response = await api.testimonials.fetchTestimonialsByRecipeId({ recipeId: id });
-        setTestimonials(response);
-        console.log(response);
-      } catch (error) {
-        console.error("Error fetching testimonials:", error);
-      }
-    };
-
-    fetchTestimonials();
-  }, []);
-
+export default function RecipeTestimonials({ testimonials }) {
   return (
     <div className={s.recipeTestimonials}>
       <div className={s.divider} />
       <h2 className={s.title}>Recipe Testimonials</h2>
       <ul>
-        {testimonials.length &&
+        {testimonials.length !== 0 &&
           testimonials.map((item) => (
             <li key={item.id} className={s.testimonialItem}>
               <div className={s.avatarWrapper}>

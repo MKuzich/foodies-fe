@@ -12,6 +12,7 @@ import styles from "./RecipePage.module.css";
 const RecipePage = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
+  const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -26,8 +27,20 @@ const RecipePage = () => {
       }
     };
 
+    const fetchTestimonials = async () => {
+      try {
+        const response = await api.testimonials.fetchTestimonialsByRecipeId({ recipeId: id });
+        setTestimonials(response);
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+      }
+    };
+
+    fetchTestimonials();
+
     fetchRecipe();
   }, [id]);
+
   return (
     <>
       <PathInfo name={recipe?.title ?? "Recipe"} />
@@ -43,7 +56,7 @@ const RecipePage = () => {
       </section>
       <section>
         <Container>
-          <RecipeTestimonials />
+          <RecipeTestimonials testimonials={testimonials} />
         </Container>
       </section>
     </>
