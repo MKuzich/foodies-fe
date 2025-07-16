@@ -74,12 +74,12 @@ const AddRecipeImage = ({ resetSignal }) => {
         {previewUrl ? (
           <img src={previewUrl} alt="Preview" className={styles.preview} />
         ) : (
-          <label htmlFor="photo-upload" className={styles.labelWrapper}>
+          <div className={styles.labelWrapper}>
             <svg className={styles.icon}>
               <use href={`${Icons}#icon-framed-camera`} />
             </svg>
             <span className={styles.uploadText}>Upload a photo</span>
-          </label>
+          </div>
         )}
         <input {...getInputProps()} id="photo-upload" className={styles.fileInput} />
         {localError && <span className={styles.error}>{localError}</span>}
