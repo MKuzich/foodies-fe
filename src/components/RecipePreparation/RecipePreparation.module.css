@@ -17,7 +17,14 @@
 
 .favotiteBtn {
   max-width: 172px;
+  white-space: nowrap;
 }
+.buttonList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
 @media (min-width: 768px) {
   .itemTitle {
     margin-top: 40px;
@@ -30,5 +37,9 @@
 
   .favotiteBtn {
     max-width: 215px;
+  }
+  .buttonList {
+    flex-direction: row;
+    align-items: center;
   }
 }

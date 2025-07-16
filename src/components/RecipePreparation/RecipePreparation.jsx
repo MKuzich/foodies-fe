@@ -4,15 +4,16 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../api/api";
 import Button from "../../components/Button/Button";
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
+import TestimonialModal from "../TestimonialModal";
 import styles from "./RecipePreparation.module.css";
 
-const RecipePreparation = ({ recipe }) => {
+const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectCurrentUser);
 
   const [isFavorite, setIsFavorite] = useState(recipe.isFavorite);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [, setLoading] = useState(false);
+  const [, setError] = useState(null);
 
   const handleFavoriteToggle = async () => {
     if (!isLoggedIn) {
@@ -42,18 +43,16 @@ const RecipePreparation = ({ recipe }) => {
     <>
       <h3 className={styles.itemTitle}>Recipe Preparation</h3>
       <p className={styles.description}>{recipe.instructions}</p>
-
-      <div styles={styles.favotiteBtn}>
-        <Button
-          outlined={isFavorite}
-          onClick={handleFavoriteToggle}
-          disabled={loading}
-          type="button"
-        >
-          {isFavorite ? "Remove from favorites" : "Add to favorites"}
-        </Button>
-        {error && <p className={styles.error}>{error}</p>}
-      </div>
+      <ul className={styles.buttonList}>
+        <li className={styles.buttonList}>
+          <Button outlined={true} onClick={handleFavoriteToggle}>
+            {isFavorite ? "Remove from favorites" : "Add to favorites"}
+          </Button>
+        </li>
+        <li className={styles.buttonList}>
+          <TestimonialModal recipeId={recipe.id} onChangeTestimonials={onChangeTestimonials} />
+        </li>
+      </ul>
     </>
   );
 };
