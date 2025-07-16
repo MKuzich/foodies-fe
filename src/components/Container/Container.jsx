@@ -1,6 +1,6 @@
-import React from "react";
-import css from "./Container.module.css";
 import clsx from "clsx";
+
+import css from "./Container.module.css";
 
 const Container = ({ children, className, ...props }) => {
   return (

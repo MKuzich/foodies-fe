@@ -1,11 +1,13 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
+import Container from "@/components/Container/Container";
+import PathInfo from "@/components/PathInfo/PathInfo";
+import PopularRecipes from "@/components/PopularRecipes/PopularRecipes";
+import RecipeInfo from "@/components/RecipeInfo/RecipeInfo";
+import RecipeTestimonials from "@/components/RecipeTestimonials/RecipeTestimonials";
+
 import api from "../../api/api";
-import Container from "../../components/Container/Container";
-import PathInfo from "../../components/PathInfo/PathInfo";
-import PopularRecipes from "../../components/PopularRecipes/PopularRecipes";
-import RecipeInfo from "../../components/RecipeInfo/RecipeInfo";
 import styles from "./RecipePage.module.css";
 const RecipePage = () => {
   const { id } = useParams();
@@ -37,6 +39,11 @@ const RecipePage = () => {
       <section>
         <Container>
           <PopularRecipes />
+        </Container>
+      </section>
+      <section>
+        <Container>
+          <RecipeTestimonials />
         </Container>
       </section>
     </>

@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import api from "../../api/api";
 import Button from "../../components/Button/Button";
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
+import TestimonialModal from "../TestimonialModal";
 import styles from "./RecipePreparation.module.css";
 
 const RecipePreparation = ({ recipe }) => {
@@ -53,6 +54,9 @@ const RecipePreparation = ({ recipe }) => {
           {isFavorite ? "Remove from favorites" : "Add to favorites"}
         </Button>
         {error && <p className={styles.error}>{error}</p>}
+      </div>
+      <div styles={styles.testimonialBtn}>
+        <TestimonialModal recipeId={recipe.id} />
       </div>
     </>
   );

@@ -1,0 +1,56 @@
+import React, { useEffect } from "react";
+import { useParams } from "react-router-dom";
+
+import api from "../../api";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
+import s from "./RecipeTestimonials.module.css";
+
+export default function RecipeTestimonials() {
+  const { id } = useParams();
+  const [testimonials, setTestimonials] = React.useState([]);
+
+  useEffect(() => {
+    const fetchTestimonials = async () => {
+      try {
+        const response = await api.testimonials.fetchTestimonialsByRecipeId({ recipeId: id });
+        setTestimonials(response);
+        console.log(response);
+      } catch (error) {
+        console.error("Error fetching testimonials:", error);
+      }
+    };
+
+    fetchTestimonials();
+  }, []);
+
+  return (
+    <div className={s.recipeTestimonials}>
+      <div className={s.divider} />
+      <h2 className={s.title}>Recipe Testimonials</h2>
+      <ul>
+        {testimonials.length &&
+          testimonials.map((item) => (
+            <li key={item.id} className={s.testimonialItem}>
+              <div className={s.avatarWrapper}>
+                <AvatarIcon
+                  name={item.user.name}
+                  avatarUrl={item.user.avatarUrl}
+                  alt={`${item.user.name} avatar`}
+                  small
+                  to={`/user/${item.user.id}`}
+                />
+              </div>
+              <div>
+                <div className={s.authorInfo}>
+                  <h3 className={s.authorName}>{item.user.name}</h3>
+                  <span className={s.date}>{new Date(item.updatedAt).toLocaleString()}</span>
+                </div>
+                <p>{item.testimonial}</p>
+              </div>
+            </li>
+          ))}
+        {!testimonials.length && <p>No testimonials available for this recipe.</p>}
+      </ul>
+    </div>
+  );
+}
