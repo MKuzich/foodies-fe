@@ -178,11 +178,18 @@ const slice = createSlice({
       .addCase(followUser.rejected, (state) => {
         state.followLoading = false;
       })
+      .addCase(removeRecipe.pending, (state) => {
+        state.recipesLoading = true;
+      })
       .addCase(removeRecipe.fulfilled, (state, { payload }) => {
         state.user.recipes = payload.data;
         state.user.createdCount = payload.pagination.total;
         state.totalPages = payload.pagination.pages;
         state.filter.page = 1;
+        state.recipesLoading = false;
+      })
+      .addCase(removeRecipe.rejected, (state) => {
+        state.recipesLoading = false;
       });
   },
 });
