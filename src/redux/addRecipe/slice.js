@@ -1,24 +1,37 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { submitRecipeThunk } from "./actions";
+import { fetchRecipeThunk } from "./actions";
 
 const addRecipeSlice = createSlice({
   name: "addRecipe",
   initialState: {
     success: false,
+    isLoading: false,
+    error: null,
+    recipeId: null,
   },
   reducers: {
     clearSuccess: (state) => {
       state.success = false;
+      state.recipeId = null;
     },
   },
   extraReducers: (builder) => {
     builder
-      .addCase(submitRecipeThunk.fulfilled, (state) => {
-        state.success = true;
-      })
-      .addCase(submitRecipeThunk.pending, (state) => {
+      .addCase(fetchRecipeThunk.pending, (state) => {
         state.success = false;
+        state.isLoading = true;
+        state.error = null;
+      })
+      .addCase(fetchRecipeThunk.fulfilled, (state, action) => {
+        state.success = true;
+        state.isLoading = false;
+        state.recipeId = action.payload?.id ?? null;
+      })
+      .addCase(fetchRecipeThunk.rejected, (state, action) => {
+        state.success = false;
+        state.isLoading = false;
+        state.error = action.payload ?? "Unknown error";
       });
   },
 });
