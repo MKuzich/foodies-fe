@@ -23,7 +23,6 @@ const Header = () => {
   const userInfo = useSelector((state) => state.auth.userInfo);
   const user = userInfo || { name: "", avatar: "" };
   const isTablet = useMediaQuery("(min-width: 768px) and (max-width: 1439px)");
-  const isMobile = useMediaQuery("(max-width: 767px)");
   const shouldRenderNavItems = (isTablet && isAuthenticated) || !isTablet;
 
   const handleSignIn = () => {
@@ -40,8 +39,7 @@ const Header = () => {
     { to: "/", label: "Home", private: false },
     { to: "/recipe/add", label: "Add Recipe", private: true },
   ];
-  console.log(isTablet);
-  console.log("is mobile: ", isMobile);
+
   return (
     <header
       className={clsx(
@@ -104,8 +102,6 @@ const Header = () => {
           </div>
         </div>
       </Container>
-
-      {/* Mobile Nav Overlay */}
       {mobileNavOpen && (
         <MobileSidebar
           open={mobileNavOpen}

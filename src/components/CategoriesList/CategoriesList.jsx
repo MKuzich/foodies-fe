@@ -1,18 +1,20 @@
-import { useDispatch, useSelector } from "react-redux";
-import CategoriesItem from "../CategoriesItem/CategoriesItem";
-import styles from "./CategoriesList.module.css";
-import { showAllSelector } from "@/redux/categories/selectors";
-import { toggleShowAll } from "@/redux/categories/slice";
-import useMediaQuery from "@/hooks/useMediaQuery";
-import Loader from "../Loader/Loader";
-import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
-import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
-import { setQuery } from "@/redux/recipes/slice";
 import { useEffect } from "react";
-import { querySelector } from "@/redux/recipes/selectors";
+import { useDispatch, useSelector } from "react-redux";
 
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import {
+  categoriesSelector,
+  errorCategoriesSelector,
+  isLoadingCategoriesSelector,
+  showAllSelector,
+} from "@/redux/categories/selectors";
+import { toggleShowAll } from "@/redux/categories/slice";
+import { setQuery } from "@/redux/recipes/slice";
 
-
+import CategoriesItem from "../CategoriesItem/CategoriesItem";
+import Loader from "../Loader/Loader";
+import styles from "./CategoriesList.module.css";
 
 function CategoriesList() {
   useCategoriesAreasIngredientsFetch();
@@ -21,12 +23,9 @@ function CategoriesList() {
   const error = useSelector(errorCategoriesSelector);
   const showAll = useSelector(showAllSelector);
 
-
   const dispatch = useDispatch();
 
-
-
-  const isMobile = useMediaQuery("(max-width: 375px)");
+  const isMobile = useMediaQuery("(max-width: 374px)");
   const displayedCategories = showAll ? categories : categories.slice(0, isMobile ? 8 : 11);
 
   useEffect(() => {
@@ -47,13 +46,22 @@ function CategoriesList() {
 
   const handleShowAll = () => {
     dispatch(toggleShowAll());
-  }
+  };
   return (
     <ul className={styles.categoriesList}>
-      {displayedCategories.map((item, index) => (
-        <CategoriesItem key={item.id} id={item.id} name={item.name} description={item.description} />
+      {displayedCategories.map((item) => (
+        <CategoriesItem
+          key={item.id}
+          id={item.id}
+          name={item.name}
+          description={item.description}
+        />
       ))}
-      <CategoriesItem option="All" name={showAll ? "Hide categories" : "All categories"} onClick={handleShowAll} />
+      <CategoriesItem
+        option="All"
+        name={showAll ? "Hide categories" : "All categories"}
+        onClick={handleShowAll}
+      />
       {showAll && <CategoriesItem option="Show" name="All recipes" />}
     </ul>
   );

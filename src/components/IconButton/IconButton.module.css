@@ -7,7 +7,7 @@
   border-radius: 30px;
   border: 1px solid var(--inactive-color);
   background-color: transparent;
-  transition: var(--color-transition);
+  transition: var(--background-transition);
 }
 
 .iconButtonIcon {
@@ -41,11 +41,13 @@
   stroke: var(--inactive-color);
 }
 
-.iconButton:hover {
+.iconButton:hover,
+.iconButton:focus {
   cursor: pointer;
   border-color: var(--text-color);
   background-color: var(--text-color);
 }
-.iconButton:hover .iconButtonIcon {
+.iconButton:hover .iconButtonIcon,
+.iconButton:focus .iconButtonIcon {
   stroke: var(--white-color);
 }

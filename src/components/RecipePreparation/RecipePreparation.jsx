@@ -46,7 +46,7 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
 
       <div className={styles.favoriteBtn}>
         <Button
-          outlined={isFavorite}
+          outlinedInactive={isFavorite}
           onClick={handleFavoriteToggle}
           disabled={loading}
           type="button"
