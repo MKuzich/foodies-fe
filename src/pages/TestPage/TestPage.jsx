@@ -29,6 +29,9 @@ const TestPage = () => {
         <Button outlined={true} onClick={() => console.log("Button clicked!")}>
           Outlined Button
         </Button>
+        <Button outlinedInactive={true} onClick={() => console.log("Button clicked!")}>
+          Outlined Inactive Button
+        </Button>
         <Button onClick={() => console.log("Button clicked!")} type="submit" inactive>
           Inactive button
         </Button>

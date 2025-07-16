@@ -45,7 +45,7 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
       <p className={styles.description}>{recipe.instructions}</p>
       <ul className={styles.buttonList}>
         <li className={styles.buttonList}>
-          <Button outlined={true} onClick={handleFavoriteToggle}>
+          <Button outlinedInactive={true} onClick={handleFavoriteToggle}>
             {isFavorite ? "Remove from favorites" : "Add to favorites"}
           </Button>
         </li>

@@ -1,127 +1,118 @@
 .hero {
-    max-width: 1440px;
-    margin-left: auto;
-    margin-right: auto;
-    background: transparent;
-    padding: 0 16px 120px 16px;
-    margin-top: 20px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 4px 4px 0 4px;
+  margin-bottom: 64px;
+}
+
+@media screen and (min-width: 375px) {
+  .hero {
+    width: 375px;
+    padding: 8px 8px 0 8px;
+  }
+}
+
+@media screen and (min-width: 768px) {
+  .hero {
+    padding: 16px 16px 0 16px;
+    width: 768px;
+    margin-bottom: 100px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .hero {
+    padding: 20px 20px 0 20px;
+    width: 1440px;
+    margin-bottom: 120px;
+  }
 }
 
 .heroInner {
-    background: var(--title-color);
-    color: var(--white-color);
-    padding: 154px 0 81px 0;
-    text-align: center;
-    border-radius: var(--radius-card);
-    position: relative;
-    overflow: hidden;
+  background: var(--title-color);
+  color: var(--white-color);
+  padding: 154px 0 81px 0;
+  text-align: center;
+  border-radius: var(--radius-card);
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
 }
 
 .title {
-    font-weight: 800;
-    font-style: normal;
-    font-size: 90px;
-    line-height: 90px;
-    text-align: center;
-    text-transform: uppercase;
-    margin-bottom: 40px;
+  font-weight: 800;
+  font-size: 90px;
+  line-height: 1;
+  text-align: center;
+  text-transform: uppercase;
+  margin-bottom: 40px;
 }
 
 .subtitle {
-    font-weight: 500;
-    font-style: normal;
-    font-size: 16px;
-    line-height: 24px;
-    text-align: center;
-    color: var(--white-color);
-    margin-bottom: 32px;
-    max-width: 480px;
-    margin-left: auto;
-    margin-right: auto;
+  font-weight: 500;
+  font-style: normal;
+  font-size: 16px;
+  line-height: 24px;
+  text-align: center;
+  color: var(--white-color);
+  margin-bottom: 32px;
+  max-width: 480px;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ctaBtn {
-    border-radius: var(--radius-card);
-    padding: 16px 32px;
-    font-weight: 700;
-    font-size: 16px;
-    line-height: 24px;
-    text-transform: uppercase;
-    cursor: pointer;
-    background: transparent;
-    border: 1px solid var(--white-color);
-    color: var(--white-color);
-    margin-bottom: 40px;
-    box-shadow: none;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-    transition: all var(--transition-main);
+  background: transparent;
+  border: 1px solid var(--white-color);
+  color: var(--white-color);
+  margin-bottom: 40px;
+  box-shadow: none;
+  margin-left: auto;
+  margin-right: auto;
 }
 
 .ctaBtn:hover,
 .ctaBtn:focus {
-    background: var(--white-color);
-    color: var(--title-color);
-    border: 1px solid var(--white-color);
+  background: var(--white-color);
+  color: var(--title-color);
+  border: 1px solid var(--white-color);
 }
 
-@media (max-width: 1024px) {
-    .hero {
-        padding: 0 16px 100px 16px;
-    }
+@media (max-width: 1439px) {
+  .title {
+    font-size: 70px;
+    line-height: 70px;
+    padding: 0 16px;
+  }
 
-    .title {
-        font-size: 70px;
-        line-height: 70px;
-    }
+  .heroInner {
+    padding: 217px 0 94px 0;
+    border-radius: var(--radius-card-mobile);
+  }
 
-    .heroInner {
-        padding: 217px 0 94px 0;
-        border-radius: var(--radius-card-mobile);
-    }
-
-    .subtitle {
-        max-width: 577px;
-    }  
+  .subtitle {
+    max-width: 577px;
+  }
 }
 
 @media (max-width: 767px) {
-    .hero {
-        padding: 0 16px 64px 16px;
-    }
+  .heroInner {
+    padding: 194px 0 100px 0;
+  }
 
-    .heroInner {
-        padding: 194px 0 100px 0;
-    }
+  .title {
+    font-size: 40px;
+    line-height: 40px;
+    margin-bottom: 20px;
+    padding: 0 8px;
+  }
 
-    .title {
-        font-size: 40px;
-        line-height: 40px;
-        margin-bottom: 20px;
-    }
-
-    .subtitle {
-        font-size: 14px;
-        line-height: 20px;
-        margin-bottom: 20px;
-        max-width:100%;
-        padding: 0 16px;
-    }
-
-    .ctaBtn {
-        padding: 10px 16px;
-        font-size: 0.9rem;
-    }
-}
-
-@media (max-width: 375px) {
-
-    .hero {
-
-        padding: 0 8px 64px 8px;
-        margin-top: 10px;
-    }
-
-
+  .subtitle {
+    font-size: 14px;
+    line-height: 20px;
+    margin-bottom: 20px;
+    max-width: 100%;
+    padding: 0 8px;
+  }
 }
