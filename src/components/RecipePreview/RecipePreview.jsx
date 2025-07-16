@@ -2,25 +2,25 @@ import clsx from "clsx";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-import { selectLoading } from "../../redux/root/selectors";
-import { removeFavoriteRecipe, removeRecipe } from "../../redux/users/operations";
-import { selectIsUserCurrentUser } from "../../redux/users/selectors";
+import { removeFromFavoriteRecipe, removeRecipe } from "../../redux/users/operations";
+import { selectIsUserCurrentUser, selectUsersRecipesLoading } from "../../redux/users/selectors";
 import IconButton from "../IconButton/IconButton";
 import IconLink from "../IconLink/IconLink";
+import skeletonCss from "../Skeleton/Skeleton.module.css";
 import css from "./RecipePreview.module.css";
 
-const RecipePreview = ({ recipe, isFavorite }) => {
+const RecipePreview = ({ recipe, favorite }) => {
   const isCurrentUser = useSelector(selectIsUserCurrentUser);
-  const isLoading = useSelector(selectLoading);
+  const loading = useSelector(selectUsersRecipesLoading);
   const dispatch = useDispatch();
 
   const handleRemoveRecipe = async () => {
-    if (isFavorite) {
-      const result = await dispatch(removeFavoriteRecipe(recipe.id));
-      if (removeFavoriteRecipe.fulfilled.match(result)) {
-        toast.success("Successfully removed recipe!");
+    if (favorite) {
+      const result = await dispatch(removeFromFavoriteRecipe(recipe.id));
+      if (removeFromFavoriteRecipe.fulfilled.match(result)) {
+        toast.success("Successfully removed recipe from favorites!");
       } else {
-        toast.error(result.payload.message || "Failed to remove recipe");
+        toast.error(result.payload.message || "Failed to remove recipe from favorites");
       }
     } else {
       const result = await dispatch(removeRecipe(recipe.id));
@@ -32,13 +32,13 @@ const RecipePreview = ({ recipe, isFavorite }) => {
     }
   };
 
-  return isLoading ? (
+  return loading ? (
     <div className={css.recipePreview}>
-      <div className={clsx(css.skeleton, css.skeletonImageCard)}></div>
+      <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></div>
       <div className={css.recipePreviewWrapper}>
         <div className={css.recipePreviewInfo}>
-          <div className={clsx(css.skeleton, css.skeletonTitle)}></div>
-          <div className={clsx(css.skeleton, css.skeletonDescription)}></div>
+          <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTitle)}></div>
+          <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonDescription)}></div>
         </div>
         <div className={css.recipePreviewButtons}>
           <IconLink name="arrow" black disabled />

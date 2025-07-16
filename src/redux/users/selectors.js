@@ -19,3 +19,5 @@ export const selectTabOpened = (state) => state.users.tab;
 export const selectPage = (state) => state.users.filter.page;
 export const selectFilter = (state) => state.users.filter;
 export const selectTotalPages = (state) => state.users.totalPages;
+export const selectUsersFollowLoading = (state) => state.users.followLoading;
+export const selectUsersRecipesLoading = (state) => state.users.recipesLoading;
