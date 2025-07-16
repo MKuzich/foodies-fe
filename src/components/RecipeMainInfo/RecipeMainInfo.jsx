@@ -4,6 +4,7 @@ import { useNavigate } from "react-router-dom";
 import RecipeIngredients from "../../components/RecipeIngredients/RecipeIngredients";
 import RecipePreparation from "../../components/RecipePreparation/RecipePreparation";
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
+import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import styles from "./RecipeMainInfo.module.css";
 
 const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
@@ -37,7 +38,13 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
           <p className={styles.description}>{recipe.description}</p>
 
           <button className={styles.authorBtn} onClick={handleAuthorClick}>
-            <img src={author.avatarURL} alt={author.name} className={styles.avatar} />
+            <AvatarIcon
+              name={author.name}
+              avatarUrl={author.avatarURL}
+              alt={`${author.name} avatar`}
+              small
+              className={styles.avatar}
+            />
             <div className={styles.authorInfo}>
               Created by: <span className={styles.authorName}>{author.name}</span>
             </div>

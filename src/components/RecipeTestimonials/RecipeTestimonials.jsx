@@ -16,7 +16,6 @@ export default function RecipeTestimonials({ testimonials }) {
                   avatarUrl={item.user.avatarUrl}
                   alt={`${item.user.name} avatar`}
                   small
-                  to={`/user/${item.user.id}`}
                 />
               </div>
               <div>

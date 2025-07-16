@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 
 import css from "./AvatarIcon.module.css";
 
-const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null }) => {
+const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null, className }) => {
   const iconClassName = clsx(
     css.avatarIcon,
     xsmall && css.xsmall,
@@ -31,7 +31,7 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null })
           )}
         </Link>
       ) : (
-        <div>
+        <div className={className}>
           {src ? (
             <img src={src} alt={imgAlt} className={iconClassName} />
           ) : (
