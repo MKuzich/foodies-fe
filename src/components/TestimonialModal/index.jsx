@@ -6,7 +6,7 @@ import Button from "../Button/Button";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import TestimonialModal from "./TestimonialModal";
 
-const OpenModalButton = ({ recipeId }) => {
+const OpenModalButton = ({ recipeId, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const [isOpen, setIsOpen] = useState(false);
   const isLoggedIn = useSelector(selectCurrentUser);
@@ -28,7 +28,11 @@ const OpenModalButton = ({ recipeId }) => {
 
       {isOpen && (
         <ModalPortal>
-          <TestimonialModal onClose={handleClose} recipeId={recipeId} />
+          <TestimonialModal
+            onClose={handleClose}
+            recipeId={recipeId}
+            onChangeTestimonials={onChangeTestimonials}
+          />
         </ModalPortal>
       )}
     </>

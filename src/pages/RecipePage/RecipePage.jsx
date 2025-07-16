@@ -7,7 +7,7 @@ import PopularRecipes from "@/components/PopularRecipes/PopularRecipes";
 import RecipeInfo from "@/components/RecipeInfo/RecipeInfo";
 import RecipeTestimonials from "@/components/RecipeTestimonials/RecipeTestimonials";
 
-import api from "../../api/api";
+import api from "../../api";
 import styles from "./RecipePage.module.css";
 const RecipePage = () => {
   const { id } = useParams();
@@ -18,7 +18,7 @@ const RecipePage = () => {
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const { data } = await api.get(`recipes/${id}`);
+        const { data } = await api.createApi.get(`recipes/${id}`);
         setRecipe(data);
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
@@ -41,12 +41,21 @@ const RecipePage = () => {
     fetchRecipe();
   }, [id]);
 
+  const handleChangeTestimonials = (newTestimonial) => {
+    const prevTestimonials = testimonials.slice(0, -1);
+    setTestimonials([newTestimonial, ...prevTestimonials]);
+  };
+
   return (
     <>
       <PathInfo name={recipe?.title ?? "Recipe"} />
       <section className={styles.recipeInfo}>
         <Container>
-          <RecipeInfo recipe={recipe} loading={loading} />
+          <RecipeInfo
+            recipe={recipe}
+            loading={loading}
+            onChangeTestimonials={handleChangeTestimonials}
+          />
         </Container>
       </section>
       <section>

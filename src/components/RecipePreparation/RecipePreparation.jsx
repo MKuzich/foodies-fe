@@ -7,7 +7,7 @@ import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
 import TestimonialModal from "../TestimonialModal";
 import styles from "./RecipePreparation.module.css";
 
-const RecipePreparation = ({ recipe }) => {
+const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectCurrentUser);
 
@@ -56,7 +56,7 @@ const RecipePreparation = ({ recipe }) => {
         {error && <p className={styles.error}>{error}</p>}
       </div>
       <div className={styles.testimonialBtn}>
-        <TestimonialModal recipeId={recipe.id} />
+        <TestimonialModal recipeId={recipe.id} onChangeTestimonials={onChangeTestimonials} />
       </div>
     </>
   );
