@@ -6,6 +6,7 @@ const initialState = {
   recipes: [],
   popularRecipes: [],
   showAllRecipes: true,
+  wasShowAllRecipesInitialized: false,
   pagination: {
     total: 0,
     page: 1,
@@ -29,6 +30,9 @@ const slice = createSlice({
     },
     setShowAllRecipes: (state, action) => {
       state.showAllRecipes = action.payload;
+    },
+    setWasShowAllRecipesInitialized: (state, action) => {
+      state.wasShowAllRecipesInitialized = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -61,7 +65,7 @@ const slice = createSlice({
   },
 });
 
-export const { setQuery, resetQuery, setShowAllRecipes } = slice.actions;
+export const { setQuery, resetQuery, setShowAllRecipes, setWasShowAllRecipesInitialized } = slice.actions;
 
 export const recipesReducer = slice.reducer;
 

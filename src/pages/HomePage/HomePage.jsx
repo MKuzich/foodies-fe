@@ -10,6 +10,7 @@ import IconButton from "@/components/IconButton/IconButton";
 import Recipes from "@/components/Recipes/Recipes";
 import TestimonialModal from "@/components/TestimonialModal";
 import Testimonials from "@/components/Testimonials/Testimonials";
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 // import { selectedCategory } from "../../redux/categories/selectors";
 // import { setQuery } from "../../redux/recipes/slice";
 
@@ -19,6 +20,8 @@ const HomePage = () => {
     // setSearchParams
   ] = useSearchParams();
   const [isSearchParams, setIsSearchParams] = useState(false);
+  useCategoriesAreasIngredientsFetch();
+
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());

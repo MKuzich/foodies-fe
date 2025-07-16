@@ -5,17 +5,14 @@ import { showAllSelector } from "@/redux/categories/selectors";
 import { toggleShowAll } from "@/redux/categories/slice";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Loader from "../Loader/Loader";
-import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
 import { setQuery } from "@/redux/recipes/slice";
 import { useEffect } from "react";
-import { querySelector } from "@/redux/recipes/selectors";
 
 
 
 
 function CategoriesList() {
-  useCategoriesAreasIngredientsFetch();
   const categories = useSelector(categoriesSelector);
   const isLoading = useSelector(isLoadingCategoriesSelector);
   const error = useSelector(errorCategoriesSelector);

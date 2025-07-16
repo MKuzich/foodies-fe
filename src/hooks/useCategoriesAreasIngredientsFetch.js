@@ -10,6 +10,7 @@ import { _fetchCategories } from "@/redux/categories/actions";
 // Simple hook for fetching data with store check
 export const useCategoriesAreasIngredientsFetch = () => {
   const dispatch = useDispatch();
+  console.log("useCategoriesAreasIngredientsFetch TEST RERENDER");
   
   // Check if data exists in store
   const areas = useSelector(areasSelector);

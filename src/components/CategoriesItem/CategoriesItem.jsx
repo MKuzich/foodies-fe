@@ -18,9 +18,9 @@ function CategoriesItem({ id, name, description, option = "category", onClick })
             onClick();
         } else if (option === "Show") {
             setSearchParams({page: 1});
+            dispatch(setShowAllRecipes(true));
         } else {
             setSearchParams({ category: name });
-            dispatch(setQuery({ key: "category", value: name }));
             dispatch(setShowAllRecipes(false));
         }
     }

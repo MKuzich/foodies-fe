@@ -9,21 +9,35 @@ import { ingredientsSelector } from "@/redux/ingredients/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import DropdownSearch from "../DropdownSearch/DropdownSearch";
 import { showAllRecipesSelector } from "@/redux/recipes/selectors";
+import { useDispatch } from "react-redux";
+import { setShowAllRecipes } from "@/redux/recipes/slice";
+import { useEffect } from "react";
+import { wasShowAllRecipesInitializedSelector } from "@/redux/recipes/selectors";
+import { setWasShowAllRecipesInitialized } from "@/redux/recipes/slice";
 
 function RecipeFilters() {
-  useCategoriesAreasIngredientsFetch();
+  const dispatch = useDispatch();
 
-  
+
   const categories = useSelector(categoriesSelector);
   const areas = useSelector(areasSelector);
   const ingredients = useSelector(ingredientsSelector);
-
+  const wasShowAllRecipesInitialized = useSelector(wasShowAllRecipesInitializedSelector);
 
   const showAllRecipes = useSelector(showAllRecipesSelector);
-
+  console.log("showAllRecipes", showAllRecipes);
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
 
+  useEffect(() => {
+    if(wasShowAllRecipesInitialized) return;
+    if(category) {
+      dispatch(setShowAllRecipes(false));
+    } else {
+      dispatch(setShowAllRecipes(true));
+    }
+    dispatch(setWasShowAllRecipesInitialized(true));
+  }, [dispatch, showAllRecipes, wasShowAllRecipesInitialized]);
 
 
   const handleClearAll = () => {
