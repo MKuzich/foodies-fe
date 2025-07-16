@@ -44,7 +44,7 @@ const RecipePreparation = ({ recipe }) => {
       <h3 className={styles.itemTitle}>Recipe Preparation</h3>
       <p className={styles.description}>{recipe.instructions}</p>
 
-      <div styles={styles.favotiteBtn}>
+      <div className={styles.favoriteBtn}>
         <Button
           outlined={isFavorite}
           onClick={handleFavoriteToggle}
@@ -55,7 +55,7 @@ const RecipePreparation = ({ recipe }) => {
         </Button>
         {error && <p className={styles.error}>{error}</p>}
       </div>
-      <div styles={styles.testimonialBtn}>
+      <div className={styles.testimonialBtn}>
         <TestimonialModal recipeId={recipe.id} />
       </div>
     </>
