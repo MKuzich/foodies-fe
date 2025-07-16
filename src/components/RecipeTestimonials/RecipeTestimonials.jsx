@@ -7,7 +7,7 @@ export default function RecipeTestimonials({ testimonials }) {
       <div className={s.divider} />
       <h2 className={s.title}>Recipe Testimonials</h2>
       <ul>
-        {testimonials.length !== 0 &&
+        {testimonials.length > 0 &&
           testimonials.map((item) => (
             <li key={item.id} className={s.testimonialItem}>
               <div className={s.avatarWrapper}>
