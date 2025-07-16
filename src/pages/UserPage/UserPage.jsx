@@ -189,6 +189,7 @@ const UserPage = () => {
                         items={userFavorites}
                         type="recipe"
                         errorText={errorMap.noFavorites}
+                        favorite
                       />
                     )}
                     {tabOpened === "followers" && (
