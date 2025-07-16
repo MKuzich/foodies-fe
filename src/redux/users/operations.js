@@ -38,6 +38,21 @@ export const fetchUserFavorites = createAsyncThunk(
   },
 );
 
+export const removeFromFavorites = createAsyncThunk(
+  "users/removeFromFavorites",
+  async (id, thunkAPI) => {
+    const url = `/recipes/favorites?page=1&limit=${thunkAPI.getState().users.filter.limit}`;
+
+    try {
+      await api.delete(`/recipes/${id}/favorite`);
+      const { data } = await api.get(url);
+      return data;
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
 export const fetchUserFollowers = createAsyncThunk(
   "users/fetchUserFollowers",
   async ({ id, page, limit }, thunkAPI) => {

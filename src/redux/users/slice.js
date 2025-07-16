@@ -9,6 +9,7 @@ import {
   fetchUserFollowing,
   fetchUserRecipes,
   followUser,
+  removeFromFavorites,
   removeRecipe,
   unfollowUser,
 } from "./operations";
@@ -70,7 +71,12 @@ const slice = createSlice({
       })
       .addCase(fetchUserFavorites.fulfilled, (state, { payload }) => {
         state.totalPages = payload.pagination.pages;
-        state.user.favorites = payload.results;
+        state.user.favorites = payload.data;
+      })
+      .addCase(removeFromFavorites.fulfilled, (state, { payload }) => {
+        state.user.favorites = payload.data;
+        state.user.favoriteCount = payload.pagination.total;
+        state.totalPages = payload.pagination.pages;
       })
       .addCase(fetchUserFollowers.fulfilled, (state, { payload }) => {
         state.totalPages = payload.pagination.pages;

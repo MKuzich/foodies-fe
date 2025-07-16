@@ -3,23 +3,32 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import { selectLoading } from "../../redux/root/selectors";
-import { removeRecipe } from "../../redux/users/operations";
+import { removeFavoriteRecipe, removeRecipe } from "../../redux/users/operations";
 import { selectIsUserCurrentUser } from "../../redux/users/selectors";
 import IconButton from "../IconButton/IconButton";
 import IconLink from "../IconLink/IconLink";
 import css from "./RecipePreview.module.css";
 
-const RecipePreview = ({ recipe }) => {
+const RecipePreview = ({ recipe, isFavorite }) => {
   const isCurrentUser = useSelector(selectIsUserCurrentUser);
   const isLoading = useSelector(selectLoading);
   const dispatch = useDispatch();
 
   const handleRemoveRecipe = async () => {
-    const result = await dispatch(removeRecipe(recipe.id));
-    if (removeRecipe.fulfilled.match(result)) {
-      toast.success("Successfully removed recipe!");
+    if (isFavorite) {
+      const result = await dispatch(removeFavoriteRecipe(recipe.id));
+      if (removeFavoriteRecipe.fulfilled.match(result)) {
+        toast.success("Successfully removed recipe!");
+      } else {
+        toast.error(result.payload.message || "Failed to remove recipe");
+      }
     } else {
-      toast.error(result.payload.message || "Failed to remove recipe");
+      const result = await dispatch(removeRecipe(recipe.id));
+      if (removeRecipe.fulfilled.match(result)) {
+        toast.success("Successfully removed recipe!");
+      } else {
+        toast.error(result.payload.message || "Failed to remove recipe");
+      }
     }
   };
 
