@@ -21,13 +21,25 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null })
   const avatarName = getAvatarName(name);
 
   return (
-    <Link to={to}>
-      {src ? (
-        <img src={src} alt={imgAlt} className={iconClassName} />
+    <>
+      {to ? (
+        <Link to={to}>
+          {src ? (
+            <img src={src} alt={imgAlt} className={iconClassName} />
+          ) : (
+            <div className={iconClassName}>{avatarName}</div>
+          )}
+        </Link>
       ) : (
-        <div className={iconClassName}>{avatarName}</div>
+        <div>
+          {src ? (
+            <img src={src} alt={imgAlt} className={iconClassName} />
+          ) : (
+            <div className={iconClassName}>{avatarName}</div>
+          )}
+        </div>
       )}
-    </Link>
+    </>
   );
 };
 

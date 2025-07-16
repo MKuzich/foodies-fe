@@ -5,6 +5,7 @@ import { fetchPopularRecipes, fetchRecipes } from "./actions";
 const initialState = {
   recipes: [],
   popularRecipes: [],
+  showAllRecipes: true,
   pagination: {
     total: 0,
     page: 1,
@@ -25,6 +26,9 @@ const slice = createSlice({
     },
     resetQuery: (state) => {
       state.query = {};
+    },
+    setShowAllRecipes: (state, action) => {
+      state.showAllRecipes = action.payload;
     },
   },
   extraReducers: (builder) => {
@@ -57,7 +61,7 @@ const slice = createSlice({
   },
 });
 
-export const { setQuery, resetQuery } = slice.actions;
+export const { setQuery, resetQuery, setShowAllRecipes } = slice.actions;
 
 export const recipesReducer = slice.reducer;
 

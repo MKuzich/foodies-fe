@@ -8,12 +8,15 @@
   display: flex;
   flex-direction: row;
   gap: 16px;
+  width: 100%;
 }
 
 .userInfo {
   display: flex;
   flex-direction: column;
   gap: 4px;
+  max-width: 144px;
+  width: 100%;
 }
 
 .userAvatar {
@@ -23,9 +26,24 @@
 }
 
 .userName {
+  user-select: none;
   line-height: 1.5;
   text-transform: uppercase;
   color: var(--title-color);
+}
+
+.userCardButton {
+  border-color: var(--inactive-color);
+  margin-top: 4px;
+  padding: 8px 16px;
+  font-size: 14px;
+  line-height: 1.43;
+}
+
+.userCardButton.inactive {
+  color: var(--inactive-color);
+  border-color: var(--inactive-color);
+  pointer-events: none;
 }
 
 .userRecipes {
@@ -40,7 +58,7 @@
   flex-direction: row;
   gap: 12px;
   flex-wrap: nowrap;
-  align-items: flex-start;
+  width: 100%;
 }
 
 .userRecepiesTopItem {
@@ -48,7 +66,7 @@
 }
 
 .userRecepiesTopItemImg {
-  width: 100px;
+  min-width: 100px;
   height: 100px;
   object-fit: cover;
   border-radius: 15px;

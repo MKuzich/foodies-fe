@@ -35,6 +35,7 @@
 
 .iconButton.disabled {
   border-color: var(--inactive-color);
+  pointer-events: none;
 }
 .iconButton.disabled .iconButtonIcon {
   stroke: var(--inactive-color);

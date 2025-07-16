@@ -1,37 +1,73 @@
 import api from "./api";
 
-export const fetchUserRecipes = async (id, page = 1, limit = 9) => {
-  const url = `users/${id}/recipes?page=${page}&limit=${limit}`;
-  const { data } = await api.get(url);
-  return data;
+export const getUser = async (id) => {
+  const url = `/users/${id}`;
+  try {
+    const { data } = await api.get(url);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const fetchUserFavorites = async (id, page = 1, limit = 9) => {
-  const url = `users/recipes/favorites?page=${page}&limit=${limit}`;
-  const { data } = await api.get(url);
-  return data;
+export const getUserRecipes = async ({ id, page, limit }) => {
+  const url = `/users/${id}/recipes?page=${page}&limit=${limit}`;
+  try {
+    const { data } = await api.get(url);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const fetchUserFollowers = async (id, page = 1, limit = 9) => {
-  const url = `users/${id}/followers?page=${page}&limit=${limit}`;
-  const { data } = await api.get(url);
-  return data;
+export const getUserFavorites = async ({ page = 1, limit = 9 }) => {
+  const url = `recipes/favorites?page=${page}&limit=${limit}`;
+  try {
+    const { data } = await api.get(url);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const fetchUserFollowing = async (id, page = 1, limit = 9) => {
-  const url = `users/following?page=${page}&limit=${limit}`;
-  const { data } = await api.get(url);
-  return data;
+export const getUserFollowers = async ({ id, page = 1, limit = 9 }) => {
+  const url = `/users/${id}/followers?page=${page}&limit=${limit}`;
+  try {
+    const { data } = await api.get(url);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const followUser = async (id) => {
-  const url = `users/${id}/follow`;
-  const { data } = await api.post(url);
-  return data;
+export const getUserFollowing = async () => {
+  const url = "/users/following";
+  try {
+    const { data } = await api.get(url);
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };
 
-export const unfollowUser = async (id) => {
-  const url = `users/${id}/unfollow`;
-  const { data } = await api.delete(url);
-  return data;
+export const followUserById = async ({ id, userId, ...params }) => {
+  const url = `/users/${id}/follow`;
+  try {
+    const { data } = await api.post(url);
+    data.userFollowers = await getUserFollowers({ id: userId, ...params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};
+
+export const unfollowUserById = async ({ id, userId, ...params }) => {
+  const url = `/users/${id}/unfollow`;
+  try {
+    const { data } = await api.delete(url);
+    data.userFollowers = await getUserFollowers({ id: userId, ...params });
+    return data;
+  } catch (error) {
+    throw error;
+  }
 };

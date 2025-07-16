@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useSelector } from "react-redux";
 import * as yup from "yup";
 
 import api from "../../api";
@@ -20,7 +21,8 @@ const schema = yup.object({
   text: yup.string().min(3, "Text must be at least 3 characters").required("Text is required"),
 });
 
-const TestimonialModal = ({ onClose, recipeId }) => {
+const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
+  const user = useSelector((state) => state.auth.userInfo);
   const {
     register,
     handleSubmit,
@@ -47,12 +49,16 @@ const TestimonialModal = ({ onClose, recipeId }) => {
     data.recipeId = recipeId;
     try {
       setIsLoading(true);
-      await api.testimonials.createTestimonial(data);
+      const response = await api.testimonials.createTestimonial(data);
+      if (typeof onChangeTestimonials === "function") {
+        onChangeTestimonials({ ...response, user });
+      }
     } catch (error) {
       setError(error.response?.data?.message || "Failed to create testimonial");
       console.error("Error create testimonial:", error);
     } finally {
       setIsLoading(false);
+      onClose();
     }
   };
 

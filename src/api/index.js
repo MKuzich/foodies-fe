@@ -4,7 +4,7 @@ import * as testimonials from "./testimonials";
 
 export default {
   setAuthToken,
-  createApi: api,
+  axios: api,
   auth,
   testimonials,
 };

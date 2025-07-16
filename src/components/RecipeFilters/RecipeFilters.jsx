@@ -1,33 +1,30 @@
 import styles from "./RecipeFilters.module.css";
 import Dropdown from "../Dropdown/Dropdown";
-import { categoriesSelector } from "../../redux/categories/selectors";
-import { useSelector } from "react-redux";
 import Button from "../Button/Button";
 import { useSearchParams } from "react-router-dom";
-import { useAreasFetch } from "@/hooks/useAreasFetch";
-
-
-const mockIngredients = [
-  { id: 1, name: "Eggs" },
-  { id: 2, name: "Flour" },
-  { id: 3, name: "Sugar" },
-  { id: 4, name: "Butter" },
-  { id: 5, name: "Milk" },
-  { id: 6, name: "Salt" },
-  { id: 7, name: "Baking Powder" },
-  { id: 8, name: "Vanilla Extract" },
-  { id: 9, name: "Chocolate" },
-  { id: 10, name: "Strawberries" },
-];
-
-
+import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+import { useSelector } from "react-redux";
+import { areasSelector, } from "@/redux/areas/selectors";
+import { ingredientsSelector } from "@/redux/ingredients/selectors";
+import { categoriesSelector } from "@/redux/categories/selectors";
+import DropdownSearch from "../DropdownSearch/DropdownSearch";
+import { showAllRecipesSelector } from "@/redux/recipes/selectors";
 
 function RecipeFilters() {
+  useCategoriesAreasIngredientsFetch();
 
+  
   const categories = useSelector(categoriesSelector);
+  const areas = useSelector(areasSelector);
+  const ingredients = useSelector(ingredientsSelector);
+
+
+  const showAllRecipes = useSelector(showAllRecipesSelector);
 
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
+
+
 
   const handleClearAll = () => {
     if (category) {
@@ -37,15 +34,14 @@ function RecipeFilters() {
     }
   }
 
-  const shouldShowCategories = category ? false : true;
 
-  const { areas, isLoading: isLoadingAreas, error: errorAreas } = useAreasFetch();
+
 
   return (
     <div className={styles.recipeFilters}>
-      <Dropdown placeholder="Ingredient" data={mockIngredients} shouldSetUrl={true} />
+      <DropdownSearch placeholder="Ingredient" data={ingredients} shouldSetUrl={true} />
       <Dropdown placeholder="Area" data={areas} shouldSetUrl={true} />
-      {shouldShowCategories && <Dropdown placeholder="Category" data={categories} shouldSetUrl={true} />}
+      {showAllRecipes && <Dropdown placeholder="Category" data={categories} shouldSetUrl={true} />}
       <Button onClick={handleClearAll}>Clear all</Button>
     </div>
   );

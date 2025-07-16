@@ -3,14 +3,14 @@
     margin-left: auto;
     margin-right: auto;
     background: transparent;
-    padding: 0 16px;
+    padding: 0 16px 120px 16px;
     margin-top: 20px;
 }
 
 .heroInner {
     background: var(--title-color);
     color: var(--white-color);
-    padding: 180px 0 40px 0;
+    padding: 154px 0 81px 0;
     text-align: center;
     border-radius: var(--radius-card);
     position: relative;
@@ -32,7 +32,6 @@
     font-style: normal;
     font-size: 16px;
     line-height: 24px;
-    letter-spacing: -2%;
     text-align: center;
     color: var(--white-color);
     margin-bottom: 32px;
@@ -44,8 +43,10 @@
 .ctaBtn {
     border-radius: var(--radius-card);
     padding: 16px 32px;
-    font-size: 1rem;
-    font-weight: 600;
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 24px;
+    text-transform: uppercase;
     cursor: pointer;
     background: transparent;
     border: 1px solid var(--white-color);
@@ -55,30 +56,43 @@
     display: block;
     margin-left: auto;
     margin-right: auto;
+    transition: all var(--transition-main);
 }
 
-.ctaBtn:hover {
-    background: var(--title-color);
-    color: var(--white-color);
+.ctaBtn:hover,
+.ctaBtn:focus {
+    background: var(--white-color);
+    color: var(--title-color);
     border: 1px solid var(--white-color);
 }
 
 @media (max-width: 1024px) {
+    .hero {
+        padding: 0 16px 100px 16px;
+    }
+
     .title {
         font-size: 70px;
-
         line-height: 70px;
     }
 
     .heroInner {
-        padding: 216px 0 24px 0;
+        padding: 217px 0 94px 0;
         border-radius: var(--radius-card-mobile);
     }
+
+    .subtitle {
+        max-width: 577px;
+    }  
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
+    .hero {
+        padding: 0 16px 64px 16px;
+    }
+
     .heroInner {
-        padding: 180px 0 16px 0;
+        padding: 194px 0 100px 0;
     }
 
     .title {
@@ -91,6 +105,8 @@
         font-size: 14px;
         line-height: 20px;
         margin-bottom: 20px;
+        max-width:100%;
+        padding: 0 16px;
     }
 
     .ctaBtn {
@@ -103,7 +119,7 @@
 
     .hero {
 
-        padding: 0 8px;
+        padding: 0 8px 64px 8px;
         margin-top: 10px;
     }
 
