@@ -28,7 +28,7 @@ export default function RecipeTestimonials({ testimonials }) {
               </div>
             </li>
           ))}
-        {!testimonials.length && <p>No testimonials available for this recipe.</p>}
+        {!testimonials.length && <li>No testimonials available for this recipe.</li>}
       </ul>
     </div>
   );
