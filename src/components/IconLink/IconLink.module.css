@@ -71,3 +71,10 @@
   stroke: var(--white-color);
   fill: var(--white-color);
 }
+
+.iconLink.disabled {
+  opacity: 0.7;
+  stroke: var(--inactive-color);
+  color: var(--inactive-color);
+  pointer-events: none;
+}

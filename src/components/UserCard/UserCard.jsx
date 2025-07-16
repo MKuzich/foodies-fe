@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -53,18 +54,10 @@ const UserCard = ({ user, following }) => {
           <h2 className={css.userName}>{user.name}</h2>
 
           <p className={css.userRecipes}>Own recipes: {user.ownRecipes}</p>
-
           <Button
-            inactive // not work with outlined
+            inactive
             outlined
-            style={{
-              borderColor: "var(--inactive-color)",
-              color: "var(--inactive-color)", // TODO remove after fix outlined
-              marginTop: "4px",
-              padding: "8px 16px", // TODO: rewrite with props ?
-              fontSize: "14px", // TODO: rewrite with props ?
-              lineHeight: "1.43",
-            }}
+            appendClassName={clsx(css.userCardButton, isMe && css.inactive)}
             onClick={handleFollowClick}
             disabled={isMe}
           >
