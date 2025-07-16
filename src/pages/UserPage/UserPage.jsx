@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -47,6 +47,7 @@ const UserPage = () => {
   const { id } = useParams();
 
   const isLoading = useSelector(selectLoading);
+  const [buttonLoading, setButtonLoading] = useState(false);
   const error = useSelector(selectError);
 
   const isUserExists = useSelector(selectUserExists);
@@ -81,6 +82,7 @@ const UserPage = () => {
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
   const handleFollowClick = async () => {
+    setButtonLoading(true);
     if (isUserIsFollowed) {
       const result = await dispatch(unfollowUser(id));
       if (unfollowUser.fulfilled.match(result)) {
@@ -96,14 +98,15 @@ const UserPage = () => {
         toast.error(result.payload.message || "Failed to follow user");
       }
     }
+    setButtonLoading(false);
   };
 
   return (
     <>
+      <PathInfo name={"Profile"} />
       {isUserExists ? (
         <section className={css.section}>
           <div className={css.container}>
-            <PathInfo pathName={"home"} currentName={"profile"} />
             <MainTitle>profile</MainTitle>
             <Subtitle>
               Reveal your culinary art, share your favorite recipe and create gastronomic
@@ -119,24 +122,24 @@ const UserPage = () => {
                     {isUserCurrentUser ? (
                       <Button
                         onClick={() => dispatch(openLogout())}
-                        disabled={isLoading}
-                        style={{ width: "100%" }}
+                        disabled={buttonLoading}
+                        appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
                       >
                         Log out
                       </Button>
                     ) : isUserIsFollowed ? (
                       <Button
                         onClick={handleFollowClick}
-                        disabled={isLoading}
-                        style={{ width: "100%" }}
+                        disabled={buttonLoading}
+                        appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
                       >
                         Unfollow
                       </Button>
                     ) : (
                       <Button
                         onClick={handleFollowClick}
-                        disabled={isLoading}
-                        style={{ width: "100%" }}
+                        disabled={buttonLoading}
+                        appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
                       >
                         Follow
                       </Button>
@@ -186,6 +189,7 @@ const UserPage = () => {
                         items={userFavorites}
                         type="recipe"
                         errorText={errorMap.noFavorites}
+                        favorite
                       />
                     )}
                     {tabOpened === "followers" && (

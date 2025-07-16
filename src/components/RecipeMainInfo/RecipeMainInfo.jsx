@@ -6,7 +6,7 @@ import RecipePreparation from "../../components/RecipePreparation/RecipePreparat
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
 import styles from "./RecipeMainInfo.module.css";
 
-const RecipeMainInfo = ({ recipe }) => {
+const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -44,7 +44,7 @@ const RecipeMainInfo = ({ recipe }) => {
           </button>
         </div>
         <RecipeIngredients ingredients={recipe.ingredients} />
-        <RecipePreparation instructions={recipe.instructions} />
+        <RecipePreparation recipe={recipe} onChangeTestimonials={onChangeTestimonials} />
       </div>
     </div>
   );

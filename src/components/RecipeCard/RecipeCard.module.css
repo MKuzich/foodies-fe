@@ -1,109 +1,108 @@
 /* Start Generation Here */
 .recipeItem {
-    position: relative;
-    display: flex;
-    flex-direction: column;
-    height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  width: 100%;
 }
 
-
 .recipeImage {
+  width: 100%;
+  max-width: 343px;
+  object-fit: cover;
+  height: 230px;
+  border-radius: 20px;
+  margin-bottom: 16px;
+
+  @media screen and (min-width: 768px) {
+    width: 342px;
+    height: 275px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    max-width: 305px;
     width: 100%;
-    max-width: 343px;
-    object-fit: cover;
-    height: 230px;
-    border-radius: 20px;
-    margin-bottom: 16px;
-
-    @media screen and (min-width: 768px) {
-        width: 342px;
-        height: 275px;
-    }
-
-    @media screen and (min-width: 1440px) {
-        max-width: 305px;
-        width: 100%;
-    }
+  }
 }
 
 .recipeTitle {
-    font-weight: 800;
-    font-size: 18px;
-    line-height: 1.33;
-    text-transform: uppercase;
-    color: var(--title-color);
-    margin-bottom: 8px;
+  font-weight: 800;
+  font-size: 18px;
+  line-height: 1.33;
+  text-transform: uppercase;
+  color: var(--title-color);
+  margin-bottom: 8px;
 
-    @media screen and (min-width: 768px) {
-        font-size: 20px;
-        line-height: 1.2;
-    }
+  @media screen and (min-width: 768px) {
+    font-size: 20px;
+    line-height: 1.2;
+  }
 }
 
 .recipeDescription {
-    font-size: 14px;
-    line-height: 1.42;
-    color: var(--title-color);
-    margin-bottom: 8px;
+  font-size: 14px;
+  line-height: 1.42;
+  color: var(--title-color);
+  margin-bottom: 8px;
 
-    @media screen and (min-width: 768px) {
-        font-size: 16px;
-        line-height: 1.5;
-    }
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
 }
 
 .recipeInfo {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-top: auto;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
 }
 
 .recipeAvatarWrapper {
-    height: 40px;
-    width: 40px;
-    border-radius: 50%;
-    display: flex;
-    align-items: center;
-    gap: 8px;
+  height: 40px;
+  width: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .recipeAvatarName {
-    font-weight: 700;
-    font-size: 14px;
-    line-height: 1.42;
-    white-space: nowrap;
-    overflow: idden;
+  font-weight: 700;
+  font-size: 14px;
+  line-height: 1.42;
+  white-space: nowrap;
+  overflow: idden;
 
-    @media screen and (min-width: 768px) {
-        font-size: 16px;
-        line-height: 1.5;
-    }
+  @media screen and (min-width: 768px) {
+    font-size: 16px;
+    line-height: 1.5;
+  }
 }
 
 .recipeIconsWrapper {
-    display: flex;
-    gap: 4px;
+  display: flex;
+  gap: 4px;
 }
 
 .recipeIconContainer {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    width: 36px;
-    height: 36px;
-    border: 1px solid var(--inactive-color);
-    border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--inactive-color);
+  border-radius: 50%;
 }
 
 .recipeIcon {
-    width: 16px;
-    height: 16px;
-    fill: none;
-    stroke: var(--text-color);
+  width: 16px;
+  height: 16px;
+  fill: none;
+  stroke: var(--text-color);
 
-    @media screen and (min-width: 768px) {
-        width: 18px;
-        height: 18px;
-    }
+  @media screen and (min-width: 768px) {
+    width: 18px;
+    height: 18px;
+  }
 }

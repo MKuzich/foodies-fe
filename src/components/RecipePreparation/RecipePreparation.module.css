@@ -15,6 +15,9 @@
   margin-bottom: 20px;
 }
 
+.favoriteBtn {
+  max-width: 172px;
+}
 @media (min-width: 768px) {
   .itemTitle {
     margin-top: 40px;
@@ -23,5 +26,9 @@
   .description {
     line-height: 150%;
     color: var(--text-color);
+  }
+
+  .favoriteBtn {
+    max-width: 215px;
   }
 }

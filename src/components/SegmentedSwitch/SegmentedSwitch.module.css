@@ -1,40 +1,84 @@
 .switch {
-    display: flex;
-    border-radius: 999px;
-    background: var(--white-color);
-    border: 1px solid var(--white-color);
-    overflow: hidden;
-    width: fit-content;
+  display: flex;
+  border-radius: 999px;
+  background: var(--white-color);
+  border: 1px solid var(--white-color);
+  overflow: hidden;
 }
 
 .switch button {
-    background: var(--white-color);
-    border: none;
-    outline: none;
-    padding: 8px 28px;
-    font-size: 14px;
-    font-weight: 600;
-    color: var(--text-color);
-    cursor: pointer;
-    transition:
-        background 0.2s,
-        color 0.2s;
-    position: relative;
-    z-index: 1;
-    border-radius: 999px;
+  background: transparent;
+  border: none;
+  outline: none;
+  padding: 8px;
+  font-size: 12px;
+  line-height: 1.5;
+  font-weight: 700;
+  cursor: pointer;
+  transition: var(--color-transition), var(--background-transition);
+  position: relative;
+  z-index: 1;
+  width: 76px;
+  text-transform: uppercase;
+}
+
+@media screen and (min-width: 768px) {
+  .switch button {
+    width: 104px;
+    padding: 12px;
+  }
 }
 
 .switch button.active,
-.switch button:focus {
-    background: var(--text-color);
-    color: var(--white-color);
-    z-index: 2;
+.switch button:focus,
+.switch button:hover {
+  color: var(--white-color);
 }
 
-.switch button:first-child.active {
-    border-radius: 999px;
+.switch button span {
+  position: relative;
+  z-index: 3;
+}
+.switch button:first-child {
+  position: relative;
 }
 
-.switch button:last-child.active {
-    border-radius: 999px;
+.switch button:first-child::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: var(--text-color);
+  color: var(--white-color);
+  z-index: 2;
+  border-radius: 999px;
+  transition: var(--transform-transition);
+}
+
+.switch button:has(+ button:hover)::after,
+.switch button:has(+ button:focus)::after,
+.switch button:has(+ button.active)::after {
+  transform: translateX(100%);
+}
+
+.switch button:has(+ button:hover),
+.switch button:has(+ button:focus),
+.switch button:has(+ button.active) {
+  color: var(--text-color);
+}
+
+.switch button:hover:has(+ button.active)::after,
+.switch button:focus:has(+ button.active)::after {
+  transform: translateX(0%);
+}
+
+.switch button:hover:has(+ button.active) {
+  color: var(--white-color);
+}
+
+.switch button:hover + button.active,
+.switch button:focus + button.active {
+  color: var(--text-color);
 }

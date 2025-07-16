@@ -21,11 +21,6 @@
     display: block;
 }
 
-.heroImg:hover {
-    transform: scale(1.06);
-    z-index: 3;
-}
-
 @media (max-width: 768px) {
     .imgLeft {
         width: 77px;

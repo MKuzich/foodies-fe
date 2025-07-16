@@ -1,12 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import api from "../../api/api";
+import {
+  followUserById,
+  getUser,
+  getUserFavorites,
+  getUserFollowers,
+  getUserFollowing,
+  getUserRecipes,
+  unfollowUserById,
+} from "../../api/users";
 
 export const fetchUser = createAsyncThunk("users/fetchUser", async (id, thunkAPI) => {
-  const url = `/users/${id}`;
   try {
-    const { data } = await api.get(url);
-    return data;
+    return await getUser(id);
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -15,10 +22,8 @@ export const fetchUser = createAsyncThunk("users/fetchUser", async (id, thunkAPI
 export const fetchUserRecipes = createAsyncThunk(
   "users/fetchUserRecipes",
   async ({ id, page, limit }, thunkAPI) => {
-    const url = `/users/${id}/recipes?page=${page}&limit=${limit}`;
     try {
-      const { data } = await api.get(url);
-      return data;
+      return await getUserRecipes({ id, page, limit });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -28,10 +33,22 @@ export const fetchUserRecipes = createAsyncThunk(
 export const fetchUserFavorites = createAsyncThunk(
   "users/fetchUserFavorites",
   async ({ page, limit }, thunkAPI) => {
-    const url = `/recipes/favorites?page=${page}&limit=${limit}`;
     try {
-      const { data } = await api.get(url);
-      return data;
+      return await getUserFavorites({ page, limit });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const removeFromFavoriteRecipe = createAsyncThunk(
+  "users/removeFromFavoriteRecipe",
+  async (id, thunkAPI) => {
+    const url = `/recipes/${id}/favorite`;
+    const state = thunkAPI.getState();
+    try {
+      await api.delete(url);
+      return await getUserFavorites({ page: 1, limit: state.users.filter.limit });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -41,10 +58,8 @@ export const fetchUserFavorites = createAsyncThunk(
 export const fetchUserFollowers = createAsyncThunk(
   "users/fetchUserFollowers",
   async ({ id, page, limit }, thunkAPI) => {
-    const url = `/users/${id}/followers?page=${page}&limit=${limit}`;
     try {
-      const { data } = await api.get(url);
-      return data;
+      return await getUserFollowers({ id, page, limit });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
@@ -54,37 +69,38 @@ export const fetchUserFollowers = createAsyncThunk(
 export const fetchUserFollowing = createAsyncThunk(
   "users/fetchUserFollowing",
   async (_, thunkAPI) => {
-    const url = "/users/following";
     try {
-      const { data } = await api.get(url);
-      return data;
+      return await getUserFollowing();
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
     }
   },
 );
 
-export const followUser = createAsyncThunk("users/followUser", async (id, thunkAPI) => {
-  const url = `/users/${id}/follow`;
+export const followUser = createAsyncThunk("users/followUserById", async (id, thunkAPI) => {
   const state = thunkAPI.getState();
   const currentUserInfo = state.auth.userInfo;
-
   try {
-    const { data } = await api.post(url);
-    return { id, data, currentUserInfo };
+    return {
+      id,
+      data: await followUserById({ id, userId: currentUserInfo.id }),
+      currentUserInfo,
+    };
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
 });
 
 export const unfollowUser = createAsyncThunk("users/unfollowUser", async (id, thunkAPI) => {
-  const url = `/users/${id}/unfollow`;
   const state = thunkAPI.getState();
   const currentUserInfo = state.auth.userInfo;
 
   try {
-    const { data } = await api.delete(url);
-    return { id, data, currentUserInfo };
+    return {
+      id,
+      data: await unfollowUserById({ id, userId: currentUserInfo.id }),
+      currentUserInfo,
+    };
   } catch (error) {
     return thunkAPI.rejectWithValue(error);
   }
@@ -118,20 +134,3 @@ export const removeRecipe = createAsyncThunk("users/removeRecipe", async (id, th
     return thunkAPI.rejectWithValue(error);
   }
 });
-
-export const removeFavoriteRecipe = createAsyncThunk(
-  "users/removeFavoriteRecipe",
-  async (id, thunkAPI) => {
-    const url = `/recipes/${id}`;
-    const state = thunkAPI.getState();
-    try {
-      await api.delete(url);
-      const { data } = await api.get(
-        `/users/${state.users.user.id}/favorites?page=1&limit=${state.users.filter.limit}`,
-      );
-      return data;
-    } catch (error) {
-      return thunkAPI.rejectWithValue(error);
-    }
-  },
-);

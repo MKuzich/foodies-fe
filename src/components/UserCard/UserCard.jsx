@@ -1,30 +1,34 @@
+import clsx from "clsx";
+import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
+import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { selectUserInfo } from "../../redux/auth/slice";
 import { followUser, unfollowUser } from "../../redux/users/operations";
+import { selectUsersFollowLoading } from "../../redux/users/selectors";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import Button from "../Button/Button";
-// import { useWindowDimensions } from "../../hooks/useWindowDimensions";
-// import { useState, useEffect } from "react";
 import IconLink from "../IconLink/IconLink";
+import skeletonCss from "../Skeleton/Skeleton.module.css";
 import css from "./UserCard.module.css";
 
 const UserCard = ({ user, following }) => {
   const dispatch = useDispatch();
-  // const { _, width } = useWindowDimensions();
-  // const [visibleCount, setVisibleCount] = useState(3);
-  // useEffect(() => {
-  //   if (width >= 1440) {
-  //     setVisibleCount(4);
-  //   } else {
-  //     setVisibleCount(3);
-  // }
-  // }, [width]);
+  const loading = useSelector(selectUsersFollowLoading);
+  const { _, width } = useWindowDimensions();
+  const [visibleCount, setVisibleCount] = useState(3);
+  useEffect(() => {
+    if (width >= 1440) {
+      setVisibleCount(4);
+    } else {
+      setVisibleCount(3);
+    }
+  }, [width]);
 
   const me = useSelector(selectUserInfo);
   const isMe = me.id === user.id;
-  const isUserIsFollowed = user.isFollowed || following;
+  const isUserIsFollowed = user.isFollowing || following;
 
   const handleFollowClick = async () => {
     if (isUserIsFollowed) {
@@ -44,7 +48,32 @@ const UserCard = ({ user, following }) => {
     }
   };
 
-  return (
+  return loading ? (
+    <div className={css.userCard}>
+      <div className={css.userCardInfo}>
+        <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonAvatar)}></div>
+        <div className={css.userInfo}>
+          <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTitle)}></div>
+          <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTinyText)}></div>
+          <div
+            className={clsx(skeletonCss.skeleton, skeletonCss.skeletonButton)}
+            style={{ marginTop: "4px" }}
+          ></div>
+        </div>
+        <ul className={css.userRecepiesTop}>
+          <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
+          <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
+          <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
+          {visibleCount === 4 && (
+            <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
+          )}
+        </ul>
+        <div className={css.userCardButtons}>
+          <IconLink name="arrow" black disabled />
+        </div>
+      </div>
+    </div>
+  ) : (
     <li className={css.userCard}>
       <div className={css.userCardInfo}>
         <AvatarIcon src={user.avatarURL} name={user.name} to={`/user/${user.id}`} medium />
@@ -53,18 +82,10 @@ const UserCard = ({ user, following }) => {
           <h2 className={css.userName}>{user.name}</h2>
 
           <p className={css.userRecipes}>Own recipes: {user.ownRecipes}</p>
-
           <Button
-            inactive // not work with outlined
+            inactive
             outlined
-            style={{
-              borderColor: "var(--inactive-color)",
-              color: "var(--inactive-color)", // TODO remove after fix outlined
-              marginTop: "4px",
-              padding: "8px 16px", // TODO: rewrite with props ?
-              fontSize: "14px", // TODO: rewrite with props ?
-              lineHeight: "1.43",
-            }}
+            appendClassName={clsx(css.userCardButton, isMe && css.inactive)}
             onClick={handleFollowClick}
             disabled={isMe}
           >
@@ -73,17 +94,12 @@ const UserCard = ({ user, following }) => {
         </div>
       </div>
       <ul className={css.userRecepiesTop}>
-        {/* {user.recepiesTop.slice(0, visibleCount).map((recipe) => (
+        {user.popularRecipes.slice(0, visibleCount).map((recipe) => (
           <li key={recipe.id} className={css.userRecepiesTopItem}>
-            <img
-              src={recipe.thumb}
-              alt={recipe.title}
-              className={css.userRecepiesTopItemImg}
-            />
+            <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
           </li>
-        ))} */}
+        ))}
       </ul>
-
       <div className={css.userCardButtons}>
         <IconLink to={`/user/${user.id}`} name="arrow" black />
       </div>
