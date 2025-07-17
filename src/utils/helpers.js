@@ -43,3 +43,7 @@ export const smoothScrollLeft = (element, to, duration = 300) => {
 
   requestAnimationFrame(animateScroll);
 };
+
+export const getSkeletons = (count) => {
+  return Array.from({ length: count }, (_, i) => ({ id: i }));
+};

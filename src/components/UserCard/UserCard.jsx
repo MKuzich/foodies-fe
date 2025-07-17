@@ -2,20 +2,19 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { selectUserInfo } from "../../redux/auth/slice";
 import { followUser, unfollowUser } from "../../redux/users/operations";
-import { selectTabOpened, selectUsersFollowLoading } from "../../redux/users/selectors";
+import { selectTabOpened } from "../../redux/users/selectors";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import Button from "../Button/Button";
 import IconLink from "../IconLink/IconLink";
-import skeletonCss from "../Skeleton/Skeleton.module.css";
 import css from "./UserCard.module.css";
 
 const UserCard = ({ user }) => {
   const dispatch = useDispatch();
-  const loading = useSelector(selectUsersFollowLoading);
   const tabOpened = useSelector(selectTabOpened);
   const { _, width } = useWindowDimensions();
   const [visibleCount, setVisibleCount] = useState(3);
@@ -49,32 +48,7 @@ const UserCard = ({ user }) => {
     }
   };
 
-  return loading ? (
-    <div className={css.userCard}>
-      <div className={css.userCardInfo}>
-        <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonAvatar)}></div>
-        <div className={css.userInfo}>
-          <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTitle)}></div>
-          <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTinyText)}></div>
-          <div
-            className={clsx(skeletonCss.skeleton, skeletonCss.skeletonButton)}
-            style={{ marginTop: "4px" }}
-          ></div>
-        </div>
-        <ul className={css.userRecepiesTop}>
-          <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
-          <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
-          <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
-          {visibleCount === 4 && (
-            <li className={clsx(skeletonCss.skeleton, skeletonCss.skeletonImageCard)}></li>
-          )}
-        </ul>
-        <div className={css.userCardButtons}>
-          <IconLink name="arrow" black disabled />
-        </div>
-      </div>
-    </div>
-  ) : (
+  return (
     <li className={css.userCard}>
       <div className={css.userCardInfo}>
         <AvatarIcon src={user.avatarURL} name={user.name} to={`/user/${user.id}`} medium />
@@ -96,9 +70,11 @@ const UserCard = ({ user }) => {
       </div>
       <ul className={css.userRecepiesTop}>
         {user.popularRecipes.slice(0, visibleCount).map((recipe) => (
-          <li key={recipe.id} className={css.userRecepiesTopItem}>
-            <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
-          </li>
+          <Link to={`/recipe/${recipe.id}`} key={recipe.id} className={css.userRecepiesTopLink}>
+            <li className={css.userRecepiesTopItem}>
+              <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
+            </li>
+          </Link>
         ))}
       </ul>
       <div className={css.userCardButtons}>

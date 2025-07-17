@@ -21,3 +21,20 @@ export const selectFilter = (state) => state.users.filter;
 export const selectTotalPages = (state) => state.users.totalPages;
 export const selectUsersFollowLoading = (state) => state.users.followLoading;
 export const selectUsersRecipesLoading = (state) => state.users.recipesLoading;
+export const selectUsersUserLoading = (state) => state.users.userLoading;
+export const selectItemsCount = (state) => {
+  let itemsCount = 0;
+  if (state.users.tab === "recipes") {
+    itemsCount = state.users.user.recipes.length;
+  }
+  if (state.users.tab === "favorites") {
+    itemsCount = state.users.user.favorites.length;
+  }
+  if (state.users.tab === "followers") {
+    itemsCount = state.users.user.followers.length;
+  }
+  if (state.users.tab === "following") {
+    itemsCount = state.users.user.following.length;
+  }
+  return itemsCount !== 0 ? itemsCount : 5;
+};
