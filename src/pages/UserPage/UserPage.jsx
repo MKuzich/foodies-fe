@@ -14,7 +14,7 @@ import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import { openLogout } from "../../redux/auth/slice";
-import { selectError, selectLoading } from "../../redux/root/selectors";
+import { selectError } from "../../redux/root/selectors";
 import {
   fetchUser,
   fetchUserFavorites,
@@ -36,17 +36,19 @@ import {
   selectUserFollowers,
   selectUserFollowing,
   selectUserRecipes,
+  selectUsersUserLoading,
 } from "../../redux/users/selectors";
 import { changePage, changeTab } from "../../redux/users/slice";
 import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
 import NotFound from "../NotFound/NotFound";
 import css from "./UserPage.module.css";
+import UserPageSkeleton from "./UserPageSkeleton";
 
 const UserPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
 
-  const isLoading = useSelector(selectLoading);
+  const loading = useSelector(selectUsersUserLoading);
   const [buttonLoading, setButtonLoading] = useState(false);
   const error = useSelector(selectError);
 
@@ -191,7 +193,6 @@ const UserPage = () => {
                         items={userFavorites}
                         type="recipe"
                         errorText={errorMap.noFavorites}
-                        favorite
                       />
                     )}
                     {tabOpened === "followers" && (
@@ -206,9 +207,7 @@ const UserPage = () => {
                         items={userFollowing}
                         type="user"
                         errorText={errorMap.noSubscriptions}
-                        following
                       />
-                      // TODO : remove following props after BE fix
                     )}
                   </div>
                   {totalPages > 1 && (
@@ -224,8 +223,10 @@ const UserPage = () => {
             </div>
           </div>
         </section>
+      ) : loading ? (
+        <UserPageSkeleton />
       ) : (
-        !isLoading && error && <NotFound />
+        error && <NotFound />
       )}
     </>
   );

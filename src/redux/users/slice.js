@@ -30,6 +30,7 @@ const userSchema = {
   following: [],
   followLoading: false,
   recipesLoading: false,
+  userLoading: false,
 };
 
 const slice = createSlice({
@@ -57,9 +58,14 @@ const slice = createSlice({
     builder
       .addCase(fetchUser.pending, (state) => {
         state.user = userSchema;
+        state.userLoading = true;
       })
       .addCase(fetchUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload };
+        state.userLoading = false;
+      })
+      .addCase(fetchUser.rejected, (state) => {
+        state.userLoading = false;
       })
       .addCase(userLogout.fulfilled, (state) => {
         state.user = userSchema;
