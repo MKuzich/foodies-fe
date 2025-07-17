@@ -146,8 +146,6 @@ function Recipes() {
                 </div>
             </div>
         </div>
-      </div>
-    </div>
   );
 }
 
