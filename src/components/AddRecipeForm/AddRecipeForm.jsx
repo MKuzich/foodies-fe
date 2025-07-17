@@ -199,23 +199,23 @@ const AddRecipeForm = () => {
 
           <div className={clsx(styles.fieldsGroup)}>
             <div className={clsx(styles.formGroup)}>
-              {methods.formState.errors.title && (
-                <span className={styles.error}>{methods.formState.errors.title.message}</span>
-              )}
               <input
                 id="title"
-                className={styles.titleInput}
+                className={clsx(
+                  styles.titleInput,
+                  methods.formState.errors.title && styles.inputError,
+                )}
                 name="title"
                 type="text"
                 placeholder="The name of the recipe"
                 {...methods.register("title")}
               />
+              {methods.formState.errors.title && (
+                <span className={styles.error}>{methods.formState.errors.title.message}</span>
+              )}
             </div>
 
             <div className={clsx(styles.formGroup, styles.formDescription)}>
-              {methods.formState.errors.description && (
-                <span className={styles.error}>{methods.formState.errors.description.message}</span>
-              )}
               <div className={clsx(styles.descriptionWrapper)}>
                 <textarea
                   id="description"
@@ -226,6 +226,11 @@ const AddRecipeForm = () => {
                   onInput={limitWordsInput}
                   {...methods.register("description")}
                 />
+                {methods.formState.errors.description && (
+                  <span className={styles.error}>
+                    {methods.formState.errors.description.message}
+                  </span>
+                )}
                 <span className={styles.wordsCounterInside}>
                   <span
                     className={clsx({
@@ -241,9 +246,6 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup, styles.formCategoryCookingtime)}>
               <div className={styles.formCategory}>
-                {methods.formState.errors.category && (
-                  <span className={styles.error}>{methods.formState.errors.category.message}</span>
-                )}
                 <span className={clsx(styles.category)}>Category</span>
                 <Controller
                   name="category"
@@ -255,17 +257,14 @@ const AddRecipeForm = () => {
                       value={field.value}
                       onChange={field.onChange}
                       resetSignal={resetSignal}
+                      hasError={!!methods.formState.errors.category}
+                      errorMessage={methods.formState.errors.category?.message}
                     />
                   )}
                 />
               </div>
 
               <div className={clsx(styles.formCookingtime)}>
-                {methods.formState.errors.cookingTime && (
-                  <span className={clsx(styles.error)}>
-                    {methods.formState.errors.cookingTime.message}
-                  </span>
-                )}
                 <span className={clsx(styles.cookingtime)}>COOKING TIME</span>
                 <div className={clsx(styles.buttonGroup)}>
                   <IconButton
@@ -290,9 +289,6 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup, styles.formGroupArea)}>
               <div className={styles.formArea}>
-                {methods.formState.errors.area && (
-                  <span className={styles.error}>{methods.formState.errors.area.message}</span>
-                )}
                 <span className={styles.area}>Area</span>
                 <Controller
                   name="area"
@@ -304,6 +300,8 @@ const AddRecipeForm = () => {
                       value={field.value}
                       onChange={field.onChange}
                       resetSignal={resetSignal}
+                      hasError={!!methods.formState.errors.area}
+                      errorMessage={methods.formState.errors.area?.message}
                     />
                   )}
                 />
@@ -312,11 +310,6 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup, styles.formIngredientsQuantity)}>
               <div className={clsx(styles.formIngredients)}>
-                {methods.formState.errors.ingredients && (
-                  <span className={clsx(styles.error)}>
-                    {methods.formState.errors.ingredients.message}
-                  </span>
-                )}
                 <span className={clsx(styles.ingredients)}>Ingredients</span>
                 <Controller
                   name="ingredients"
@@ -328,17 +321,19 @@ const AddRecipeForm = () => {
                       value={field.value}
                       onChange={field.onChange}
                       resetSignal={resetSignal}
+                      hasError={!!methods.formState.errors.ingredients}
+                      errorMessage={methods.formState.errors.ingredients?.message}
                     />
                   )}
                 />
               </div>
 
-              <div className={clsx(styles.formQuantity)}>
-                {methods.formState.errors.quantity && (
-                  <span className={clsx(styles.error)}>
-                    {methods.formState.errors.quantity.message}
-                  </span>
+              <div
+                className={clsx(
+                  styles.formQuantity,
+                  methods.formState.errors.quantity && styles.inputError,
                 )}
+              >
                 <input
                   id="quantity"
                   className={clsx(styles.quantity)}
@@ -348,6 +343,11 @@ const AddRecipeForm = () => {
                   placeholder="Enter quantity"
                   {...methods.register("quantity")}
                 />
+                {methods.formState.errors.quantity && (
+                  <span className={clsx(styles.error)}>
+                    {methods.formState.errors.quantity.message}
+                  </span>
+                )}
               </div>
             </div>
 
