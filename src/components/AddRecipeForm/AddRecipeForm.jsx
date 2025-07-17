@@ -33,15 +33,10 @@ const AddRecipeForm = () => {
   useCategoriesAreasIngredientsFetch();
 
   useEffect(() => {
-    if (!recipeCreated || !createdRecipeId) {
-      toast.error("Recipe creation failed!");
-      return;
-    }
-
     toast.success("Recipe successfully created!");
     dispatch(clearSuccess());
     navigate(`/recipe/${createdRecipeId}`);
-  }, [recipeCreated, createdRecipeId, dispatch, navigate]);
+  }, [recipeCreated, createdRecipeId, dispatch]);
 
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
