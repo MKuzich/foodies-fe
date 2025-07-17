@@ -9,9 +9,6 @@ import Loader from "../Loader/Loader";
 import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
 
 
-import CategoriesItem from "../CategoriesItem/CategoriesItem";
-import Loader from "../Loader/Loader";
-import styles from "./CategoriesList.module.css";
 
 function CategoriesList() {
   const categories = useSelector(categoriesSelector);
@@ -19,7 +16,7 @@ function CategoriesList() {
   const error = useSelector(errorCategoriesSelector);
   const showAll = useSelector(showAllSelector);
 
-  const dispatch = useDispatch();x
+  const dispatch = useDispatch();
 
   const isMobile = useMediaQuery("(max-width: 374px)");
   const displayedCategories = showAll ? categories : categories.slice(0, isMobile ? 8 : 11);
