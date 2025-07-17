@@ -1,7 +1,7 @@
 import styles from "./RecipeList.module.css";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import { useSelector } from "react-redux";
-import { recipesSelector, isLoadingSelector, errorSelector } from "@/redux/recipes/selectors";
+import { recipesSelector, isLoadingSelector, errorSelector, favoriteRecipesSelector } from "@/redux/recipes/selectors";
 import Loader from "../Loader/Loader";
 import { useRef, useState, useEffect } from "react";
 
@@ -11,7 +11,6 @@ function RecipeList() {
   const error = useSelector(errorSelector);
   const recipesHeight = useRef(null);
   const [containerHeight, setContainerHeight] = useState(400); // Минимальная высота
-
   // 
   useEffect(() => {
     if (recipesHeight.current) {
