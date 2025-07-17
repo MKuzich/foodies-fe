@@ -2,20 +2,21 @@ import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import { removeFromFavoriteRecipe, removeRecipe } from "../../redux/users/operations";
-import { selectIsUserCurrentUser } from "../../redux/users/selectors";
+import { selectIsUserCurrentUser, selectTabOpened } from "../../redux/users/selectors";
 import IconButton from "../IconButton/IconButton";
 import IconLink from "../IconLink/IconLink";
 import css from "./RecipePreview.module.css";
 
-const RecipePreview = ({ recipe, favorite }) => {
+const RecipePreview = ({ recipe }) => {
   const isCurrentUser = useSelector(selectIsUserCurrentUser);
   const dispatch = useDispatch();
+  const tabOpened = useSelector(selectTabOpened);
 
   const handleRemoveRecipe = async (e) => {
     const btn = e.currentTarget;
     btn.disabled = true;
 
-    if (favorite) {
+    if (tabOpened === "favorites") {
       const result = await dispatch(removeFromFavoriteRecipe(recipe.id));
       if (removeFromFavoriteRecipe.fulfilled.match(result)) {
         toast.success("Successfully removed recipe from favorites!");
