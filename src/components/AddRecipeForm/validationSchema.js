@@ -13,7 +13,13 @@ export const recipeSchema = yup.object().shape({
 
   title: yup.string().required("Title is required"),
 
-  description: yup.string().required("Description is required").max(200, "Max 200 characters"),
+  description: yup
+    .string()
+    .required("Description is required")
+    .test("maxWords", "Maximum 200 words", (value) => {
+      if (!value) return true;
+      return value.trim().split(/\s+/).filter(Boolean).length <= 200;
+    }),
 
   category: yup.number().typeError("Category is required").required("Category is required"),
 
@@ -28,7 +34,10 @@ export const recipeSchema = yup.object().shape({
   recipePreparation: yup
     .string()
     .required("Instructions are required")
-    .max(200, "Max 200 characters"),
+    .test("maxWords", "Maximum 200 words", (value) => {
+      if (!value) return true;
+      return value.trim().split(/\s+/).filter(Boolean).length <= 200;
+    }),
 
   ingredientsList: yup
     .array()
