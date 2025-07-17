@@ -8,6 +8,7 @@ import {
   getUserFollowers,
   getUserFollowing,
   getUserRecipes,
+  getUserTestimonials,
   unfollowUserById,
 } from "../../api/users";
 
@@ -173,3 +174,14 @@ export const removeRecipe = createAsyncThunk("users/removeRecipe", async (id, th
     return thunkAPI.rejectWithValue(error);
   }
 });
+
+export const fetchUserTestimonials = createAsyncThunk(
+  "users/fetchUserTestimonials",
+  async ({ page, limit }, thunkAPI) => {
+    try {
+      return await getUserTestimonials({ page, limit });
+    } catch (error) {
+      return thunkAPI.rejectWithValue(error);
+    }
+  },
+);

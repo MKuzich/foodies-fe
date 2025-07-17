@@ -10,6 +10,7 @@ export const currentUserPageErrors = {
 
   noSubscriptions:
     "Your account currently has no subscriptions to other users. Learn more about our users and select those whose content interests you.",
+  noTestimonials: "You has not left any testimonials yet.",
 };
 
 export const userPageErrors = {
@@ -22,4 +23,5 @@ export const userPageErrors = {
     "There are currently no followers on this user's account. Please engage our visitors with interesting content and draw their attention to your profile.",
 
   noSubscriptions: "Access to this resource is denied.",
+  noTestimonials: "Access to this resource is denied.",
 };
