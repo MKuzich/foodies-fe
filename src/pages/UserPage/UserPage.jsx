@@ -112,136 +112,142 @@ const UserPage = () => {
 
   return (
     <>
-      <PathInfo name={"Profile"} />
       {isUserExists ? (
-        <section className={css.section}>
-          <div className={css.container}>
-            <MainTitle>profile</MainTitle>
-            <Subtitle>
-              Reveal your culinary art, share your favorite recipe and create gastronomic
-              masterpieces with us.
-            </Subtitle>
-          </div>
-          <div className={css.userProfile}>
-            <div className={clsx(css.userProfile, css.container)}>
-              <div className={css.userProfileInfo}>
-                <UserInfo />
-                <div className={css.followButtonContainer}>
-                  <div className={css.followButtonWrapper}>
-                    {isUserCurrentUser ? (
-                      <Button
-                        onClick={() => dispatch(openLogout())}
-                        disabled={buttonLoading}
-                        appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
-                      >
-                        Log out
-                      </Button>
-                    ) : isUserIsFollowed ? (
-                      <Button
-                        onClick={handleFollowClick}
-                        disabled={buttonLoading}
-                        appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
-                      >
-                        Unfollow
-                      </Button>
-                    ) : (
-                      <Button
-                        onClick={handleFollowClick}
-                        disabled={buttonLoading}
-                        appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
-                      >
-                        Follow
-                      </Button>
-                    )}
+        <>
+          <PathInfo name={"Profile"} />
+          <section className={css.section}>
+            <div className={css.container}>
+              <MainTitle>profile</MainTitle>
+              <Subtitle>
+                Reveal your culinary art, share your favorite recipe and create gastronomic
+                masterpieces with us.
+              </Subtitle>
+            </div>
+            <div className={css.userProfile}>
+              <div className={clsx(css.userProfile, css.container)}>
+                <div className={css.userProfileInfo}>
+                  <UserInfo />
+                  <div className={css.followButtonContainer}>
+                    <div className={css.followButtonWrapper}>
+                      {isUserCurrentUser ? (
+                        <Button
+                          onClick={() => dispatch(openLogout())}
+                          disabled={buttonLoading}
+                          appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
+                        >
+                          Log out
+                        </Button>
+                      ) : isUserIsFollowed ? (
+                        <Button
+                          onClick={handleFollowClick}
+                          disabled={buttonLoading}
+                          appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
+                        >
+                          Unfollow
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={handleFollowClick}
+                          disabled={buttonLoading}
+                          appendClassName={clsx(css.btn, buttonLoading && css.btnLoadingActive)}
+                        >
+                          Follow
+                        </Button>
+                      )}
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div className={css.tabsContainer}>
-              <div className={css.tabsWrapper}>
-                <TabsList>
-                  <TabItem
-                    name={recepieTabName}
-                    onClick={() => dispatch(changeTab("recipes"))}
-                    isActive={tabOpened === "recipes"}
-                  />
-                  {isUserCurrentUser && (
+              <div className={css.tabsContainer}>
+                <div className={css.tabsWrapper}>
+                  <TabsList>
                     <TabItem
-                      name="My Favorites"
-                      onClick={() => dispatch(changeTab("favorites"))}
-                      isActive={tabOpened === "favorites"}
+                      name={recepieTabName}
+                      onClick={() => dispatch(changeTab("recipes"))}
+                      isActive={tabOpened === "recipes"}
                     />
-                  )}
-                  <TabItem
-                    name="Followers"
-                    onClick={() => dispatch(changeTab("followers"))}
-                    isActive={tabOpened === "followers"}
-                  />
-                  {isUserCurrentUser && (
-                    <TabItem
-                      name="Following"
-                      onClick={() => dispatch(changeTab("following"))}
-                      isActive={tabOpened === "following"}
-                    />
-                  )}
-                  {isUserCurrentUser && (
-                    <TabItem
-                      name="My testimonials"
-                      onClick={() => dispatch(changeTab("testimonials"))}
-                      isActive={tabOpened === "testimonials"}
-                    />
-                  )}
-                </TabsList>
-              </div>
-              <div className={css.container}>
-                <div className={css.tabsContent}>
-                  <div className={css.tabContentActive}>
-                    {tabOpened === "recipes" && (
-                      <ListItems items={userRecipes} type="recipe" errorText={errorMap.noRecipes} />
-                    )}
-                    {tabOpened === "favorites" && (
-                      <ListItems
-                        items={userFavorites}
-                        type="recipe"
-                        errorText={errorMap.noFavorites}
+                    {isUserCurrentUser && (
+                      <TabItem
+                        name="My Favorites"
+                        onClick={() => dispatch(changeTab("favorites"))}
+                        isActive={tabOpened === "favorites"}
                       />
                     )}
-                    {tabOpened === "followers" && (
-                      <ListItems
-                        items={userFollowers}
-                        type="user"
-                        errorText={errorMap.noFollowers}
+                    <TabItem
+                      name="Followers"
+                      onClick={() => dispatch(changeTab("followers"))}
+                      isActive={tabOpened === "followers"}
+                    />
+                    {isUserCurrentUser && (
+                      <TabItem
+                        name="Following"
+                        onClick={() => dispatch(changeTab("following"))}
+                        isActive={tabOpened === "following"}
                       />
                     )}
-                    {tabOpened === "following" && (
-                      <ListItems
-                        items={userFollowing}
-                        type="user"
-                        errorText={errorMap.noSubscriptions}
+                    {isUserCurrentUser && (
+                      <TabItem
+                        name="My testimonials"
+                        onClick={() => dispatch(changeTab("testimonials"))}
+                        isActive={tabOpened === "testimonials"}
                       />
                     )}
-                    {tabOpened === "testimonials" && (
-                      <ListItems
-                        items={userTestimonials}
-                        type="testimonial"
-                        errorText={errorMap.noTestimonials}
+                  </TabsList>
+                </div>
+                <div className={css.container}>
+                  <div className={css.tabsContent}>
+                    <div className={css.tabContentActive}>
+                      {tabOpened === "recipes" && (
+                        <ListItems
+                          items={userRecipes}
+                          type="recipe"
+                          errorText={errorMap.noRecipes}
+                        />
+                      )}
+                      {tabOpened === "favorites" && (
+                        <ListItems
+                          items={userFavorites}
+                          type="recipe"
+                          errorText={errorMap.noFavorites}
+                        />
+                      )}
+                      {tabOpened === "followers" && (
+                        <ListItems
+                          items={userFollowers}
+                          type="user"
+                          errorText={errorMap.noFollowers}
+                        />
+                      )}
+                      {tabOpened === "following" && (
+                        <ListItems
+                          items={userFollowing}
+                          type="user"
+                          errorText={errorMap.noSubscriptions}
+                        />
+                      )}
+                      {tabOpened === "testimonials" && (
+                        <ListItems
+                          items={userTestimonials}
+                          type="testimonial"
+                          errorText={errorMap.noTestimonials}
+                        />
+                      )}
+                    </div>
+                    {totalPages > 1 && (
+                      <Pagination
+                        totalPages={totalPages}
+                        currentPage={currentPage}
+                        onClick={(newValue) => dispatch(changePage(newValue))}
+                        borders
                       />
                     )}
                   </div>
-                  {totalPages > 1 && (
-                    <Pagination
-                      totalPages={totalPages}
-                      currentPage={currentPage}
-                      onClick={(newValue) => dispatch(changePage(newValue))}
-                      borders
-                    />
-                  )}
                 </div>
               </div>
             </div>
-          </div>
-        </section>
+          </section>
+        </>
       ) : loading ? (
         <UserPageSkeleton />
       ) : (
