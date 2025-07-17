@@ -186,7 +186,15 @@ textarea:focus {
   color: red;
   font-size: 12px;
   position: absolute;
-  top: -15px;
+  background-color: #fff;
+  bottom: -8px;
+  left: 15px;
+  z-index: 1;
+  padding: 0 5px;
+}
+
+.inputError {
+  border-bottom: 1px solid red;
 }
 
 @media screen and (min-width: 768px) {
