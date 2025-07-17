@@ -17,7 +17,7 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
   const isRecipesLoading = useSelector(selectUsersRecipesLoading);
   const isFollowLoading = useSelector(selectUsersFollowLoading);
   const itemsCount = useSelector(selectItemsCount);
-  console.log(skeletonMode, "skeletonMode", itemsCount, "itemsCount");
+
   return (
     <div className={css.listItemsWrap}>
       {items?.length === 0 && !isRecipesLoading && !isFollowLoading ? (
