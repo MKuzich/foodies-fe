@@ -2,8 +2,7 @@ import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 
-import Icons from "@/assets/sprite.svg";
-
+import Icon from "../Icon";
 import styles from "./AddRecipeImage.module.css";
 
 const AddRecipeImage = ({ resetSignal }) => {
@@ -75,9 +74,7 @@ const AddRecipeImage = ({ resetSignal }) => {
           <img src={previewUrl} alt="Preview" className={styles.preview} />
         ) : (
           <div className={styles.labelWrapper}>
-            <svg className={styles.icon}>
-              <use href={`${Icons}#icon-framed-camera`} />
-            </svg>
+            <Icon name="framed-camera" width={50} height={50} />
             <span className={styles.uploadText}>Upload a photo</span>
           </div>
         )}

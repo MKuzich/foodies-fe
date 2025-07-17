@@ -33,13 +33,15 @@ const AddRecipeForm = () => {
   useCategoriesAreasIngredientsFetch();
 
   useEffect(() => {
-    if (recipeCreated && createdRecipeId) {
-      console.log(createdRecipeId);
-      toast.success("Recipe successfully created!");
-      dispatch(clearSuccess());
-      navigate(`/recipe/${createdRecipeId}`);
+    if (!recipeCreated || !createdRecipeId) {
+      toast.error("Recipe creation failed!");
+      return;
     }
-  }, [recipeCreated, createdRecipeId, dispatch]);
+
+    toast.success("Recipe successfully created!");
+    dispatch(clearSuccess());
+    navigate(`/recipe/${createdRecipeId}`);
+  }, [recipeCreated, createdRecipeId, dispatch, navigate]);
 
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
@@ -60,12 +62,20 @@ const AddRecipeForm = () => {
 
   const [resetSignal, setResetSignal] = useState(false);
 
-  const maxLength = 200;
   const stepTime = 5;
   const currentTime = watch("cookingTime") || stepTime;
   const increase = () => setValue("cookingTime", currentTime + stepTime);
   const decrease = () => {
     if (currentTime > stepTime) setValue("cookingTime", currentTime - stepTime);
+  };
+
+  const maxWords = 200;
+  const countWords = (str) => str.trim().split(/\s+/).filter(Boolean).length;
+  const limitWordsInput = (e) => {
+    const words = e.target.value.trim().split(/\s+/);
+    if (words.length > maxWords) {
+      e.target.value = words.slice(0, maxWords).join(" ");
+    }
   };
 
   const description = watch("description") || "";
@@ -194,18 +204,25 @@ const AddRecipeForm = () => {
               {methods.formState.errors.description && (
                 <span className={styles.error}>{methods.formState.errors.description.message}</span>
               )}
-              <div className={styles.textareaWrapper}>
+              <div className={styles.descriptionWrapper}>
                 <textarea
                   id="description"
                   className={styles.description}
                   name="description"
                   type="text"
                   placeholder="Enter a description of the dish"
-                  maxLength={maxLength}
+                  onInput={limitWordsInput}
                   {...methods.register("description")}
                 />
-                <span className={styles.charCounterInside}>
-                  {description.length}/{maxLength}
+                <span className={styles.wordsCounterInside}>
+                  <span
+                    className={clsx({
+                      [styles.wordsCounterActive]: countWords(description) > 0,
+                    })}
+                  >
+                    {countWords(description)}
+                  </span>
+                  /{maxWords}
                 </span>
               </div>
             </div>
@@ -245,19 +262,13 @@ const AddRecipeForm = () => {
                     onClick={decrease}
                     disabled={currentTime <= stepTime}
                   />
-                  <input
-                    name="cookingTime"
-                    type="number"
-                    autoComplete="off"
-                    className={styles.timeInput}
-                    {...methods.register("cookingTime", { valueAsNumber: true })}
-                  />
+                  <span className={styles.timeInput}>{currentTime} min</span>
                   <IconButton type="button" name="plus" onClick={increase} />
                 </div>
               </div>
             </div>
 
-            <div className={styles.formGroup}>
+            <div className={clsx(styles.formGroup, styles.formGroupArea)}>
               <div className={styles.formArea}>
                 {methods.formState.errors.area && (
                   <span className={styles.error}>{methods.formState.errors.area.message}</span>
@@ -296,8 +307,6 @@ const AddRecipeForm = () => {
                       data={ingredients}
                       value={field.value}
                       onChange={field.onChange}
-                      valueKey="id" //  TODO: DELETE THIS CAUSE ERRORS
-                      labelKey="name" //  TODO: DELETE THIS CAUSE ERRORS
                       resetSignal={resetSignal}
                     />
                   )}
@@ -328,8 +337,8 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            <div className={styles.formGroup}>
-              {addedIngredients.length > 0 && (
+            {addedIngredients.length > 0 && (
+              <div className={styles.formGroup}>
                 <div className={styles.ingredientList}>
                   {addedIngredients.map((item, index) => (
                     <div key={index} className={styles.ingredientCard}>
@@ -348,20 +357,22 @@ const AddRecipeForm = () => {
                     </div>
                   ))}
                 </div>
-              )}
-              {methods.formState.errors.ingredientsList && (
-                <span className={styles.error}>
-                  {methods.formState.errors.ingredientsList.message}
-                </span>
-              )}
-            </div>
 
-            <div className={styles.formGroup}>
+                {methods.formState.errors.ingredientsList && (
+                  <span className={styles.error}>
+                    {methods.formState.errors.ingredientsList.message}
+                  </span>
+                )}
+              </div>
+            )}
+
+            <div className={clsx(styles.formGroup, styles.formRecipePreparation)}>
               {methods.formState.errors.recipePreparation && (
                 <span className={styles.error}>
                   {methods.formState.errors.recipePreparation.message}
                 </span>
               )}
+              <span className={styles.titleRecipePreparation}>Recipe Preparation</span>
               <div className={styles.textareaWrapper}>
                 <textarea
                   id="recipePreparation"
@@ -369,11 +380,18 @@ const AddRecipeForm = () => {
                   name="recipePreparation"
                   type="text"
                   placeholder="Enter recipe"
-                  maxLength={maxLength}
+                  onInput={limitWordsInput}
                   {...methods.register("recipePreparation")}
                 />
-                <span className={styles.charCounterInside}>
-                  {recipePreparation.length}/{maxLength}
+                <span className={styles.wordsCounterInside}>
+                  <span
+                    className={clsx({
+                      [styles.wordsCounterActive]: countWords(recipePreparation) > 0,
+                    })}
+                  >
+                    {countWords(recipePreparation)}
+                  </span>
+                  /{maxWords}
                 </span>
               </div>
             </div>

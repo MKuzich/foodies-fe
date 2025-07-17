@@ -8,96 +8,120 @@
 .formAdd {
   display: flex;
   flex-direction: column;
+  gap: 80px;
+}
+
+.fieldsGroup {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  width: 100%;
 }
 
 .formGroup {
   position: relative;
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  text-align: start;
+  align-items: flex-start;
   width: 100%;
-  gap: 32px;
   margin-bottom: 32px;
+  text-align: left;
 }
 
-.formCategory, .formArea, .formCookingtime, .formIngredients, .areas{
+.formCategoryCookingtime, .formGroupArea {
+  margin-bottom: 0;
+}
+
+.formCategory,
+.formArea,
+.formCookingtime,
+.formIngredients {
   display: flex;
   flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  text-align: start;
+  align-items: flex-start;
   width: 100%;
-  gap: 32px;
-  margin-bottom: 32px;
+  gap: 8px;
+  margin-bottom: 20px;
 }
 
-.fieldsGroup{
-  display: flex;
-  flex-direction: column;
-  align-items: start;
-  justify-content: start;
-  text-align: start;
-  width: 100%;
-  gap: 16px;
+.category,
+.area,
+.cookingtime,
+.ingredients,
+.titleRecipePreparation,
+.formGroup > label {
+  font-weight: 800;
+  text-transform: uppercase;
 }
 
-input:active, input:focus {
+.titleInput {
+  width: 100%;
+  border: none;
+  background-color: transparent;
+  text-transform: uppercase;
+  color: var(--title-color);
+  font-weight: 800;
+}
+
+input:focus,
+textarea:focus {
   outline: none;
 }
 
-.formGroup > label, .category, .area, .cookingtime, .ingredients {
-  font-weight: 800;
-  text-transform: uppercase;
-}
-.titleInput{
-  width: 100%;
-  border: none;
-  background-color: transparent;
-  text-transform: uppercase;
+::placeholder {
   color: var(--inactive-color);
-  font-weight: 800;
+}
+
+.descriptionWrapper, .formQuantity, .textareaWrapper {
+  position: relative;
+  width: 100%;
+  display: flex;
+  min-height: 36px;
+  align-items: baseline;
+  border-bottom: 1px solid var(--inactive-color);
 }
 
 .textareaWrapper {
-  position: relative;
-  width: 100%;
+  margin-top: 32px;
 }
 
-.formQuantity{
-  width: 100%;
-}
-
-.description, .quantity, .recipePreparation {
+.description,
+.recipePreparation,
+.quantity {
+  font-size: 14px;
   width: 100%;
   border: none;
-  border-bottom: 1px solid var(--inactive-color);
-  box-sizing: border-box;
   background-color: transparent;
+  box-sizing: border-box;
 }
-.timeInput{
+
+.description,
+.recipePreparation {
+  resize: none;
+  overflow: hidden;
+  transition: height 0.2s ease;
+}
+
+.formRecipePreparation {
+  margin-top: 32px;
+}
+
+.timeInput {
   width: 44px;
   border: none;
   font-size: 14px;
   text-align: center;
 }
 
-.description, .recipePreparation{
-  padding-right: 73px;
-  resize: vertical;
+.wordsCounterInside {
+  font-size: 14px;
+  color: var(--inactive-color);
+  width: 53px;
+  text-align: end;
 }
 
-.description:focus-visible, .recipePreparation:focus-visible, .quantity:focus-visible {
-  outline: none;
-}
-
-.charCounterInside {
-  position: absolute;
-  top: 0;
-  right: 0;
-  font-size: 12px;
-  color: #999;
+.wordsCounterActive {
+  color: var(--title-color);
 }
 
 .buttonGroup {
@@ -106,7 +130,6 @@ input:active, input:focus {
   align-items: center;
   gap: 8px;
 }
-
 
 /* ingredientList */
 .ingredientList {
@@ -118,34 +141,31 @@ input:active, input:focus {
 .ingredientCard {
   position: relative;
   display: flex;
-  flex-direction: row;
   align-items: center;
-  height: 75px;
   width: 155px;
-  text-align: center;
-  align-content: center;
+  height: 75px;
+  gap: 10px;
 }
-.ingredientDetails{
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 4px;
-  width: 100%;
-}
+
 .ingredientImage {
-  border: 1px solid #dcdcdc;
   width: 55px;
   height: 55px;
   object-fit: cover;
+  border: 1px solid var(--inactive-color);
   border-radius: 15px;
 }
 
+.ingredientDetails {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  gap: 2px;
+}
+
 .ingredientName {
-  font-size: 16px;
+  font-size: 14px;
   font-weight: 500;
   color: var(--title-color);
-  margin-bottom: 4px;
 }
 
 .ingredientQty {
@@ -163,8 +183,6 @@ input:active, input:focus {
   color: var(--title-color);
 }
 
-/* end ingredientList */
-
 .error {
   color: red;
   font-size: 12px;
@@ -179,27 +197,24 @@ input:active, input:focus {
 }
 
 @media screen and (min-width: 1440px) {
-  .addRecipeForm {
+  .formAdd {
     flex-direction: row;
   }
+
   .formGroup {
     width: 649px;
   }
-  .formCategoryCookingtime{
+
+  .formCategoryCookingtime {
     display: flex;
     flex-direction: row;
+    gap: 32px;
   }
+
   .formIngredientsQuantity {
     display: flex;
     flex-direction: row;
     align-items: flex-end;
-  }
-  .formIngredients{
-    margin: 0;
-  }
-  .formAdd {
-    display: flex;
-    flex-direction: row;
-    gap: 80px;
+    gap: 32px;
   }
 }
