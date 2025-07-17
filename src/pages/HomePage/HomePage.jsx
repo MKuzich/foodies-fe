@@ -7,24 +7,12 @@ import Hero from "@/components/Hero/Hero";
 import Recipes from "@/components/Recipes/Recipes";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
-import { querySelector } from "@/redux/recipes/selectors";
-import { useSelector } from "react-redux";
 
 const HomePage = () => {
-  const [
-    searchParams,
-    // setSearchParams
-  ] = useSearchParams();
+  const [searchParams] = useSearchParams();
   const [isSearchParams, setIsSearchParams] = useState(false);
-  const query = useSelector(querySelector);
-  
-  console.log("query", query);
-  console.log("searchParams", Object.fromEntries(searchParams.entries()));
-
-
 
   useCategoriesAreasIngredientsFetch();
-
 
   useEffect(() => {
     const params = Object.fromEntries(searchParams.entries());

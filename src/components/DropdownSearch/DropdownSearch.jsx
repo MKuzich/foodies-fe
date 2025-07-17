@@ -1,16 +1,22 @@
+import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import clsx from "clsx";
+import styles from "./DropdownSearch.module.css";
 
-import styles from "../Dropdown/Dropdown.module.css";
-
-const SearchableDropdownInput = ({ placeholder, selectedItems, handleToggle, onSearch, searchValue, ...props }) => {
+const SearchableDropdownInput = ({
+  placeholder,
+  selectedItems,
+  handleToggle,
+  onSearch,
+  searchValue,
+  ...props
+}) => {
   return (
     <div style={{ position: "relative" }}>
       <input
         type="text"
-        className={styles.inputField}
+        className={clsx(styles.inputField, selectedItems && styles.inputFieldSelected)}
         placeholder={selectedItems ? selectedItems.split("_").join(" ") : placeholder}
         value={searchValue}
         onChange={(e) => onSearch(e.target.value)}
@@ -26,13 +32,11 @@ const SearchableDropdownInput = ({ placeholder, selectedItems, handleToggle, onS
 
 const SearchableDropdownList = ({ data, handleSelectItem }) => {
   const displayData = data.slice(0, 10); // Ограничиваем до 10 элементов
-  
+
   return (
     <ul className={clsx(styles.dropdown)}>
       {displayData.length === 0 ? (
-        <li className={clsx(styles.dropdownItem, styles.noResults)}>
-          No results found
-        </li>
+        <li className={clsx(styles.dropdownItem, styles.noResults)}>No results found</li>
       ) : (
         displayData.map((item) => (
           <li key={item.id} className={styles.dropdownItem} onClick={() => handleSelectItem(item)}>
@@ -79,7 +83,7 @@ function DropdownSearch({
   // Update selectedItems when value prop changes
   useEffect(() => {
     if (value) {
-      const selectedItem = data.find(item => item.id === value);
+      const selectedItem = data.find((item) => item.id === value);
       if (selectedItem) {
         setSelectedItems(selectedItem.name);
       }
@@ -114,8 +118,8 @@ function DropdownSearch({
 
   useEffect(() => {
     if (searchValue) {
-      const filtered = data.filter(item =>
-        item.name.toLowerCase().includes(searchValue.toLowerCase())
+      const filtered = data.filter((item) =>
+        item.name.toLowerCase().includes(searchValue.toLowerCase()),
       );
       setFilteredData(filtered);
     } else {
@@ -166,9 +170,11 @@ function DropdownSearch({
         searchValue={searchValue}
         {...props}
       />
-
       {isOpen && (
-        <div className={clsx(styles.inputContainer, styles.searchContainer)} style={{ top: buttonHeight + 10 }}>
+        <div
+          className={clsx(styles.inputContainer, styles.searchContainer)}
+          style={{ top: buttonHeight + 10 }}
+        >
           <List data={filteredData} handleSelectItem={handleSelectItem} />
         </div>
       )}
@@ -176,4 +182,4 @@ function DropdownSearch({
   );
 }
 
-export default DropdownSearch; 
+export default DropdownSearch;

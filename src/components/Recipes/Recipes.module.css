@@ -34,13 +34,16 @@
     align-items: center;
     gap: 4px;
     background-color: transparent;
+    cursor: pointer;
+    stroke: var(--title-color);
 
     @media screen and (min-width: 768px) {
         gap: 6px;
     }
 
     &:hover {
-        cursor: pointer;
+        color: var(--text-color);
+        stroke: var(--text-color);  
     }
 }
 
@@ -48,12 +51,14 @@
     width: 16px;
     height: 16px;
     fill: none;
-    stroke: var(--title-color);
+    stroke: inherit;
 
     @media screen and (min-width: 768px) {
         width: 18px;
         height: 18px;
     }
+
+  
 }
 
 
@@ -61,7 +66,7 @@
     font-size: 12px;
     line-height: 1.33;
     font-weight: 700;
-    color: var(--title-color);
+    color: inherit;
     text-transform: uppercase;
     display: flex;
 

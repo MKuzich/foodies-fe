@@ -1,18 +1,19 @@
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { addFavoriteRecipe, removeFavoriteRecipe } from "@/redux/recipes/actions";
+import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
 
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
+import skeletonStyles from "../Skeleton/Skeleton.module.css";
 import styles from "./RecipeCard.module.css";
-import { useSelector } from "react-redux";
-import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
-import { addFavoriteRecipe, removeFavoriteRecipe } from "@/redux/recipes/actions";
-import { useDispatch } from "react-redux";
 
-function RecipeCard({ recipe }) {
+function RecipeCard({ recipe, isLoading }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
-  const isFavorite = favoriteRecipes?.some(fav => fav.id === recipe.id) || false;
+  const isFavorite = favoriteRecipes?.some((fav) => fav.id === recipe.id) || false;
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
@@ -24,6 +25,34 @@ function RecipeCard({ recipe }) {
       dispatch(addFavoriteRecipe(recipe.id));
     }
   };
+
+  const SkeletonCard = () => {
+    return (
+      <li className={styles.recipeItem}>
+        <div className={`${styles.recipeImage} ${skeletonStyles.skeleton}`}></div>
+
+        <div
+          className={`${skeletonStyles.skeleton} ${skeletonStyles.skeletonTitle}`}
+          style={{ marginTop: "16px", marginBottom: "8px" }}
+        ></div>
+
+        <div
+          className={`${skeletonStyles.skeleton} ${skeletonStyles.skeletonDescription}`}
+          style={{ marginBottom: "16px" }}
+        ></div>
+
+        <div className={styles.recipeInfo}>
+          <div className={styles.recipeAvatarWrapper}>
+            <div className={`${skeletonStyles.skeleton} ${skeletonStyles.skeletonTinyText}`}></div>
+          </div>
+        </div>
+      </li>
+    );
+  };
+
+  if (isLoading) {
+    return <SkeletonCard />;
+  }
 
   return (
     <li className={styles.recipeItem}>
@@ -43,7 +72,11 @@ function RecipeCard({ recipe }) {
         </div>
         <div className={styles.recipeIconsWrapper}>
           {/* TODO: correct styles size for tablet and desktop */}
-          <IconButton name="like" iconStyle={isFavorite ? { fill: "red", stroke: "red" } : {}}  onClick={handleClickFavorite}/>
+          <IconButton
+            name="like"
+            iconStyle={isFavorite ? { fill: "red", stroke: "red" } : {}}
+            onClick={handleClickFavorite}
+          />
           <IconButton name="arrowUpRight" onClick={handleGetRecipe} />
         </div>
       </div>
