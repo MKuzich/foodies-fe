@@ -113,7 +113,9 @@ const slice = createSlice({
         state.user.following = payload.results;
       })
       .addCase(unfollowUser.pending, (state) => {
-        state.followLoading = true;
+        if (state.tab === "followers" || state.tab === "following") {
+          state.followLoading = true;
+        }
       })
       .addCase(unfollowUser.fulfilled, (state, { payload }) => {
         const { id, data, currentUserId } = payload;
@@ -152,7 +154,9 @@ const slice = createSlice({
         state.followLoading = false;
       })
       .addCase(followUser.pending, (state) => {
-        state.followLoading = true;
+        if (state.tab === "followers" || state.tab === "following") {
+          state.followLoading = true;
+        }
       })
       .addCase(followUser.fulfilled, (state, { payload }) => {
         const { id, data, currentUserId } = payload;

@@ -71,7 +71,6 @@ const UserPage = () => {
   }, [dispatch, id]);
 
   useEffect(() => {
-    // console.log(tabOpened, filter, "effect");
     tabOpened === "recipes" && dispatch(fetchUserRecipes({ id, ...filter }));
     tabOpened === "favorites" &&
       isUserCurrentUser &&

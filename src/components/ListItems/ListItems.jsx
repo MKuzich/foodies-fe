@@ -1,7 +1,7 @@
 import clsx from "clsx";
 import { useSelector } from "react-redux";
 
-import { selectLoading } from "../../redux/root/selectors";
+import { selectUsersFollowLoading, selectUsersRecipesLoading } from "../../redux/users/selectors";
 import { getSkeletons } from "../../utils/helpers";
 import RecipePreview from "../RecipePreview/RecipePreview";
 import RecipePreviewSkeleton from "../RecipePreview/RecipePreviewSkeleton";
@@ -10,15 +10,16 @@ import UserCardSkeleton from "../UserCard/UserCardSkeleton";
 import css from "./ListItems.module.css";
 
 const ListItems = ({ items, type, errorText, skeletonMode }) => {
-  const isLoading = useSelector(selectLoading);
+  const isRecipesLoading = useSelector(selectUsersRecipesLoading);
+  const isFollowLoading = useSelector(selectUsersFollowLoading);
 
   return (
     <div className={css.listItemsWrap}>
-      {items?.length === 0 && !isLoading ? (
+      {items?.length === 0 && !isRecipesLoading && !isFollowLoading ? (
         <p className={css.errorText}>{errorText}</p>
       ) : (
         <ul className={clsx(css.listItems, css[type])}>
-          {skeletonMode || isLoading
+          {skeletonMode || isRecipesLoading || isFollowLoading
             ? getSkeletons(5).map((skeleton) => {
                 if (type === "recipe") {
                   return <RecipePreviewSkeleton key={skeleton.id} />;
