@@ -8,6 +8,7 @@ import {
   fetchUserFollowers,
   fetchUserFollowing,
   fetchUserRecipes,
+  fetchUserTestimonials,
   followUser,
   removeFromFavoriteRecipe,
   removeRecipe,
@@ -28,6 +29,8 @@ const userSchema = {
   favorites: [],
   followers: [],
   following: [],
+  testimonials: [],
+  testimonialsLoading: false,
   followLoading: false,
   recipesLoading: false,
   userLoading: false,
@@ -220,6 +223,17 @@ const slice = createSlice({
       })
       .addCase(removeRecipe.rejected, (state) => {
         state.recipesLoading = false;
+      })
+      .addCase(fetchUserTestimonials.pending, (state) => {
+        state.testimonialsLoading = true;
+      })
+      .addCase(fetchUserTestimonials.fulfilled, (state, { payload }) => {
+        state.totalPages = payload.pagination.pages;
+        state.user.testimonials = payload.results;
+        state.testimonialsLoading = false;
+      })
+      .addCase(fetchUserTestimonials.rejected, (state) => {
+        state.testimonialsLoading = false;
       });
   },
 });

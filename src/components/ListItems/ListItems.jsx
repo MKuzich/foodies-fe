@@ -17,7 +17,7 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
   const isRecipesLoading = useSelector(selectUsersRecipesLoading);
   const isFollowLoading = useSelector(selectUsersFollowLoading);
   const itemsCount = useSelector(selectItemsCount);
-  console.log(skeletonMode, "skeletonMode", itemsCount, "itemsCount");
+
   return (
     <div className={css.listItemsWrap}>
       {items?.length === 0 && !isRecipesLoading && !isFollowLoading ? (
@@ -32,6 +32,10 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
                 if (type === "user") {
                   return <UserCardSkeleton key={skeleton.id} />;
                 }
+                if (type === "testimonial") {
+                  // return <TestimonialSkeleton key={skeleton.id} />;
+                  // TODO: add testimonial skeleton
+                }
               })
             : items.map((item) => {
                 if (type === "recipe") {
@@ -39,6 +43,10 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
                 }
                 if (type === "user") {
                   return <UserCard key={item.id} user={item} />;
+                }
+                if (type === "testimonial") {
+                  // return <Testimonial key={item.id} testimonial={item} />;
+                  // TODO: add testimonial
                 }
               })}
         </ul>

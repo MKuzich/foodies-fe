@@ -25,7 +25,7 @@ const UserCardSkeleton = () => {
           <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTitle)}></div>
           <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTinyText)}></div>
           <div
-            className={clsx(skeletonCss.skeleton, skeletonCss.skeletonButton, skeletonCss.medium)}
+            className={clsx(skeletonCss.skeleton, skeletonCss.skeletonButton)}
             style={{ marginTop: "4px" }}
           ></div>
         </div>

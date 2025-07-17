@@ -75,3 +75,13 @@ export const unfollowUserById = async ({ id, userId, callback, ...params }) => {
     throw error;
   }
 };
+
+export const getUserTestimonials = async ({ page = 1, limit = 9 }) => {
+  const url = `/users/testimonials?page=${page}&limit=${limit}`;
+  try {
+    const { data } = await api.get(url);
+    return data;
+  } catch (error) {
+    throw error;
+  }
+};

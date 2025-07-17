@@ -21,6 +21,7 @@ import {
   fetchUserFollowers,
   fetchUserFollowing,
   fetchUserRecipes,
+  fetchUserTestimonials,
   followUser,
   unfollowUser,
 } from "../../redux/users/operations";
@@ -37,6 +38,7 @@ import {
   selectUserFollowing,
   selectUserRecipes,
   selectUsersUserLoading,
+  selectUserTestimonials,
 } from "../../redux/users/selectors";
 import { changePage, changeTab } from "../../redux/users/slice";
 import { currentUserPageErrors, userPageErrors } from "../../utils/const/userPageErrors";
@@ -64,6 +66,7 @@ const UserPage = () => {
   const userFavorites = useSelector(selectUserFavorites);
   const userFollowers = useSelector(selectUserFollowers);
   const userFollowing = useSelector(selectUserFollowing);
+  const userTestimonials = useSelector(selectUserTestimonials);
 
   useEffect(() => {
     dispatch(changeTab("recipes"));
@@ -79,6 +82,9 @@ const UserPage = () => {
     tabOpened === "following" &&
       isUserCurrentUser &&
       dispatch(fetchUserFollowing({ id, ...filter }));
+    tabOpened === "testimonials" &&
+      isUserCurrentUser &&
+      dispatch(fetchUserTestimonials({ id, ...filter }));
   }, [dispatch, filter, tabOpened]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
@@ -179,6 +185,13 @@ const UserPage = () => {
                       isActive={tabOpened === "following"}
                     />
                   )}
+                  {isUserCurrentUser && (
+                    <TabItem
+                      name="My testimonials"
+                      onClick={() => dispatch(changeTab("testimonials"))}
+                      isActive={tabOpened === "testimonials"}
+                    />
+                  )}
                 </TabsList>
               </div>
               <div className={css.container}>
@@ -206,6 +219,13 @@ const UserPage = () => {
                         items={userFollowing}
                         type="user"
                         errorText={errorMap.noSubscriptions}
+                      />
+                    )}
+                    {tabOpened === "testimonials" && (
+                      <ListItems
+                        items={userTestimonials}
+                        type="testimonial"
+                        errorText={errorMap.noTestimonials}
                       />
                     )}
                   </div>
