@@ -6,8 +6,6 @@ import { toggleShowAll } from "@/redux/categories/slice";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import Loader from "../Loader/Loader";
 import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
-import { setQuery } from "@/redux/recipes/slice";
-import { useEffect } from "react";
 
 
 
@@ -26,9 +24,6 @@ function CategoriesList() {
   const isMobile = useMediaQuery("(max-width: 375px)");
   const displayedCategories = showAll ? categories : categories.slice(0, isMobile ? 8 : 11);
 
-  useEffect(() => {
-    dispatch(setQuery({ key: "category", value: "" }));
-  }, []);
 
   if (isLoading) {
     return (

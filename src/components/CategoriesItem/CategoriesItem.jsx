@@ -1,7 +1,6 @@
 import clsx from "clsx";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
-
 import Icons from "@/assets/sprite.svg";
 import { setShowAllRecipes } from "@/redux/recipes/slice";
 
@@ -20,7 +19,7 @@ function CategoriesItem({ id, name, description, option = "category", onClick })
       setSearchParams({ page: 1 });
       dispatch(setShowAllRecipes(true));
     } else {
-      setSearchParams({ category: name });
+      setSearchParams({ category: name, page: 1 });
       dispatch(setShowAllRecipes(false));
     }
   };

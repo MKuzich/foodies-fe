@@ -10,6 +10,7 @@ import Loader from "./components/Loader/Loader";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
 import { refreshUser } from "./redux/auth/actions";
+import { fetchFavoriteRecipes } from "./redux/recipes/actions";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
@@ -22,6 +23,7 @@ function App() {
   const dispatch = useDispatch();
   useEffect(() => {
     dispatch(refreshUser());
+    dispatch(fetchFavoriteRecipes());
   }, [dispatch]);
 
   return (

@@ -3,12 +3,26 @@ import { useNavigate } from "react-router-dom";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
 import styles from "./RecipeCard.module.css";
+import { useSelector } from "react-redux";
+import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
+import { addFavoriteRecipe, removeFavoriteRecipe } from "@/redux/recipes/actions";
+import { useDispatch } from "react-redux";
 
 function RecipeCard({ recipe }) {
   const navigate = useNavigate();
-
+  const dispatch = useDispatch();
+  const favoriteRecipes = useSelector(favoriteRecipesSelector);
+  const isFavorite = favoriteRecipes?.some(fav => fav.id === recipe.id) || false;
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
+  };
+
+  const handleClickFavorite = () => {
+    if (isFavorite) {
+      dispatch(removeFavoriteRecipe(recipe.id));
+    } else {
+      dispatch(addFavoriteRecipe(recipe.id));
+    }
   };
 
   return (
@@ -29,7 +43,7 @@ function RecipeCard({ recipe }) {
         </div>
         <div className={styles.recipeIconsWrapper}>
           {/* TODO: correct styles size for tablet and desktop */}
-          <IconButton name="like" />
+          <IconButton name="like" iconStyle={isFavorite ? { fill: "red", stroke: "red" } : {}}  onClick={handleClickFavorite}/>
           <IconButton name="arrowUpRight" onClick={handleGetRecipe} />
         </div>
       </div>

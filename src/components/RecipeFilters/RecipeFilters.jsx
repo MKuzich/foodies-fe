@@ -25,7 +25,6 @@ function RecipeFilters() {
   const wasShowAllRecipesInitialized = useSelector(wasShowAllRecipesInitializedSelector);
 
   const showAllRecipes = useSelector(showAllRecipesSelector);
-  console.log("showAllRecipes", showAllRecipes);
   const [searchParams, setSearchParams] = useSearchParams();
   const category = searchParams.get("category");
 

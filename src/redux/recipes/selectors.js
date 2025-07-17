@@ -7,3 +7,4 @@ export const popularRecipesSelector = (state) => state.recipes.popularRecipes;
 export const showAllRecipesSelector = (state) => state.recipes.showAllRecipes;
 export const wasShowAllRecipesInitializedSelector = (state) =>
   state.recipes.wasShowAllRecipesInitialized;
+export const favoriteRecipesSelector = (state) => state.recipes.favoriteRecipes;

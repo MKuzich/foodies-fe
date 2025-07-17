@@ -3,6 +3,8 @@ import { useSearchParams } from "react-router-dom";
 import clsx from "clsx";
 
 import styles from "./Dropdown.module.css";
+import { useDispatch } from "react-redux";
+import { setQuery } from "@/redux/recipes/slice";
 
 const DefaultDropdownButton = ({ placeholder, selectedItems, handleToggle, ...props }) => {
   return (
@@ -44,6 +46,7 @@ function Dropdown({
   const wrapperRef = useRef(null);
   const [buttonHeight, setButtonHeight] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -98,6 +101,7 @@ function Dropdown({
         page: 1,
         [placeholder.toLowerCase()]: item.name.split(" ").join("_"),
       });
+      dispatch(setQuery(params));
     }
     setIsOpen(false);
   };
