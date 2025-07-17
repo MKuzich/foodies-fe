@@ -47,7 +47,7 @@ const UserPageSkeleton = () => {
           <div className={css.container}>
             <div className={css.tabsContent}>
               <div className={css.tabContentActive}>
-                <ListItems type="recipe" skeletonMode />
+                <ListItems type="recipe" skeletonMode={true} />
               </div>
             </div>
           </div>

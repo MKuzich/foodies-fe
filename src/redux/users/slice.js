@@ -50,6 +50,12 @@ const slice = createSlice({
     },
     changeTab: (state, { payload }) => {
       state.tab = payload;
+      if (payload === "recipes" || payload === "favorites") {
+        state.recipesLoading = true;
+      }
+      if (payload === "followers" || payload === "following") {
+        state.followLoading = true;
+      }
       state.filter.page = 1;
       state.totalPages = 0;
     },
@@ -104,13 +110,27 @@ const slice = createSlice({
         state.user.favoriteCount = payload.pagination.total;
         state.totalPages = payload.pagination.pages;
       })
+      .addCase(fetchUserFollowers.pending, (state) => {
+        state.followLoading = true;
+      })
       .addCase(fetchUserFollowers.fulfilled, (state, { payload }) => {
         state.totalPages = payload.pagination.pages;
         state.user.followers = payload.results;
+        state.followLoading = false;
+      })
+      .addCase(fetchUserFollowers.rejected, (state) => {
+        state.followLoading = false;
+      })
+      .addCase(fetchUserFollowing.pending, (state) => {
+        state.followLoading = true;
       })
       .addCase(fetchUserFollowing.fulfilled, (state, { payload }) => {
         state.totalPages = payload.pagination.pages;
         state.user.following = payload.results;
+        state.followLoading = false;
+      })
+      .addCase(fetchUserFollowing.rejected, (state) => {
+        state.followLoading = false;
       })
       .addCase(unfollowUser.pending, (state) => {
         if (state.tab === "followers" || state.tab === "following") {
