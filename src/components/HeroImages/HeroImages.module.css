@@ -1,35 +1,35 @@
 .images {
-    display: flex;
-    justify-content: center;
-    gap: 0;
-    margin-top: 40px;
+  display: flex;
+  justify-content: center;
+  gap: 0;
+  margin-top: 40px;
 }
 
 .imgLeft {
-    width: 128px;
-    height: 116px;
-    margin-top: 100px;
+  width: 128px;
+  height: 116px;
+  margin-top: 100px;
 }
 
 .imgRight {
-    width: 302px;
-    height: 273px;
+  width: 302px;
+  height: 273px;
 }
 
 .heroImg {
-    object-fit: cover;
-    display: block;
+  object-fit: cover;
+  display: block;
 }
 
-@media (max-width: 768px) {
-    .imgLeft {
-        width: 77px;
-        height: 70px;
-        margin-top: 80px;
-    }
+@media (max-width: 767px) {
+  .imgLeft {
+    width: 77px;
+    height: 70px;
+    margin-top: 80px;
+  }
 
-    .imgRight {
-        width: 190px;
-        height: 172px;
-    }
+  .imgRight {
+    width: 190px;
+    height: 172px;
+  }
 }

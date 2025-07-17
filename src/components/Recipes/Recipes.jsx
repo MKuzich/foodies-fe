@@ -11,7 +11,12 @@ import Pagination from "@/components/Pagination/Pagination";
 import { useSearchParams } from "react-router-dom";
 import { isLoadingSelector, paginationSelector, recipesSelector } from "@/redux/recipes/selectors";
 import { fetchRecipes } from "@/redux/recipes/actions";
+
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { fetchRecipes } from "@/redux/recipes/actions";
+import { isLoadingSelector, paginationSelector } from "@/redux/recipes/selectors";
+
+import Icons from "../../assets/sprite.svg";
 import { selectCategoryByName } from "../../redux/categories/selectors";
 import { querySelector } from "@/redux/recipes/selectors";
 import { compareTwoObjectsShallow } from "@/utils/compareTwoObjects";
@@ -27,15 +32,18 @@ function Recipes() {
 
     const recipesRef = useRef(null);
 
-    const isMobile = useMediaQuery("(max-width: 375px)");
-    const limitPage = isMobile ? 8 : 12;
 
+  const recipesRef = useRef(null);
+
+  const isMobile = useMediaQuery("(max-width: 374px)");
+  const limitPage = isMobile ? 8 : 12;
 
     const [searchParams, setSearchParams] = useSearchParams();
     const [skipNextEffect, setSkipNextEffect] = useState(false);
 
 
-    const dispatch = useDispatch();
+  const dispatch = useDispatch();
+
 
     // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
     useEffect(() => {
@@ -54,7 +62,7 @@ function Recipes() {
     useEffect(() => {
         if (skipNextEffect) {
             setSkipNextEffect(false);
-            return; // Пропускаем выполнение
+            return; // SKIP ITER
         }
 
         const params = extractParamsFromUrl(searchParams);
@@ -141,7 +149,9 @@ function Recipes() {
                 </div>
             </div>
         </div>
-    );
+      </div>
+    </div>
+  );
 }
 
 export default Recipes;

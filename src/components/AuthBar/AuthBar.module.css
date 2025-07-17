@@ -1,44 +1,44 @@
 .authBar {
-    width: 208px;
-    height: 46px;
-    border-radius: 30px;
-    border: 1px solid var(--inactive-color);
-    background: var(--white-color);
-    display: flex;
-    align-items: center;
-    overflow: hidden;
-    padding: 0;
+  width: 208px;
+  height: 46px;
+  border-radius: 30px;
+  border: 1px solid var(--inactive-color);
+  background: var(--white-color);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  padding: 0;
 }
 
 .authBar button {
-    flex: 1 1 0;
-    height: 100%;
-    border: none;
-    border-radius: 30px;
-    background: transparent;
-    color: #1a1a1a;
-    font-size: 16px;
-    font-weight: 600;
-    opacity: 1;
-    transition:
-        background var(--background-transition),
-        color var(--color-transition);
-    padding: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
+  flex: 1 1 0;
+  height: 100%;
+  border: none;
+  border-radius: 30px;
+  background: transparent;
+  color: #1a1a1a;
+  font-size: 16px;
+  font-weight: 600;
+  opacity: 1;
+  transition:
+    background var(--background-transition),
+    color var(--color-transition);
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
 }
 
 .authBar button.active,
 .authBar button:focus {
-    background: var(--text-color);
-    color: var(--white-color);
-    z-index: 1;
+  background: var(--text-color);
+  color: var(--white-color);
+  z-index: 1;
 }
 
-@media (max-width: 768px) {
-    .authBar button {
-        padding: 8px 12px;
-        font-size: 0.8rem;
-    }
+@media (max-width: 767px) {
+  .authBar button {
+    padding: 8px 12px;
+    font-size: 0.8rem;
+  }
 }

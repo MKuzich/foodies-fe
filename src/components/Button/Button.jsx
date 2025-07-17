@@ -3,7 +3,15 @@ import React from "react";
 
 import css from "./Button.module.css";
 
-const Button = ({ children, outlined, inactive, isLink, appendClassName, ...props }) => {
+const Button = ({
+  children,
+  outlinedInactive,
+  outlined,
+  inactive,
+  isLink,
+  appendClassName,
+  ...props
+}) => {
   return (
     <>
       {isLink ? (
@@ -11,6 +19,7 @@ const Button = ({ children, outlined, inactive, isLink, appendClassName, ...prop
           className={clsx(
             css.btn,
             outlined && css.outlined,
+            outlinedInactive && css.outlinedInactive,
             inactive && css.inactive,
             appendClassName,
           )}
@@ -23,6 +32,7 @@ const Button = ({ children, outlined, inactive, isLink, appendClassName, ...prop
           className={clsx(
             css.btn,
             outlined && css.outlined,
+            outlinedInactive && css.outlinedInactive,
             inactive && css.inactive,
             appendClassName,
           )}

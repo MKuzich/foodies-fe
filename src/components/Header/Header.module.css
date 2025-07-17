@@ -13,7 +13,7 @@
   }
 }
 
-@media screen and (min-width: 768px) {
+@media screen and (min-width: 1440px) {
   .header {
     padding-top: 40px;
   }
@@ -23,12 +23,20 @@
   display: flex;
   align-items: center;
   justify-content: space-between;
+  padding: 0 8px;
 }
 
 @media screen and (min-width: 768px) {
   .inner {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
+    padding: 0 16px;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .inner {
+    padding: 0;
   }
 }
 
@@ -46,9 +54,7 @@
   font-size: 20px;
   line-height: 1;
   padding: 12px 0;
-  cursor: pointer;
   color: var(--white-color);
-  transition: var(--color-transition);
 }
 
 @media screen and (min-width: 768px) {
@@ -89,8 +95,8 @@
   transition: var(--border-transition), var(--color-transition), var(--background-transition);
 }
 
-.navLink:hover,
-.navLink:focus {
+.navLink:not(.navLinkActive):hover,
+.navLink:not(.navLinkActive):focus {
   color: var(--text-color);
   background: var(--white-color);
 }
@@ -103,8 +109,8 @@
   text-transform: uppercase;
 }
 
-.navLink.navLinkDark:hover,
-.navLink.navLinkDark:focus {
+.navLink.navLinkDark:not(.navLinkActive):hover,
+.navLink.navLinkDark:not(.navLinkActive):focus {
   color: var(--white-color);
   background: var(--text-color);
 }
@@ -112,6 +118,7 @@
 .navLinkActive {
   border: 1px solid var(--white-color);
   color: var(--white-color);
+  cursor: auto;
 }
 
 .navLinkDark.navLinkActive {
@@ -159,10 +166,6 @@
 .burgerIcon {
   stroke: inherit;
   fill: inherit;
-}
-
-.mobileNavOverlay {
-  display: none;
 }
 
 @media screen and (max-width: 767px) {

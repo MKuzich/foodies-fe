@@ -15,28 +15,25 @@ const Footer = () => (
         </Link>
         <nav className={styles.networkLinks} aria-label="Social media links">
           <IconLink
-            to="https://facebook.com"
+            to="https://www.facebook.com/goITclub/"
             name="facebook"
             social
-            className={styles.iconBtn}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Facebook"
           />
           <IconLink
-            to="https://instagram.com"
+            to="https://www.instagram.com/goitclub/"
             name="instagram"
             social
-            className={styles.iconBtn}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="Instagram"
           />
           <IconLink
-            to="https://youtube.com"
+            to="https://www.youtube.com/c/GoIT"
             name="youtube"
             social
-            className={styles.iconBtn}
             target="_blank"
             rel="noopener noreferrer"
             aria-label="YouTube"
@@ -44,7 +41,9 @@ const Footer = () => (
         </nav>
       </div>
       <div className={styles.divider} />
-      <div className={styles.copyright}>© {getCurrentYear()}, Foodies. All rights reserved</div>
+      <div className={styles.copyright}>
+        &#xa9; {getCurrentYear()}, Foodies. All rights reserved
+      </div>
     </Container>
   </footer>
 );

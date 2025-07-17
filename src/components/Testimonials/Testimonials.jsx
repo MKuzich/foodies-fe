@@ -14,7 +14,7 @@ import { fetchTestimonials } from "../../redux/testimonials/actions";
 import styles from "./Testimonials.module.css";
 
 function Testimonials() {
-  const isMobile = useMediaQuery("(max-width: 375px)");
+  const isMobile = useMediaQuery("(max-width: 374px)");
   const testimonials = useSelector(testimonialsSelector);
   const dispatch = useDispatch();
 

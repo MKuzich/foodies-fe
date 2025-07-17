@@ -25,32 +25,30 @@
   }
 }
 
-.userBarBtnDark {
+.userBarBtn:not(.userBarBtnDark):focus,
+.userBarBtn:not(.userBarBtnDark):hover {
   background: var(--white-color);
-  border: 1px solid var(--text-color);
+  .userName {
+    color: var(--text-color);
+  }
+  .chevronIcon {
+    stroke: var(--text-color);
+  }
 }
 
-.userBarBtn:focus,
-.userBarBtn:hover {
-  background: var(--text-color);
-}
-
-.userBarBtnDark:focus,
-.userBarBtnDark:hover {
-  background: var(--inactive-color);
+.userBarBtn.userBarBtnDark:focus,
+.userBarBtn.userBarBtnDark:hover {
+  background: var(--title-color);
 }
 
 .chevronIcon {
+  fill: transparent;
   stroke: var(--white-color);
-  transition: var(--transform-transition);
+  transition: var(--transform-transition), var(--stroke-transition);
 }
 
 .openedIcon {
   transform: scaleY(-1);
-}
-
-.chevronIconDark {
-  stroke: var(--text-color);
 }
 
 .arrowIcon {
@@ -165,7 +163,7 @@
   color: var(--text-color) !important;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 767px) {
   .avatar {
     width: 32px;
     height: 32px;

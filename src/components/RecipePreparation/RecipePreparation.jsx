@@ -12,8 +12,8 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const isLoggedIn = useSelector(selectCurrentUser);
 
   const [isFavorite, setIsFavorite] = useState(recipe.isFavorite);
-  const [loading, setLoading] = useState(false);
-  const [error, setError] = useState(null);
+  const [, setLoading] = useState(false);
+  const [, setError] = useState(null);
 
   const handleFavoriteToggle = async () => {
     if (!isLoggedIn) {
@@ -43,21 +43,16 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
     <>
       <h3 className={styles.itemTitle}>Recipe Preparation</h3>
       <p className={styles.description}>{recipe.instructions}</p>
-
-      <div className={styles.favoriteBtn}>
-        <Button
-          outlined={isFavorite}
-          onClick={handleFavoriteToggle}
-          disabled={loading}
-          type="button"
-        >
-          {isFavorite ? "Remove from favorites" : "Add to favorites"}
-        </Button>
-        {error && <p className={styles.error}>{error}</p>}
-      </div>
-      <div className={styles.testimonialBtn}>
-        <TestimonialModal recipeId={recipe.id} onChangeTestimonials={onChangeTestimonials} />
-      </div>
+      <ul className={styles.buttonList}>
+        <li className={styles.buttonList}>
+          <Button outlinedInactive={true} onClick={handleFavoriteToggle}>
+            {isFavorite ? "Remove from favorites" : "Add to favorites"}
+          </Button>
+        </li>
+        <li className={styles.buttonList}>
+          <TestimonialModal recipeId={recipe.id} onChangeTestimonials={onChangeTestimonials} />
+        </li>
+      </ul>
     </>
   );
 };

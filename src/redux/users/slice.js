@@ -110,27 +110,37 @@ const slice = createSlice({
         state.followLoading = true;
       })
       .addCase(unfollowUser.fulfilled, (state, { payload }) => {
-        const { id, data, currentUserInfo } = payload;
-        // we can unfollow user in two cases:
-        // 1. when we unfollow user from user page profile
-        // 2. when we unfollow user from own page following, so we change followingCount
+        const { id, data, currentUserId } = payload;
+        // id - is user id we unfollow
+        // currentUserInfo - is current loggined user info
+        // data - is data we get from callback (getUserFollowers or getUserFollowing)
 
-        // case 1
-        const parsedId = parseInt(id);
-        if (state.user.id === parsedId) {
+        // work with other user profiles
+        // if we unfollow user from user page profile button without using tabs
+        if (state.user.id === parseInt(id)) {
+          // current open user page profile is the id we unfollow
           state.user.followersCount -= 1;
           state.user.isFollowed = false;
-          state.user.followers = [];
+          if (state.tab === "followers") {
+            state.user.followers = data.results;
+          }
+        } else {
+          if (state.tab === "followers") {
+            if (state.user.id === parseInt(currentUserId)) {
+              // decrement only if it own profile
+              state.user.followingCount -= 1;
+            }
+            state.user.followers = data.results;
+          }
+
+          if (state.tab === "following") {
+            state.user.followingCount -= 1;
+            state.user.following = data.results;
+          }
         }
 
-        // case 2
-        if (state.user.id === currentUserInfo.id) {
-          state.user.followingCount -= 1;
-          state.user.following = [];
-          state.user.followers = data.userFollowers.results;
-          // state.user.following = state.user.following.filter((following) => following.id !== id);
-        }
         state.followLoading = false;
+        state.filter.page = 1;
       })
       .addCase(unfollowUser.rejected, (state) => {
         state.followLoading = false;
@@ -139,33 +149,47 @@ const slice = createSlice({
         state.followLoading = true;
       })
       .addCase(followUser.fulfilled, (state, { payload }) => {
-        const { id, data, currentUserInfo } = payload;
-        const parsedId = parseInt(id);
+        const { id, data, currentUserId } = payload;
 
-        // case 1
-        if (state.user.id === parsedId) {
+        // id - is user id we follow
+        // currentUserId - is current loggined user id
+        // data - is data we get from callback (getUserFollowers or getUserFollowing)
+
+        if (state.user.id === parseInt(id)) {
+          // current open user page profile is the id we follow
           state.user.followersCount += 1;
           state.user.isFollowed = true;
-          state.user.followers = data.followers.results;
+          if (state.tab === "followers") {
+            state.user.followers = data.results;
+          }
+        } else {
+          if (state.tab === "followers") {
+            if (state.user.id === parseInt(currentUserId)) {
+              // increment only if it own profile
+              state.user.followingCount += 1;
+            }
+            state.user.followers = data.results;
+          }
         }
 
-        // case 2
-        if (state.user.id === currentUserInfo.id) {
-          state.user.followingCount += 1;
-          state.user.followers = data.userFollowers.results;
-        }
-        state.totalPages = data.followers.pagination.pages;
         state.filter.page = 1;
         state.followLoading = false;
       })
       .addCase(followUser.rejected, (state) => {
         state.followLoading = false;
       })
+      .addCase(removeRecipe.pending, (state) => {
+        state.recipesLoading = true;
+      })
       .addCase(removeRecipe.fulfilled, (state, { payload }) => {
         state.user.recipes = payload.data;
         state.user.createdCount = payload.pagination.total;
         state.totalPages = payload.pagination.pages;
         state.filter.page = 1;
+        state.recipesLoading = false;
+      })
+      .addCase(removeRecipe.rejected, (state) => {
+        state.recipesLoading = false;
       });
   },
 });

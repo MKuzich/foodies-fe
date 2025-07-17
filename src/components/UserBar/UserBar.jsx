@@ -27,7 +27,11 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
 
   return (
     <div className={clsx(css.userBar, className)} ref={ref}>
-      <button type="button" onClick={() => setOpen((v) => !v)} className={css.userBarBtn}>
+      <button
+        type="button"
+        onClick={() => setOpen((v) => !v)}
+        className={clsx(css.userBarBtn, !isHome && css.userBarBtnDark)}
+      >
         <AvatarIcon src={user.avatar} name={user.name} alt="avatar" className={css.avatar} small />
         <span className={css.userName}>{user.name}</span>
         <svg className={clsx(css.chevronIcon, open && css.openedIcon)} width="18" height="18">
@@ -39,6 +43,7 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
           <Link
             className={clsx(css.dropdownItem, !isHome && css.dropdownItemDark)}
             to={`/user/${user.id}`}
+            onClick={() => setOpen(false)}
           >
             PROFILE
           </Link>

@@ -1,16 +1,23 @@
 .btn {
   font-weight: 700;
   text-transform: uppercase;
-  padding: 1rem 2.5rem;
+  padding: 0.875rem 2rem;
   border-radius: 1.875rem;
+  font-size: 14px;
   display: flex;
   align-items: center;
   justify-content: center;
-  transition: var(--color-transition), var(--background-transition),
-    var(--border-transition);
+  transition: var(--color-transition), var(--background-transition), var(--border-transition);
   color: var(--white-color);
   background-color: var(--text-color);
   cursor: pointer;
+}
+
+@media screen and (min-width: 768px) {
+  .btn {
+    padding: 1rem 2.5rem;
+    font-size: 16px;
+  }
 }
 
 .btn:hover,
@@ -38,6 +45,19 @@
 
 .btn.outlined:hover,
 .btn.outlined:focus {
+  background-color: var(--title-color);
+  color: var(--white-color);
+  border-color: var(--title-color);
+}
+
+.btn.outlinedInactive {
+  background-color: var(--white-color);
+  border: 1px solid var(--inactive-color);
+  color: var(--title-color);
+}
+
+.btn.outlinedInactive:hover,
+.btn.outlinedInactive:focus {
   background-color: var(--title-color);
   color: var(--white-color);
   border-color: var(--title-color);
