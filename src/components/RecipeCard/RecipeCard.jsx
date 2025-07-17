@@ -1,28 +1,36 @@
+import { useState } from "react";
+import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+
+import { addFavoriteRecipe, removeFavoriteRecipe } from "@/redux/recipes/actions";
+import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
 
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
 import styles from "./RecipeCard.module.css";
-import { useSelector } from "react-redux";
-import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
-import { addFavoriteRecipe, removeFavoriteRecipe } from "@/redux/recipes/actions";
-import { useDispatch } from "react-redux";
 
 function RecipeCard({ recipe }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
-  const isFavorite = favoriteRecipes?.some(fav => fav.id === recipe.id) || false;
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
+  );
+
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
 
-  const handleClickFavorite = () => {
+  const handleClickFavorite = async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
     if (isFavorite) {
-      dispatch(removeFavoriteRecipe(recipe.id));
+      await dispatch(removeFavoriteRecipe(recipe.id));
     } else {
-      dispatch(addFavoriteRecipe(recipe.id));
+      await dispatch(addFavoriteRecipe(recipe.id));
     }
+    btn.disabled = false;
+    setIsFavorite((prev) => !prev);
   };
 
   return (
@@ -43,7 +51,11 @@ function RecipeCard({ recipe }) {
         </div>
         <div className={styles.recipeIconsWrapper}>
           {/* TODO: correct styles size for tablet and desktop */}
-          <IconButton name="like" iconStyle={isFavorite ? { fill: "red", stroke: "red" } : {}}  onClick={handleClickFavorite}/>
+          <IconButton
+            name="like"
+            iconStyle={isFavorite ? { fill: "red", stroke: "red" } : {}}
+            onClick={handleClickFavorite}
+          />
           <IconButton name="arrowUpRight" onClick={handleGetRecipe} />
         </div>
       </div>

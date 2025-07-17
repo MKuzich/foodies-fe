@@ -104,6 +104,7 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
+  stroke: var(--title-color);
 }
 
 .eyeButton {

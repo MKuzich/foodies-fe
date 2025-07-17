@@ -11,7 +11,10 @@ const RecipePreview = ({ recipe, favorite }) => {
   const isCurrentUser = useSelector(selectIsUserCurrentUser);
   const dispatch = useDispatch();
 
-  const handleRemoveRecipe = async () => {
+  const handleRemoveRecipe = async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+
     if (favorite) {
       const result = await dispatch(removeFromFavoriteRecipe(recipe.id));
       if (removeFromFavoriteRecipe.fulfilled.match(result)) {
@@ -27,6 +30,8 @@ const RecipePreview = ({ recipe, favorite }) => {
         toast.error(result.payload.message || "Failed to remove recipe");
       }
     }
+
+    btn.disabled = false;
   };
 
   return (
