@@ -1,5 +1,5 @@
 .wrapper{
-  margin-bottom: 32px;
+  margin-bottom: 80px;
 }
 .photoUpload {
   position: relative;
@@ -13,7 +13,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  margin-bottom: 16px;
   contain: content;
 }
 
