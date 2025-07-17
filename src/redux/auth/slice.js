@@ -10,6 +10,7 @@ const initialState = {
   error: null,
   success: false,
   authModal: null,
+  authCanceled: false,
 };
 
 const slice = createSlice({
@@ -31,6 +32,10 @@ const slice = createSlice({
     closeModal: (state) => {
       state.authModal = null;
       state.error = null;
+      state.authCanceled = true;
+    },
+    closeAuthCanceled: (state) => {
+      state.authCanceled = false;
     },
   },
   extraReducers: (builder) => {
@@ -73,6 +78,7 @@ const slice = createSlice({
       .addCase(userLogout.pending, (state) => {
         state.loading = true;
         state.error = null;
+        state.authCanceled = true;
       })
       .addCase(userLogout.fulfilled, (state) => {
         state.loading = false;
@@ -112,7 +118,8 @@ const slice = createSlice({
   },
 });
 
-export const { openSignIn, openSignUp, openLogout, closeModal } = slice.actions;
+export const { openSignIn, openSignUp, openLogout, closeModal, closeAuthCanceled } = slice.actions;
 export const selectCurrentUser = (state) => (state.auth.userToken ? true : false);
 export const selectUserInfo = (state) => state.auth.userInfo;
+export const selectAuthCanceled = (state) => state.auth.authCanceled;
 export default slice.reducer;
