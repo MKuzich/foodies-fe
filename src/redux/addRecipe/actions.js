@@ -9,6 +9,8 @@ export const fetchRecipeThunk = createAsyncThunk("addRecipe/submit", async (form
     });
     return data;
   } catch (error) {
-    return thunkAPI.rejectWithValue(error.response?.data || error.message);
+    return thunkAPI.rejectWithValue(
+      error.response?.data?.message || error.message || "Unknown error",
+    );
   }
 });

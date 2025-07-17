@@ -9,8 +9,12 @@ import { useNavigate } from "react-router-dom";
 import IconButton from "@/components/IconButton/IconButton";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 import { fetchRecipeThunk } from "@/redux/addRecipe/actions";
-import { selectAddRecipeSuccess, selectCreatedRecipeId } from "@/redux/addRecipe/selectors";
-import { clearSuccess } from "@/redux/addRecipe/slice";
+import {
+  selectAddRecipeError,
+  selectAddRecipeSuccess,
+  selectCreatedRecipeId,
+} from "@/redux/addRecipe/selectors";
+import { clearError, clearSuccess } from "@/redux/addRecipe/slice";
 import { areasSelector } from "@/redux/areas/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import { ingredientsSelector } from "@/redux/ingredients/selectors";
@@ -29,14 +33,24 @@ const AddRecipeForm = () => {
 
   const recipeCreated = useSelector(selectAddRecipeSuccess);
   const createdRecipeId = useSelector(selectCreatedRecipeId);
+  const recipeError = useSelector(selectAddRecipeError);
 
   useCategoriesAreasIngredientsFetch();
 
   useEffect(() => {
-    toast.success("Recipe successfully created!");
-    dispatch(clearSuccess());
-    navigate(`/recipe/${createdRecipeId}`);
-  }, [recipeCreated, createdRecipeId, dispatch]);
+    if (recipeError) {
+      toast.error(recipeError);
+      dispatch(clearError());
+      return;
+    }
+
+    if (recipeCreated && createdRecipeId) {
+      toast.success("Recipe successfully created!");
+      dispatch(clearSuccess());
+      setResetSignal((prev) => !prev);
+      navigate(`/recipe/${createdRecipeId}`);
+    }
+  }, [recipeCreated, createdRecipeId, recipeError, dispatch, navigate]);
 
   const methods = useForm({
     resolver: yupResolver(recipeSchema),
@@ -107,6 +121,7 @@ const AddRecipeForm = () => {
         area: null,
         cookingTime: 5,
         ingredientsList: [],
+        quantity: "",
         recipePreparation: "",
       },
       {
@@ -121,7 +136,6 @@ const AddRecipeForm = () => {
   const onSubmit = async (data) => {
     const formData = buildFormData(data);
     dispatch(fetchRecipeThunk(formData));
-    setResetSignal((prev) => !prev);
   };
 
   const handleAddIngredient = () => {
@@ -177,11 +191,11 @@ const AddRecipeForm = () => {
   return (
     <div className={styles.addRecipeForm}>
       <FormProvider {...methods}>
-        <form className={styles.formAdd} onSubmit={handleSubmit(onSubmit)}>
+        <form className={clsx(styles.formAdd)} onSubmit={handleSubmit(onSubmit)}>
           <AddRecipeImage resetSignal={resetSignal} />
 
-          <div className={styles.fieldsGroup}>
-            <div className={styles.formGroup}>
+          <div className={clsx(styles.fieldsGroup)}>
+            <div className={clsx(styles.formGroup)}>
               {methods.formState.errors.title && (
                 <span className={styles.error}>{methods.formState.errors.title.message}</span>
               )}
@@ -195,11 +209,11 @@ const AddRecipeForm = () => {
               />
             </div>
 
-            <div className={styles.formGroup}>
+            <div className={clsx(styles.formGroup, styles.formDescription)}>
               {methods.formState.errors.description && (
                 <span className={styles.error}>{methods.formState.errors.description.message}</span>
               )}
-              <div className={styles.descriptionWrapper}>
+              <div className={clsx(styles.descriptionWrapper)}>
                 <textarea
                   id="description"
                   className={styles.description}
@@ -227,7 +241,7 @@ const AddRecipeForm = () => {
                 {methods.formState.errors.category && (
                   <span className={styles.error}>{methods.formState.errors.category.message}</span>
                 )}
-                <span className={styles.category}>Category</span>
+                <span className={clsx(styles.category)}>Category</span>
                 <Controller
                   name="category"
                   control={methods.control}
@@ -243,22 +257,30 @@ const AddRecipeForm = () => {
                 />
               </div>
 
-              <div className={styles.formCookingtime}>
+              <div className={clsx(styles.formCookingtime)}>
                 {methods.formState.errors.cookingTime && (
-                  <span className={styles.error}>
+                  <span className={clsx(styles.error)}>
                     {methods.formState.errors.cookingTime.message}
                   </span>
                 )}
-                <span className={styles.cookingtime}>COOKING TIME</span>
-                <div className={styles.buttonGroup}>
+                <span className={clsx(styles.cookingtime)}>COOKING TIME</span>
+                <div className={clsx(styles.buttonGroup)}>
                   <IconButton
                     type="button"
                     name="minus"
                     onClick={decrease}
                     disabled={currentTime <= stepTime}
+                    style={{ width: "56px", height: "56px" }}
+                    iconStyle={{ width: "24px", height: "24px" }}
                   />
-                  <span className={styles.timeInput}>{currentTime} min</span>
-                  <IconButton type="button" name="plus" onClick={increase} />
+                  <span className={clsx(styles.timeInput)}>{currentTime} min</span>
+                  <IconButton
+                    type="button"
+                    name="plus"
+                    onClick={increase}
+                    style={{ width: "56px", height: "56px" }}
+                    iconStyle={{ width: "24px", height: "24px" }}
+                  />
                 </div>
               </div>
             </div>
@@ -286,13 +308,13 @@ const AddRecipeForm = () => {
             </div>
 
             <div className={clsx(styles.formGroup, styles.formIngredientsQuantity)}>
-              <div className={styles.formIngredients}>
+              <div className={clsx(styles.formIngredients)}>
                 {methods.formState.errors.ingredients && (
-                  <span className={styles.error}>
+                  <span className={clsx(styles.error)}>
                     {methods.formState.errors.ingredients.message}
                   </span>
                 )}
-                <span className={styles.ingredients}>Ingredients</span>
+                <span className={clsx(styles.ingredients)}>Ingredients</span>
                 <Controller
                   name="ingredients"
                   control={methods.control}
@@ -308,13 +330,15 @@ const AddRecipeForm = () => {
                 />
               </div>
 
-              <div className={styles.formQuantity}>
+              <div className={clsx(styles.formQuantity)}>
                 {methods.formState.errors.quantity && (
-                  <span className={styles.error}>{methods.formState.errors.quantity.message}</span>
+                  <span className={clsx(styles.error)}>
+                    {methods.formState.errors.quantity.message}
+                  </span>
                 )}
                 <input
                   id="quantity"
-                  className={styles.quantity}
+                  className={clsx(styles.quantity)}
                   name="quantity"
                   type="text"
                   autoComplete="off"
@@ -324,8 +348,8 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            <div className={styles.formGroup}>
-              <div className={styles.buttonGroup}>
+            <div className={clsx(styles.formGroup)}>
+              <div className={clsx(styles.buttonGroup)}>
                 <Button type="button" outlined="true" onClick={handleAddIngredient}>
                   Add ingredient <Icon name="plus" width={20} height={20} />
                 </Button>
@@ -333,28 +357,32 @@ const AddRecipeForm = () => {
             </div>
 
             {addedIngredients.length > 0 && (
-              <div className={styles.formGroup}>
-                <div className={styles.ingredientList}>
+              <div className={clsx(styles.formGroup)}>
+                <div className={clsx(styles.ingredientList)}>
                   {addedIngredients.map((item, index) => (
-                    <div key={index} className={styles.ingredientCard}>
+                    <div key={index} className={clsx(styles.ingredientCard)}>
                       <button
                         type="button"
-                        className={styles.removeButton}
+                        className={clsx(styles.removeButton)}
                         onClick={() => handleRemoveIngredient(index)}
                       >
                         <Icon name="x" width={16} height={16} />
                       </button>
-                      <img src={item.preview} alt={item.name} className={styles.ingredientImage} />
-                      <div className={styles.ingredientDetails}>
-                        <span className={styles.ingredientName}>{item.name}</span>
-                        <span className={styles.ingredientQty}>{item.quantity}</span>
+                      <img
+                        src={item.preview}
+                        alt={item.name}
+                        className={clsx(styles.ingredientImage)}
+                      />
+                      <div className={clsx(styles.ingredientDetails)}>
+                        <span className={clsx(styles.ingredientName)}>{item.name}</span>
+                        <span className={clsx(styles.ingredientQty)}>{item.quantity}</span>
                       </div>
                     </div>
                   ))}
                 </div>
 
                 {methods.formState.errors.ingredientsList && (
-                  <span className={styles.error}>
+                  <span className={clsx(styles.error)}>
                     {methods.formState.errors.ingredientsList.message}
                   </span>
                 )}
@@ -363,22 +391,22 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup, styles.formRecipePreparation)}>
               {methods.formState.errors.recipePreparation && (
-                <span className={styles.error}>
+                <span className={clsx(styles.error)}>
                   {methods.formState.errors.recipePreparation.message}
                 </span>
               )}
-              <span className={styles.titleRecipePreparation}>Recipe Preparation</span>
-              <div className={styles.textareaWrapper}>
+              <span className={clsx(styles.titleRecipePreparation)}>Recipe Preparation</span>
+              <div className={clsx(styles.textareaWrapper)}>
                 <textarea
                   id="recipePreparation"
-                  className={styles.recipePreparation}
+                  className={clsx(styles.recipePreparation)}
                   name="recipePreparation"
                   type="text"
                   placeholder="Enter recipe"
                   onInput={limitWordsInput}
                   {...methods.register("recipePreparation")}
                 />
-                <span className={styles.wordsCounterInside}>
+                <span className={clsx(styles.wordsCounterInside)}>
                   <span
                     className={clsx({
                       [styles.wordsCounterActive]: countWords(recipePreparation) > 0,
@@ -390,9 +418,15 @@ const AddRecipeForm = () => {
                 </span>
               </div>
             </div>
-            <div className={styles.formGroup}>
-              <div className={styles.buttonGroup}>
-                <IconButton type="button" name="trash" onClick={handleReset} />
+            <div className={clsx(styles.formGroup, styles.formGroupSubmit)}>
+              <div className={clsx(styles.buttonGroup)}>
+                <IconButton
+                  type="button"
+                  name="trash"
+                  onClick={handleReset}
+                  style={{ width: "48px", height: "48px" }}
+                  iconStyle={{ width: "20px", height: "20px" }}
+                />
                 <Button type="submit">Publish</Button>
               </div>
             </div>

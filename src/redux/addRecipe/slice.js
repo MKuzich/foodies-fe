@@ -15,6 +15,9 @@ const addRecipeSlice = createSlice({
       state.success = false;
       state.recipeId = null;
     },
+    clearError: (state) => {
+      state.error = null;
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -37,4 +40,5 @@ const addRecipeSlice = createSlice({
 });
 
 export const { clearSuccess } = addRecipeSlice.actions;
+export const { clearError } = addRecipeSlice.actions;
 export const addRecipeReducer = addRecipeSlice.reducer;

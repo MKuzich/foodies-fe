@@ -8,7 +8,6 @@
 .formAdd {
   display: flex;
   flex-direction: column;
-  gap: 80px;
 }
 
 .fieldsGroup {
@@ -191,18 +190,101 @@ textarea:focus {
 }
 
 @media screen and (min-width: 768px) {
+  .formGroup >.formCategory, 
+  .formGroup >.formCookingtime, 
+  .formGroup > .formIngredients, 
+  .formGroup > .formQuantity,
+  .formGroup > .formArea {
+    margin-bottom: 0;
+  }
+
+  .formGroup {
+    margin-bottom: 40px;
+  }
+
+  .descriptionWrapper, .formQuantity, .textareaWrapper {
+    min-height: 40px;
+  }
+
+  .formGroup.formDescription, 
+  .formGroup.formCategoryCookingtime, 
+  .formGroup.formGroupArea {
+    margin-bottom: 60px;
+  }
+
+  .formGroup.formIngredientsQuantity {
+    margin-bottom: 40px;
+  }
+
+  .formGroup.formCategoryCookingtime, .formGroup.formIngredientsQuantity {
+    flex-direction: row;
+    gap: 19px;
+  }
+
+  .formGroup.formIngredientsQuantity {
+    align-items: end;
+  }
+
+  .formCategory,
+  .formArea,
+  .formCookingtime,
+  .formIngredients,
+  .formQuantity {
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+    width: 315px;
+  }
+
   .addRecipeForm {
     flex-direction: row;
+  }
+
+  .formGroup.formRecipePreparation {
+    margin-top: 40px;
+  }
+
+  .formGroup.formRecipePreparation {
+    margin-bottom: 80px;
+  }
+
+  .textareaWrapper {
+    margin-top: 40px;
+  }
+  
+  .formGroup.formGroupSubmit {
+    margin-bottom: 0;
   }
 }
 
 @media screen and (min-width: 1440px) {
   .formAdd {
     flex-direction: row;
+    gap: 80px;
+  }
+
+  .wrapper {
+    margin-bottom: 0;
+  }
+
+  .titleInput {
+    font-size: 24px;
   }
 
   .formGroup {
     width: 649px;
+  }
+
+  .category,
+  .area,
+  .cookingtime,
+  .ingredients,
+  .titleRecipePreparation,
+  .formGroup > label {
+    font-size: 20px;
+  }
+  .description, .recipePreparation, .quantity{
+    font-size: 16px;
   }
 
   .formCategoryCookingtime {
