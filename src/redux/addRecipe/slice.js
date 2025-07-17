@@ -6,7 +6,7 @@ const addRecipeSlice = createSlice({
   name: "addRecipe",
   initialState: {
     success: false,
-    isLoading: false,
+    loading: false,
     error: null,
     recipeId: null,
   },
@@ -23,17 +23,17 @@ const addRecipeSlice = createSlice({
     builder
       .addCase(fetchRecipeThunk.pending, (state) => {
         state.success = false;
-        state.isLoading = true;
+        state.loading = true;
         state.error = null;
       })
       .addCase(fetchRecipeThunk.fulfilled, (state, action) => {
         state.success = true;
-        state.isLoading = false;
+        state.loading = false;
         state.recipeId = action.payload?.id ?? null;
       })
       .addCase(fetchRecipeThunk.rejected, (state, action) => {
         state.success = false;
-        state.isLoading = false;
+        state.loading = false;
         state.error = action.payload ?? "Unknown error";
       });
   },

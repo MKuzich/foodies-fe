@@ -26,9 +26,14 @@
   background-color: var(--title-color);
 }
 
-.btn.inactive {
+.btn.inactive,
+.btn[disabled] {
   color: var(--white-color);
   background-color: var(--inactive-color);
+}
+
+.btn[disabled] {
+  cursor: auto;
 }
 
 .btn.inactive:hover,

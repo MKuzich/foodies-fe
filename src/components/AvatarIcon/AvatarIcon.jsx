@@ -23,7 +23,7 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null })
   return (
     <>
       {to ? (
-        <Link to={to}>
+        <Link to={to} className={css.link}>
           {src ? (
             <img src={src} alt={imgAlt} className={iconClassName} />
           ) : (
@@ -31,7 +31,7 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null })
           )}
         </Link>
       ) : (
-        <div>
+        <div className={css.link}>
           {src ? (
             <img src={src} alt={imgAlt} className={iconClassName} />
           ) : (

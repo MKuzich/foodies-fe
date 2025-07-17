@@ -9,12 +9,13 @@
     gap: 12px;
   }
 
-  &:hover {
+  &:hover,
+  &:focus {
     cursor: pointer;
   }
 
-  @media screen and (min-width: 768px) {}
-
+  @media screen and (min-width: 768px) {
+  }
 }
 
 .swiper-pagination-bullet {
