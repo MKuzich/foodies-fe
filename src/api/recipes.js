@@ -21,7 +21,7 @@ export const getRecipesApi = async (category, page = 1, ingredient, area, limit 
 
 export const getPopularRecipesApi = async () => {
   try {
-    const response = await api.get("recipes/favorites");
+    const response = await api.get("recipes/popular");
     return response.data;
   } catch (error) {
     console.error("Error fetching popular recipes:", error);
