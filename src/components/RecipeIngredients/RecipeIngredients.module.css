@@ -60,10 +60,16 @@
   gap: 10px;
   flex-wrap: wrap;
   text-align: left;
+  padding: 19px 0;
 }
 
-.ingredientName {
+.ingredientName,
+.ingredientMeasure {
   color: var(--text-color);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
 }
 
 .ingredientMeasure {
@@ -89,6 +95,9 @@
   .ingredientList {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+  .ingredientListItem .ingredientName {
+    max-width: 100px;
   }
   .itemTitle {
     margin-top: 40px;

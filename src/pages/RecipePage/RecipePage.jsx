@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
 
 import Container from "@/components/Container/Container";
@@ -8,17 +9,25 @@ import RecipeInfo from "@/components/RecipeInfo/RecipeInfo";
 import RecipeTestimonials from "@/components/RecipeTestimonials/RecipeTestimonials";
 
 import api from "../../api";
+import { selectUserInfo } from "../../redux/auth/slice";
 import styles from "./RecipePage.module.css";
+
 const RecipePage = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const user = useSelector(selectUserInfo);
 
   useEffect(() => {
     const fetchRecipe = async () => {
       try {
-        const { data } = await api.axios.get(`recipes/${id}`);
+        const params = {
+          params: {
+            userId: user && user.id ? user.id : null,
+          },
+        };
+        const { data } = await api.axios.get(`recipes/${id}`, params);
         setRecipe(data);
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
@@ -39,7 +48,7 @@ const RecipePage = () => {
     fetchTestimonials();
 
     fetchRecipe();
-  }, [id]);
+  }, [id, user]);
 
   const handleChangeTestimonials = (newTestimonial) => {
     const prevTestimonials = testimonials.slice(0, -1);

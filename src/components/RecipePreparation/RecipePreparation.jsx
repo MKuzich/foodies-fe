@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 import api from "../../api/api";
@@ -10,10 +10,13 @@ import styles from "./RecipePreparation.module.css";
 const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectCurrentUser);
-
-  const [isFavorite, setIsFavorite] = useState(recipe.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(false);
   const [, setLoading] = useState(false);
   const [, setError] = useState(null);
+
+  useEffect(() => {
+    setIsFavorite(recipe.isFavorite);
+  }, [recipe]);
 
   const handleFavoriteToggle = async () => {
     if (!isLoggedIn) {
