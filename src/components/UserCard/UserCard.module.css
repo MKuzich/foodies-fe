@@ -61,6 +61,14 @@
   width: 100%;
 }
 
+.userRecepiesTopLink {
+  transition: opacity 0.3s ease-in-out;
+}
+
+.userRecepiesTopLink:hover {
+  opacity: 0.8;
+}
+
 .userRecepiesTopItem {
   display: none;
 }

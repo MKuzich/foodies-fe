@@ -2,6 +2,7 @@ import clsx from "clsx";
 import { useEffect, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { useWindowDimensions } from "../../hooks/useWindowDimensions";
 import { selectUserInfo } from "../../redux/auth/slice";
@@ -69,9 +70,11 @@ const UserCard = ({ user }) => {
       </div>
       <ul className={css.userRecepiesTop}>
         {user.popularRecipes.slice(0, visibleCount).map((recipe) => (
-          <li key={recipe.id} className={css.userRecepiesTopItem}>
-            <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
-          </li>
+          <Link to={`/recipe/${recipe.id}`} key={recipe.id} className={css.userRecepiesTopLink}>
+            <li className={css.userRecepiesTopItem}>
+              <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
+            </li>
+          </Link>
         ))}
       </ul>
       <div className={css.userCardButtons}>
