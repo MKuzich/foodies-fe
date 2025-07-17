@@ -13,10 +13,7 @@ import { isLoadingSelector, paginationSelector, recipesSelector } from "@/redux/
 import { fetchRecipes } from "@/redux/recipes/actions";
 
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { fetchRecipes } from "@/redux/recipes/actions";
-import { isLoadingSelector, paginationSelector } from "@/redux/recipes/selectors";
 
-import Icons from "../../assets/sprite.svg";
 import { selectCategoryByName } from "../../redux/categories/selectors";
 import { querySelector } from "@/redux/recipes/selectors";
 import { compareTwoObjectsShallow } from "@/utils/compareTwoObjects";
@@ -30,7 +27,7 @@ function Recipes() {
     const query = useSelector(querySelector);
     const recipes = useSelector(recipesSelector); 
 
-    const recipesRef = useRef(null);
+
 
 
   const recipesRef = useRef(null);
