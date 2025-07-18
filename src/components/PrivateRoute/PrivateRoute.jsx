@@ -10,6 +10,7 @@ import {
   setAuthCanceled,
   setNext,
 } from "../../redux/auth/slice";
+import AuthLoader from "../AuthLoader/AuthLoader";
 
 const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
   const { user } = useAuth();
@@ -33,7 +34,7 @@ const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
   }, [authCanceled, navigate, next, user]);
 
   if (!user) {
-    return <h1>401 loading...</h1>;
+    return <AuthLoader />;
   }
 
   return <Component />;
