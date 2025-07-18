@@ -1,32 +1,29 @@
 .recipesContainer {
-    display: flex;
-    flex-direction: column;
+  display: flex;
+  flex-direction: column;
 }
 
 .recipesContent {
-    display: flex;
-    flex-direction: column;
-    gap: 32px;
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
 
-    @media screen and (min-width: 1440px) {
-        display: grid;
-        grid-template-columns: 330px 1fr;
-        gap: 40px;
-    }
+  @media screen and (min-width: 1440px) {
+    display: grid;
+    grid-template-columns: 330px 1fr;
+    gap: 40px;
+  }
 }
 
 .recipesBackContainer {
-    display: inline-flex;
-    align-items: center;
-    margin-bottom: 16px;
-    background-color: transparent;
+  display: inline-flex;
+  align-items: center;
+  margin-bottom: 16px;
+  background-color: transparent;
 
-
-    @media screen and (min-width: 768px) {
-        margin-bottom: 20px;
-    }
-
-   
+  @media screen and (min-width: 768px) {
+    margin-bottom: 20px;
+  }
 }
 
 .recipesBackButton {
@@ -37,11 +34,12 @@
     cursor: pointer;
     stroke: var(--title-color);
 
-    @media screen and (min-width: 768px) {
-        gap: 6px;
-    }
+  @media screen and (min-width: 768px) {
+    gap: 6px;
+  }
 
-    &:hover {
+    &:hover,
+    &:focus {
         color: var(--text-color);
         stroke: var(--text-color);  
     }
@@ -58,9 +56,7 @@
         height: 18px;
     }
 
-  
 }
-
 
 .recipesBackText {
     font-size: 12px;
@@ -70,8 +66,8 @@
     text-transform: uppercase;
     display: flex;
 
-    @media screen and (min-width: 768px) {
-        font-size: 14px;
-        line-height: 1.28;
-    }
+  @media screen and (min-width: 768px) {
+    font-size: 14px;
+    line-height: 1.28;
+  }
 }

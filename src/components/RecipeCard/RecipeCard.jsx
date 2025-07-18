@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -13,17 +14,24 @@ function RecipeCard({ recipe, isLoading }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
-  const isFavorite = favoriteRecipes?.some((fav) => fav.id === recipe.id) || false;
+
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
+  );
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
 
-  const handleClickFavorite = () => {
+  const handleClickFavorite = async (e) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
     if (isFavorite) {
-      dispatch(removeFavoriteRecipe(recipe.id));
+      await dispatch(removeFavoriteRecipe(recipe.id));
     } else {
-      dispatch(addFavoriteRecipe(recipe.id));
+      await dispatch(addFavoriteRecipe(recipe.id));
     }
+    btn.disabled = false;
+    setIsFavorite((prev) => !prev);
   };
 
   const SkeletonCard = () => {

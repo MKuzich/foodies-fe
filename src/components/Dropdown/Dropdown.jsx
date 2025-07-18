@@ -1,15 +1,24 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
+import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+
+import { setQuery } from "@/redux/recipes/slice";
 
 import styles from "./Dropdown.module.css";
 
-const DefaultDropdownButton = ({ placeholder, selectedItems, handleToggle, ...props }) => {
+const DefaultDropdownButton = ({
+  placeholder,
+  selectedItems,
+  handleToggle,
+  className,
+  ...props
+}) => {
   return (
     <div style={{ position: "relative" }}>
       <button
         type="button"
-        className={clsx(styles.inputField, selectedItems && styles.inputFieldSelected)}
+        className={clsx(styles.inputField, className, selectedItems && styles.inputFieldSelected)}
         onClick={handleToggle}
         {...props}
       >
@@ -41,6 +50,8 @@ function Dropdown({
   data,
   shouldSetUrl = false,
   resetSignal = false,
+  hasError = false,
+  errorMessage = "",
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -111,12 +122,13 @@ function Dropdown({
   const List = CustomList || DefaultDropdownList;
 
   return (
-    <div className={styles.inputWrapper} ref={wrapperRef}>
+    <div className={clsx(styles.inputWrapper)} ref={wrapperRef}>
       <Button
         ref={buttonRef}
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        className={clsx(!selectedItems && styles.placeholderField, hasError && styles.inputError)}
         {...props}
       />
 
@@ -125,6 +137,7 @@ function Dropdown({
           <List data={data} handleSelectItem={handleSelectItem} />
         </div>
       )}
+      {errorMessage && <span className={clsx(styles.error)}>{errorMessage}</span>}
     </div>
   );
 }

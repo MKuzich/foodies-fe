@@ -58,24 +58,25 @@
   flex-direction: row;
   gap: 12px;
   flex-wrap: nowrap;
-  width: 100%;
+  justify-content: flex-start;
+  flex-shrink: 0;
 }
 
-.userRecepiesTopLink {
-  transition: opacity 0.3s ease-in-out;
-}
-
-.userRecepiesTopLink:hover {
+.userRecepiesTopItem:hover,
+.userRecepiesTopItem:focus {
   opacity: 0.8;
 }
 
 .userRecepiesTopItem {
   display: none;
+  height: 100px;
+  width: 100px;
+  transition: opacity 0.3s ease-in-out;
 }
 
 .userRecepiesTopItemImg {
-  min-width: 100px;
-  height: 100px;
+  width: 100%;
+  height: 100%;
   object-fit: cover;
   border-radius: 15px;
 }
@@ -88,6 +89,7 @@
 
   .userRecepiesTop {
     display: flex;
+    flex-basis: 324px;
   }
 
   .userRecepiesTopItem {
@@ -95,5 +97,11 @@
   }
   .userCardButtons {
     margin-left: auto;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .userRecepiesTop {
+    flex-basis: 436px;
   }
 }

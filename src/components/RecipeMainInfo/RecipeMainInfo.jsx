@@ -1,7 +1,7 @@
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
-import defaultAvatar from "../../assets/avatar.png";
+import AvatarIcon from "../../components/AvatarIcon/AvatarIcon";
 import RecipeIngredients from "../../components/RecipeIngredients/RecipeIngredients";
 import RecipePreparation from "../../components/RecipePreparation/RecipePreparation";
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
@@ -38,11 +38,14 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
           <p className={styles.description}>{recipe.description}</p>
 
           <button className={styles.authorBtn} onClick={handleAuthorClick}>
-            <img
-              src={author.avatarURL || defaultAvatar}
-              alt={author.name}
-              className={styles.avatar}
+            <AvatarIcon
+              name={author.name}
+              avatarUrl={author.avatarURL}
+              alt={`${author.name} avatar`}
+              small
+              to={`/user/${author.id}`}
             />
+
             <div className={styles.authorInfo}>
               Created by: <span className={styles.authorName}>{author.name}</span>
             </div>

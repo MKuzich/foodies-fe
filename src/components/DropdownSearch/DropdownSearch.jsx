@@ -3,6 +3,7 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import styles from "./DropdownSearch.module.css";
+// import styles from "../Dropdown/Dropdown.module.css";
 
 const SearchableDropdownInput = ({
   placeholder,
@@ -10,13 +11,15 @@ const SearchableDropdownInput = ({
   handleToggle,
   onSearch,
   searchValue,
+  hasError,
+  className,
   ...props
 }) => {
   return (
     <div style={{ position: "relative" }}>
       <input
         type="text"
-        className={clsx(styles.inputField, selectedItems && styles.inputFieldSelected)}
+        className={clsx(styles.inputField, !selectedItems && styles.placeholderField, hasError && styles.inputError, className, selectedItems && styles.inputFieldSelected)}
         placeholder={selectedItems ? selectedItems.split("_").join(" ") : placeholder}
         value={searchValue}
         onChange={(e) => onSearch(e.target.value)}
@@ -56,6 +59,8 @@ function DropdownSearch({
   resetSignal = false,
   value,
   onChange,
+  hasError = false,
+  errorMessage = "",
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -168,6 +173,7 @@ function DropdownSearch({
         handleToggle={handleToggle}
         onSearch={handleSearch}
         searchValue={searchValue}
+        hasError={hasError}
         {...props}
       />
       {isOpen && (
@@ -178,6 +184,7 @@ function DropdownSearch({
           <List data={filteredData} handleSelectItem={handleSelectItem} />
         </div>
       )}
+      {errorMessage && <span className={clsx(styles.error)}>{errorMessage}</span>}
     </div>
   );
 }

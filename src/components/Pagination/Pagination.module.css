@@ -25,7 +25,8 @@
   transition: var(--color-transition);
 }
 
-.button:hover {
+.button:hover,
+.button:focus {
   color: var(--white-color);
   background-color: var(--title-color);
 }

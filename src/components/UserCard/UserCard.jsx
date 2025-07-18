@@ -70,11 +70,11 @@ const UserCard = ({ user }) => {
       </div>
       <ul className={css.userRecepiesTop}>
         {user.popularRecipes.slice(0, visibleCount).map((recipe) => (
-          <Link to={`/recipe/${recipe.id}`} key={recipe.id} className={css.userRecepiesTopLink}>
-            <li className={css.userRecepiesTopItem}>
+          <li>
+            <Link to={`/recipe/${recipe.id}`} key={recipe.id} className={css.userRecepiesTopItem}>
               <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
-            </li>
-          </Link>
+            </Link>
+          </li>
         ))}
       </ul>
       <div className={css.userCardButtons}>

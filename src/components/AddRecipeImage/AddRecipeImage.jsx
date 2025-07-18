@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import React, { useCallback, useEffect, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
@@ -63,28 +64,30 @@ const AddRecipeImage = ({ resetSignal }) => {
   });
 
   return (
-    <div className={styles.wrapper}>
+    <div className={clsx(styles.wrapper)}>
       <div
         {...getRootProps()}
-        className={`${styles.photoUpload} ${previewUrl ? styles.filled : ""} ${
-          isDragActive ? styles.dragActive : ""
-        }`}
+        className={clsx(
+          `${styles.photoUpload} ${errors?.photo && styles.errorUpload} ${previewUrl ? styles.filled : ""} ${
+            isDragActive ? styles.dragActive : ""
+          }`,
+        )}
       >
         {previewUrl ? (
-          <img src={previewUrl} alt="Preview" className={styles.preview} />
+          <img src={previewUrl} alt="Preview" className={clsx(styles.preview)} />
         ) : (
-          <div className={styles.labelWrapper}>
+          <div className={clsx(styles.labelWrapper)}>
             <Icon name="framed-camera" width={50} height={50} />
-            <span className={styles.uploadText}>Upload a photo</span>
+            <span className={clsx(styles.uploadText)}>Upload a photo</span>
           </div>
         )}
         <input {...getInputProps()} id="photo-upload" className={styles.fileInput} />
-        {localError && <span className={styles.error}>{localError}</span>}
-        {errors?.photo && <span className={styles.error}>{errors.photo.message}</span>}
+        {localError && <span className={clsx(styles.error)}>{localError}</span>}
+        {errors?.photo && <span className={clsx(styles.error)}>{errors.photo.message}</span>}
       </div>
 
       {previewUrl && (
-        <label htmlFor="photo-upload" className={styles.reupload}>
+        <label htmlFor="photo-upload" className={clsx(styles.reupload)}>
           Upload another photo
         </label>
       )}

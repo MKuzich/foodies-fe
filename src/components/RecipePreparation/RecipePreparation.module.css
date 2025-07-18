@@ -4,15 +4,15 @@
   margin-top: 32px;
   font-weight: 800;
   font-size: 18px;
-  line-height: 133%;
+  line-height: 1.33;
   text-transform: uppercase;
   color: var(--text-color);
 }
 .description {
   font-size: 14px;
-  line-height: 143%;
+  line-height: 1.43;
   color: var(--inactive-color);
-  margin-bottom: 20px;
+  margin-bottom: 0px;
 }
 
 .favoriteBtn {
@@ -31,8 +31,9 @@
     font-size: 20px;
   }
   .description {
-    line-height: 150%;
+    line-height: 1.5;
     color: var(--text-color);
+    margin-bottom: 40px;
   }
 
   .favoriteBtn {
