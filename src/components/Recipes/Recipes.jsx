@@ -1,151 +1,120 @@
+import { useEffect, useRef, useState } from "react";
+import { useSelector } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+
+import MainTitle from "@/components/MainTitle/MainTitle";
+import Pagination from "@/components/Pagination/Pagination";
+import Subtitle from "@/components/Subtitle/Subtitle";
+import useMediaQuery from "@/hooks/useMediaQuery";
+import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
+
+import { getRecipesApi } from "../../api/recipes";
+import Icons from "../../assets/sprite.svg";
+import { selectCategoryByName } from "../../redux/categories/selectors";
 import RecipeFilters from "../RecipeFilters/RecipeFilters";
 import RecipeList from "../RecipeList/RecipeList";
 import styles from "./Recipes.module.css";
-import MainTitle from "@/components/MainTitle/MainTitle";
-import Subtitle from "@/components/Subtitle/Subtitle";
-import { useDispatch, useSelector } from "react-redux";
-import { useEffect, useRef, useState } from "react";
-import Icons from "../../assets/sprite.svg";
-// import RecipePagination from "../RecipePagination/RecipePagination";
-import Pagination from "@/components/Pagination/Pagination";
-import { useSearchParams } from "react-router-dom";
-import { isLoadingSelector, paginationSelector, recipesSelector } from "@/redux/recipes/selectors";
-import { fetchRecipes } from "@/redux/recipes/actions";
-
-import useMediaQuery from "@/hooks/useMediaQuery";
-
-import { selectCategoryByName } from "../../redux/categories/selectors";
-import { querySelector } from "@/redux/recipes/selectors";
-import { compareTwoObjectsShallow } from "@/utils/compareTwoObjects";
-import { setQuery } from "@/redux/recipes/slice";
-import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
-
 
 function Recipes() {
-    const pagination = useSelector(paginationSelector);
-    const isLoading = useSelector(isLoadingSelector);
-    const query = useSelector(querySelector);
-    const recipes = useSelector(recipesSelector); 
-
-
-
-
+  const [recipes, setRecipes] = useState([]);
+  const [pagination, setPagination] = useState({
+    total: 0,
+    page: 1,
+    limit: 10,
+    pages: null,
+  });
+  const [error, setError] = useState(null);
+  const [isLoading, setIsLoading] = useState(false);
   const recipesRef = useRef(null);
-
   const isMobile = useMediaQuery("(max-width: 374px)");
   const limitPage = isMobile ? 8 : 12;
 
-    const [searchParams, setSearchParams] = useSearchParams();
-    const [skipNextEffect, setSkipNextEffect] = useState(false);
+  const [searchParams, setSearchParams] = useSearchParams();
 
+  // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
+  useEffect(() => {
+    if (recipesRef.current) {
+      recipesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, []);
 
-  const dispatch = useDispatch();
+  useEffect(() => {
+    if (!isLoading && recipesRef.current) {
+      recipesRef.current.scrollIntoView({ behavior: "smooth" });
+    }
+  }, [pagination.page, isLoading]);
 
+  const getRecipes = async () => {
+    setIsLoading(true);
+    const params = extractParamsFromUrl(searchParams);
+    try {
+      const recipes = await getRecipesApi({ ...params, limit: limitPage });
+      setRecipes(recipes.data);
+      setPagination(recipes.pagination);
+    } catch (error) {
+      setError(error);
+    } finally {
+      setIsLoading(false);
+    }
+  };
 
-    // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
-    useEffect(() => {
-        if (recipesRef.current) {
-            recipesRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, []);
+  useEffect(() => {
+    getRecipes();
+  }, [searchParams]);
 
-    useEffect(() => {
-        if (!isLoading && recipesRef.current) {
-            recipesRef.current.scrollIntoView({ behavior: 'smooth' });
-        }
-    }, [pagination.page, isLoading]);
+  const handleBack = () => {
+    setSearchParams({});
+  };
 
+  const handlePaginationClick = (page) => {
+    if (page <= pagination.pages) {
+      const params = {};
+      if (searchParams.get("category")) params.category = searchParams.get("category");
+      if (searchParams.get("ingredient")) params.ingredient = searchParams.get("ingredient");
+      if (searchParams.get("area")) params.area = searchParams.get("area");
+      params.page = page;
 
-    useEffect(() => {
-        if (skipNextEffect) {
-            setSkipNextEffect(false);
-            return; // SKIP ITER
-        }
+      getRecipesApi({ ...params, limit: limitPage });
+      setSearchParams(params);
+    }
+  };
 
-        const params = extractParamsFromUrl(searchParams);
+  const category = useSelector(selectCategoryByName(searchParams.get("category")));
 
-        console.log("params in useEffect", params);
-        console.log("query in useEffect", query);
-        const areEqual = compareTwoObjectsShallow(params, query);
-        console.log("areEqual", areEqual);
-
-
-
-        // THIS NEED TO BE WHEN WE HAVE SEARCH PARAMS AND QUERY EQUAL OR WE HAVE EMPTY RECIPES AND WHAT TO GET BACK TO THE PREV PAGE 
-        const shouldFetch = !areEqual || recipes.length === 0;
-        if (shouldFetch) {
-            dispatch(fetchRecipes({ ...params, limit: limitPage }));
-        }
-        //THIS NEED TO BE WHEN WE LEAVE PAGE BY ID OR SOMEHOW ELSE 
-        return () => {
-            dispatch(setQuery(params));
-        };
-
-
-        // TODO: ADD DEPENDENCIES RECIPES FOR THIS USE EFFECT
-    }, [dispatch, searchParams, limitPage]);
-
-    
-
-    const handleBack = () => {
-        const params = extractParamsFromUrl(searchParams);
-
-        dispatch(setQuery(params));
-        setSkipNextEffect(true);
-        setSearchParams({});
-    };
-
-    const handlePaginationClick = (page) => {
-
-        if (page <= pagination.pages) {
-            const params = {};
-            if (searchParams.get('category')) params.category = searchParams.get('category');
-            if (searchParams.get('ingredient')) params.ingredient = searchParams.get('ingredient');
-            if (searchParams.get('area')) params.area = searchParams.get('area');
-            params.page = page;
-
-            dispatch(fetchRecipes({ ...params, limit: limitPage }));
-            dispatch(setQuery(params));
-            setSearchParams(params);
-        }
-    };
-
-    const category = useSelector(selectCategoryByName(searchParams.get('category')));
-
-    const CategoryDescription = category ? category.description : 'A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.';
-    const CategoryName = category ? category.name : 'All recipes';
-    return (
-        <div className={styles.recipesContainer} ref={recipesRef}>
-            <div className={styles.recipesBackContainer} onClick={handleBack}>
-                <button className={styles.recipesBackButton}>
-                    <svg className={styles.recipesBackIcon}>
-                        <use href={`${Icons}#icon-arrow-left`} />
-                    </svg>
-                    <p className={styles.recipesBackText}>Back</p>
-                </button>
-            </div>
-            <MainTitle>{CategoryName}</MainTitle>
-            <Subtitle style={{ maxWidth: "540px" }}>{CategoryDescription}</Subtitle>
-            <div className={styles.recipesContent}>
-                <RecipeFilters />
-                <div>
-                    <div >
-                        <RecipeList />
-                        {pagination.pages > 1 && (
-                            <Pagination
-                                currentPage={Number(pagination.page)}
-                                totalPages={Number(pagination.pages)}
-                                onClick={handlePaginationClick}
-                                borders={true}
-                                style={{ marginTop: "0" }}
-                            />
-                        )}
-                        {/* TODO: REMOVE THIS AFTER TESTING */}
-                        {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}
-                    </div>
-                </div>
-            </div>
+  const CategoryDescription = category
+    ? category.description
+    : "A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.";
+  const CategoryName = category ? category.name : "All recipes";
+  return (
+    <div className={styles.recipesContainer} ref={recipesRef}>
+      <button className={styles.recipesBackButton} onClick={handleBack}>
+        <svg className={styles.recipesBackIcon}>
+          <use href={`${Icons}#icon-arrow-left`} />
+        </svg>
+        <p className={styles.recipesBackText}>Back</p>
+      </button>
+      <MainTitle>{CategoryName}</MainTitle>
+      <Subtitle style={{ maxWidth: "540px" }}>{CategoryDescription}</Subtitle>
+      <div className={styles.recipesContent}>
+        <RecipeFilters />
+        <div>
+          <div>
+            <RecipeList recipes={recipes} isLoading={isLoading} error={error} />
+            {pagination.pages > 1 && (
+              <Pagination
+                currentPage={Number(pagination.page)}
+                totalPages={Number(pagination.pages)}
+                onClick={handlePaginationClick}
+                borders={true}
+                style={{ marginTop: "0" }}
+              />
+            )}
+            {/* TODO: REMOVE THIS AFTER TESTING */}
+            {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}
+          </div>
         </div>
+      </div>
+    </div>
   );
 }
 
