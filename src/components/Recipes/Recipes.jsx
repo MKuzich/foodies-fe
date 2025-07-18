@@ -85,6 +85,8 @@ function Recipes() {
     ? category.description
     : "A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.";
   const CategoryName = category ? category.name : "All recipes";
+
+  
   return (
     <div className={styles.recipesContainer} ref={recipesRef}>
       <button className={styles.recipesBackButton} onClick={handleBack}>

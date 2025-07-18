@@ -51,6 +51,7 @@ function CategoriesList() {
         option="All"
         name={showAll ? "Hide categories" : "All categories"}
         onClick={handleShowAll}
+        
       />
       {showAll && <CategoriesItem option="Show" name="All recipes" />}
     </ul>

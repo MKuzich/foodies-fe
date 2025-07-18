@@ -6,15 +6,6 @@ import styles from "./RecipeList.module.css";
 function RecipeList({ recipes, isLoading, error }) {
   const recipesHeight = useRef(null);
 
-  if (recipes.length === 0 && !isLoading && !error) {
-    return (
-      <div className={styles.recipeListEmpty}>
-        <h3 className={styles.recipeListTitle}>
-          Oops! We couldn't find any recipes. Please try again.
-        </h3>
-      </div>
-    );
-  }
 
   if (recipes.length === 0 && !isLoading && !error) {
     return (

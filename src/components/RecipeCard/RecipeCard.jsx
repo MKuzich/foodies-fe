@@ -9,6 +9,7 @@ import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
 import skeletonStyles from "../Skeleton/Skeleton.module.css";
 import styles from "./RecipeCard.module.css";
+import { useAuth } from "@/hooks/useAuth";
 
 const SkeletonCard = () => {
   return (
@@ -38,6 +39,7 @@ function RecipeCard({ recipe, isLoading }) {
   if (isLoading) {
     return <SkeletonCard />;
   }
+
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
