@@ -52,6 +52,7 @@
 .formGroup > label {
   font-weight: 800;
   text-transform: uppercase;
+  color: var(--title-color);
 }
 
 .titleInput {
@@ -130,7 +131,50 @@ textarea:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 14px;
+}
+
+.formCookingtime .addRecipeForm {
+  gap: 14px;
+}
+
+.minusButton
+, .plusButton {
+  width: 48px;
+  height: 48px;
+}
+
+.minusIcon, .plusIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.btnIngredient {
+  padding: 14px 20px;
   gap: 8px;
+}
+
+.dropdown, .dropdownSearch {
+  padding: 14px;
+}
+
+.trashIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.trashButton {
+  width: 48px;
+  height: 48px;
+}
+
+.btnSubmit {
+  padding: 14px 32px;
+  background-color: var(--text-color) ;
+}
+
+.btnSubmit:hover {
+  background-color: var(--title-color)
 }
 
 /* ingredientList */
@@ -203,6 +247,10 @@ textarea:focus {
   stroke: var(--title-color);
 }
 
+.iconPlus {
+  stroke: var(--title-color);
+}
+
 .error {
   color: red;
   font-size: 12px;
@@ -219,9 +267,26 @@ textarea:focus {
 }
 
 @media screen and (min-width: 768px) {
-  .formGroup > .formCategory,
-  .formGroup > .formCookingtime,
-  .formGroup > .formIngredients,
+  .titleInput {
+    font-size: 24px;
+  }
+
+  .description, .recipePreparation, .quantity, .timeInput {
+    font-size: 16px;
+  }
+
+  .category,
+  .area,
+  .cookingtime,
+  .ingredients,
+  .titleRecipePreparation,
+  .formGroup > label {
+    font-size: 20px;
+  }
+
+  .formGroup > .formCategory, 
+  .formGroup > .formCookingtime, 
+  .formGroup > .formIngredients, 
   .formGroup > .formQuantity,
   .formGroup > .formArea {
     margin-bottom: 0;
@@ -235,6 +300,17 @@ textarea:focus {
   .formQuantity,
   .textareaWrapper {
     min-height: 40px;
+  }
+
+  .minusButton
+, .plusButton {
+    width: 56px;
+    height: 56px;
+  }
+
+  .minusIcon, .plusIcon {
+    width: 24px;
+    height: 24px;
   }
 
   .formGroup.formDescription,
@@ -283,6 +359,16 @@ textarea:focus {
   .textareaWrapper {
     margin-top: 40px;
   }
+  
+  .btnIngredient {
+    padding: 16px 32px;
+  }
+
+  .dropdown, .dropdownSearch {
+    padding: 16px 18px;
+    font-size: 16px;
+    height: 56px;
+  }
 
   .formGroup.formGroupSubmit {
     margin-bottom: 0;
@@ -319,6 +405,14 @@ textarea:focus {
   .recipePreparation,
   .quantity {
     font-size: 16px;
+  }
+
+  .formCategory,
+  .formArea,
+  .formCookingtime,
+  .formIngredients,
+  .formQuantity {
+    gap: 16px;
   }
 
   .formCategoryCookingtime {
