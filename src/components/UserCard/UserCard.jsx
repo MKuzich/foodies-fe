@@ -70,7 +70,7 @@ const UserCard = ({ user }) => {
       </div>
       <ul className={css.userRecepiesTop}>
         {user.popularRecipes.slice(0, visibleCount).map((recipe) => (
-          <li>
+          <li key={recipe.id}>
             <Link to={`/recipe/${recipe.id}`} key={recipe.id} className={css.userRecepiesTopItem}>
               <img src={recipe.thumb} alt={recipe.title} className={css.userRecepiesTopItemImg} />
             </Link>
