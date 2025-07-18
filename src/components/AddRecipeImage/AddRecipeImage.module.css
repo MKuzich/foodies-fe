@@ -13,7 +13,6 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  contain: content;
 }
 
 .photoUpload > img {
@@ -62,11 +61,19 @@
   margin-bottom: 8px;
 }
 
+.errorUpload {
+  border: 1px dashed red;
+}
+
 .error {
   color: red;
   font-size: 12px;
   position: absolute;
-  top: 0;
+  background-color: #fff;
+  bottom: -8px;
+  left: 15px;
+  z-index: 1;
+  padding: 0 5px;
 }
 
 @media screen and (min-width: 768px) {

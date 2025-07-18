@@ -32,7 +32,7 @@
 }
 
 .btn.inactive:hover,
-.btn.inactive:hover {
+.btn.inactive:focus {
   color: var(--white-color);
   background-color: var(--title-color);
 }
@@ -61,4 +61,13 @@
   background-color: var(--title-color);
   color: var(--white-color);
   border-color: var(--title-color);
+}
+
+.btn[disabled],
+.btn.outlined[disabled],
+.btn.outlinedInactive[disabled] {
+  cursor: auto;
+  color: var(--white-color);
+  background-color: var(--inactive-color);
+  border-color: var(--inactive-color);
 }

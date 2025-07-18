@@ -1,15 +1,27 @@
-import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import clsx from "clsx";
-
-import styles from "./Dropdown.module.css";
+import { useEffect, useRef, useState } from "react";
 import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
+
 import { setQuery } from "@/redux/recipes/slice";
 
-const DefaultDropdownButton = ({ placeholder, selectedItems, handleToggle, ...props }) => {
+import styles from "./Dropdown.module.css";
+
+const DefaultDropdownButton = ({
+  placeholder,
+  selectedItems,
+  handleToggle,
+  className,
+  ...props
+}) => {
   return (
     <div style={{ position: "relative" }}>
-      <button type="button" className={styles.inputField} onClick={handleToggle} {...props}>
+      <button
+        type="button"
+        className={clsx(styles.inputField, className)}
+        onClick={handleToggle}
+        {...props}
+      >
         {selectedItems ? selectedItems : placeholder}
       </button>
       <svg className={styles.icon} width="20" height="20" viewBox="0 0 20 20">
@@ -38,6 +50,8 @@ function Dropdown({
   data,
   shouldSetUrl = false,
   resetSignal = false,
+  hasError = false,
+  errorMessage = "",
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -110,12 +124,13 @@ function Dropdown({
   const List = CustomList || DefaultDropdownList;
 
   return (
-    <div className={styles.inputWrapper} ref={wrapperRef}>
+    <div className={clsx(styles.inputWrapper)} ref={wrapperRef}>
       <Button
         ref={buttonRef}
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        className={clsx(!selectedItems && styles.placeholderField, hasError && styles.inputError)}
         {...props}
       />
 
@@ -124,6 +139,7 @@ function Dropdown({
           <List data={data} handleSelectItem={handleSelectItem} />
         </div>
       )}
+      {errorMessage && <span className={clsx(styles.error)}>{errorMessage}</span>}
     </div>
   );
 }
