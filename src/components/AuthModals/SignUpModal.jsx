@@ -8,6 +8,7 @@ import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 
 import { registerUser } from "../../redux/auth/actions";
+import Button from "../Button/Button";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -111,14 +112,14 @@ const SignUpModal = ({ onClose, onSwitch }) => {
                 </button>
                 {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
               </div>
-              <button
+              <Button
                 className={s.buttonSubmit}
                 type="submit"
                 onClick={(e) => e.currentTarget.blur()}
                 disabled={loading}
               >
                 Create
-              </button>
+              </Button>
             </form>
             {error && <p className={s.errorForm}>{error}</p>}
             <p className={s.bottomText} onClick={onSwitch}>

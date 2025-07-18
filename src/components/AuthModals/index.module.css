@@ -68,12 +68,18 @@
   padding: 16px;
   margin-top: 40px;
 
-  background: #050505;
+  background: var(--inactive-color);
   color: #fff;
   border-radius: 30px;
   font-weight: 700;
   text-transform: uppercase;
   cursor: pointer;
+}
+
+.buttonSubmit:hover {
+  background: var(--title-color);
+  color: var(--white-color);
+  border: 1px solid var(--title-color);
 }
 
 .buttonSubmit:disabled {
@@ -172,6 +178,7 @@
     margin-bottom: 40px;
     font-size: 28px;
   }
+
   .bottomText {
     color: #bfbebe;
   }
