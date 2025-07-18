@@ -15,19 +15,19 @@ const HeroImages = () => (
         media="(max-width: 767px)"
         type="image/webp"
         srcSet={`
-          /img/caketablet.webp 1x,
-          /img/caketablet@2x.webp 2x,
+          /img/cakedesk.webp 1x,
+          /img/cakedesk@2x.webp 2x,
         `}
       />
       <source
         media="(max-width: 1440px)"
         type="image/webp"
         srcSet={`
-          /img/panacota.webp 1x,
-          /img/panacota@2x.webp 2x,
+          /img/cakedesk.webp 1x,
+          /img/cakedesk@2x.webp 2x,
         `}
       />
-      <img src="/img/panacota.webp" alt="Panacota dessert" />
+      <img src="/img/cakedesk.webp" alt="Panacota dessert" />
     </picture>
 
     <picture className={`${styles.heroImg} ${styles.imgRight}`}>
@@ -43,19 +43,19 @@ const HeroImages = () => (
         media="(max-width: 767px)"
         type="image/webp"
         srcSet={`
-          /img/beefTablet.webp 1x,
-          /img/beefTablet@2x.webp 2x,
+          /img/beefdesk.webp 1x,
+          /img/beefdesk@2x.webp 2x,
         `}
       />
       <source
         media="(max-width: 1440px)"
         type="image/webp"
         srcSet={`
-          /img/beef.webp 1x,
-          /img/beef@2x.webp 2x,
+          /img/beefdesk.webp 1x,
+          /img/beefdesk@2x.webp 2x,
         `}
       />
-      <img src="/img/beef.webp" alt="Beef dish" />
+      <img src="/img/beefdesk.webp" alt="Beef dish" />
     </picture>
   </div>
 );
