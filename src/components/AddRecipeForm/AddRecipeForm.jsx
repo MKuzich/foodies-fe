@@ -166,7 +166,11 @@ const AddRecipeForm = () => {
     }
 
     const exists = addedIngredients.some((item) => item.id === selectedIngredient.id);
-    if (exists) return;
+    if (exists) {
+      methods.setValue("ingredients", null);
+      methods.setValue("quantity", "");
+      return toast.error("This ingredient is already in the list!");
+    }
 
     const newEntry = {
       id: selectedIngredient.id,
@@ -187,6 +191,7 @@ const AddRecipeForm = () => {
 
   const handleRemoveIngredient = (indexToRemove) => {
     const updated = addedIngredients.filter((_, index) => index !== indexToRemove);
+
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
