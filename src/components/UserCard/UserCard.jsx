@@ -64,7 +64,7 @@ const UserCard = ({ user }) => {
             onClick={handleFollowClick}
             disabled={isMe}
           >
-            {isMe ? "It's you" : isUserIsFollowed ? "Following" : "Follow"}
+            {isMe ? "It's you" : isUserIsFollowed ? "Unfollow" : "Follow"}
           </Button>
         </div>
       </div>
