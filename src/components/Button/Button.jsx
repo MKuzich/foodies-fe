@@ -10,8 +10,15 @@ const Button = ({
   inactive,
   isLink,
   appendClassName,
+  onClick,
   ...props
 }) => {
+  const handleClick = (e) => {
+    e.currentTarget.blur();
+    if (onClick) {
+      onClick(e);
+    }
+  };
   return (
     <>
       {isLink ? (
@@ -36,6 +43,7 @@ const Button = ({
             inactive && css.inactive,
             appendClassName,
           )}
+          onClick={handleClick}
           {...props}
         >
           {children}
