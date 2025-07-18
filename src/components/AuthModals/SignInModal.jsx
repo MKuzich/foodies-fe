@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import * as yup from "yup";
 
@@ -49,7 +50,14 @@ const SignInModal = ({ onClose, onSwitch }) => {
     };
   }, [onClose]);
 
-  const onSubmit = (data) => dispatch(userLogin(data));
+  const onSubmit = async (data) => {
+    const result = await dispatch(userLogin(data));
+    if (userLogin.fulfilled.match(result)) {
+      toast.success("You have been logged in, welcome back!");
+    } else {
+      toast.error(result.payload.message || "Failed to log in");
+    }
+  };
 
   const handleKeyClose = (e) => {
     if (e.key === "Escape") {

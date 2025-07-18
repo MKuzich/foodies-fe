@@ -27,6 +27,11 @@ const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
   }, [dispatch, location]);
 
   useEffect(() => {
+    if (next === "/") {
+      navigate("/");
+      dispatch(setAuthCanceled());
+    }
+
     if (authCanceled && !user && !next) {
       navigate(redirectTo);
       dispatch(setAuthCanceled());
