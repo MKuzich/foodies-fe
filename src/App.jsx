@@ -9,16 +9,15 @@ import AuthModals from "./components/AuthModals";
 import Loader from "./components/Loader/Loader";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
+import { useAuth } from "./hooks/useAuth";
 import { refreshUser } from "./redux/auth/actions";
 import { fetchFavoriteRecipes } from "./redux/recipes/actions";
-import { useAuth } from "./hooks/useAuth";
 
 const Home = lazy(() => import("./pages/HomePage/HomePage"));
 const User = lazy(() => import("./pages/UserPage/UserPage"));
 const AddRecipe = lazy(() => import("./pages/AddRecipePage/AddRecipePage"));
 const Recipe = lazy(() => import("./pages/RecipePage/RecipePage"));
 const NotFound = lazy(() => import("./pages/NotFound/NotFound"));
-const Test = lazy(() => import("./pages/TestPage/TestPage"));
 
 function App() {
   const dispatch = useDispatch();
@@ -26,7 +25,6 @@ function App() {
 
   useEffect(() => {
     dispatch(refreshUser());
-
   }, [dispatch]);
 
   useEffect(() => {
@@ -48,7 +46,6 @@ function App() {
             <Route path="/user/:id" element={<PrivateRoute component={User} />} />
             <Route path="/recipe/add" element={<PrivateRoute component={AddRecipe} />} />
             <Route path="/recipe/:id" element={<Recipe />} />
-            <Route path="/test" element={<Test />} />
             <Route path="*" element={<NotFound />} />
           </Route>
         </Routes>
