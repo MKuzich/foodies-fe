@@ -11,6 +11,7 @@ const initialState = {
   success: false,
   authModal: null,
   authCanceled: false,
+  next: null,
 };
 
 const slice = createSlice({
@@ -32,10 +33,17 @@ const slice = createSlice({
     closeModal: (state) => {
       state.authModal = null;
       state.error = null;
-      state.authCanceled = true;
+      if (state.next) {
+        state.authCanceled = true;
+      }
+      state.next = null;
     },
-    closeAuthCanceled: (state) => {
+    setAuthCanceled: (state) => {
       state.authCanceled = false;
+      state.next = null;
+    },
+    setNext: (state, { payload }) => {
+      state.next = payload;
     },
   },
   extraReducers: (builder) => {
@@ -52,6 +60,7 @@ const slice = createSlice({
         state.error = null;
         state.success = true;
         state.authModal = null;
+        state.next = null;
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
@@ -69,6 +78,7 @@ const slice = createSlice({
         state.error = null;
         state.success = true;
         state.authModal = null;
+        state.next = null;
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.loading = false;
@@ -86,6 +96,7 @@ const slice = createSlice({
         state.userToken = null;
         state.success = true;
         state.authModal = null;
+        state.next = null;
       })
       .addCase(userLogout.rejected, (state, { payload }) => {
         state.loading = false;
@@ -118,8 +129,10 @@ const slice = createSlice({
   },
 });
 
-export const { openSignIn, openSignUp, openLogout, closeModal, closeAuthCanceled } = slice.actions;
+export const { openSignIn, openSignUp, openLogout, closeModal, setNext, setAuthCanceled } =
+  slice.actions;
 export const selectCurrentUser = (state) => (state.auth.userToken ? true : false);
 export const selectUserInfo = (state) => state.auth.userInfo;
 export const selectAuthCanceled = (state) => state.auth.authCanceled;
+export const selectNext = (state) => state.auth.next;
 export default slice.reducer;

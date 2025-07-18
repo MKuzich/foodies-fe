@@ -94,6 +94,7 @@ const SignInModal = ({ onClose, onSwitch }) => {
                   {...register("password")}
                   type={showPassword ? "text" : "password"}
                   placeholder="Password"
+                  autoComplete="on"
                 />
                 <button
                   type="button"

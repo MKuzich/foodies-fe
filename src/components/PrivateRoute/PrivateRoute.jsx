@@ -1,29 +1,39 @@
 import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 
 import { useAuth } from "../../hooks/useAuth";
-import { closeAuthCanceled, openSignIn, selectAuthCanceled } from "../../redux/auth/slice";
+import {
+  openSignIn,
+  selectAuthCanceled,
+  selectNext,
+  setAuthCanceled,
+  setNext,
+} from "../../redux/auth/slice";
 
 const PrivateRoute = ({ component: Component, redirectTo = "/" }) => {
   const { user } = useAuth();
-  const authCanceled = useSelector(selectAuthCanceled);
   const dispatch = useDispatch();
+
+  const authCanceled = useSelector(selectAuthCanceled);
+  const next = useSelector(selectNext);
+
+  const location = useLocation();
   const navigate = useNavigate();
 
   useEffect(() => {
-    !user && dispatch(openSignIn());
-  }, [dispatch]);
+    !user && (dispatch(setNext(location.pathname)), dispatch(openSignIn()));
+  }, [dispatch, location]);
 
   useEffect(() => {
-    if (authCanceled && !user) {
+    if (authCanceled && !user && !next) {
       navigate(redirectTo);
-      dispatch(closeAuthCanceled());
+      dispatch(setAuthCanceled());
     }
-  }, [authCanceled, navigate, redirectTo, user]);
+  }, [authCanceled, navigate, next, user]);
 
   if (!user) {
-    return null;
+    return <h1>401 loading...</h1>;
   }
 
   return <Component />;
