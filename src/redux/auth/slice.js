@@ -95,7 +95,7 @@ const slice = createSlice({
         state.userToken = null;
         state.success = true;
         state.authModal = null;
-        state.next = null;
+        state.next = "/";
         state.authCanceled = false;
       })
       .addCase(userLogout.rejected, (state, { payload }) => {
