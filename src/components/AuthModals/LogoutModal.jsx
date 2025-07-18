@@ -41,7 +41,8 @@ const LogoutModal = ({ onClose }) => {
     }
   };
 
-  const handleLogout = async () => {
+  const handleLogout = async (e) => {
+    e.currentTarget.blur();
     const result = await dispatch(userLogout());
     if (userLogout.fulfilled.match(result)) {
       toast.success("You have been logged out, we miss you!");

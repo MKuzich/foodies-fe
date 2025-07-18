@@ -16,6 +16,11 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
     id: "",
   };
 
+  const onLogoutHandler = (e) => {
+    e.currentTarget.blur();
+    onLogout();
+  };
+
   useEffect(() => {
     if (!open) return;
     const handleClick = (e) => {
@@ -43,14 +48,17 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
           <Link
             className={clsx(css.dropdownItem, !isHome && css.dropdownItemDark)}
             to={`/user/${user.id}`}
-            onClick={() => setOpen(false)}
+            onClick={(e) => {
+              e.currentTarget.blur();
+              setOpen(false);
+            }}
           >
             PROFILE
           </Link>
           <button
             type="button"
             className={clsx(css.dropdownItem, !isHome && css.dropdownItemDark)}
-            onClick={onLogout}
+            onClick={onLogoutHandler}
           >
             LOG OUT
             <svg

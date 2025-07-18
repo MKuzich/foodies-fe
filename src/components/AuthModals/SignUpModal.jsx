@@ -111,7 +111,12 @@ const SignUpModal = ({ onClose, onSwitch }) => {
                 </button>
                 {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
               </div>
-              <button className={s.buttonSubmit} type="submit" disabled={loading}>
+              <button
+                className={s.buttonSubmit}
+                type="submit"
+                onClick={(e) => e.currentTarget.blur()}
+                disabled={loading}
+              >
                 Create
               </button>
             </form>
