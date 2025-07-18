@@ -1,6 +1,7 @@
 import { useRef } from "react";
 
 import RecipeCard from "../RecipeCard/RecipeCard";
+import { SkeletonCard } from "../RecipeCard/RecipeCard";
 import styles from "./RecipeList.module.css";
 
 function RecipeList({ recipes, isLoading, error }) {
@@ -20,7 +21,7 @@ function RecipeList({ recipes, isLoading, error }) {
   return (
     <ul className={styles.recipeList} ref={recipesHeight}>
       {isLoading
-        ? Array.from({ length: 12 }).map((_, index) => <RecipeCard key={index} isLoading />)
+        ? Array.from({ length: 12 }).map((_, index) => <SkeletonCard key={index} />)
         : recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}
     </ul>
   );

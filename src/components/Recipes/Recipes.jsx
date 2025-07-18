@@ -14,6 +14,8 @@ import { selectCategoryByName } from "../../redux/categories/selectors";
 import RecipeFilters from "../RecipeFilters/RecipeFilters";
 import RecipeList from "../RecipeList/RecipeList";
 import styles from "./Recipes.module.css";
+import { useAuth } from "@/hooks/useAuth";
+import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -25,11 +27,15 @@ function Recipes() {
   });
   const [error, setError] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
+  const { user } = useAuth();
   const recipesRef = useRef(null);
   const isMobile = useMediaQuery("(max-width: 374px)");
   const limitPage = isMobile ? 8 : 12;
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const favoriteRecipes = useSelector(favoriteRecipesSelector);
+  console.log("favoriteRecipes", favoriteRecipes);
 
   // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
   useEffect(() => {
@@ -60,7 +66,7 @@ function Recipes() {
 
   useEffect(() => {
     getRecipes();
-  }, [searchParams]);
+  }, [searchParams, user]);
 
   const handleBack = () => {
     setSearchParams({});

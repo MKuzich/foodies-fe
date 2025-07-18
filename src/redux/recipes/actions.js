@@ -21,7 +21,14 @@ export const fetchPopularRecipes = createAsyncThunk(
 
 export const fetchFavoriteRecipes = createAsyncThunk(
   "recipes/fetchFavoriteRecipes",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.auth.userToken;
+   
+    if (!token) {
+      return []; 
+    }
+
     try {
       const recipes = await getFavoriteRecipesApi();
       return recipes;
@@ -29,20 +36,13 @@ export const fetchFavoriteRecipes = createAsyncThunk(
       return rejectWithValue(err.message || "Unknown error");
     }
   },
-  {
-    condition: (_, { getState }) => {
-      const state = getState();
-      const token = state.auth.userToken;
-      return token ? true : false;
-    },
-  },
 );
 
 export const addFavoriteRecipe = createAsyncThunk(
   "recipes/addFavoriteRecipe",
-  async (recipeId, { rejectWithValue }) => {
+  async (recipe, { rejectWithValue }) => {
     try {
-      const recipes = await addFavoriteRecipeApi(recipeId);
+      const recipes = await addFavoriteRecipeApi(recipe);
       return recipes;
     } catch (err) {
       return rejectWithValue(err.message || "Unknown error");
