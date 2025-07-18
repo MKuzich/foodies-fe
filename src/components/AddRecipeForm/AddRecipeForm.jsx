@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,6 +74,10 @@ const AddRecipeForm = () => {
 
   const [resetSignal, setResetSignal] = useState(false);
 
+  useEffect(() => {
+    setTimeout(() => autoResize(true), 0); // после следующего рендера
+  }, [resetSignal]);
+
   const stepTime = 5;
   const currentTime = watch("cookingTime") || stepTime;
   const increase = () => setValue("cookingTime", currentTime + stepTime);
@@ -92,6 +96,20 @@ const AddRecipeForm = () => {
 
   const description = watch("description") || "";
   const recipePreparation = watch("recipePreparation") || "";
+
+  const textareaRef = useRef(null);
+  const autoResize = (forceReset = false) => {
+    const el = textareaRef.current;
+    if (!el) return;
+
+    if (forceReset) {
+      el.style.height = "auto";
+      return;
+    }
+
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  };
 
   const buildFormData = (data) => {
     const formData = new FormData();
@@ -166,7 +184,11 @@ const AddRecipeForm = () => {
     }
 
     const exists = addedIngredients.some((item) => item.id === selectedIngredient.id);
-    if (exists) return;
+    if (exists) {
+      methods.setValue("ingredients", null);
+      methods.setValue("quantity", "");
+      return toast.error("This ingredient is already in the list!");
+    }
 
     const newEntry = {
       id: selectedIngredient.id,
@@ -187,6 +209,7 @@ const AddRecipeForm = () => {
 
   const handleRemoveIngredient = (indexToRemove) => {
     const updated = addedIngredients.filter((_, index) => index !== indexToRemove);
+
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
@@ -216,15 +239,31 @@ const AddRecipeForm = () => {
             </div>
 
             <div className={clsx(styles.formGroup, styles.formDescription)}>
-              <div className={clsx(styles.descriptionWrapper)}>
-                <textarea
-                  id="description"
-                  className={styles.description}
+              <div
+                className={clsx(
+                  styles.descriptionWrapper,
+                  methods.formState.errors.description && styles.inputError,
+                )}
+              >
+                <Controller
                   name="description"
-                  type="text"
-                  placeholder="Enter a description of the dish"
-                  onInput={limitWordsInput}
-                  {...methods.register("description")}
+                  control={methods.control}
+                  render={({ field }) => (
+                    <textarea
+                      ref={(el) => {
+                        textareaRef.current = el;
+                        field.ref(el);
+                      }}
+                      value={field.value}
+                      onChange={(e) => {
+                        limitWordsInput(e);
+                        field.onChange(e);
+                        autoResize();
+                      }}
+                      className={clsx(styles.description)}
+                      placeholder="Enter a description of the dish"
+                    />
+                  )}
                 />
                 {methods.formState.errors.description && (
                   <span className={styles.error}>
@@ -259,6 +298,7 @@ const AddRecipeForm = () => {
                       resetSignal={resetSignal}
                       hasError={!!methods.formState.errors.category}
                       errorMessage={methods.formState.errors.category?.message}
+                      className={styles.dropdown}
                     />
                   )}
                 />
@@ -272,16 +312,16 @@ const AddRecipeForm = () => {
                     name="minus"
                     onClick={decrease}
                     disabled={currentTime <= stepTime}
-                    style={{ width: "56px", height: "56px" }}
-                    iconStyle={{ width: "24px", height: "24px" }}
+                    className={clsx(styles.minusButton)}
+                    iconClass={clsx(styles.minusIcon)}
                   />
                   <span className={clsx(styles.timeInput)}>{currentTime} min</span>
                   <IconButton
                     type="button"
                     name="plus"
                     onClick={increase}
-                    style={{ width: "56px", height: "56px" }}
-                    iconStyle={{ width: "24px", height: "24px" }}
+                    className={clsx(styles.plusButton)}
+                    iconClass={clsx(styles.plusIcon)}
                   />
                 </div>
               </div>
@@ -302,6 +342,7 @@ const AddRecipeForm = () => {
                       resetSignal={resetSignal}
                       hasError={!!methods.formState.errors.area}
                       errorMessage={methods.formState.errors.area?.message}
+                      className={styles.dropdown}
                     />
                   )}
                 />
@@ -323,6 +364,7 @@ const AddRecipeForm = () => {
                       resetSignal={resetSignal}
                       hasError={!!methods.formState.errors.ingredients}
                       errorMessage={methods.formState.errors.ingredients?.message}
+                      className={styles.dropdownSearch}
                     />
                   )}
                 />
@@ -353,13 +395,18 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup)}>
               <div className={clsx(styles.buttonGroup)}>
-                <Button type="button" outlined="true" onClick={handleAddIngredient}>
-                  Add ingredient <Icon name="plus" width={20} height={20} />
+                <Button
+                  type="button"
+                  outlined="true"
+                  onClick={handleAddIngredient}
+                  appendClassName={clsx(styles.btnIngredient)}
+                >
+                  Add ingredient <Icon name="plus" className={clsx(styles.iconPlus)} />
                 </Button>
               </div>
             </div>
 
-            {addedIngredients.length > 0 && (
+            {addedIngredients.length > 0 ? (
               <div className={clsx(styles.formGroup)}>
                 <div className={clsx(styles.ingredientList)}>
                   {addedIngredients.map((item, index) => (
@@ -371,11 +418,13 @@ const AddRecipeForm = () => {
                       >
                         <Icon name="x" width={16} height={16} />
                       </button>
-                      <img
-                        src={item.preview}
-                        alt={item.name}
-                        className={clsx(styles.ingredientImage)}
-                      />
+                      <div className={clsx(styles.ingredientImageWrapper)}>
+                        <img
+                          src={item.preview}
+                          alt={item.name}
+                          className={clsx(styles.ingredientImage)}
+                        />
+                      </div>
                       <div className={clsx(styles.ingredientDetails)}>
                         <span className={clsx(styles.ingredientName)}>{item.name}</span>
                         <span className={clsx(styles.ingredientQty)}>{item.quantity}</span>
@@ -383,13 +432,15 @@ const AddRecipeForm = () => {
                     </div>
                   ))}
                 </div>
-
-                {methods.formState.errors.ingredientsList && (
+              </div>
+            ) : (
+              methods.formState.errors.ingredientsList?.message && (
+                <div className={clsx(styles.formGroup)}>
                   <span className={clsx(styles.error)}>
                     {methods.formState.errors.ingredientsList.message}
                   </span>
-                )}
-              </div>
+                </div>
+              )
             )}
 
             <div className={clsx(styles.formGroup, styles.formRecipePreparation)}>
@@ -399,15 +450,31 @@ const AddRecipeForm = () => {
                 </span>
               )}
               <span className={clsx(styles.titleRecipePreparation)}>Recipe Preparation</span>
-              <div className={clsx(styles.textareaWrapper)}>
-                <textarea
-                  id="recipePreparation"
-                  className={clsx(styles.recipePreparation)}
-                  name="recipePreparation"
-                  type="text"
-                  placeholder="Enter recipe"
-                  onInput={limitWordsInput}
-                  {...methods.register("recipePreparation")}
+              <div
+                className={clsx(
+                  styles.textareaWrapper,
+                  methods.formState.errors.title && styles.inputError,
+                )}
+              >
+                <Controller
+                  name="description"
+                  control={methods.control}
+                  render={({ field }) => (
+                    <textarea
+                      ref={(el) => {
+                        textareaRef.current = el;
+                        field.ref(el);
+                      }}
+                      value={field.value}
+                      onChange={(e) => {
+                        limitWordsInput(e);
+                        field.onChange(e);
+                        autoResize();
+                      }}
+                      className={clsx(styles.recipePreparation)}
+                      placeholder="Enter recipe"
+                    />
+                  )}
                 />
                 <span className={clsx(styles.wordsCounterInside)}>
                   <span
@@ -426,11 +493,11 @@ const AddRecipeForm = () => {
                 <IconButton
                   type="button"
                   name="trash"
+                  className={clsx(styles.trashButton)}
+                  iconClass={clsx(styles.trashIcon)}
                   onClick={handleReset}
-                  style={{ width: "48px", height: "48px" }}
-                  iconStyle={{ width: "20px", height: "20px" }}
                 />
-                <Button type="submit" disabled={loading}>
+                <Button type="submit" disabled={loading} appendClassName={clsx(styles.btnSubmit)}>
                   Publish
                 </Button>
               </div>

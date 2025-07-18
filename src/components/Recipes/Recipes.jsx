@@ -8,10 +8,10 @@ import Subtitle from "@/components/Subtitle/Subtitle";
 import { useAuth } from "@/hooks/useAuth";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
-
 import { getRecipesApi } from "../../api/recipes";
 import Icons from "../../assets/sprite.svg";
 import { selectCategoryByName } from "../../redux/categories/selectors";
+import Meta from "../Meta/Meta";
 import RecipeFilters from "../RecipeFilters/RecipeFilters";
 import RecipeList from "../RecipeList/RecipeList";
 import styles from "./Recipes.module.css";
@@ -89,22 +89,23 @@ function Recipes() {
   const CategoryName = category ? category.name : "All recipes";
 
   return (
-    <div className={styles.recipesContainer} ref={recipesRef}>
-      <button className={styles.recipesBackButton} onClick={handleBack}>
-        <svg className={styles.recipesBackIcon}>
-          <use href={`${Icons}#icon-arrow-left`} />
-        </svg>
-        <p className={styles.recipesBackText}>Back</p>
-      </button>
-      <MainTitle>{CategoryName}</MainTitle>
-      <Subtitle style={{ maxWidth: "540px" }}>{CategoryDescription}</Subtitle>
-      <div className={styles.recipesContent}>
-        <RecipeFilters />
-        <div>
+    <>
+      <Meta title={CategoryName} description={CategoryDescription} />
+      <div className={styles.recipesContainer} ref={recipesRef}>
+        <button className={styles.recipesBackButton} onClick={handleBack}>
+          <svg className={styles.recipesBackIcon}>
+            <use href={`${Icons}#icon-arrow-left`} />
+          </svg>
+          <p className={styles.recipesBackText}>Back</p>
+        </button>
+        <MainTitle>{CategoryName}</MainTitle>
+        <Subtitle style={{ maxWidth: "540px" }}>{CategoryDescription}</Subtitle>
+        <div className={styles.recipesContent}>
+          <RecipeFilters />
           <div>
-            <RecipeList recipes={recipes} isLoading={isLoading} error={error} />
-            {pagination.pages > 1 && (
-              <div className={styles.paginationWrapper}>
+            <div>
+              <RecipeList recipes={recipes} isLoading={isLoading} error={error} />
+              {pagination.pages > 1 && (
                 <Pagination
                   currentPage={Number(pagination.page)}
                   totalPages={Number(pagination.pages)}
@@ -112,14 +113,14 @@ function Recipes() {
                   borders={true}
                   style={{ marginTop: "0" }}
                 />
-              </div>
-            )}
-            {/* TODO: REMOVE THIS AFTER TESTING */}
-            {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}
+              )}
+              {/* TODO: REMOVE THIS AFTER TESTING */}
+              {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </>
   );
 }
 

@@ -4,7 +4,7 @@ const AuthLoader = () => {
   return (
     <Container>
       <div className={css.loaderWrapper}>
-        <span className={css.loader}>Authenticating...</span>
+        <span className={css.loader}></span>
       </div>
     </Container>
   );

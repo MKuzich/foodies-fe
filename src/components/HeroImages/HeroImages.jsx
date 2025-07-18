@@ -2,28 +2,61 @@ import styles from "./HeroImages.module.css";
 
 const HeroImages = () => (
   <div className={styles.images}>
-    <img
-      src="/img/panacota.webp"
-      srcSet="
-        /img/panacota.webp 1x,
-        /img/panacota@2x.webp 2x,
-        /img/panacota@3x.webp 3x
-      "
-      type="image/webp"
-      alt="Panacota dessert"
-      className={`${styles.heroImg} ${styles.imgLeft}`}
-    />
-    <img
-      src="/img/beef.webp"
-      srcSet="
-        /img/beef.webp 1x,
-        /img/beef@2x.webp 2x,
-        /img/beef@3x.webp 3x
-      "
-      type="image/webp"
-      alt="Beef dish"
-      className={`${styles.heroImg} ${styles.imgRight}`}
-    />
+    <picture className={`${styles.heroImg} ${styles.imgLeft}`}>
+      <source
+        media="(max-width: 375px)"
+        type="image/webp"
+        srcSet={`
+          /img/cakemob.webp 1x,
+          /img/cakemob@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 767px)"
+        type="image/webp"
+        srcSet={`
+          /img/cakedesk.webp 1x,
+          /img/cakedesk@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 1440px)"
+        type="image/webp"
+        srcSet={`
+          /img/cakedesk.webp 1x,
+          /img/cakedesk@2x.webp 2x,
+        `}
+      />
+      <img src="/img/cakedesk.webp" alt="Panacota dessert" />
+    </picture>
+
+    <picture className={`${styles.heroImg} ${styles.imgRight}`}>
+      <source
+        media="(max-width: 375px)"
+        type="image/webp"
+        srcSet={`
+          /img/beefmob.webp 1x,
+          /img/beefmob@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 767px)"
+        type="image/webp"
+        srcSet={`
+          /img/beefdesk.webp 1x,
+          /img/beefdesk@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 1440px)"
+        type="image/webp"
+        srcSet={`
+          /img/beefdesk.webp 1x,
+          /img/beefdesk@2x.webp 2x,
+        `}
+      />
+      <img src="/img/beefdesk.webp" alt="Beef dish" />
+    </picture>
   </div>
 );
 

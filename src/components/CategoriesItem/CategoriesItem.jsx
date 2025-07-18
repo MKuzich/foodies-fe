@@ -1,19 +1,22 @@
 import clsx from "clsx";
+import { useRef } from "react";
 import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
+
 import Icons from "@/assets/sprite.svg";
 import { setShowAllRecipes } from "@/redux/recipes/slice";
-import { useRef } from "react";
+
 import styles from "./CategoriesItem.module.css";
 
-function CategoriesItem({ id, name, description, option = "category", onClick }) {
+function CategoriesItem({ name, option = "category", onClick }) {
   const dispatch = useDispatch();
-  const [searchParams, setSearchParams] = useSearchParams();
+  const [, setSearchParams] = useSearchParams();
   const allCategoriesButtonRef = useRef(null);
 
   const image = `/categories/${name}.webp`;
 
-  const handleClick = () => {
+  const handleClick = (e) => {
+    e.currentTarget.blur();
     if (option === "All") {
       onClick();
       allCategoriesButtonRef.current.blur();
@@ -49,7 +52,6 @@ function CategoriesItem({ id, name, description, option = "category", onClick })
                         )`,
         }}
         loading="lazy"
-       
       >
         <div className={styles.categoriesTitleContainer}>
           <p className={styles.categoriesTitle}>{name}</p>

@@ -1,4 +1,5 @@
 .wrapper{
+  position: relative;
   margin-bottom: 80px;
 }
 .photoUpload {
@@ -13,6 +14,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .photoUpload > img {
@@ -40,7 +42,24 @@
   height: 100%;
 }
 
+.photoUpload .labelWrapper {
+  gap: 8px;
+}
+
+.iconCamera {
+    width: 50px;
+    height: 50px;
+  }
+
 .uploadText {
+  text-decoration: underline;
+  font-size: 14px;
+  color: var(--title-color);
+}
+
+.reupload {
+  margin-top: 16px;
+  display: block;
   text-decoration: underline;
   font-size: 14px;
   color: var(--title-color);
@@ -54,11 +73,9 @@
   text-align: start;
 }
 
-.icon {
-  width: 50px;
-  height: 50px;
-  fill: #bfbebe;
-  margin-bottom: 8px;
+.iconCamera {
+  width: 64px;
+  height: 64px;
 }
 
 .errorUpload {
@@ -83,11 +100,18 @@
     aspect-ratio: 704 / 400;
     margin-bottom: 20px;
   }
+  
+  .photoUpload .labelWrapper {
+    gap: 16px;
+  }
 
-  .icon {
+  .iconCamera {
     width: 64px;
     height: 64px;
-    margin-bottom: 16px;
+  }
+
+  .uploadText {
+    font-size: 16px;
   }
 }
 
@@ -98,9 +122,12 @@
     margin-bottom: 20px;
   }
 
-  .icon {
+  .photoUpload .labelWrapper {
+    gap: 16px;
+  }
+
+  .iconCamera {
     width: 64px;
     height: 64px;
-    margin-bottom: 16px;
   }
 }

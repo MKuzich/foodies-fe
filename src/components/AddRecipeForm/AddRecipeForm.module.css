@@ -52,6 +52,7 @@
 .formGroup > label {
   font-weight: 800;
   text-transform: uppercase;
+  color: var(--title-color);
 }
 
 .titleInput {
@@ -130,7 +131,50 @@ textarea:focus {
   display: flex;
   justify-content: center;
   align-items: center;
+  gap: 14px;
+}
+
+.formCookingtime .addRecipeForm {
+  gap: 14px;
+}
+
+.minusButton
+, .plusButton {
+  width: 48px;
+  height: 48px;
+}
+
+.minusIcon, .plusIcon {
+  width: 16px;
+  height: 16px;
+}
+
+.btnIngredient {
+  padding: 14px 20px;
   gap: 8px;
+}
+
+.dropdown, .dropdownSearch {
+  padding: 14px;
+}
+
+.trashIcon {
+  width: 20px;
+  height: 20px;
+}
+
+.trashButton {
+  width: 48px;
+  height: 48px;
+}
+
+.btnSubmit {
+  padding: 14px 32px;
+  background-color: var(--text-color) ;
+}
+
+.btnSubmit:hover {
+  background-color: var(--title-color)
 }
 
 /* ingredientList */
@@ -144,29 +188,57 @@ textarea:focus {
 @media screen and (min-width: 768px) {
   .ingredientList {
     grid-template-columns: repeat(3, 1fr);
-    gap: 28px;
+    gap: 20px;
   }
 }
 
 .ingredientCard {
+  display: grid;
   position: relative;
-  display: flex;
   align-items: center;
   gap: 10px;
-}
-
-.ingredientImage {
-  width: 75px;
-  height: 75px;
-  object-fit: cover;
-  border: 1px solid var(--inactive-color);
-  border-radius: 15px;
+  width: 155px;
+  grid-template-columns: repeat(2, 1fr);
 }
 
 @media screen and (min-width: 768px) {
-  .ingredientImage {
+  .ingredientCard {
+    display: grid;
+    position: relative;
+    align-items: center;
+    gap: 10px;
+    width: 178px;
+  }
+}
+
+.ingredientImageWrapper {
+  position: relative;
+  width: 75px;
+  height: 75px;
+  overflow: hidden;
+  border-radius: 15px;
+  border: 1px solid var(--inactive-color);
+  border-radius: 15px;
+  padding: 10px;
+}
+
+.ingredientImage {
+  width: 55px;
+  height: 55px;
+  object-fit: cover;
+}
+
+@media screen and (min-width: 768px) {
+  .ingredientImageWrapper {
+    position: relative;
     width: 90px;
     height: 90px;
+    border-radius: 15px;
+    padding: 15px;
+  }
+  .ingredientImage {
+    width: 60px;
+    height: 60px;
   }
 }
 
@@ -187,10 +259,18 @@ textarea:focus {
 .ingredientName {
   font-weight: 500;
   color: var(--title-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+  white-space: nowrap;
 }
 
 .ingredientQty {
   color: var(--inactive-color);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 60px;
+  white-space: nowrap;
 }
 
 .removeButton {
@@ -200,6 +280,10 @@ textarea:focus {
   border: none;
   background: none;
   cursor: pointer;
+  stroke: var(--title-color);
+}
+
+.iconPlus {
   stroke: var(--title-color);
 }
 
@@ -219,9 +303,26 @@ textarea:focus {
 }
 
 @media screen and (min-width: 768px) {
-  .formGroup > .formCategory,
-  .formGroup > .formCookingtime,
-  .formGroup > .formIngredients,
+  .titleInput {
+    font-size: 24px;
+  }
+
+  .description, .recipePreparation, .quantity, .timeInput {
+    font-size: 16px;
+  }
+
+  .category,
+  .area,
+  .cookingtime,
+  .ingredients,
+  .titleRecipePreparation,
+  .formGroup > label {
+    font-size: 20px;
+  }
+
+  .formGroup > .formCategory, 
+  .formGroup > .formCookingtime, 
+  .formGroup > .formIngredients, 
   .formGroup > .formQuantity,
   .formGroup > .formArea {
     margin-bottom: 0;
@@ -235,6 +336,17 @@ textarea:focus {
   .formQuantity,
   .textareaWrapper {
     min-height: 40px;
+  }
+
+  .minusButton
+, .plusButton {
+    width: 56px;
+    height: 56px;
+  }
+
+  .minusIcon, .plusIcon {
+    width: 24px;
+    height: 24px;
   }
 
   .formGroup.formDescription,
@@ -283,6 +395,16 @@ textarea:focus {
   .textareaWrapper {
     margin-top: 40px;
   }
+  
+  .btnIngredient {
+    padding: 16px 32px;
+  }
+
+  .dropdown, .dropdownSearch {
+    padding: 16px 18px;
+    font-size: 16px;
+    height: 56px;
+  }
 
   .formGroup.formGroupSubmit {
     margin-bottom: 0;
@@ -319,6 +441,14 @@ textarea:focus {
   .recipePreparation,
   .quantity {
     font-size: 16px;
+  }
+
+  .formCategory,
+  .formArea,
+  .formCookingtime,
+  .formIngredients,
+  .formQuantity {
+    gap: 16px;
   }
 
   .formCategoryCookingtime {

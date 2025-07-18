@@ -8,7 +8,8 @@ import Recipes from "@/components/Recipes/Recipes";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
 
-import styles from "./HomePage.module.css";
+import Meta from "@/components/Meta/Meta";
+
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -27,21 +28,28 @@ const HomePage = () => {
   }, [searchParams]);
 
   return (
-    <div>
-      <Hero />
-      <Container>
-        {isSearchParams ? (
-          <Recipes />
-        ) : (
-          <>
-            <Categories />
-          </>
-        )}
-        <div className={styles.testimonialsWrapper}>
-          <Testimonials />
-        </div>
-      </Container>
-    </div>
+    <>
+
+      <Meta
+        title="Categories"
+        description="Explore a variety of delicious recipes across different categories."
+      />
+      <div>
+        <Hero />
+        <Container>
+          {isSearchParams ? (
+            <Recipes />
+          ) : (
+            <>
+              <Categories />
+            </>
+          )}
+          <div className={styles.testimonialsWrapper}>
+            <Testimonials />
+          </div>
+        </Container>
+      </div>
+    </>
   );
 };
 

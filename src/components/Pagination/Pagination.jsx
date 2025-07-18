@@ -1,13 +1,22 @@
 import clsx from "clsx";
+import { useSelector } from "react-redux";
 
+import { selectLoading } from "../../redux/root/selectors";
 import css from "./Pagination.module.css";
 
-const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
+const Pagination = ({ currentPage, totalPages, onClick, borders, style, isLoading }) => {
+  const loading = useSelector(selectLoading);
+  const btnClassName = clsx(
+    css.button,
+    borders && css.borders,
+    isLoading || (loading && css.loading),
+  );
   return (
     <div className={css.pagination} style={style}>
       {/* first button disabled when currentPage is 1, and shows always */}
       <button
-        className={clsx(css.button, borders && css.borders, currentPage === 1 && css.active)}
+        className={clsx(btnClassName, currentPage === 1 && css.active)}
+        key={`first-button-${currentPage}`}
         onClick={() => onClick(1)}
         disabled={currentPage === 1}
       >
@@ -19,11 +28,8 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
       {currentPage > 2 && (
         <>
           <button
-            className={clsx(
-              css.button,
-              borders && css.borders,
-              currentPage === currentPage - 1 && css.active,
-            )}
+            className={clsx(btnClassName, currentPage === currentPage - 1 && css.active)}
+            key={currentPage - 1}
             onClick={() => onClick(currentPage - 1)}
           >
             {currentPage - 1}
@@ -33,7 +39,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
       {/* show current page button  if currentPage is not first or last page */}
       {currentPage > 1 && currentPage < totalPages && (
         <>
-          <button className={clsx(css.button, css.active)} disabled>
+          <button className={clsx(btnClassName, css.active)} key={currentPage} disabled>
             {currentPage}
           </button>
         </>
@@ -42,11 +48,8 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
       {currentPage + 1 < totalPages && (
         <>
           <button
-            className={clsx(
-              css.button,
-              borders && css.borders,
-              currentPage === currentPage + 1 && css.active,
-            )}
+            className={clsx(btnClassName, currentPage === currentPage + 1 && css.active)}
+            key={currentPage + 1}
             onClick={() => onClick(currentPage + 1)}
           >
             {currentPage + 1}
@@ -58,11 +61,8 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
       {currentPage + 2 < totalPages && <span className={css.ellipsis}>...</span>}
       {(currentPage === totalPages || totalPages >= 2) && (
         <button
-          className={clsx(
-            css.button,
-            borders && css.borders,
-            currentPage === totalPages && css.active,
-          )}
+          className={clsx(btnClassName, currentPage === totalPages && css.active)}
+          key={`last-button-${totalPages}`}
           onClick={() => onClick(totalPages)}
           disabled={currentPage === totalPages}
         >
