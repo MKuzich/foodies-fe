@@ -8,10 +8,14 @@
   flex-direction: column;
   gap: 32px;
 
+  @media screen and (min-width: 768px) {
+    gap: 40px;
+  }
+
   @media screen and (min-width: 1440px) {
     display: grid;
     grid-template-columns: 330px 1fr;
-    gap: 40px;
+    
   }
 }
 
@@ -71,5 +75,13 @@
   @media screen and (min-width: 768px) {
     font-size: 14px;
     line-height: 1.28;
+  }
+}
+
+.paginationWrapper {
+  margin-top: 32px;
+
+  @media screen and (min-width: 768px) {
+    margin-top: 60px;
   }
 }

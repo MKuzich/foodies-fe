@@ -7,9 +7,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import Subtitle from "@/components/Subtitle/Subtitle";
 import { useAuth } from "@/hooks/useAuth";
 import useMediaQuery from "@/hooks/useMediaQuery";
-import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
 import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
-
 import { getRecipesApi } from "../../api/recipes";
 import Icons from "../../assets/sprite.svg";
 import { selectCategoryByName } from "../../redux/categories/selectors";
@@ -34,9 +32,6 @@ function Recipes() {
   const limitPage = isMobile ? 8 : 12;
 
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const favoriteRecipes = useSelector(favoriteRecipesSelector);
-  console.log("favoriteRecipes", favoriteRecipes);
 
   // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
   useEffect(() => {

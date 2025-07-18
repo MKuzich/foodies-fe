@@ -23,7 +23,6 @@ function Testimonials() {
   }, []);
 
   const value = isMobile ? 64 : 80;
-  console.log(value);
   return (
     <div className={styles.testimonialsContainer}>
       <p className={styles.testimonialsSubtitle}>What our customer say</p>
