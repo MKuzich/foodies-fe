@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import api from "../../api/api";
@@ -12,19 +13,16 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const isLoggedIn = useSelector(selectCurrentUser);
 
   const [isFavorite, setIsFavorite] = useState(recipe.isFavorite);
-  const [, setLoading] = useState(false);
-  const [, setError] = useState(null);
+  const [loading, setLoading] = useState(false);
 
   const handleFavoriteToggle = async () => {
     if (!isLoggedIn) {
       dispatch(openSignIn());
       return;
     }
+    setLoading(true);
 
     try {
-      setLoading(true);
-      setError(null);
-
       if (isFavorite) {
         await api.delete(`recipes/${recipe.id}/favorite`);
         setIsFavorite(false);
@@ -33,7 +31,7 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
         setIsFavorite(true);
       }
     } catch (err) {
-      setError(err.response?.data?.message || "Something went wrong");
+      toast.error(err.response?.data?.message || "Something went wrong");
     } finally {
       setLoading(false);
     }

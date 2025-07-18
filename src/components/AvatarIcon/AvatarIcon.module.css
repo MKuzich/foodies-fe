@@ -52,3 +52,7 @@
     font-size: 90px;
   }
 }
+
+.link {
+  flex-shrink: 0;
+}

@@ -1,20 +1,62 @@
-import React from "react";
 import styles from "./HeroImages.module.css";
 
 const HeroImages = () => (
   <div className={styles.images}>
-    <img
-      src="/img/panacota.png"
-      srcSet="/img/panacota.png 1x, /img/panacota@2x.png 2x, /img/panacota@3x.png 3x"
-      alt="Panacota dessert"
-      className={`${styles.heroImg} ${styles.imgLeft}`}
-    />
-    <img
-      src="/img/beef.png"
-      srcSet="/img/beef.png 1x, /img/beef@2x.png 2x, /img/beef@3x.png 3x"
-      alt="Beef dish"
-      className={`${styles.heroImg} ${styles.imgRight}`}
-    />
+    <picture className={`${styles.heroImg} ${styles.imgLeft}`}>
+      <source
+        media="(max-width: 375px)"
+        type="image/webp"
+        srcSet={`
+          /img/cakemob.webp 1x,
+          /img/cakemob@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 767px)"
+        type="image/webp"
+        srcSet={`
+          /img/caketablet.webp 1x,
+          /img/caketablet@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 1440px)"
+        type="image/webp"
+        srcSet={`
+          /img/panacota.webp 1x,
+          /img/panacota@2x.webp 2x,
+        `}
+      />
+      <img src="/img/panacota.webp" alt="Panacota dessert" />
+    </picture>
+
+    <picture className={`${styles.heroImg} ${styles.imgRight}`}>
+      <source
+        media="(max-width: 375px)"
+        type="image/webp"
+        srcSet={`
+          /img/beefmob.webp 1x,
+          /img/beefmob@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 767px)"
+        type="image/webp"
+        srcSet={`
+          /img/beefTablet.webp 1x,
+          /img/beefTablet@2x.webp 2x,
+        `}
+      />
+      <source
+        media="(max-width: 1440px)"
+        type="image/webp"
+        srcSet={`
+          /img/beef.webp 1x,
+          /img/beef@2x.webp 2x,
+        `}
+      />
+      <img src="/img/beef.webp" alt="Beef dish" />
+    </picture>
   </div>
 );
 

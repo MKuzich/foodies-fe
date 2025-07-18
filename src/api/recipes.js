@@ -1,17 +1,16 @@
 import api from "./api";
 
-export const getRecipesApi = async (category, page = 1, ingredient, area, limit = 8) => {
+export const getRecipesApi = async ({ category, page, ingredient, area, limit }) => {
   try {
     const response = await api.get(`recipes`, {
       params: {
         category,
         page,
-        limit,
         ingredient,
         area,
+        limit,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("Error fetching recipes:", error);
@@ -39,11 +38,11 @@ export const getFavoriteRecipesApi = async () => {
   }
 };
 
-export const addFavoriteRecipeApi = async (recipeId) => {
+export const addFavoriteRecipeApi = async (recipe) => {
   try {
-    const response = await api.post(`recipes/${recipeId}/favorite`);
+    const response = await api.post(`recipes/${recipe.id}/favorite`);
     if (response.status === 201) {
-      return recipeId;
+      return recipe;
     }
   } catch (error) {
     console.error("Error adding favorite recipe:", error);

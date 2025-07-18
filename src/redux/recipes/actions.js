@@ -1,20 +1,11 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getPopularRecipesApi, getRecipesApi, getFavoriteRecipesApi, addFavoriteRecipeApi, removeFavoriteRecipeApi } from "../../api/recipes";
-
-export const fetchRecipes = createAsyncThunk(
-  "recipes/fetchRecipes",
-  async ({ category, page, ingredient, area, limit }, { rejectWithValue }) => {
-    try {
-      console.log("fetching recipes", category, page, ingredient, area, limit);
-      const recipes = await getRecipesApi(category, page, ingredient, area, limit);
-      console.log("recipes", recipes);
-      return recipes;
-    } catch (err) {
-      return rejectWithValue(err.message || "Unknown error");
-    }
-  },
-);
+import {
+  addFavoriteRecipeApi,
+  getFavoriteRecipesApi,
+  getPopularRecipesApi,
+  removeFavoriteRecipeApi,
+} from "../../api/recipes";
 
 export const fetchPopularRecipes = createAsyncThunk(
   "recipes/fetchPopularRecipes",
@@ -30,7 +21,14 @@ export const fetchPopularRecipes = createAsyncThunk(
 
 export const fetchFavoriteRecipes = createAsyncThunk(
   "recipes/fetchFavoriteRecipes",
-  async (_, { rejectWithValue }) => {
+  async (_, { rejectWithValue, getState }) => {
+    const state = getState();
+    const token = state.auth.userToken;
+   
+    if (!token) {
+      return []; 
+    }
+
     try {
       const recipes = await getFavoriteRecipesApi();
       return recipes;
@@ -42,9 +40,9 @@ export const fetchFavoriteRecipes = createAsyncThunk(
 
 export const addFavoriteRecipe = createAsyncThunk(
   "recipes/addFavoriteRecipe",
-  async (recipeId, { rejectWithValue }) => {
+  async (recipe, { rejectWithValue }) => {
     try {
-      const recipes = await addFavoriteRecipeApi(recipeId);
+      const recipes = await addFavoriteRecipeApi(recipe);
       return recipes;
     } catch (err) {
       return rejectWithValue(err.message || "Unknown error");

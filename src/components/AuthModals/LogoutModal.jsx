@@ -1,6 +1,7 @@
 import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
@@ -40,7 +41,14 @@ const LogoutModal = ({ onClose }) => {
     }
   };
 
-  const handleLogout = () => dispatch(userLogout());
+  const handleLogout = async () => {
+    const result = await dispatch(userLogout());
+    if (userLogout.fulfilled.match(result)) {
+      toast.success("You have been logged out, we miss you!");
+    } else {
+      toast.error(result.payload.message || "Failed to log out");
+    }
+  };
 
   return (
     <ModalPortal>

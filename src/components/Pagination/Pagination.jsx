@@ -8,6 +8,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
       {/* first button disabled when currentPage is 1, and shows always */}
       <button
         className={clsx(css.button, borders && css.borders, currentPage === 1 && css.active)}
+        key={`first-button-${currentPage}`}
         onClick={() => onClick(1)}
         disabled={currentPage === 1}
       >
@@ -24,6 +25,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
               borders && css.borders,
               currentPage === currentPage - 1 && css.active,
             )}
+            key={currentPage - 1}
             onClick={() => onClick(currentPage - 1)}
           >
             {currentPage - 1}
@@ -33,7 +35,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
       {/* show current page button  if currentPage is not first or last page */}
       {currentPage > 1 && currentPage < totalPages && (
         <>
-          <button className={clsx(css.button, css.active)} disabled>
+          <button className={clsx(css.button, css.active)} key={currentPage} disabled>
             {currentPage}
           </button>
         </>
@@ -47,6 +49,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
               borders && css.borders,
               currentPage === currentPage + 1 && css.active,
             )}
+            key={currentPage + 1}
             onClick={() => onClick(currentPage + 1)}
           >
             {currentPage + 1}
@@ -63,6 +66,7 @@ const Pagination = ({ currentPage, totalPages, onClick, borders, style }) => {
             borders && css.borders,
             currentPage === totalPages && css.active,
           )}
+          key={`last-button-${totalPages}`}
           onClick={() => onClick(totalPages)}
           disabled={currentPage === totalPages}
         >

@@ -13,7 +13,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  contain: content;
+  overflow: hidden;
 }
 
 .photoUpload > img {
@@ -41,7 +41,24 @@
   height: 100%;
 }
 
+.photoUpload .labelWrapper {
+  gap: 8px;
+}
+
+.iconCamera {
+    width: 50px;
+    height: 50px;
+  }
+
 .uploadText {
+  text-decoration: underline;
+  font-size: 14px;
+  color: var(--title-color);
+}
+
+.reupload {
+  margin-top: 16px;
+  display: block;
   text-decoration: underline;
   font-size: 14px;
   color: var(--title-color);
@@ -55,18 +72,24 @@
   text-align: start;
 }
 
-.icon {
-  width: 50px;
-  height: 50px;
-  fill: #bfbebe;
-  margin-bottom: 8px;
+.iconCamera {
+  width: 64px;
+  height: 64px;
+}
+
+.errorUpload {
+  border: 1px dashed red;
 }
 
 .error {
   color: red;
   font-size: 12px;
   position: absolute;
-  top: 0;
+  background-color: #fff;
+  bottom: -8px;
+  left: 15px;
+  z-index: 1;
+  padding: 0 5px;
 }
 
 @media screen and (min-width: 768px) {
@@ -76,11 +99,18 @@
     aspect-ratio: 704 / 400;
     margin-bottom: 20px;
   }
+  
+  .photoUpload .labelWrapper {
+    gap: 16px;
+  }
 
-  .icon {
+  .iconCamera {
     width: 64px;
     height: 64px;
-    margin-bottom: 16px;
+  }
+
+  .uploadText {
+    font-size: 16px;
   }
 }
 
@@ -91,9 +121,12 @@
     margin-bottom: 20px;
   }
 
-  .icon {
+  .photoUpload .labelWrapper {
+    gap: 16px;
+  }
+
+  .iconCamera {
     width: 64px;
     height: 64px;
-    margin-bottom: 16px;
   }
 }

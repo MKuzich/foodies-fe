@@ -1,15 +1,26 @@
-import { useEffect, useRef, useState } from "react";
-import { useSearchParams } from "react-router-dom";
 import clsx from "clsx";
+import { useEffect, useRef, useState } from "react";
+// import { useDispatch } from "react-redux";
+import { useSearchParams } from "react-router-dom";
 
+// import { setQuery } from "@/redux/recipes/slice";
 import styles from "./Dropdown.module.css";
-import { useDispatch } from "react-redux";
-import { setQuery } from "@/redux/recipes/slice";
 
-const DefaultDropdownButton = ({ placeholder, selectedItems, handleToggle, ...props }) => {
+const DefaultDropdownButton = ({
+  placeholder,
+  selectedItems,
+  handleToggle,
+  className,
+  ...props
+}) => {
   return (
     <div style={{ position: "relative" }}>
-      <button type="button" className={styles.inputField} onClick={handleToggle} {...props}>
+      <button
+        type="button"
+        className={clsx(styles.inputField, className, selectedItems && styles.inputFieldSelected)}
+        onClick={handleToggle}
+        {...props}
+      >
         {selectedItems ? selectedItems : placeholder}
       </button>
       <svg className={styles.icon} width="20" height="20" viewBox="0 0 20 20">
@@ -38,6 +49,9 @@ function Dropdown({
   data,
   shouldSetUrl = false,
   resetSignal = false,
+  hasError = false,
+  errorMessage = "",
+  className,
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -46,7 +60,6 @@ function Dropdown({
   const wrapperRef = useRef(null);
   const [buttonHeight, setButtonHeight] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -101,7 +114,6 @@ function Dropdown({
         page: 1,
         [placeholder.toLowerCase()]: item.name.split(" ").join("_"),
       });
-      dispatch(setQuery(params));
     }
     setIsOpen(false);
   };
@@ -110,12 +122,17 @@ function Dropdown({
   const List = CustomList || DefaultDropdownList;
 
   return (
-    <div className={styles.inputWrapper} ref={wrapperRef}>
+    <div className={clsx(styles.inputWrapper)} ref={wrapperRef}>
       <Button
         ref={buttonRef}
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        className={clsx(
+          className,
+          !selectedItems && styles.placeholderField,
+          hasError && styles.inputError,
+        )}
         {...props}
       />
 
@@ -124,6 +141,7 @@ function Dropdown({
           <List data={data} handleSelectItem={handleSelectItem} />
         </div>
       )}
+      {errorMessage && <span className={clsx(styles.error)}>{errorMessage}</span>}
     </div>
   );
 }

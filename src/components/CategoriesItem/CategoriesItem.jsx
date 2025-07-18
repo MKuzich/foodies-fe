@@ -3,18 +3,20 @@ import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 import Icons from "@/assets/sprite.svg";
 import { setShowAllRecipes } from "@/redux/recipes/slice";
-
+import { useRef } from "react";
 import styles from "./CategoriesItem.module.css";
 
 function CategoriesItem({ id, name, description, option = "category", onClick }) {
   const dispatch = useDispatch();
   const [searchParams, setSearchParams] = useSearchParams();
+  const allCategoriesButtonRef = useRef(null);
 
   const image = `/categories/${name}.webp`;
 
   const handleClick = () => {
     if (option === "All") {
       onClick();
+      allCategoriesButtonRef.current.blur();
     } else if (option === "Show") {
       setSearchParams({ page: 1 });
       dispatch(setShowAllRecipes(true));
@@ -47,6 +49,7 @@ function CategoriesItem({ id, name, description, option = "category", onClick })
                         )`,
         }}
         loading="lazy"
+       
       >
         <div className={styles.categoriesTitleContainer}>
           <p className={styles.categoriesTitle}>{name}</p>
@@ -61,6 +64,7 @@ function CategoriesItem({ id, name, description, option = "category", onClick })
   ) : (
     <li className={styles.categoriesContainer}>
       <button
+        ref={allCategoriesButtonRef}
         className={clsx(styles.categoriesButton, optionClassMap[option].container)}
         onClick={handleClick}
       >
