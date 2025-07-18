@@ -1,6 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 
-import { getPopularRecipesApi, getRecipesApi, getFavoriteRecipesApi, addFavoriteRecipeApi, removeFavoriteRecipeApi } from "../../api/recipes";
+import {
+  addFavoriteRecipeApi,
+  getFavoriteRecipesApi,
+  getPopularRecipesApi,
+  getRecipesApi,
+  removeFavoriteRecipeApi,
+} from "../../api/recipes";
 
 export const fetchRecipes = createAsyncThunk(
   "recipes/fetchRecipes",
@@ -37,6 +43,13 @@ export const fetchFavoriteRecipes = createAsyncThunk(
     } catch (err) {
       return rejectWithValue(err.message || "Unknown error");
     }
+  },
+  {
+    condition: (_, { getState }) => {
+      const state = getState();
+      const token = state.auth.userToken;
+      return token ? true : false;
+    },
   },
 );
 
