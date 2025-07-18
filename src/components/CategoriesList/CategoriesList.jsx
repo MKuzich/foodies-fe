@@ -1,4 +1,3 @@
-import { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import styles from "./CategoriesList.module.css";
@@ -51,6 +50,7 @@ function CategoriesList() {
         option="All"
         name={showAll ? "Hide categories" : "All categories"}
         onClick={handleShowAll}
+        
       />
       {showAll && <CategoriesItem option="Show" name="All recipes" />}
     </ul>

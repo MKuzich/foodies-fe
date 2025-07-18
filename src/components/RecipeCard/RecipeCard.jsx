@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -9,8 +9,10 @@ import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
 import skeletonStyles from "../Skeleton/Skeleton.module.css";
 import styles from "./RecipeCard.module.css";
+import { useAuth } from "@/hooks/useAuth";
+import { openSignIn } from "@/redux/auth/slice";
 
-const SkeletonCard = () => {
+export const SkeletonCard = () => {
   return (
     <li className={styles.recipeItem}>
       <div className={`${styles.recipeImage} ${skeletonStyles.skeleton}`}></div>
@@ -34,19 +36,22 @@ const SkeletonCard = () => {
   );
 };
 
-function RecipeCard({ recipe, isLoading }) {
-  if (isLoading) {
-    return <SkeletonCard />;
-  }
+function RecipeCard({ recipe
+}) {
 
   const navigate = useNavigate();
   const dispatch = useDispatch();
+  const { user } = useAuth();
+
+
 
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
 
   const [isFavorite, setIsFavorite] = useState(
     favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
   );
+
+  
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
@@ -54,13 +59,17 @@ function RecipeCard({ recipe, isLoading }) {
   const handleClickFavorite = async (e) => {
     const btn = e.currentTarget;
     btn.disabled = true;
-    if (isFavorite) {
-      await dispatch(removeFavoriteRecipe(recipe.id));
+    if (user) {
+      if (isFavorite) {
+        await dispatch(removeFavoriteRecipe(recipe.id));
+      } else {
+        await dispatch(addFavoriteRecipe(recipe));
+      }
+      setIsFavorite((prev) => !prev);
     } else {
-      await dispatch(addFavoriteRecipe(recipe.id));
+      dispatch(openSignIn());
     }
     btn.disabled = false;
-    setIsFavorite((prev) => !prev);
   };
 
   return (
