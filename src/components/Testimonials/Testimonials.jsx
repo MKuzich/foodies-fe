@@ -37,6 +37,7 @@ function Testimonials() {
         modules={[Autoplay, Pagination]}
         autoplay={{ delay: 2500, disableOnInteraction: false }}
         loop={true}
+        grabCursor={true}
         pagination={{
           clickable: true,
         }}
