@@ -20,11 +20,17 @@ const IconButton = ({
     minus: "minus",
     arrowUpRight: "arrow-up-right",
   };
+  const handleClick = (e) => {
+    e.currentTarget.blur();
+    if (onClick) {
+      onClick(e);
+    }
+  };
   return (
     <button
       {...props}
       disabled={disabled}
-      onClick={onClick}
+      onClick={handleClick}
       className={clsx(css.iconButton, className, disabled && css.disabled)}
     >
       <svg className={clsx(css.iconButtonIcon, iconClass)}>

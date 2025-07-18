@@ -15,7 +15,9 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
 
   const authorId = recipe.owner.id;
 
-  const handleAuthorClick = () => {
+  const handleAuthorClick = (e) => {
+    e.currentTarget.blur();
+
     if (!isLoggedIn) {
       dispatch(openSignIn());
     } else {

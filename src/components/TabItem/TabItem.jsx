@@ -1,6 +1,7 @@
-import css from "./TabItem.module.css";
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
+
+import css from "./TabItem.module.css";
 
 const TabItem = ({ name, onClick, isActive }) => {
   const ref = useRef(null);
@@ -14,8 +15,7 @@ const TabItem = ({ name, onClick, isActive }) => {
         inline: "center",
       });
       const currentRef = ref.current;
-      const isFirstChild =
-        currentRef === currentRef.parentElement.firstElementChild;
+      const isFirstChild = currentRef === currentRef.parentElement.firstElementChild;
 
       setIsNeedScrollToStart(false);
 
@@ -24,16 +24,14 @@ const TabItem = ({ name, onClick, isActive }) => {
   }, [isNeedScrollToStart]);
 
   const handleClick = (e) => {
+    e.currentTarget.blur();
     onClick(e);
     setIsNeedScrollToStart(true);
   };
 
   return (
     <li className={css.tabItem} ref={isNeedScrollToStart ? ref : null}>
-      <button
-        className={clsx(css.tabItemLink, isActive && css.active)}
-        onClick={handleClick}
-      >
+      <button className={clsx(css.tabItemLink, isActive && css.active)} onClick={handleClick}>
         {name}
       </button>
     </li>
