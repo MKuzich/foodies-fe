@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useCallback, useEffect, useState } from "react";
+import React, { useCallback, useEffect, useRef, useState } from "react";
 import { useDropzone } from "react-dropzone";
 import { useFormContext } from "react-hook-form";
 
@@ -16,6 +16,8 @@ const AddRecipeImage = ({ resetSignal }) => {
   const [previewUrl, setPreviewUrl] = useState(null);
   const [localError, setLocalError] = useState(null);
 
+  const uploadRef = useRef(null);
+
   useEffect(() => {
     register("photo");
   }, [register]);
@@ -31,6 +33,12 @@ const AddRecipeImage = ({ resetSignal }) => {
     setLocalError(null);
     setValue("photo", null, { shouldValidate: false });
   }, [resetSignal, setValue]);
+
+  useEffect(() => {
+    if (errors?.photo && uploadRef.current) {
+      uploadRef.current.scrollIntoView({ block: "center" });
+    }
+  }, [errors?.photo]);
 
   const onDropAccepted = useCallback(
     (acceptedFiles) => {
@@ -82,10 +90,9 @@ const AddRecipeImage = ({ resetSignal }) => {
           </div>
         )}
         <input {...getInputProps()} id="photo-upload" className={styles.fileInput} />
-        {localError && <span className={clsx(styles.error)}>{localError}</span>}
-        {errors?.photo && <span className={clsx(styles.error)}>{errors.photo.message}</span>}
       </div>
-
+      {localError && <span className={clsx(styles.error)}>{localError}</span>}
+      {errors?.photo && <span className={clsx(styles.error)}>{errors.photo.message}</span>}
       {previewUrl && (
         <label htmlFor="photo-upload" className={clsx(styles.reupload)}>
           Upload another photo
