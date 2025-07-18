@@ -1,4 +1,5 @@
 .wrapper{
+  position: relative;
   margin-bottom: 80px;
 }
 .photoUpload {
@@ -13,6 +14,7 @@
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  overflow: hidden;
 }
 
 .photoUpload > img {
@@ -50,6 +52,14 @@
   }
 
 .uploadText {
+  text-decoration: underline;
+  font-size: 14px;
+  color: var(--title-color);
+}
+
+.reupload {
+  margin-top: 16px;
+  display: block;
   text-decoration: underline;
   font-size: 14px;
   color: var(--title-color);

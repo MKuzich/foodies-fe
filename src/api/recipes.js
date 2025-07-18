@@ -38,11 +38,11 @@ export const getFavoriteRecipesApi = async () => {
   }
 };
 
-export const addFavoriteRecipeApi = async (recipeId) => {
+export const addFavoriteRecipeApi = async (recipe) => {
   try {
-    const response = await api.post(`recipes/${recipeId}/favorite`);
+    const response = await api.post(`recipes/${recipe.id}/favorite`);
     if (response.status === 201) {
-      return recipeId;
+      return recipe;
     }
   } catch (error) {
     console.error("Error adding favorite recipe:", error);

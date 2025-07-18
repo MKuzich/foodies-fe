@@ -216,10 +216,15 @@ const AddRecipeForm = () => {
             </div>
 
             <div className={clsx(styles.formGroup, styles.formDescription)}>
-              <div className={clsx(styles.descriptionWrapper)}>
+              <div
+                className={clsx(
+                  styles.descriptionWrapper,
+                  methods.formState.errors.description && styles.inputError,
+                )}
+              >
                 <textarea
                   id="description"
-                  className={styles.description}
+                  className={clsx(styles.description)}
                   name="description"
                   type="text"
                   placeholder="Enter a description of the dish"
@@ -367,7 +372,7 @@ const AddRecipeForm = () => {
               </div>
             </div>
 
-            {addedIngredients.length > 0 && (
+            {addedIngredients.length > 0 ? (
               <div className={clsx(styles.formGroup)}>
                 <div className={clsx(styles.ingredientList)}>
                   {addedIngredients.map((item, index) => (
@@ -379,11 +384,13 @@ const AddRecipeForm = () => {
                       >
                         <Icon name="x" width={16} height={16} />
                       </button>
-                      <img
-                        src={item.preview}
-                        alt={item.name}
-                        className={clsx(styles.ingredientImage)}
-                      />
+                      <div className={clsx(styles.ingredientImageWrapper)}>
+                        <img
+                          src={item.preview}
+                          alt={item.name}
+                          className={clsx(styles.ingredientImage)}
+                        />
+                      </div>
                       <div className={clsx(styles.ingredientDetails)}>
                         <span className={clsx(styles.ingredientName)}>{item.name}</span>
                         <span className={clsx(styles.ingredientQty)}>{item.quantity}</span>
@@ -391,13 +398,15 @@ const AddRecipeForm = () => {
                     </div>
                   ))}
                 </div>
-
-                {methods.formState.errors.ingredientsList && (
+              </div>
+            ) : (
+              methods.formState.errors.ingredientsList?.message && (
+                <div className={clsx(styles.formGroup)}>
                   <span className={clsx(styles.error)}>
                     {methods.formState.errors.ingredientsList.message}
                   </span>
-                )}
-              </div>
+                </div>
+              )
             )}
 
             <div className={clsx(styles.formGroup, styles.formRecipePreparation)}>
@@ -407,7 +416,12 @@ const AddRecipeForm = () => {
                 </span>
               )}
               <span className={clsx(styles.titleRecipePreparation)}>Recipe Preparation</span>
-              <div className={clsx(styles.textareaWrapper)}>
+              <div
+                className={clsx(
+                  styles.textareaWrapper,
+                  methods.formState.errors.title && styles.inputError,
+                )}
+              >
                 <textarea
                   id="recipePreparation"
                   className={clsx(styles.recipePreparation)}

@@ -59,10 +59,8 @@ const slice = createSlice({
       })
       .addCase(addFavoriteRecipe.fulfilled, (state, action) => {
         const recipeId = action.payload;
-        const recipe = state.recipes.find((recipe) => recipe.id === recipeId);
-
-        if (recipe && !state.favoriteRecipes.find((fav) => fav.id === recipeId)) {
-          state.favoriteRecipes.push({ ...recipe });
+        if (!state.favoriteRecipes.find((fav) => fav.id === recipeId)) {
+          state.favoriteRecipes.push(recipeId);
         }
       })
       .addCase(addFavoriteRecipe.rejected, (state, action) => {
