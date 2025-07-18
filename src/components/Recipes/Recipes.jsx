@@ -5,6 +5,7 @@ import { useSearchParams } from "react-router-dom";
 import MainTitle from "@/components/MainTitle/MainTitle";
 import Pagination from "@/components/Pagination/Pagination";
 import Subtitle from "@/components/Subtitle/Subtitle";
+import { useAuth } from "@/hooks/useAuth";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
 
@@ -14,8 +15,6 @@ import { selectCategoryByName } from "../../redux/categories/selectors";
 import RecipeFilters from "../RecipeFilters/RecipeFilters";
 import RecipeList from "../RecipeList/RecipeList";
 import styles from "./Recipes.module.css";
-import { useAuth } from "@/hooks/useAuth";
-import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
 
 function Recipes() {
   const [recipes, setRecipes] = useState([]);
@@ -33,9 +32,6 @@ function Recipes() {
   const limitPage = isMobile ? 8 : 12;
 
   const [searchParams, setSearchParams] = useSearchParams();
-
-  const favoriteRecipes = useSelector(favoriteRecipesSelector);
-  console.log("favoriteRecipes", favoriteRecipes);
 
   // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
   useEffect(() => {
@@ -92,7 +88,6 @@ function Recipes() {
     : "A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.";
   const CategoryName = category ? category.name : "All recipes";
 
-  
   return (
     <div className={styles.recipesContainer} ref={recipesRef}>
       <button className={styles.recipesBackButton} onClick={handleBack}>
@@ -109,13 +104,15 @@ function Recipes() {
           <div>
             <RecipeList recipes={recipes} isLoading={isLoading} error={error} />
             {pagination.pages > 1 && (
-              <Pagination
-                currentPage={Number(pagination.page)}
-                totalPages={Number(pagination.pages)}
-                onClick={handlePaginationClick}
-                borders={true}
-                style={{ marginTop: "0" }}
-              />
+              <div className={styles.paginationWrapper}>
+                <Pagination
+                  currentPage={Number(pagination.page)}
+                  totalPages={Number(pagination.pages)}
+                  onClick={handlePaginationClick}
+                  borders={true}
+                  style={{ marginTop: "0" }}
+                />
+              </div>
             )}
             {/* TODO: REMOVE THIS AFTER TESTING */}
             {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}

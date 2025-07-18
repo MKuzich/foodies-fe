@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 import Categories from "@/components/Categories/Categories";
@@ -8,6 +7,8 @@ import Hero from "@/components/Hero/Hero";
 import Recipes from "@/components/Recipes/Recipes";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+
+import styles from "./HomePage.module.css";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -34,9 +35,11 @@ const HomePage = () => {
         ) : (
           <>
             <Categories />
-            <Testimonials />
           </>
         )}
+        <div className={styles.testimonialsWrapper}>
+          <Testimonials />
+        </div>
       </Container>
     </div>
   );

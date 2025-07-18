@@ -23,7 +23,7 @@ const DefaultDropdownButton = ({
       >
         {selectedItems ? selectedItems : placeholder}
       </button>
-      <svg className={styles.icon} width="20" height="20" viewBox="0 0 20 20">
+      <svg className={styles.icon} width="18" height="18" viewBox="0 0 18 18">
         <use href="/src/assets/sprite.svg#icon-chevron-down" />
       </svg>
     </div>
