@@ -22,13 +22,14 @@
   background-color: transparent;
   border: none;
   color: var(--title-color);
-  transition: var(--color-transition);
+  transition: var(--color-transition), var(--background-transition);
 }
 
 .button:hover,
 .button:focus {
   color: var(--white-color);
   background-color: var(--title-color);
+
 }
 
 .button.borders {
@@ -37,7 +38,45 @@
 
 .button.active {
   border: 1px solid var(--title-color);
+
 }
+
+.button.active.loading {
+  border: none;
+  position: relative;
+}
+
+.button.active.loading::after {
+  content: "";
+  position: absolute;
+  top: -2px;
+  left: -2px;
+  width: 42px;
+  height: 42px;
+  border-radius: 50%;
+  border: 2px solid transparent;
+  border-top: 2px solid var(--title-color);
+  animation: spin 1s linear infinite;
+  z-index: 0;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+
+.button.active:hover,
+.button.active:focus {
+  color: inherit;
+  background-color: transparent;
+}
+
 .ellipsis {
   display: flex;
   justify-content: center;
@@ -50,9 +89,11 @@
   .button {
     border: none;
   }
+
   .button.borders {
     border: none;
   }
+
   .button.active {
     border: 1px solid var(--inactive-color);
   }
@@ -65,5 +106,10 @@
 @media screen and (min-width: 1440px) {
   .button.borders.active {
     border: 1px solid var(--inactive-color);
+  }
+
+  .button.active.loading {
+    border: none;
+    position: relative;
   }
 }
