@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -74,6 +74,10 @@ const AddRecipeForm = () => {
 
   const [resetSignal, setResetSignal] = useState(false);
 
+  useEffect(() => {
+    setTimeout(() => autoResize(true), 0); // после следующего рендера
+  }, [resetSignal]);
+
   const stepTime = 5;
   const currentTime = watch("cookingTime") || stepTime;
   const increase = () => setValue("cookingTime", currentTime + stepTime);
@@ -92,6 +96,20 @@ const AddRecipeForm = () => {
 
   const description = watch("description") || "";
   const recipePreparation = watch("recipePreparation") || "";
+
+  const textareaRef = useRef(null);
+  const autoResize = (forceReset = false) => {
+    const el = textareaRef.current;
+    if (!el) return;
+
+    if (forceReset) {
+      el.style.height = "auto";
+      return;
+    }
+
+    el.style.height = "auto";
+    el.style.height = `${el.scrollHeight}px`;
+  };
 
   const buildFormData = (data) => {
     const formData = new FormData();
@@ -166,7 +184,11 @@ const AddRecipeForm = () => {
     }
 
     const exists = addedIngredients.some((item) => item.id === selectedIngredient.id);
-    if (exists) return;
+    if (exists) {
+      methods.setValue("ingredients", null);
+      methods.setValue("quantity", "");
+      return toast.error("This ingredient is already in the list!");
+    }
 
     const newEntry = {
       id: selectedIngredient.id,
@@ -187,6 +209,7 @@ const AddRecipeForm = () => {
 
   const handleRemoveIngredient = (indexToRemove) => {
     const updated = addedIngredients.filter((_, index) => index !== indexToRemove);
+
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
@@ -222,14 +245,25 @@ const AddRecipeForm = () => {
                   methods.formState.errors.description && styles.inputError,
                 )}
               >
-                <textarea
-                  id="description"
-                  className={clsx(styles.description)}
+                <Controller
                   name="description"
-                  type="text"
-                  placeholder="Enter a description of the dish"
-                  onInput={limitWordsInput}
-                  {...methods.register("description")}
+                  control={methods.control}
+                  render={({ field }) => (
+                    <textarea
+                      ref={(el) => {
+                        textareaRef.current = el;
+                        field.ref(el);
+                      }}
+                      value={field.value}
+                      onChange={(e) => {
+                        limitWordsInput(e);
+                        field.onChange(e);
+                        autoResize();
+                      }}
+                      className={clsx(styles.description)}
+                      placeholder="Enter a description of the dish"
+                    />
+                  )}
                 />
                 {methods.formState.errors.description && (
                   <span className={styles.error}>
@@ -422,14 +456,25 @@ const AddRecipeForm = () => {
                   methods.formState.errors.title && styles.inputError,
                 )}
               >
-                <textarea
-                  id="recipePreparation"
-                  className={clsx(styles.recipePreparation)}
-                  name="recipePreparation"
-                  type="text"
-                  placeholder="Enter recipe"
-                  onInput={limitWordsInput}
-                  {...methods.register("recipePreparation")}
+                <Controller
+                  name="description"
+                  control={methods.control}
+                  render={({ field }) => (
+                    <textarea
+                      ref={(el) => {
+                        textareaRef.current = el;
+                        field.ref(el);
+                      }}
+                      value={field.value}
+                      onChange={(e) => {
+                        limitWordsInput(e);
+                        field.onChange(e);
+                        autoResize();
+                      }}
+                      className={clsx(styles.recipePreparation)}
+                      placeholder="Enter recipe"
+                    />
+                  )}
                 />
                 <span className={clsx(styles.wordsCounterInside)}>
                   <span
