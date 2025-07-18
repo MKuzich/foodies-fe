@@ -77,7 +77,7 @@ const AddRecipeImage = ({ resetSignal }) => {
           <img src={previewUrl} alt="Preview" className={clsx(styles.preview)} />
         ) : (
           <div className={clsx(styles.labelWrapper)}>
-            <Icon name="framed-camera" width={50} height={50} />
+            <Icon name="framed-camera" className={clsx(styles.iconCamera)} />
             <span className={clsx(styles.uploadText)}>Upload a photo</span>
           </div>
         )}

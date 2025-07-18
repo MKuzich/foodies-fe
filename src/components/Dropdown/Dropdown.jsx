@@ -52,6 +52,7 @@ function Dropdown({
   resetSignal = false,
   hasError = false,
   errorMessage = "",
+  className,
   ...props
 }) {
   const [isOpen, setIsOpen] = useState(false);
@@ -130,7 +131,11 @@ function Dropdown({
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
-        className={clsx(!selectedItems && styles.placeholderField, hasError && styles.inputError)}
+        className={clsx(
+          className,
+          !selectedItems && styles.placeholderField,
+          hasError && styles.inputError,
+        )}
         {...props}
       />
 

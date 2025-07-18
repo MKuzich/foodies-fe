@@ -256,6 +256,7 @@ const AddRecipeForm = () => {
                       resetSignal={resetSignal}
                       hasError={!!methods.formState.errors.category}
                       errorMessage={methods.formState.errors.category?.message}
+                      className={styles.dropdown}
                     />
                   )}
                 />
@@ -269,16 +270,16 @@ const AddRecipeForm = () => {
                     name="minus"
                     onClick={decrease}
                     disabled={currentTime <= stepTime}
-                    style={{ width: "56px", height: "56px" }}
-                    iconStyle={{ width: "24px", height: "24px" }}
+                    className={clsx(styles.minusButton)}
+                    iconClass={clsx(styles.minusIcon)}
                   />
                   <span className={clsx(styles.timeInput)}>{currentTime} min</span>
                   <IconButton
                     type="button"
                     name="plus"
                     onClick={increase}
-                    style={{ width: "56px", height: "56px" }}
-                    iconStyle={{ width: "24px", height: "24px" }}
+                    className={clsx(styles.plusButton)}
+                    iconClass={clsx(styles.plusIcon)}
                   />
                 </div>
               </div>
@@ -299,6 +300,7 @@ const AddRecipeForm = () => {
                       resetSignal={resetSignal}
                       hasError={!!methods.formState.errors.area}
                       errorMessage={methods.formState.errors.area?.message}
+                      className={styles.dropdown}
                     />
                   )}
                 />
@@ -320,6 +322,7 @@ const AddRecipeForm = () => {
                       resetSignal={resetSignal}
                       hasError={!!methods.formState.errors.ingredients}
                       errorMessage={methods.formState.errors.ingredients?.message}
+                      className={styles.dropdownSearch}
                     />
                   )}
                 />
@@ -350,8 +353,13 @@ const AddRecipeForm = () => {
 
             <div className={clsx(styles.formGroup)}>
               <div className={clsx(styles.buttonGroup)}>
-                <Button type="button" outlined="true" onClick={handleAddIngredient}>
-                  Add ingredient <Icon name="plus" width={20} height={20} />
+                <Button
+                  type="button"
+                  outlined="true"
+                  onClick={handleAddIngredient}
+                  appendClassName={clsx(styles.btnIngredient)}
+                >
+                  Add ingredient <Icon name="plus" className={clsx(styles.iconPlus)} />
                 </Button>
               </div>
             </div>
@@ -423,11 +431,13 @@ const AddRecipeForm = () => {
                 <IconButton
                   type="button"
                   name="trash"
+                  className={clsx(styles.trashButton)}
+                  iconClass={clsx(styles.trashIcon)}
                   onClick={handleReset}
-                  style={{ width: "48px", height: "48px" }}
-                  iconStyle={{ width: "20px", height: "20px" }}
                 />
-                <Button type="submit">Publish</Button>
+                <Button type="submit" appendClassName={clsx(styles.btnSubmit)}>
+                  Publish
+                </Button>
               </div>
             </div>
           </div>
