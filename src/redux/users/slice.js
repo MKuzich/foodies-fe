@@ -52,6 +52,7 @@ const slice = createSlice({
       state.filter.page = payload;
     },
     changeTab: (state, { payload }) => {
+      if (state.tab === payload) return;
       state.tab = payload;
       if (payload === "recipes" || payload === "favorites") {
         state.recipesLoading = true;
