@@ -88,7 +88,6 @@ const slice = createSlice({
       .addCase(userLogout.pending, (state) => {
         state.loading = true;
         state.error = null;
-        state.authCanceled = true;
       })
       .addCase(userLogout.fulfilled, (state) => {
         state.loading = false;
@@ -97,6 +96,7 @@ const slice = createSlice({
         state.success = true;
         state.authModal = null;
         state.next = null;
+        state.authCanceled = false;
       })
       .addCase(userLogout.rejected, (state, { payload }) => {
         state.loading = false;
