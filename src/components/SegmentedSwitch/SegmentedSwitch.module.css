@@ -74,7 +74,8 @@
   transform: translateX(0%);
 }
 
-.switch button:hover:has(+ button.active) {
+.switch button:hover:has(+ button.active),
+.switch button:focus:has(+ button.active) {
   color: var(--white-color);
 }
 

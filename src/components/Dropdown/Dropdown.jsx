@@ -1,10 +1,9 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-import { useDispatch } from "react-redux";
+// import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-import { setQuery } from "@/redux/recipes/slice";
-
+// import { setQuery } from "@/redux/recipes/slice";
 import styles from "./Dropdown.module.css";
 
 const DefaultDropdownButton = ({
@@ -18,7 +17,7 @@ const DefaultDropdownButton = ({
     <div style={{ position: "relative" }}>
       <button
         type="button"
-        className={clsx(styles.inputField, className)}
+        className={clsx(styles.inputField, className, selectedItems && styles.inputFieldSelected)}
         onClick={handleToggle}
         {...props}
       >
@@ -61,7 +60,6 @@ function Dropdown({
   const wrapperRef = useRef(null);
   const [buttonHeight, setButtonHeight] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
-  const dispatch = useDispatch();
 
   useEffect(() => {
     if (buttonRef.current) {
@@ -116,7 +114,6 @@ function Dropdown({
         page: 1,
         [placeholder.toLowerCase()]: item.name.split(" ").join("_"),
       });
-      dispatch(setQuery(params));
     }
     setIsOpen(false);
   };

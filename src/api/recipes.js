@@ -1,17 +1,16 @@
 import api from "./api";
 
-export const getRecipesApi = async (category, page = 1, ingredient, area, limit = 8) => {
+export const getRecipesApi = async ({ category, page, ingredient, area, limit }) => {
   try {
     const response = await api.get(`recipes`, {
       params: {
         category,
         page,
-        limit,
         ingredient,
         area,
+        limit,
       },
     });
-
     return response.data;
   } catch (error) {
     console.error("Error fetching recipes:", error);
@@ -21,7 +20,7 @@ export const getRecipesApi = async (category, page = 1, ingredient, area, limit 
 
 export const getPopularRecipesApi = async () => {
   try {
-    const response = await api.get("recipes/favorites");
+    const response = await api.get("recipes/popular");
     return response.data;
   } catch (error) {
     console.error("Error fetching popular recipes:", error);

@@ -1,5 +1,6 @@
 /* Start Generation Here */
 .recipeItem {
+  overflow: hidden;
   position: relative;
   display: flex;
   flex-direction: column;
@@ -44,11 +45,9 @@
   line-height: 1.42;
   color: var(--title-color);
   margin-bottom: 8px;
+  word-wrap: break-word;
 
-  @media screen and (min-width: 768px) {
-    font-size: 16px;
-    line-height: 1.5;
-  }
+ 
 }
 
 .recipeInfo {

@@ -41,7 +41,8 @@
   z-index: 1;
 }
 
-.changeAvatarWrapper:hover {
+.changeAvatarWrapper:hover,
+.changeAvatarWrapper:has(input:focus) {
   border-color: var(--title-color);
 }
 

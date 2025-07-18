@@ -1,48 +1,36 @@
-import styles from "./RecipeList.module.css";
-import RecipeCard from "../RecipeCard/RecipeCard";
-import { useSelector } from "react-redux";
-import { recipesSelector, isLoadingSelector, errorSelector, favoriteRecipesSelector } from "@/redux/recipes/selectors";
-import Loader from "../Loader/Loader";
-import { useRef, useState, useEffect } from "react";
+import { useRef } from "react";
 
-function RecipeList() {
-  const recipes = useSelector(recipesSelector);
-  const isLoading = useSelector(isLoadingSelector);
-  const error = useSelector(errorSelector);
+import RecipeCard from "../RecipeCard/RecipeCard";
+import styles from "./RecipeList.module.css";
+
+function RecipeList({ recipes, isLoading, error }) {
   const recipesHeight = useRef(null);
-  const [containerHeight, setContainerHeight] = useState(400); // Минимальная высота
-  // 
-  useEffect(() => {
-    if (recipesHeight.current) {
-      setContainerHeight(recipesHeight.current.offsetHeight);
-    }
-  }, [recipes]);
 
   if (recipes.length === 0 && !isLoading && !error) {
     return (
       <div className={styles.recipeListEmpty}>
-        <h3 className={styles.recipeListTitle}>Oops! We couldn't find any recipes. Please try again.</h3>
-      </div>
-    )
-  }
- 
-  if (isLoading) {
-    return (
-      <div style={{ minHeight: containerHeight, display: "flex", justifyContent: "center", alignItems: "center" }}>
-        <Loader height={containerHeight} />
+        <h3 className={styles.recipeListTitle}>
+          Oops! We couldn't find any recipes. Please try again.
+        </h3>
       </div>
     );
   }
- 
-  if (error) {
-    return <div>Error: {error}</div>;
+
+  if (recipes.length === 0 && !isLoading && !error) {
+    return (
+      <div className={styles.recipeListEmpty}>
+        <h3 className={styles.recipeListTitle}>
+          Oops! We couldn't find any recipes. Please try again.
+        </h3>
+      </div>
+    );
   }
 
   return (
     <ul className={styles.recipeList} ref={recipesHeight}>
-      {recipes.map((recipe) => (
-        <RecipeCard key={recipe.id} recipe={recipe} />
-      ))}
+      {isLoading
+        ? Array.from({ length: 12 }).map((_, index) => <RecipeCard key={index} isLoading />)
+        : recipes.map((recipe) => <RecipeCard key={recipe.id} recipe={recipe} />)}
     </ul>
   );
 }

@@ -67,15 +67,8 @@
   gap: 16 px;
 }
 
-.avatar {
-  width: 32px;
-  height: 32px;
-  border-radius: 50%;
-  margin-right: 8px;
-  background: var(--inactive-color);
-}
-
 .authorInfo {
+  margin-left: 8px;
   display: flex;
   flex-direction: column;
   font-size: 12px;

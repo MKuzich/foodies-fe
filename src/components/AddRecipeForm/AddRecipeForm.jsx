@@ -11,6 +11,7 @@ import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIn
 import { fetchRecipeThunk } from "@/redux/addRecipe/actions";
 import {
   selectAddRecipeError,
+  selectAddRecipeLoading,
   selectAddRecipeSuccess,
   selectCreatedRecipeId,
 } from "@/redux/addRecipe/selectors";
@@ -19,6 +20,7 @@ import { areasSelector } from "@/redux/areas/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import { ingredientsSelector } from "@/redux/ingredients/selectors";
 
+import Icons from "../../assets/sprite.svg";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
@@ -34,6 +36,7 @@ const AddRecipeForm = () => {
   const recipeCreated = useSelector(selectAddRecipeSuccess);
   const createdRecipeId = useSelector(selectCreatedRecipeId);
   const recipeError = useSelector(selectAddRecipeError);
+  const loading = useSelector(selectAddRecipeLoading);
 
   useCategoriesAreasIngredientsFetch();
 
@@ -435,7 +438,7 @@ const AddRecipeForm = () => {
                   iconClass={clsx(styles.trashIcon)}
                   onClick={handleReset}
                 />
-                <Button type="submit" appendClassName={clsx(styles.btnSubmit)}>
+                <Button type="submit" disabled={loading} appendClassName={clsx(styles.btnSubmit)}>
                   Publish
                 </Button>
               </div>
