@@ -9,6 +9,7 @@ import { selectIsUserCurrentUser, selectUser } from "../../redux/users/selectors
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
 import Loader from "../Loader/Loader";
+import Meta from "../Meta/Meta";
 import css from "./UserInfo.module.css";
 
 const UserInfo = () => {
@@ -31,53 +32,64 @@ const UserInfo = () => {
   };
 
   return user ? (
-    <div className={css.userInfoWrapper}>
-      <div className={css.userInfo}>
-        <div className={css.userAvatarContainer}>
-          {isUserCurrentUser && (
-            <div className={css.changeAvatarWrapper}>
-              <label
-                className={clsx(css.changeAvatarLabel, cngAvatarLoading && css.loading)}
-                htmlFor={inputId}
-              ></label>
-              <ChageAvatarForm onSubmit={changeAvatarHandler} inputId={inputId} />
-            </div>
-          )}
-          {cngAvatarLoading ? (
-            <Loader />
-          ) : (
-            <AvatarIcon src={user.avatarURL} name={user.name} large />
-          )}
+    <>
+      <Meta
+        title={user.name || "User Profile"}
+        description={
+          isUserCurrentUser
+            ? "Manage your profile, view your recipes and followers."
+            : "View user profile, their recipes and followers."
+        }
+        {...(user.avatarURL ? { image: user.avatarURL } : {})}
+      />
+      <div className={css.userInfoWrapper}>
+        <div className={css.userInfo}>
+          <div className={css.userAvatarContainer}>
+            {isUserCurrentUser && (
+              <div className={css.changeAvatarWrapper}>
+                <label
+                  className={clsx(css.changeAvatarLabel, cngAvatarLoading && css.loading)}
+                  htmlFor={inputId}
+                ></label>
+                <ChageAvatarForm onSubmit={changeAvatarHandler} inputId={inputId} />
+              </div>
+            )}
+            {cngAvatarLoading ? (
+              <Loader />
+            ) : (
+              <AvatarIcon src={user.avatarURL} name={user.name} large />
+            )}
+          </div>
+          <div className={css.userName}>{user.name}</div>
+          <ul className={css.userInfoList}>
+            <li>
+              <span className={css.userInfoListTitle}>Email: </span>
+              <span className={css.userInfoListValue}>{user.email}</span>
+            </li>
+            <li>
+              <span className={css.userInfoListTitle}>Added recipes: </span>
+              <span className={css.userInfoListValue}>{user.createdCount}</span>
+            </li>
+            {isUserCurrentUser && (
+              <li>
+                <span className={css.userInfoListTitle}>Favorites: </span>
+                <span className={css.userInfoListValue}>{user.favoriteCount}</span>
+              </li>
+            )}
+            {isUserCurrentUser && (
+              <li>
+                <span className={css.userInfoListTitle}>Following: </span>
+                <span className={css.userInfoListValue}>{user.followingCount}</span>
+              </li>
+            )}
+            <li>
+              <span className={css.userInfoListTitle}>Followers: </span>
+              <span className={css.userInfoListValue}>{user.followersCount}</span>
+            </li>
+          </ul>
         </div>
-        <div className={css.userName}>{user.name}</div>
-        <ul className={css.userInfoList}>
-          <li>
-            <span className={css.userInfoListTitle}>Email: </span>
-            <span className={css.userInfoListValue}>{user.email}</span>
-          </li>
-          <li>
-            <span className={css.userInfoListTitle}>Added recipes: </span>
-            <span className={css.userInfoListValue}>{user.createdCount}</span>
-          </li>
-          {isUserCurrentUser && (
-            <li>
-              <span className={css.userInfoListTitle}>Favorites: </span>
-              <span className={css.userInfoListValue}>{user.favoriteCount}</span>
-            </li>
-          )}
-          {isUserCurrentUser && (
-            <li>
-              <span className={css.userInfoListTitle}>Following: </span>
-              <span className={css.userInfoListValue}>{user.followingCount}</span>
-            </li>
-          )}
-          <li>
-            <span className={css.userInfoListTitle}>Followers: </span>
-            <span className={css.userInfoListValue}>{user.followersCount}</span>
-          </li>
-        </ul>
       </div>
-    </div>
+    </>
   ) : (
     !loading && <div>User not found...</div>
   );

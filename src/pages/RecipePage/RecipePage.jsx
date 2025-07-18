@@ -8,7 +8,9 @@ import RecipeInfo from "@/components/RecipeInfo/RecipeInfo";
 import RecipeTestimonials from "@/components/RecipeTestimonials/RecipeTestimonials";
 
 import api from "../../api";
+import Meta from "../../components/Meta/Meta";
 import styles from "./RecipePage.module.css";
+
 const RecipePage = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
@@ -50,6 +52,11 @@ const RecipePage = () => {
 
   return (
     <>
+      <Meta
+        title={recipe?.title ?? "Recipe"}
+        description={recipe?.description ?? "Delicious recipe details."}
+        {...(recipe?.thumb ? { image: recipe.thumb } : {})}
+      />
       <PathInfo name={recipe?.title ?? "Recipe"} />
       <section className={styles.recipeInfo}>
         <Container>

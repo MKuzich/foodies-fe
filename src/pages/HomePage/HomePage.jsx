@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-// import { useSelector } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
 import Categories from "@/components/Categories/Categories";
@@ -8,6 +7,8 @@ import Hero from "@/components/Hero/Hero";
 import Recipes from "@/components/Recipes/Recipes";
 import Testimonials from "@/components/Testimonials/Testimonials";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
+
+import Meta from "../../components/Meta/Meta";
 
 const HomePage = () => {
   const [searchParams] = useSearchParams();
@@ -26,19 +27,25 @@ const HomePage = () => {
   }, [searchParams]);
 
   return (
-    <div>
-      <Hero />
-      <Container>
-        {isSearchParams ? (
-          <Recipes />
-        ) : (
-          <>
-            <Categories />
-            <Testimonials />
-          </>
-        )}
-      </Container>
-    </div>
+    <>
+      <Meta
+        title="Categories"
+        description="Explore a variety of delicious recipes across different categories."
+      />
+      <div>
+        <Hero />
+        <Container>
+          {isSearchParams ? (
+            <Recipes />
+          ) : (
+            <>
+              <Categories />
+              <Testimonials />
+            </>
+          )}
+        </Container>
+      </div>
+    </>
   );
 };
 
