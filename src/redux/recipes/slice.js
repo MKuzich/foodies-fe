@@ -1,20 +1,18 @@
 import { createSlice } from "@reduxjs/toolkit";
 
-import { addFavoriteRecipe, fetchFavoriteRecipes, fetchPopularRecipes, fetchRecipes, removeFavoriteRecipe } from "./actions";
+import {
+  addFavoriteRecipe,
+  fetchFavoriteRecipes,
+  fetchPopularRecipes,
+  removeFavoriteRecipe,
+} from "./actions";
 
 const initialState = {
-  recipes: [],
   popularRecipes: [],
   favoriteRecipes: [],
   showAllRecipes: true,
   wasShowAllRecipesInitialized: false,
-  pagination: {
-    total: 0,
-    page: 1,
-    limit: 10,
-    pages: null,
-  },
-  query: {},
+
   isLoading: false,
   error: null,
 };
@@ -23,12 +21,6 @@ const slice = createSlice({
   name: "recipes",
   initialState,
   reducers: {
-    setQuery: (state, action) => {
-      state.query = action.payload;
-    },
-    resetQuery: (state) => {
-      state.query = {};
-    },
     setShowAllRecipes: (state, action) => {
       state.showAllRecipes = action.payload;
     },
@@ -38,18 +30,6 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addCase(fetchRecipes.pending, (state) => {
-        state.isLoading = true;
-      })
-      .addCase(fetchRecipes.fulfilled, (state, action) => {
-        state.recipes = action.payload.data;
-        state.pagination = action.payload.pagination;
-        state.isLoading = false;
-      })
-      .addCase(fetchRecipes.rejected, (state, action) => {
-        state.error = action.payload;
-        state.isLoading = false;
-      })
       .addCase(fetchPopularRecipes.pending, (state) => {
         state.isLoading = true;
         state.error = null;
@@ -79,10 +59,10 @@ const slice = createSlice({
       })
       .addCase(addFavoriteRecipe.fulfilled, (state, action) => {
         const recipeId = action.payload;
-        const recipe = state.recipes.find(recipe => recipe.id === recipeId);
-        
-        if (recipe && !state.favoriteRecipes.find(fav => fav.id === recipeId)) {
-            state.favoriteRecipes.push({ ...recipe });
+        const recipe = state.recipes.find((recipe) => recipe.id === recipeId);
+
+        if (recipe && !state.favoriteRecipes.find((fav) => fav.id === recipeId)) {
+          state.favoriteRecipes.push({ ...recipe });
         }
       })
       .addCase(addFavoriteRecipe.rejected, (state, action) => {
@@ -93,7 +73,7 @@ const slice = createSlice({
       })
       .addCase(removeFavoriteRecipe.fulfilled, (state, action) => {
         const recipeId = action.payload;
-        state.favoriteRecipes = state.favoriteRecipes.filter(fav => fav.id !== recipeId);
+        state.favoriteRecipes = state.favoriteRecipes.filter((fav) => fav.id !== recipeId);
       })
       .addCase(removeFavoriteRecipe.rejected, (state, action) => {
         state.error = action.payload;
@@ -101,7 +81,8 @@ const slice = createSlice({
   },
 });
 
-export const { setQuery, resetQuery, setShowAllRecipes, setWasShowAllRecipesInitialized } = slice.actions;
+export const { setQuery, resetQuery, setShowAllRecipes, setWasShowAllRecipesInitialized } =
+  slice.actions;
 
 export const recipesReducer = slice.reducer;
 

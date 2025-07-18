@@ -2,7 +2,8 @@ import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
-import styles from "../Dropdown/Dropdown.module.css";
+import styles from "./DropdownSearch.module.css";
+// import styles from "../Dropdown/Dropdown.module.css";
 
 const SearchableDropdownInput = ({
   placeholder,
@@ -23,6 +24,7 @@ const SearchableDropdownInput = ({
           !selectedItems && styles.placeholderField,
           hasError && styles.inputError,
           className,
+          selectedItems && styles.inputFieldSelected,
         )}
         placeholder={selectedItems ? selectedItems.split("_").join(" ") : placeholder}
         value={searchValue}
@@ -180,7 +182,6 @@ function DropdownSearch({
         hasError={hasError}
         {...props}
       />
-
       {isOpen && (
         <div
           className={clsx(styles.inputContainer, styles.searchContainer)}

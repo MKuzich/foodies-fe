@@ -21,6 +21,7 @@ const Test = lazy(() => import("./pages/TestPage/TestPage"));
 
 function App() {
   const dispatch = useDispatch();
+
   useEffect(() => {
     dispatch(refreshUser());
     dispatch(fetchFavoriteRecipes());
