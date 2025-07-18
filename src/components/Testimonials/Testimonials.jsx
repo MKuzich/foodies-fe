@@ -14,7 +14,7 @@ import { fetchTestimonials } from "../../redux/testimonials/actions";
 import styles from "./Testimonials.module.css";
 
 function Testimonials() {
-  const isMobile = useMediaQuery("(max-width: 374px)");
+  const isMobile = useMediaQuery("(max-width: 375px)");
   const testimonials = useSelector(testimonialsSelector);
   const dispatch = useDispatch();
 
@@ -23,7 +23,7 @@ function Testimonials() {
   }, []);
 
   const value = isMobile ? 64 : 80;
-
+  console.log(value);
   return (
     <div className={styles.testimonialsContainer}>
       <p className={styles.testimonialsSubtitle}>What our customer say</p>
