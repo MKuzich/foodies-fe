@@ -20,10 +20,11 @@
   gap: 40px;
 }
 
-.user > *:not(:first-child) {
+.user>*:not(:first-child) {
   position: relative;
 }
-.user > *:not(:first-child)::after {
+
+.user>*:not(:first-child)::after {
   content: "";
   position: absolute;
   top: -20px;
@@ -31,4 +32,19 @@
   width: 100%;
   height: 1px;
   background: var(--inactive-color);
+}
+
+
+@media screen and (min-width: 768px) {
+  .listItems {
+    gap: 40px;
+  }
+
+  .listItems.user {
+    gap: 80px;
+  }
+
+  .user>*:not(:first-child)::after {
+    top: -40px;
+  }
 }
