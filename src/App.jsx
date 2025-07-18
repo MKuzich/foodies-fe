@@ -9,7 +9,6 @@ import AuthModals from "./components/AuthModals";
 import Loader from "./components/Loader/Loader";
 import PrivateRoute from "./components/PrivateRoute/PrivateRoute";
 import SharedLayout from "./components/SharedLayout/SharedLayout";
-import { useAuth } from "./hooks/useAuth";
 import { refreshUser } from "./redux/auth/actions";
 import { fetchFavoriteRecipes } from "./redux/recipes/actions";
 
@@ -22,18 +21,11 @@ const Test = lazy(() => import("./pages/TestPage/TestPage"));
 
 function App() {
   const dispatch = useDispatch();
-  const { user } = useAuth();
 
   useEffect(() => {
     dispatch(refreshUser());
+    dispatch(fetchFavoriteRecipes());
   }, [dispatch]);
-
-  useEffect(() => {
-    if (user) {
-      console.log("fetching favorite recipes", user);
-      dispatch(fetchFavoriteRecipes());
-    }
-  }, [user, dispatch]);
 
   return (
     <>

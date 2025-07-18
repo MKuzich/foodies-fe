@@ -29,6 +29,13 @@ export const fetchFavoriteRecipes = createAsyncThunk(
       return rejectWithValue(err.message || "Unknown error");
     }
   },
+  {
+    condition: (_, { getState }) => {
+      const state = getState();
+      const token = state.auth.userToken;
+      return token ? true : false;
+    },
+  },
 );
 
 export const addFavoriteRecipe = createAsyncThunk(
