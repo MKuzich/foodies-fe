@@ -10,15 +10,34 @@ const DefaultDropdownButton = ({
   placeholder,
   selectedItems,
   handleToggle,
+  setIsOpen,
   className,
   ...props
 }) => {
+  const handleKeyDown = (e) => {
+    if (e.key === "Enter" || e.key === " ") {
+      e.preventDefault();
+      handleToggle();
+    }
+  };
+
+  const handleFocus = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <button
         type="button"
         className={clsx(styles.inputField, className, selectedItems && styles.inputFieldSelected)}
-        onClick={handleToggle}
+        onMouseDown={handleToggle}
+        onFocus={handleFocus}
+        onKeyDown={handleKeyDown}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setTimeout(() => setIsOpen(false), 50);
+          }
+        }}
         {...props}
       >
         {selectedItems ? selectedItems : placeholder}
@@ -30,11 +49,19 @@ const DefaultDropdownButton = ({
   );
 };
 
-const DefaultDropdownList = ({ data, handleSelectItem }) => {
+const DefaultDropdownList = ({ data, handleSelectItem, selectedIndex, setSelectedIndex }) => {
   return (
     <ul className={clsx(styles.dropdown)}>
-      {data.map((item) => (
-        <li key={item.id} className={styles.dropdownItem} onClick={() => handleSelectItem(item)}>
+      {data.map((item, index) => (
+        <li
+          key={item.id}
+          className={clsx(
+            styles.dropdownItem,
+            selectedIndex === index && styles.dropdownItemSelected,
+          )}
+          onClick={() => handleSelectItem(item)}
+          onMouseEnter={() => setSelectedIndex(index)}
+        >
           {item.name}
         </li>
       ))}
@@ -56,6 +83,7 @@ function Dropdown({
 }) {
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const buttonRef = useRef(null);
   const wrapperRef = useRef(null);
   const [buttonHeight, setButtonHeight] = useState(0);
@@ -96,8 +124,34 @@ function Dropdown({
     }
   }, [searchParams, placeholder]);
 
+  const handleKeyDown = (e) => {
+    if (!isOpen) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev < data.length - 1 ? prev + 1 : 0));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : data.length - 1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (selectedIndex >= 0 && data[selectedIndex]) {
+          handleSelectItem(data[selectedIndex]);
+        }
+        break;
+      case "Escape":
+        setIsOpen(false);
+        setSelectedIndex(-1);
+        break;
+    }
+  };
+
   const handleToggle = () => {
     setIsOpen(!isOpen);
+    setSelectedIndex(-1);
   };
 
   const handleSelectItem = (item) => {
@@ -128,6 +182,8 @@ function Dropdown({
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        setIsOpen={setIsOpen}
+        onKeyDown={handleKeyDown}
         className={clsx(
           className,
           !selectedItems && styles.placeholderField,
@@ -138,7 +194,13 @@ function Dropdown({
 
       {isOpen && (
         <div className={styles.inputContainer} style={{ top: buttonHeight + 10 }}>
-          <List data={data} handleSelectItem={handleSelectItem} />
+          <List
+            data={data}
+            handleSelectItem={handleSelectItem}
+            isOpen={isOpen}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
         </div>
       )}
       {errorMessage && <span className={clsx(styles.error)}>{errorMessage}</span>}

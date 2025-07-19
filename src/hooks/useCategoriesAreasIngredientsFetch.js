@@ -21,15 +21,21 @@ export const useCategoriesAreasIngredientsFetch = () => {
   useEffect(() => {
     // Fetch only if data doesn't exist
     if (areas.length === 0) {
+      console.log("areas", areas);
+      console.log("fetching areas");
       dispatch(_fetchAreas());
     }
     if (ingredients.length === 0) {
+      console.log("ingredients", ingredients);
+      console.log("fetching ingredients");
       dispatch(_fetchIngredients());
     }
     if (categories.length === 0) {
+      console.log("categories", categories);
+      console.log("fetching categories");
       dispatch(_fetchCategories());
     }
-  }, [dispatch, areas.length, ingredients.length, categories.length]);
+  }, [dispatch]);
 
   // Hook doesn't return anything, get data through selectors
 };
