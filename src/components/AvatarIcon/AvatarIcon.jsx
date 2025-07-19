@@ -1,6 +1,9 @@
 import clsx from "clsx";
-import { Link } from "react-router-dom";
+import { useDispatch, useSelector } from "react-redux";
+import { Link, useNavigate } from "react-router-dom";
 
+import { openSignIn, selectCurrentUser, setNext } from "../../redux/auth/slice";
+import { getAvatarName } from "../../utils/helpers";
 import css from "./AvatarIcon.module.css";
 
 const AvatarIcon = ({
@@ -15,6 +18,20 @@ const AvatarIcon = ({
   large,
   to = null,
 }) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const curentUser = useSelector(selectCurrentUser);
+
+  const handleOpenSignIn = (e) => {
+    e.preventDefault();
+    if (!curentUser) {
+      dispatch(setNext(to));
+      dispatch(openSignIn());
+      return;
+    }
+    navigate(to);
+  };
+
   const iconClassName = clsx(
     css.avatarIcon,
     xsmall && css.xsmall,
@@ -25,18 +42,13 @@ const AvatarIcon = ({
 
   const imageSrc = src || avatarURL || avatar || null;
 
-  const getAvatarName = (name) => {
-    if (!name) return "F";
-    if (name.length === 1) return name;
-    return name[0];
-  };
   const imgAlt = name ? `Profile picture of user ${name}` : alt;
   const avatarName = getAvatarName(name);
 
   return (
     <>
       {to ? (
-        <Link to={to} className={css.link}>
+        <Link to={to} className={css.link} onClick={handleOpenSignIn}>
           {imageSrc ? (
             <img src={imageSrc} alt={imgAlt} className={iconClassName} />
           ) : (
