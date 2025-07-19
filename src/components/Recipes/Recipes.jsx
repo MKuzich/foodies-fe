@@ -100,13 +100,15 @@ function Recipes() {
             <div>
               <RecipeList recipes={recipes} isLoading={isLoading} error={error} />
               {pagination.pages > 1 && (
-                <Pagination
-                  currentPage={Number(pagination.page)}
-                  totalPages={Number(pagination.pages)}
-                  onClick={handlePaginationClick}
-                  borders={true}
-                  style={{ marginTop: "0" }}
-                />
+                <div className={styles.paginationWrapper}>
+                  <Pagination
+                    currentPage={Number(pagination.page)}
+                    totalPages={Number(pagination.pages)}
+                    onClick={handlePaginationClick}
+                    borders={true}
+                    style={{ marginTop: "0" }}
+                  />
+                </div>
               )}
               {/* TODO: REMOVE THIS AFTER TESTING */}
               {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}
