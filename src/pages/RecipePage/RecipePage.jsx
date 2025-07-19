@@ -16,19 +16,18 @@ const RecipePage = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
   const [testimonials, setTestimonials] = useState([]);
-  const [loading, setLoading] = useState(true);
+  const [loading, setLoading] = useState(false);
   const [totalPages, _] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
+    setLoading(true);
     const fetchRecipe = async () => {
       try {
         const { data } = await api.axios.get(`recipes/${id}`);
         setRecipe(data);
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
-      } finally {
-        setLoading(false);
       }
     };
 
@@ -40,6 +39,8 @@ const RecipePage = () => {
         // TODO: chnage total pages from BE
       } catch (error) {
         console.error("Error fetching testimonials:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -82,7 +83,9 @@ const RecipePage = () => {
       </section>
       <section>
         <Container>
-          <RecipeTestimonials testimonials={testimonials} onDelete={handleDeleteTestimonial} />
+          {!loading && (
+            <RecipeTestimonials testimonials={testimonials} onDelete={handleDeleteTestimonial} />
+          )}
           {totalPages > 1 && (
             <div className={styles.pagination}>
               <Pagination
