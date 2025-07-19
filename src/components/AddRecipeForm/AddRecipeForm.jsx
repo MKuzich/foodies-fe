@@ -129,7 +129,7 @@ const AddRecipeForm = () => {
     formData.append("instructions", data.recipePreparation);
     formData.append("categoryId", data.category);
     formData.append("areaId", data.area);
-    formData.append("time", `${data.cookingTime} min`);
+    formData.append("time", data.cookingTime);
 
     const formattedIngredients = data.ingredientsList.map(({ id, quantity }) => ({
       id,

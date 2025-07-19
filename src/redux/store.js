@@ -16,12 +16,11 @@ import { userReducer } from "./users/slice";
 const persistConfig = {
   key: "auth",
   storage,
-  blacklist: ["authModal", "testimonials", "categories", "recipes", "ingredients", "areas"],
+  blacklist: ["authModal", "testimonials", "recipes", "ingredients", "areas", "categories"],
   whitelist: ["userToken"],
 };
 
 const persistedAuthReducer = persistReducer(persistConfig, authReducer);
-
 const reducers = combineReducers({
   root: rootReducer,
   auth: persistedAuthReducer,
