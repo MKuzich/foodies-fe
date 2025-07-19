@@ -33,11 +33,10 @@ const RecipeIngredients = ({ ingredients }) => {
         place="top"
         effect="solid"
         delayHide={500}
-        // Добавь эти пропы для лучшей работы на мобилке
         clickable={true}
         style={{
-          backgroundColor: "white",
-          color: "black",
+          backgroundColor: "var(--background-color)",
+          color: "var(--title-color)",
           borderRadius: "30px",
           padding: "8px 12px",
           fontSize: "14px",
