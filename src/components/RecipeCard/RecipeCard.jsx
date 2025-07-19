@@ -1,7 +1,9 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
+import { useAuth } from "@/hooks/useAuth";
+import { openSignIn } from "@/redux/auth/slice";
 import { addFavoriteRecipe, removeFavoriteRecipe } from "@/redux/recipes/actions";
 import { favoriteRecipesSelector } from "@/redux/recipes/selectors";
 
@@ -9,8 +11,6 @@ import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
 import skeletonStyles from "../Skeleton/Skeleton.module.css";
 import styles from "./RecipeCard.module.css";
-import { useAuth } from "@/hooks/useAuth";
-import { openSignIn } from "@/redux/auth/slice";
 
 export const SkeletonCard = () => {
   return (
@@ -36,14 +36,10 @@ export const SkeletonCard = () => {
   );
 };
 
-function RecipeCard({ recipe
-}) {
-
+function RecipeCard({ recipe }) {
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useAuth();
-
-
 
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
 
@@ -51,7 +47,6 @@ function RecipeCard({ recipe
     favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
   );
 
-  
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
@@ -81,7 +76,7 @@ function RecipeCard({ recipe
         <div className={styles.recipeAvatarWrapper}>
           <AvatarIcon
             name={recipe.owner.name}
-            avatarUrl={recipe.owner.avatarUrl}
+            src={recipe.owner.avatarURL}
             alt={`${recipe.owner.name} avatar`}
             xsmall
             to={`/user/${recipe.owner.id}`}

@@ -38,7 +38,6 @@
   background-color: transparent;
   transition: 0.3s ease-in-out border-color;
   border: 2px dashed transparent;
-  z-index: 1;
 }
 
 .changeAvatarWrapper:hover,
@@ -53,7 +52,6 @@
   height: 100%;
   opacity: 0;
   cursor: pointer;
-  z-index: 2;
 }
 
 .changeAvatarLabel {
@@ -84,6 +82,7 @@
   left: 50%;
   transform: translate(-50%, -50%);
 }
+
 .changeAvatarLabel::after {
   transform: translate(-50%, -50%) rotate(90deg);
 }
@@ -91,6 +90,7 @@
 .changeAvatarLabel.loading {
   display: none;
 }
+
 .userName {
   font-size: 18px;
   font-weight: 800;
@@ -109,7 +109,14 @@
 .userInfoListTitle {
   font-size: 12px;
   line-height: 1.5;
+  font-weight: 500;
   color: var(--inactive-color);
+}
+
+.userInfoListItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .userInfoListValue {
@@ -121,7 +128,21 @@
 }
 
 @media screen and (min-width: 768px) {
+  .userInfoListTitle {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
   .userInfoListValue {
+    font-size: 16px;
+    line-height: 1.5;
     color: var(--title-color);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+
+  .userInfoListValue {
+    color: var(--text-color);
   }
 }

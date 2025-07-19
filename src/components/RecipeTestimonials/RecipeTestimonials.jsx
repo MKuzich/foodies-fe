@@ -13,7 +13,7 @@ export default function RecipeTestimonials({ testimonials }) {
               <div className={s.avatarWrapper}>
                 <AvatarIcon
                   name={item.user.name}
-                  avatarUrl={item.user.avatarUrl}
+                  src={item.user.avatarURL}
                   alt={`${item.user.name} avatar`}
                   small
                   to={`/user/${item.user.id}`}

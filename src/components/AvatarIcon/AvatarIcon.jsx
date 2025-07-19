@@ -3,7 +3,18 @@ import { Link } from "react-router-dom";
 
 import css from "./AvatarIcon.module.css";
 
-const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null }) => {
+const AvatarIcon = ({
+  src,
+  avatarURL,
+  avatar,
+  alt,
+  name,
+  xsmall,
+  small,
+  medium,
+  large,
+  to = null,
+}) => {
   const iconClassName = clsx(
     css.avatarIcon,
     xsmall && css.xsmall,
@@ -11,6 +22,8 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null })
     medium && css.medium,
     large && css.large,
   );
+
+  const imageSrc = src || avatarURL || avatar || null;
 
   const getAvatarName = (name) => {
     if (!name) return "F";
@@ -24,16 +37,16 @@ const AvatarIcon = ({ src, alt, name, xsmall, small, medium, large, to = null })
     <>
       {to ? (
         <Link to={to} className={css.link}>
-          {src ? (
-            <img src={src} alt={imgAlt} className={iconClassName} />
+          {imageSrc ? (
+            <img src={imageSrc} alt={imgAlt} className={iconClassName} />
           ) : (
             <div className={iconClassName}>{avatarName}</div>
           )}
         </Link>
       ) : (
         <div className={css.link}>
-          {src ? (
-            <img src={src} alt={imgAlt} className={iconClassName} />
+          {imageSrc ? (
+            <img src={imageSrc} alt={imgAlt} className={iconClassName} />
           ) : (
             <div className={iconClassName}>{avatarName}</div>
           )}
