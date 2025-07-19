@@ -99,6 +99,14 @@
 }
 
 @media screen and (min-width: 768px) {
+  .wrapper {
+    height: max-content;
+  }
+
+  .error {
+    bottom: 14px;
+  }
+  
   .photoUpload {
     width: 704px;
     height: 400px;
@@ -121,6 +129,14 @@
 }
 
 @media screen and (min-width: 1440px) {
+  .wrapper {
+    height: max-content;
+  }
+
+  .error {
+    bottom: 14px;
+  }
+
   .photoUpload {
     max-width: 551px;
     aspect-ratio: 551 / 400;
