@@ -14,7 +14,7 @@ import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import { openLogout } from "../../redux/auth/slice";
-import { selectError } from "../../redux/root/selectors";
+import { selectError, selectLoading } from "../../redux/root/selectors";
 import {
   fetchUser,
   fetchUserFavorites,
@@ -51,6 +51,7 @@ const UserPage = () => {
   const { id } = useParams();
 
   const loading = useSelector(selectUsersUserLoading);
+  const isLoading = useSelector(selectLoading);
   const [buttonLoading, setButtonLoading] = useState(false);
   const error = useSelector(selectError);
 
@@ -238,6 +239,7 @@ const UserPage = () => {
                       <Pagination
                         totalPages={totalPages}
                         currentPage={currentPage}
+                        isLoading={isLoading}
                         onClick={(newValue) => dispatch(changePage(newValue))}
                         borders
                       />
