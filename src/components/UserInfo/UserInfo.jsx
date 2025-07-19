@@ -8,8 +8,8 @@ import { changeAvatar } from "../../redux/users/operations";
 import { selectIsUserCurrentUser, selectUser } from "../../redux/users/selectors";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
-import Loader from "../Loader/Loader";
 import Meta from "../Meta/Meta";
+import skeletonCss from "../Skeleton/Skeleton.module.css";
 import css from "./UserInfo.module.css";
 
 const UserInfo = () => {
@@ -55,35 +55,41 @@ const UserInfo = () => {
               </div>
             )}
             {cngAvatarLoading ? (
-              <Loader />
+              <div
+                className={clsx(
+                  skeletonCss.skeleton,
+                  skeletonCss.skeletonAvatar,
+                  skeletonCss.large,
+                )}
+              ></div>
             ) : (
               <AvatarIcon src={user.avatarURL} name={user.name} large />
             )}
           </div>
           <div className={css.userName}>{user.name}</div>
           <ul className={css.userInfoList}>
-            <li>
-              <span className={css.userInfoListTitle}>Email: </span>
+            <li className={css.userInfoListItem}>
+              <span className={css.userInfoListTitle}>Email:</span>
               <span className={css.userInfoListValue}>{user.email}</span>
             </li>
-            <li>
-              <span className={css.userInfoListTitle}>Added recipes: </span>
+            <li className={css.userInfoListItem}>
+              <span className={css.userInfoListTitle}>Added recipes:</span>
               <span className={css.userInfoListValue}>{user.createdCount}</span>
             </li>
             {isUserCurrentUser && (
-              <li>
-                <span className={css.userInfoListTitle}>Favorites: </span>
+              <li className={css.userInfoListItem}>
+                <span className={css.userInfoListTitle}>Favorites:</span>
                 <span className={css.userInfoListValue}>{user.favoriteCount}</span>
               </li>
             )}
             {isUserCurrentUser && (
-              <li>
-                <span className={css.userInfoListTitle}>Following: </span>
+              <li className={css.userInfoListItem}>
+                <span className={css.userInfoListTitle}>Following:</span>
                 <span className={css.userInfoListValue}>{user.followingCount}</span>
               </li>
             )}
-            <li>
-              <span className={css.userInfoListTitle}>Followers: </span>
+            <li className={css.userInfoListItem}>
+              <span className={css.userInfoListTitle}>Followers:</span>
               <span className={css.userInfoListValue}>{user.followersCount}</span>
             </li>
           </ul>

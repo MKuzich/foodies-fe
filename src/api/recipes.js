@@ -18,9 +18,11 @@ export const getRecipesApi = async ({ category, page, ingredient, area, limit })
   }
 };
 
-export const getPopularRecipesApi = async () => {
+export const getPopularRecipesApi = async (excludeId) => {
   try {
-    const response = await api.get("recipes/popular");
+    const response = await api.get("recipes/popular", {
+      params: { exclude: excludeId },
+    });
     return response.data;
   } catch (error) {
     console.error("Error fetching popular recipes:", error);

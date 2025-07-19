@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import { userLogin } from "../../redux/auth/actions";
+import { selectNext } from "../../redux/auth/slice";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -34,7 +36,9 @@ const SignInModal = ({ onClose, onSwitch }) => {
   } = useForm({ resolver: yupResolver(schema) });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
   const { loading, error } = useSelector((state) => state.auth);
+  const next = useSelector(selectNext);
 
   useEffect(() => {
     const handleEsc = (event) => {
@@ -53,6 +57,9 @@ const SignInModal = ({ onClose, onSwitch }) => {
   const onSubmit = async (data) => {
     const result = await dispatch(userLogin(data));
     if (userLogin.fulfilled.match(result)) {
+      if (next) {
+        navigate(next);
+      }
       toast.success("You have been logged in, welcome back!");
     } else {
       toast.error(result.payload.message || "Failed to log in");

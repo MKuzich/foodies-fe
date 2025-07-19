@@ -34,13 +34,6 @@ function Recipes() {
 
   const [searchParams, setSearchParams] = useSearchParams();
 
-  // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
-  useEffect(() => {
-    if (recipesRef.current) {
-      recipesRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
-
   useEffect(() => {
     if (!isLoading && recipesRef.current) {
       recipesRef.current.scrollIntoView({ behavior: "smooth" });

@@ -1,5 +1,6 @@
 import clsx from "clsx";
 import React from "react";
+import { Link } from "react-router-dom";
 
 import css from "./Button.module.css";
 
@@ -22,7 +23,8 @@ const Button = ({
   return (
     <>
       {isLink ? (
-        <a
+        <Link
+          to={props.href}
           className={clsx(
             css.btn,
             outlined && css.outlined,
@@ -33,7 +35,7 @@ const Button = ({
           {...props}
         >
           {children}
-        </a>
+        </Link>
       ) : (
         <button
           className={clsx(

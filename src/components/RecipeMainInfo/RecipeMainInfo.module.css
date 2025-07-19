@@ -26,7 +26,7 @@
 .title {
   font-weight: 800;
   font-size: 18px;
-  line-height: 133%;
+  line-height: 1.33;
   margin-bottom: 12px;
   text-transform: uppercase;
   color: var(-text-color);
@@ -50,8 +50,8 @@
 
 .description {
   font-size: 14px;
-  line-height: 143%;
-  color: var(--inactive-color);
+  line-height: 1.43;
+  color: var(--text-color);
   margin-bottom: 20px;
 }
 
@@ -79,8 +79,8 @@
 .authorName {
   font-weight: 700;
   font-size: 14px;
-  line-height: 143%;
-  color: var(--inactive-color);
+  line-height: 1.43;
+  color: var(--text-color);
 }
 
 @media screen and (min-width: 768px) {
@@ -94,9 +94,6 @@
   .authorInfo {
     font-size: 14px;
   }
-  .authorName {
-    color: var(--text-color);
-  }
 
   .avatar {
     width: 50px;
@@ -104,8 +101,7 @@
   }
 
   .description {
-    line-height: 150%;
-    color: var(--text-color);
+    line-height: 1.5;
   }
 }
 
@@ -117,9 +113,8 @@
     padding: 0;
   }
   .title {
-    font-style: italic;
     font-size: 24px;
-    line-height: 117%;
+    line-height: 1.17;
   }
 
   .image {

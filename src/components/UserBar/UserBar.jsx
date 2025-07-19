@@ -37,8 +37,14 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
         onClick={() => setOpen((v) => !v)}
         className={clsx(css.userBarBtn, !isHome && css.userBarBtnDark)}
       >
-        <AvatarIcon src={user.avatar} name={user.name} alt="avatar" className={css.avatar} small />
-        <span className={css.userName}>{user.name}</span>
+        <AvatarIcon
+          src={user.avatarURL}
+          name={user.name}
+          alt="avatar"
+          className={css.avatar}
+          small
+        />
+        <span className={css.userName}>{user.name.split(" ")[0]}</span>
         <svg className={clsx(css.chevronIcon, open && css.openedIcon)} width="18" height="18">
           <use href={`${Icons}#icon-chevron-down`} />
         </svg>

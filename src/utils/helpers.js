@@ -47,3 +47,9 @@ export const smoothScrollLeft = (element, to, duration = 300) => {
 export const getSkeletons = (count) => {
   return Array.from({ length: count }, (_, i) => ({ id: i }));
 };
+
+export const getAvatarName = (name) => {
+  if (!name) return "F";
+  if (name.length === 1) return name;
+  return name[0];
+};

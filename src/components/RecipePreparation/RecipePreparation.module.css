@@ -11,8 +11,9 @@
 .description {
   font-size: 14px;
   line-height: 1.43;
-  color: var(--inactive-color);
+  color: var(--text-color);
   margin-bottom: 32px;
+  
 }
 
 .favoriteBtn {
@@ -32,7 +33,6 @@
   }
   .description {
     line-height: 1.5;
-    color: var(--text-color);
     margin-bottom: 40px;
   }
 
@@ -42,5 +42,11 @@
   .buttonList {
     flex-direction: row;
     align-items: center;
+  }
+}
+
+@media screen and (min-width: 1440px) {
+  .description {
+    margin-bottom: 80px;
   }
 }

@@ -72,15 +72,12 @@ const AddRecipeForm = () => {
   const ingredients = useSelector(ingredientsSelector);
   const categories = useSelector(categoriesSelector);
 
-  const [resetSignal, setResetSignal] = useState(false);
-
-  useEffect(() => {
-    setTimeout(() => autoResize(true), 0); // после следующего рендера
-  }, [resetSignal]);
-
   const stepTime = 5;
+  const maxTime = 999;
   const currentTime = watch("cookingTime") || stepTime;
-  const increase = () => setValue("cookingTime", currentTime + stepTime);
+  const increase = () => {
+    if (currentTime < maxTime) setValue("cookingTime", currentTime + stepTime);
+  };
   const decrease = () => {
     if (currentTime > stepTime) setValue("cookingTime", currentTime - stepTime);
   };
@@ -97,9 +94,20 @@ const AddRecipeForm = () => {
   const description = watch("description") || "";
   const recipePreparation = watch("recipePreparation") || "";
 
-  const textareaRef = useRef(null);
-  const autoResize = (forceReset = false) => {
-    const el = textareaRef.current;
+  const descriptionRef = useRef(null);
+  const recipePreparationRef = useRef(null);
+
+  const [resetSignal, setResetSignal] = useState(false);
+
+  useEffect(() => {
+    setTimeout(() => {
+      autoResize(descriptionRef, true);
+      autoResize(recipePreparationRef, true);
+    }, 0);
+  }, [resetSignal]);
+
+  const autoResize = (ref, forceReset = false) => {
+    const el = ref.current;
     if (!el) return;
 
     if (forceReset) {
@@ -109,6 +117,7 @@ const AddRecipeForm = () => {
 
     el.style.height = "auto";
     el.style.height = `${el.scrollHeight}px`;
+    console.log("Reset signal changed:", el.style.height);
   };
 
   const buildFormData = (data) => {
@@ -202,7 +211,7 @@ const AddRecipeForm = () => {
       methods.setValue("ingredientsList", updated);
       return updated;
     });
-
+    methods.setValue("ingredients", null);
     methods.setValue("quantity", "");
     methods.clearErrors(["ingredients", "quantity"]);
   };
@@ -251,14 +260,14 @@ const AddRecipeForm = () => {
                   render={({ field }) => (
                     <textarea
                       ref={(el) => {
-                        textareaRef.current = el;
+                        descriptionRef.current = el;
                         field.ref(el);
                       }}
                       value={field.value}
                       onChange={(e) => {
                         limitWordsInput(e);
                         field.onChange(e);
-                        autoResize();
+                        autoResize(descriptionRef);
                       }}
                       className={clsx(styles.description)}
                       placeholder="Enter a description of the dish"
@@ -315,11 +324,19 @@ const AddRecipeForm = () => {
                     className={clsx(styles.minusButton)}
                     iconClass={clsx(styles.minusIcon)}
                   />
-                  <span className={clsx(styles.timeInput)}>{currentTime} min</span>
+                  <span
+                    className={clsx(
+                      styles.timeInput,
+                      String(currentTime).length >= 3 && styles.adjustIndent,
+                    )}
+                  >
+                    {currentTime} min
+                  </span>
                   <IconButton
                     type="button"
                     name="plus"
                     onClick={increase}
+                    disabled={currentTime >= maxTime}
                     className={clsx(styles.plusButton)}
                     iconClass={clsx(styles.plusIcon)}
                   />
@@ -420,6 +437,7 @@ const AddRecipeForm = () => {
                       </button>
                       <div className={clsx(styles.ingredientImageWrapper)}>
                         <img
+                          loading="lazy"
                           src={item.preview}
                           alt={item.name}
                           className={clsx(styles.ingredientImage)}
@@ -457,19 +475,19 @@ const AddRecipeForm = () => {
                 )}
               >
                 <Controller
-                  name="description"
+                  name="recipePreparation"
                   control={methods.control}
                   render={({ field }) => (
                     <textarea
                       ref={(el) => {
-                        textareaRef.current = el;
+                        recipePreparationRef.current = el;
                         field.ref(el);
                       }}
                       value={field.value}
                       onChange={(e) => {
                         limitWordsInput(e);
                         field.onChange(e);
-                        autoResize();
+                        autoResize(recipePreparationRef);
                       }}
                       className={clsx(styles.recipePreparation)}
                       placeholder="Enter recipe"

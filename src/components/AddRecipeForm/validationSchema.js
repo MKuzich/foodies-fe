@@ -25,11 +25,6 @@ export const recipeSchema = yup.object().shape({
 
   area: yup.number().typeError("Area is required").required("Area is required"),
 
-  ingredients: yup
-    .number()
-    .typeError("Ingredients is required")
-    .required("Ingredients is required"),
-
   cookingTime: yup
     .number()
     .typeError("Cooking time is required")

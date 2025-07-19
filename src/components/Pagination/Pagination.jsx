@@ -6,11 +6,24 @@ import css from "./Pagination.module.css";
 
 const Pagination = ({ currentPage, totalPages, onClick, borders, style, isLoading }) => {
   const loading = useSelector(selectLoading);
-  const btnClassName = clsx(
-    css.button,
-    borders && css.borders,
-    isLoading || (loading && css.loading),
-  );
+  const loadingState = isLoading || loading;
+  const btnClassName = clsx(css.button, borders && css.borders, loadingState && css.loading);
+
+  if (currentPage > totalPages) {
+    return (
+      <div className={css.pagination} style={style}>
+        <button
+          className={clsx(btnClassName, currentPage === 1 && css.active)}
+          key={`first-button-${currentPage}`}
+          onClick={() => onClick(1)}
+          disabled={currentPage === 1}
+        >
+          1
+        </button>
+        <span className={css.ellipsis}>...</span>
+      </div>
+    );
+  }
   return (
     <div className={css.pagination} style={style}>
       {/* first button disabled when currentPage is 1, and shows always */}

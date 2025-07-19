@@ -5,9 +5,11 @@ import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
 import * as yup from "yup";
 
 import { registerUser } from "../../redux/auth/actions";
+import { selectNext } from "../../redux/auth/slice";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -35,6 +37,8 @@ const SignUpModal = ({ onClose, onSwitch }) => {
   } = useForm({ resolver: yupResolver(schema) });
   const [showPassword, setShowPassword] = useState(false);
   const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const next = useSelector(selectNext);
   const { loading, error } = useSelector((state) => state.auth);
 
   useEffect(() => {
@@ -54,6 +58,9 @@ const SignUpModal = ({ onClose, onSwitch }) => {
   const onSubmit = async (data) => {
     const result = await dispatch(registerUser(data));
     if (registerUser.fulfilled.match(result)) {
+      if (next) {
+        navigate(next);
+      }
       toast.success("You have been registered, welcome to Foodies!");
     } else {
       toast.error(result.payload.message || "Failed to register");
