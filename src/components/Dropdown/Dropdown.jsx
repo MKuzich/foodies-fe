@@ -1,9 +1,7 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
-// import { useDispatch } from "react-redux";
 import { useSearchParams } from "react-router-dom";
 
-// import { setQuery } from "@/redux/recipes/slice";
 import styles from "./Dropdown.module.css";
 
 const DefaultDropdownButton = ({

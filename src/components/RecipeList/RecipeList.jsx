@@ -1,12 +1,10 @@
 import { useRef } from "react";
 
-import RecipeCard from "../RecipeCard/RecipeCard";
-import { SkeletonCard } from "../RecipeCard/RecipeCard";
+import RecipeCard, { SkeletonCard } from "../RecipeCard/RecipeCard";
 import styles from "./RecipeList.module.css";
 
 function RecipeList({ recipes, isLoading, error }) {
   const recipesHeight = useRef(null);
-
 
   if (recipes.length === 0 && !isLoading && !error) {
     return (

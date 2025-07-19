@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useParams } from "react-router-dom";
@@ -49,6 +49,7 @@ import UserPageSkeleton from "./UserPageSkeleton";
 const UserPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
+  const userRendered = useRef(false);
 
   const loading = useSelector(selectUsersUserLoading);
   const [buttonLoading, setButtonLoading] = useState(false);
@@ -87,6 +88,15 @@ const UserPage = () => {
       dispatch(fetchUserTestimonials({ id, ...filter }));
   }, [dispatch, filter, tabOpened]);
 
+  useEffect(() => {
+    if (userRendered.current) {
+      scrollTo({
+        top: 0,
+        behavior: "smooth",
+      });
+    }
+  }, []);
+
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
 
@@ -115,7 +125,7 @@ const UserPage = () => {
       {isUserExists ? (
         <>
           <PathInfo name={"Profile"} />
-          <section className={css.section}>
+          <section className={css.section} ref={userRendered}>
             <div className={css.container}>
               <MainTitle>profile</MainTitle>
               <Subtitle>

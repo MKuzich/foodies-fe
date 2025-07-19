@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -47,6 +47,10 @@ function RecipeCard({ recipe }) {
     favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
   );
 
+  useEffect(() => {
+    setIsFavorite(favoriteRecipes?.some((fav) => fav.id === recipe.id) || false);
+  }, [favoriteRecipes, recipe.id]);
+
   const handleGetRecipe = () => {
     navigate(`/recipe/${recipe.id}`);
   };
@@ -60,7 +64,6 @@ function RecipeCard({ recipe }) {
       } else {
         await dispatch(addFavoriteRecipe(recipe));
       }
-      setIsFavorite((prev) => !prev);
     } else {
       dispatch(openSignIn());
     }

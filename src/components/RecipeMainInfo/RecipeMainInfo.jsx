@@ -25,6 +25,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
     }
   };
   const { owner: author } = recipe;
+  const formattedTime = recipe.time.includes("min") ? recipe.time : `${recipe.time} min`;
   return (
     <div className={styles.wrapper}>
       <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
@@ -34,7 +35,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
 
           <div className={styles.meta}>
             <span className={styles.category}>{recipe.category}</span>
-            <span className={styles.category}>{`${recipe.time} min`}</span>
+            <span className={styles.category}>{formattedTime}</span>
           </div>
 
           <p className={styles.description}>{recipe.description}</p>

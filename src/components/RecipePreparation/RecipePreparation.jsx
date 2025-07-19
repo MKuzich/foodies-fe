@@ -1,18 +1,29 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
-import api from "../../api/api";
 import Button from "../../components/Button/Button";
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
+import { addFavoriteRecipe, removeFavoriteRecipe } from "../../redux/recipes/actions";
+import { favoriteRecipesSelector } from "../../redux/recipes/selectors";
 import TestimonialModal from "../TestimonialModal";
 import styles from "./RecipePreparation.module.css";
 
 const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectCurrentUser);
+  console.log(isLoggedIn);
+  const favoriteRecipes = useSelector(favoriteRecipesSelector);
+  console.log(favoriteRecipes);
 
-  const [isFavorite, setIsFavorite] = useState(recipe.isFavorite);
+  const [isFavorite, setIsFavorite] = useState(
+    favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
+  );
+
+  useEffect(() => {
+    setIsFavorite(favoriteRecipes?.some((fav) => fav.id === recipe.id) || false);
+  }, [favoriteRecipes, recipe.id]);
+
   const [loading, setLoading] = useState(false);
 
   const handleFavoriteToggle = async () => {
@@ -24,11 +35,9 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
 
     try {
       if (isFavorite) {
-        await api.delete(`recipes/${recipe.id}/favorite`);
-        setIsFavorite(false);
+        dispatch(removeFavoriteRecipe(recipe.id));
       } else {
-        await api.post(`recipes/${recipe.id}/favorite`);
-        setIsFavorite(true);
+        dispatch(addFavoriteRecipe(recipe));
       }
     } catch (err) {
       toast.error(err.response?.data?.message || "Something went wrong");

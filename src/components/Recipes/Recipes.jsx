@@ -8,6 +8,7 @@ import Subtitle from "@/components/Subtitle/Subtitle";
 import { useAuth } from "@/hooks/useAuth";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
+
 import { getRecipesApi } from "../../api/recipes";
 import Icons from "../../assets/sprite.svg";
 import { selectCategoryByName } from "../../redux/categories/selectors";
