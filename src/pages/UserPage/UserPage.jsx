@@ -14,7 +14,7 @@ import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
 import { openLogout } from "../../redux/auth/slice";
-import { selectError } from "../../redux/root/selectors";
+import { selectError, selectLoading } from "../../redux/root/selectors";
 import {
   fetchUser,
   fetchUserFavorites,
@@ -52,6 +52,7 @@ const UserPage = () => {
   const userRendered = useRef(false);
 
   const loading = useSelector(selectUsersUserLoading);
+  const isLoading = useSelector(selectLoading);
   const [buttonLoading, setButtonLoading] = useState(false);
   const error = useSelector(selectError);
 
@@ -85,7 +86,7 @@ const UserPage = () => {
       dispatch(fetchUserFollowing({ id, ...filter }));
     tabOpened === "testimonials" &&
       isUserCurrentUser &&
-      dispatch(fetchUserTestimonials({ id, ...filter }));
+      dispatch(fetchUserTestimonials({ userId: id, ...filter }));
   }, [dispatch, filter, tabOpened]);
 
   useEffect(() => {
@@ -198,7 +199,7 @@ const UserPage = () => {
                     )}
                     {isUserCurrentUser && (
                       <TabItem
-                        name="My testimonials"
+                        name="My reviews"
                         onClick={() => dispatch(changeTab("testimonials"))}
                         isActive={tabOpened === "testimonials"}
                       />
@@ -248,6 +249,7 @@ const UserPage = () => {
                       <Pagination
                         totalPages={totalPages}
                         currentPage={currentPage}
+                        isLoading={isLoading}
                         onClick={(newValue) => dispatch(changePage(newValue))}
                         borders
                       />

@@ -2,6 +2,7 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 
 import api from "../../api/api";
 import {
+  deleteTestimonialsById,
   followUserById,
   getUser,
   getUserFavorites,
@@ -177,11 +178,23 @@ export const removeRecipe = createAsyncThunk("users/removeRecipe", async (id, th
 
 export const fetchUserTestimonials = createAsyncThunk(
   "users/fetchUserTestimonials",
-  async ({ page, limit }, thunkAPI) => {
+  async ({ userId, page, limit }, thunkAPI) => {
     try {
-      return await getUserTestimonials({ page, limit });
+      return await getUserTestimonials({ userId, page, limit });
     } catch (error) {
       return thunkAPI.rejectWithValue(error);
+    }
+  },
+);
+
+export const deleteTestimonial = createAsyncThunk(
+  "testimonials/deleteTestimonial",
+  async (testimonialId, { rejectWithValue }) => {
+    try {
+      const response = await deleteTestimonialsById(testimonialId);
+      return response;
+    } catch (err) {
+      return rejectWithValue(err.message || "Unknown error");
     }
   },
 );

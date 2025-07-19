@@ -3,6 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 import { userLogout } from "../auth/actions";
 import {
   changeAvatar,
+  deleteTestimonial,
   fetchUser,
   fetchUserFavorites,
   fetchUserFollowers,
@@ -230,10 +231,26 @@ const slice = createSlice({
       })
       .addCase(fetchUserTestimonials.fulfilled, (state, { payload }) => {
         state.totalPages = payload.pagination.pages;
-        state.user.testimonials = payload.results;
+        state.user.testimonials = payload.data;
         state.testimonialsLoading = false;
       })
       .addCase(fetchUserTestimonials.rejected, (state) => {
+        state.testimonialsLoading = false;
+      })
+      .addCase(deleteTestimonial.pending, (state) => {
+        state.isLoading = true;
+        state.testimonialsLoading = true;
+      })
+      .addCase(deleteTestimonial.fulfilled, (state, action) => {
+        state.user.testimonials = state.user.testimonials.filter(
+          (testimonial) => action.meta.arg !== testimonial.id,
+        );
+        state.isLoading = false;
+        state.testimonialsLoading = false;
+      })
+      .addCase(deleteTestimonial.rejected, (state, action) => {
+        state.error = action.payload;
+        state.isLoading = false;
         state.testimonialsLoading = false;
       });
   },

@@ -1,13 +1,17 @@
 import { useDispatch, useSelector } from "react-redux";
-import CategoriesItem from "../CategoriesItem/CategoriesItem";
-import styles from "./CategoriesList.module.css";
-import { showAllSelector } from "@/redux/categories/selectors";
-import { toggleShowAll } from "@/redux/categories/slice";
+
 import useMediaQuery from "@/hooks/useMediaQuery";
+import {
+  categoriesSelector,
+  errorCategoriesSelector,
+  isLoadingCategoriesSelector,
+  showAllSelector,
+} from "@/redux/categories/selectors";
+import { toggleShowAll } from "@/redux/categories/slice";
+
+import CategoriesItem from "../CategoriesItem/CategoriesItem";
 import Loader from "../Loader/Loader";
-import { categoriesSelector, isLoadingCategoriesSelector, errorCategoriesSelector } from "@/redux/categories/selectors";
-
-
+import styles from "./CategoriesList.module.css";
 
 function CategoriesList() {
   const categories = useSelector(categoriesSelector);
@@ -19,7 +23,6 @@ function CategoriesList() {
 
   const isMobile = useMediaQuery("(max-width: 374px)");
   const displayedCategories = showAll ? categories : categories.slice(0, isMobile ? 8 : 11);
-
 
   if (isLoading) {
     return (
@@ -50,7 +53,6 @@ function CategoriesList() {
         option="All"
         name={showAll ? "Hide categories" : "All categories"}
         onClick={handleShowAll}
-        
       />
       {showAll && <CategoriesItem option="Show" name="All recipes" />}
     </ul>
