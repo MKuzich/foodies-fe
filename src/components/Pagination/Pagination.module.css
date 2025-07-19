@@ -38,6 +38,7 @@
 
 .button.active {
   border: 1px solid var(--title-color);
+  cursor: auto;
 
 }
 
