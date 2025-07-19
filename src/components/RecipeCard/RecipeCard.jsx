@@ -1,7 +1,7 @@
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 import { useAuth } from "@/hooks/useAuth";
 import { openSignIn } from "@/redux/auth/slice";
@@ -91,8 +91,12 @@ function RecipeCard({ recipe }) {
 
   return (
     <li className={styles.recipeItem}>
-      <img loading="lazy" src={recipe.thumb} alt="recipe" className={styles.recipeImage} />
-      <h3 className={styles.recipeTitle}>{recipe.title}</h3>
+      <Link to={`/recipe/${recipe.id}`}>
+        <img loading="lazy" src={recipe.thumb} alt={recipe.title} className={styles.recipeImage} />
+      </Link>
+      <Link to={`/recipe/${recipe.id}`}>
+        <h3 className={styles.recipeTitle}>{recipe.title}</h3>
+      </Link>
       <p className={styles.recipeDescription}>{recipe.description}</p>
       <div className={styles.recipeInfo}>
         <div className={styles.recipeAvatarWrapper}>
