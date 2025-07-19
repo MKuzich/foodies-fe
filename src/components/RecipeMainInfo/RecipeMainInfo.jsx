@@ -28,11 +28,10 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
   const formattedTime = recipe.time.includes("min") ? recipe.time : `${recipe.time} min`;
   return (
     <div className={styles.wrapper}>
-      <img loading="lazy" src={recipe.thumb} alt={recipe.title} className={styles.image} />
+      <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.mainInfo}>
-          <h1 className={styles.title}>{recipe.title}</h1>
-
+          <h3 className={styles.title}>{recipe.title}</h3>
           <div className={styles.meta}>
             <span className={styles.category}>{recipe.category}</span>
             <span className={styles.category}>{formattedTime}</span>
@@ -43,7 +42,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
           <button className={styles.authorBtn} onClick={handleAuthorClick}>
             <AvatarIcon
               name={author.name}
-              src={author.avatarURL}
+              avatarUrl={author.avatarURL}
               alt={`${author.name} avatar`}
               small
               to={`/user/${author.id}`}

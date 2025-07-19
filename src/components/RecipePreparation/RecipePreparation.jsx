@@ -47,7 +47,7 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
 
   return (
     <>
-      <h3 className={styles.itemTitle}>Recipe Preparation</h3>
+      <h4 className={styles.itemTitle}>Recipe Preparation</h4>
       <p className={styles.description}>{recipe.instructions}</p>
       <ul className={styles.buttonList}>
         <li>
