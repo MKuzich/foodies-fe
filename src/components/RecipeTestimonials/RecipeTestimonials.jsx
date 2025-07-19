@@ -1,3 +1,4 @@
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteTestimonial } from "../../redux/users/operations";
@@ -10,8 +11,17 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
   const currentUser = useSelector((state) => state.auth.userInfo);
 
   const handleDelete = async (id) => {
-    const result = await dispatch(deleteTestimonial(id));
-    if (result.type.includes("fulfilled")) onDelete(id);
+    toast.promise(dispatch(deleteTestimonial(id)), {
+      loading: "Deleting testimonial...",
+      success: (result) => {
+        if (deleteTestimonial.fulfilled.match(result)) {
+          onDelete(id);
+          return "Successfully deleted testimonial!";
+        }
+        throw new Error("Failed to remove recipe from favorites");
+      },
+      error: (err) => err.message,
+    });
   };
   return (
     <div className={s.recipeTestimonials}>

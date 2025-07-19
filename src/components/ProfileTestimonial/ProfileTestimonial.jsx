@@ -1,4 +1,5 @@
 import { useState } from "react";
+import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import { deleteTestimonial } from "../../redux/users/operations";
@@ -14,7 +15,13 @@ export default function TestimonialItem({ data }) {
 
   const handleDelete = async () => {
     setIsDeleting(true);
-    await dispatch(deleteTestimonial(data.id));
+
+    const result = await dispatch(deleteTestimonial(data.id));
+    if (deleteTestimonial.fulfilled.match(result)) {
+      toast.success("Successfully deleted testimonial!");
+    } else {
+      toast.error(result.payload.message || "Failed to delete testimonial");
+    }
     setIsDeleting(false);
   };
   return (
