@@ -35,7 +35,7 @@ const RecipeIngredients = ({ ingredients }) => {
         delayHide={500}
         clickable={true}
         style={{
-          backgroundColor: "var(--background-color)",
+          backgroundColor: "var(--white-color)",
           color: "var(--title-color)",
           borderRadius: "30px",
           padding: "8px 12px",

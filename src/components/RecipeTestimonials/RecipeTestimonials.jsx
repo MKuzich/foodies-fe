@@ -10,8 +10,10 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
   const dispatch = useDispatch();
   const currentUser = useSelector((state) => state.auth.userInfo);
 
-  const handleDelete = async (id) => {
-    toast.promise(dispatch(deleteTestimonial(id)), {
+  const handleDelete = async (e, id) => {
+    const btn = e.currentTarget;
+    btn.disabled = true;
+    await toast.promise(dispatch(deleteTestimonial(id)), {
       loading: "Deleting testimonial...",
       success: (result) => {
         if (deleteTestimonial.fulfilled.match(result)) {
@@ -22,6 +24,7 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
       },
       error: (err) => err.message,
     });
+    btn.disabled = false;
   };
   return (
     <div className={s.recipeTestimonials}>
@@ -53,7 +56,7 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
                   <IconButton
                     className={s.buttonDelete}
                     name="trash"
-                    onClick={() => handleDelete(item.id)}
+                    onClick={(e) => handleDelete(e, item.id)}
                   />
                 )}
               </li>
