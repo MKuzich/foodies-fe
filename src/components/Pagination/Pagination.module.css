@@ -102,6 +102,10 @@
   .button.borders.active {
     border: 1px solid var(--title-color);
   }
+
+  .button.borders.active.loading {
+    border: none;
+  }
 }
 
 @media screen and (min-width: 1440px) {
