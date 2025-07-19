@@ -44,7 +44,7 @@ const UserBar = ({ onLogout, className = "", isHome = true }) => {
           className={css.avatar}
           small
         />
-        <span className={css.userName}>{user.name}</span>
+        <span className={css.userName}>{user.name.split(" ")[0]}</span>
         <svg className={clsx(css.chevronIcon, open && css.openedIcon)} width="18" height="18">
           <use href={`${Icons}#icon-chevron-down`} />
         </svg>

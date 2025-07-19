@@ -97,6 +97,7 @@
   line-height: 1.33;
   text-transform: uppercase;
   color: var(--title-color);
+  text-align: center;
 }
 
 .userInfoList {
@@ -123,7 +124,7 @@
   font-weight: 700;
   font-size: 14px;
   line-height: 1.43;
-  color: var(--inactive-color);
+  color: var(--title-color);
   text-transform: lowercase;
 }
 
@@ -136,13 +137,5 @@
   .userInfoListValue {
     font-size: 16px;
     line-height: 1.5;
-    color: var(--title-color);
-  }
-}
-
-@media screen and (min-width: 1440px) {
-
-  .userInfoListValue {
-    color: var(--text-color);
   }
 }
