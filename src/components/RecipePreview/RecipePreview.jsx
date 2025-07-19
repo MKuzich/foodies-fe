@@ -1,6 +1,7 @@
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
+import { fetchFavoriteRecipes } from "../../redux/recipes/actions";
 import { removeFromFavoriteRecipe, removeRecipe } from "../../redux/users/operations";
 import { selectIsUserCurrentUser, selectTabOpened } from "../../redux/users/selectors";
 import IconButton from "../IconButton/IconButton";
@@ -20,6 +21,8 @@ const RecipePreview = ({ recipe }) => {
       const result = await dispatch(removeFromFavoriteRecipe(recipe.id));
       if (removeFromFavoriteRecipe.fulfilled.match(result)) {
         toast.success("Successfully removed recipe from favorites!");
+        // TODO: if we have time should recheck this and rewrite it
+        dispatch(fetchFavoriteRecipes());
       } else {
         toast.error(result.payload.message || "Failed to remove recipe from favorites");
       }

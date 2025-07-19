@@ -11,10 +11,17 @@ const SearchableDropdownInput = ({
   handleToggle,
   onSearch,
   searchValue,
+  onKeyDown,
   hasError,
+  setIsOpen,
   className,
+
   ...props
 }) => {
+  const handleFocus = () => {
+    setIsOpen(true);
+  };
+
   return (
     <div style={{ position: "relative" }}>
       <input
@@ -29,26 +36,41 @@ const SearchableDropdownInput = ({
         placeholder={selectedItems ? selectedItems.split("_").join(" ") : placeholder}
         value={searchValue}
         onChange={(e) => onSearch(e.target.value)}
-        onClick={handleToggle}
+        onMouseDown={handleToggle}
+        onFocus={handleFocus}
+        onKeyDown={onKeyDown}
+        onBlur={(e) => {
+          if (!e.currentTarget.contains(e.relatedTarget)) {
+            setTimeout(() => setIsOpen(false), 50);
+          }
+        }}
         {...props}
       />
-      <svg className={styles.icon} width="18" height="18" viewBox="0 0 18 18">
+      <svg className={styles.icon} width="20" height="20" viewBox="0 0 20 20">
         <use href="/src/assets/sprite.svg#icon-chevron-down" />
       </svg>
     </div>
   );
 };
 
-const SearchableDropdownList = ({ data, handleSelectItem }) => {
-  const displayData = data.slice(0, 10); // Ограничиваем до 10 элементов
+const SearchableDropdownList = ({ data, handleSelectItem, selectedIndex, setSelectedIndex }) => {
+  const displayData = data.slice(0, 10);
 
   return (
     <ul className={clsx(styles.dropdown)}>
       {displayData.length === 0 ? (
         <li className={clsx(styles.dropdownItem, styles.noResults)}>No results found</li>
       ) : (
-        displayData.map((item) => (
-          <li key={item.id} className={styles.dropdownItem} onClick={() => handleSelectItem(item)}>
+        displayData.map((item, index) => (
+          <li
+            key={item.id}
+            className={clsx(
+              styles.dropdownItem,
+              selectedIndex === index && styles.dropdownItemSelected,
+            )}
+            onMouseDown={() => handleSelectItem(item)}
+            onMouseEnter={() => setSelectedIndex(index)}
+          >
             {item.name}
           </li>
         ))
@@ -72,6 +94,7 @@ function DropdownSearch({
   const [isOpen, setIsOpen] = useState(false);
   const [selectedItems, setSelectedItems] = useState("");
   const [searchValue, setSearchValue] = useState("");
+  const [selectedIndex, setSelectedIndex] = useState(-1);
   const [filteredData, setFilteredData] = useState(data);
   const buttonRef = useRef(null);
   const wrapperRef = useRef(null);
@@ -149,6 +172,31 @@ function DropdownSearch({
     }
   };
 
+  const handleKeyDown = (e) => {
+    if (!isOpen) return;
+
+    switch (e.key) {
+      case "ArrowDown":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev < filteredData.length - 1 ? prev + 1 : 0));
+        break;
+      case "ArrowUp":
+        e.preventDefault();
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredData.length - 1));
+        break;
+      case "Enter":
+        e.preventDefault();
+        if (selectedIndex >= 0 && filteredData[selectedIndex]) {
+          handleSelectItem(filteredData[selectedIndex]);
+        }
+        break;
+      case "Escape":
+        setIsOpen(false);
+        setSelectedIndex(-1);
+        break;
+    }
+  };
+
   const handleSelectItem = (item) => {
     setSelectedItems(item.name);
     setSearchValue("");
@@ -177,6 +225,8 @@ function DropdownSearch({
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        setIsOpen={setIsOpen}
+        onKeyDown={handleKeyDown}
         onSearch={handleSearch}
         searchValue={searchValue}
         hasError={hasError}
@@ -187,7 +237,12 @@ function DropdownSearch({
           className={clsx(styles.inputContainer, styles.searchContainer)}
           style={{ top: buttonHeight + 10 }}
         >
-          <List data={filteredData} handleSelectItem={handleSelectItem} />
+          <List
+            data={filteredData}
+            handleSelectItem={handleSelectItem}
+            selectedIndex={selectedIndex}
+            setSelectedIndex={setSelectedIndex}
+          />
         </div>
       )}
       {errorMessage && <span className={clsx(styles.error)}>{errorMessage}</span>}

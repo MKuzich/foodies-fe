@@ -34,7 +34,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
 
           <div className={styles.meta}>
             <span className={styles.category}>{recipe.category}</span>
-            <span className={styles.category}>{recipe.time}</span>
+            <span className={styles.category}>{`${recipe.time} min`}</span>
           </div>
 
           <p className={styles.description}>{recipe.description}</p>
