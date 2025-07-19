@@ -37,7 +37,7 @@ export const getFavoriteRecipesApi = async () => {
       return [];
     }
 
-    const response = await api.get("recipes/favorites");
+    const response = await api.get("recipes/favorites?limit=-1");
     return response.data;
   } catch (error) {
     console.error("Error fetching favorite recipes:", error);
