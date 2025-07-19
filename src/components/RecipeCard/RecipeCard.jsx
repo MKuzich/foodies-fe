@@ -69,7 +69,7 @@ function RecipeCard({ recipe }) {
 
   return (
     <li className={styles.recipeItem}>
-      <img src={recipe.thumb} alt="recipe" className={styles.recipeImage} />
+      <img loading="lazy" src={recipe.thumb} alt="recipe" className={styles.recipeImage} />
       <h3 className={styles.recipeTitle}>{recipe.title}</h3>
       <p className={styles.recipeDescription}>{recipe.description}</p>
       <div className={styles.recipeInfo}>

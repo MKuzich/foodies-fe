@@ -27,7 +27,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
   const { owner: author } = recipe;
   return (
     <div className={styles.wrapper}>
-      <img src={recipe.thumb} alt={recipe.title} className={styles.image} />
+      <img loading="lazy" src={recipe.thumb} alt={recipe.title} className={styles.image} />
       <div className={styles.content}>
         <div className={styles.mainInfo}>
           <h1 className={styles.title}>{recipe.title}</h1>

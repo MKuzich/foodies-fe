@@ -52,7 +52,7 @@
 
 .recipePreviewDescription {
   font-size: 14px;
-  color: var(--inactive-color);
+  color: var(--text-color);
   font-weight: 500;
   line-height: 1.43;
 

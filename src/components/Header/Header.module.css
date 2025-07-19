@@ -147,6 +147,7 @@
 }
 
 .burger {
+  flex-shrink: 0;
   display: none;
   background: none;
   border: none;
