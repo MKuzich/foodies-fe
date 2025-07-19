@@ -45,9 +45,15 @@ const RecipePage = () => {
     fetchRecipe();
   }, [id]);
 
-  const handleChangeTestimonials = (newTestimonial) => {
+  const handleAddTestimonial = (newTestimonial) => {
     const prevTestimonials = testimonials.slice(0, -1);
     setTestimonials([newTestimonial, ...prevTestimonials]);
+  };
+
+  const handleDeleteTestimonial = (id) => {
+    setTestimonials((prevTestimonials) =>
+      prevTestimonials.filter((testimonial) => testimonial.id !== id),
+    );
   };
 
   return (
@@ -63,7 +69,7 @@ const RecipePage = () => {
           <RecipeInfo
             recipe={recipe}
             loading={loading}
-            onChangeTestimonials={handleChangeTestimonials}
+            onChangeTestimonials={handleAddTestimonial}
           />
         </Container>
       </section>
@@ -72,7 +78,7 @@ const RecipePage = () => {
       </section>
       <section>
         <Container>
-          <RecipeTestimonials testimonials={testimonials} />
+          <RecipeTestimonials testimonials={testimonials} onDelete={handleDeleteTestimonial} />
         </Container>
       </section>
     </>
