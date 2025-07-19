@@ -42,12 +42,12 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
       <h3 className={styles.itemTitle}>Recipe Preparation</h3>
       <p className={styles.description}>{recipe.instructions}</p>
       <ul className={styles.buttonList}>
-        <li className={styles.buttonList}>
+        <li>
           <Button outlinedInactive={true} onClick={handleFavoriteToggle} disabled={loading}>
             {!isLoggedIn || !isFavorite ? "Add to favorites" : "Remove from favorites"}
           </Button>
         </li>
-        <li className={styles.buttonList}>
+        <li>
           <TestimonialModal recipeId={recipe.id} onChangeTestimonials={onChangeTestimonials} />
         </li>
       </ul>

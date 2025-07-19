@@ -38,7 +38,7 @@ const AvatarIcon = ({
       {to ? (
         <Link to={to} className={css.link}>
           {imageSrc ? (
-            <img src={imageSrc} alt={imgAlt} className={iconClassName} />
+            <img loading="lazy" src={imageSrc} alt={imgAlt} className={iconClassName} />
           ) : (
             <div className={iconClassName}>{avatarName}</div>
           )}
@@ -46,7 +46,7 @@ const AvatarIcon = ({
       ) : (
         <div className={css.link}>
           {imageSrc ? (
-            <img src={imageSrc} alt={imgAlt} className={iconClassName} />
+            <img loading="lazy" src={imageSrc} alt={imgAlt} className={iconClassName} />
           ) : (
             <div className={iconClassName}>{avatarName}</div>
           )}

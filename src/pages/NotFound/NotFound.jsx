@@ -21,9 +21,7 @@ const NotFound = () => {
         <p className={css.text}>The page you are looking for does not exist or has been moved.</p>
         <p className={css.suggestion}>Please check the URL or return to the homepage.</p>
 
-        <Button isLink href="/">
-          Go to Homepage
-        </Button>
+        <Button to="/">Go to Homepage</Button>
       </Container>
     </>
   );
