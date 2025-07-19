@@ -1,14 +1,23 @@
 @media (max-width: 767px) {
-  .mobileNav {
-    width: 100vw;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    height: 40vh;
-    padding: 218px 0 132px 0;
-    gap: 32px;
-    padding-top: 48px;
+  .mobileNavHero {
+    position: fixed;
+    top: 0;
+    right: 0;
+    height: 100vh;
+    width: 100%;
+    max-width: 375px;
+    background-color: white;
+    z-index: 1000;
+    transition: transform 0.3s ease-in-out;
+    transform: translateX(100%);
+  }
+
+  .slideIn {
+    transform: translateX(0);
+  }
+
+  .slideOut {
+    transform: translateX(100%);
   }
 
   .SideBarLink {
