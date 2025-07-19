@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Icons from "../../assets/sprite.svg";
@@ -9,6 +9,15 @@ import css from "./MobileSideBar.module.css";
 
 const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true }) => {
   const panelRef = useRef(null);
+  const [shouldRender, setShouldRender] = useState(open);
+  const [animateOut, setAnimateOut] = useState(false);
+
+  const handleCloseClick = () => {
+    setAnimateOut(true);
+    setTimeout(() => {
+      onClose();
+    }, 300);
+  };
 
   useEffect(() => {
     if (!open) return;
@@ -28,7 +37,6 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
     };
   }, [open, onClose]);
 
-  // simple focus‐trap: keep focus inside the panel
   useEffect(() => {
     if (!open || !panelRef.current) return;
     const focusable = panelRef.current.querySelectorAll < HTMLElement > "a, button:not([disabled])";
@@ -54,7 +62,18 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
     };
   }, [open]);
 
-  if (!open) return null;
+  useEffect(() => {
+    if (open) {
+      setShouldRender(true);
+      setAnimateOut(false);
+    } else if (shouldRender) {
+      setAnimateOut(true);
+      const timeout = setTimeout(() => {
+        setShouldRender(false);
+      }, 300);
+      return () => clearTimeout(timeout);
+    }
+  }, [open, shouldRender]);
 
   return (
     <>
@@ -62,10 +81,19 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
         type="button"
         aria-label="Close navigation menu"
         className={css.backdrop}
-        onClick={onClose}
+        onClick={handleCloseClick}
       />
 
-      <aside ref={panelRef} role="dialog" aria-modal="true" className={css.mobileNavHero}>
+      <aside
+        ref={panelRef}
+        role="dialog"
+        aria-modal="true"
+        className={clsx(
+          css.mobileNavHero,
+          open && !animateOut && css.slideIn,
+          animateOut && css.slideOut,
+        )}
+      >
         <Container className={css.mobileContainer}>
           <div className={css.sidebarHeader}>
             <Link to="/" className={css.logo} onClick={onClose}>
@@ -73,9 +101,9 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
             </Link>
             <button
               type="button"
-              onClick={onClose}
               className={css.mobileClose}
               aria-label="Close navigation menu"
+              onClick={handleCloseClick}
             >
               <svg className={css.mobileCloseIcon} fill="currentColor" width="28" height="28">
                 <use href={`${Icons}#icon-x`} />
