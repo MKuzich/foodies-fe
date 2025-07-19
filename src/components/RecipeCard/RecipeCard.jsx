@@ -59,6 +59,7 @@ function RecipeCard({ recipe }) {
     }
     const btn = e.currentTarget;
     btn.disabled = true;
+    btn.blur();
     if (isFavorite) {
       toast.promise(dispatch(removeFavoriteRecipe(recipe.id)), {
         loading: "Removing from favorites...",
