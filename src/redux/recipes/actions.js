@@ -9,9 +9,9 @@ import {
 
 export const fetchPopularRecipes = createAsyncThunk(
   "recipes/fetchPopularRecipes",
-  async (_, { rejectWithValue }) => {
+  async (excludeId, { rejectWithValue }) => {
     try {
-      const recipes = await getPopularRecipesApi();
+      const recipes = await getPopularRecipesApi(excludeId);
       return recipes;
     } catch (err) {
       return rejectWithValue(err.message || "Unknown error");
@@ -24,9 +24,9 @@ export const fetchFavoriteRecipes = createAsyncThunk(
   async (_, { rejectWithValue, getState }) => {
     const state = getState();
     const token = state.auth.userToken;
-   
+
     if (!token) {
-      return []; 
+      return [];
     }
 
     try {

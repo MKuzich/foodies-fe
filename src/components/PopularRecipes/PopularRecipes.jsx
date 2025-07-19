@@ -12,15 +12,17 @@ import Loader from "../Loader/Loader";
 import RecipeCard from "../RecipeCard/RecipeCard";
 import styles from "./PopularRecipes.module.css";
 
-function PopularRecipes() {
+function PopularRecipes({ currentRecipeId }) {
   const dispatch = useDispatch();
   const recipes = useSelector(popularRecipesSelector);
   const loading = useSelector(isLoadingSelector);
   const error = useSelector(errorSelector);
 
   useEffect(() => {
-    dispatch(fetchPopularRecipes());
-  }, [dispatch]);
+    if (currentRecipeId) {
+      dispatch(fetchPopularRecipes(Number(currentRecipeId)));
+    }
+  }, [dispatch, currentRecipeId]);
 
   useEffect(() => {
     if (error) toast.error(error);
