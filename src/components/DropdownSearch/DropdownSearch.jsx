@@ -54,7 +54,7 @@ const SearchableDropdownInput = ({
 };
 
 const SearchableDropdownList = ({ data, handleSelectItem, selectedIndex, setSelectedIndex }) => {
-  const displayData = data.slice(0, 10); // Ограничиваем до 10 элементов
+  const displayData = data.slice(0, 10);
 
   return (
     <ul className={clsx(styles.dropdown)}>
@@ -68,7 +68,7 @@ const SearchableDropdownList = ({ data, handleSelectItem, selectedIndex, setSele
               styles.dropdownItem,
               selectedIndex === index && styles.dropdownItemSelected,
             )}
-            onClick={() => handleSelectItem(item)}
+            onMouseDown={() => handleSelectItem(item)}
             onMouseEnter={() => setSelectedIndex(index)}
           >
             {item.name}
@@ -178,16 +178,16 @@ function DropdownSearch({
     switch (e.key) {
       case "ArrowDown":
         e.preventDefault();
-        setSelectedIndex((prev) => (prev < data.length - 1 ? prev + 1 : 0));
+        setSelectedIndex((prev) => (prev < filteredData.length - 1 ? prev + 1 : 0));
         break;
       case "ArrowUp":
         e.preventDefault();
-        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : data.length - 1));
+        setSelectedIndex((prev) => (prev > 0 ? prev - 1 : filteredData.length - 1));
         break;
       case "Enter":
         e.preventDefault();
-        if (selectedIndex >= 0 && data[selectedIndex]) {
-          handleSelectItem(data[selectedIndex]);
+        if (selectedIndex >= 0 && filteredData[selectedIndex]) {
+          handleSelectItem(filteredData[selectedIndex]);
         }
         break;
       case "Escape":
