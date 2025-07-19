@@ -37,7 +37,12 @@ const RecipePreview = ({ recipe }) => {
 
   return (
     <li className={css.recipePreview}>
-      <img src={recipe.thumb} alt={recipe.title} className={css.recipePreviewImage} />
+      <img
+        loading="lazy"
+        src={recipe.thumb}
+        alt={recipe.title}
+        className={css.recipePreviewImage}
+      />
       <div className={css.recipePreviewWrapper}>
         <div className={css.recipePreviewInfo}>
           {/* add as typography with variant="h2" UserCard has the same */}

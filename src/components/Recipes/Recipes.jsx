@@ -8,6 +8,7 @@ import Subtitle from "@/components/Subtitle/Subtitle";
 import { useAuth } from "@/hooks/useAuth";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
+
 import { getRecipesApi } from "../../api/recipes";
 import Icons from "../../assets/sprite.svg";
 import { selectCategoryByName } from "../../redux/categories/selectors";
@@ -32,13 +33,6 @@ function Recipes() {
   const limitPage = isMobile ? 8 : 12;
 
   const [searchParams, setSearchParams] = useSearchParams();
-
-  // TODO: MAYBE SHOUDL COMBINE THIS LOGIC TO ONE USE EFFECT
-  useEffect(() => {
-    if (recipesRef.current) {
-      recipesRef.current.scrollIntoView({ behavior: "smooth" });
-    }
-  }, []);
 
   useEffect(() => {
     if (!isLoading && recipesRef.current) {

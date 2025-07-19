@@ -420,6 +420,7 @@ const AddRecipeForm = () => {
                       </button>
                       <div className={clsx(styles.ingredientImageWrapper)}>
                         <img
+                          loading="lazy"
                           src={item.preview}
                           alt={item.name}
                           className={clsx(styles.ingredientImage)}

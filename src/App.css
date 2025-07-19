@@ -1,3 +1,9 @@
+@font-face {
+  font-family: "Mulish";
+  src:
+    local("Mulish"),
+    url(./fonts/Mulish-VariableFont.ttf) format("truetype");
+}
 /* RESET STYLES */
 /* 1. Use a more-intuitive box-sizing model */
 *,

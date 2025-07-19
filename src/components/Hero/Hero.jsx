@@ -15,7 +15,7 @@ const Hero = () => {
           Amazing recipes for beginners in the world of cooking, enveloping you in the aromas and
           tastes of various cuisines.
         </p>
-        <Button href="/recipe/add" isLink appendClassName={css.ctaBtn}>
+        <Button to="/recipe/add" isLink appendClassName={css.ctaBtn}>
           Add Recipe
         </Button>
         <HeroImages />

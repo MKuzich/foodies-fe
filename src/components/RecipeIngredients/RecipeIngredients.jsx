@@ -8,6 +8,7 @@ const RecipeIngredients = ({ ingredients }) => (
         <li key={index} className={styles.ingredientListItem}>
           <div className={styles.imgWrapper}>
             <img
+              loading="lazy"
               src={item.img || "/ingredient-placeholder.png"}
               alt={item.name}
               className={styles.ingredientListImg}
