@@ -68,9 +68,7 @@ const RecipePage = () => {
         </Container>
       </section>
       <section>
-        <Container>
-          <PopularRecipes />
-        </Container>
+        <Container>{recipe && <PopularRecipes currentRecipeId={recipe.id} />}</Container>
       </section>
       <section>
         <Container>
