@@ -10,7 +10,7 @@ export const currentUserPageErrors = {
 
   noSubscriptions:
     "Your account currently has no subscriptions to other users. Learn more about our users and select those whose content interests you.",
-  noTestimonials: "You has not left any testimonials yet.",
+  noTestimonials: "You has not left any reviews yet.",
 };
 
 export const userPageErrors = {

@@ -7,6 +7,7 @@ import {
   selectUsersRecipesLoading,
 } from "../../redux/users/selectors";
 import { getSkeletons } from "../../utils/helpers";
+import ProfileTestimonial from "../ProfileTestimonial/ProfileTestimonial";
 import RecipePreview from "../RecipePreview/RecipePreview";
 import RecipePreviewSkeleton from "../RecipePreview/RecipePreviewSkeleton";
 import UserCard from "../UserCard/UserCard";
@@ -16,15 +17,16 @@ import css from "./ListItems.module.css";
 const ListItems = ({ items, type, errorText, skeletonMode }) => {
   const isRecipesLoading = useSelector(selectUsersRecipesLoading);
   const isFollowLoading = useSelector(selectUsersFollowLoading);
+  const isTestimonialsLoading = useSelector((state) => state.users.user.testimonialsLoading);
   const itemsCount = useSelector(selectItemsCount);
 
   return (
     <div className={css.listItemsWrap}>
-      {items?.length === 0 && !isRecipesLoading && !isFollowLoading ? (
+      {items?.length === 0 && !isRecipesLoading && !isFollowLoading && !isTestimonialsLoading ? (
         <p className={css.errorText}>{errorText}</p>
       ) : (
         <ul className={clsx(css.listItems, css[type])}>
-          {skeletonMode || isRecipesLoading || isFollowLoading
+          {skeletonMode || isRecipesLoading || isFollowLoading || isTestimonialsLoading
             ? getSkeletons(itemsCount).map((skeleton) => {
                 if (type === "recipe") {
                   return <RecipePreviewSkeleton key={skeleton.id} />;
@@ -33,6 +35,7 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
                   return <UserCardSkeleton key={skeleton.id} />;
                 }
                 if (type === "testimonial") {
+                  return <UserCardSkeleton key={skeleton.id} />;
                   // return <TestimonialSkeleton key={skeleton.id} />;
                   // TODO: add testimonial skeleton
                 }
@@ -45,8 +48,7 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
                   return <UserCard key={item.id} user={item} />;
                 }
                 if (type === "testimonial") {
-                  // return <Testimonial key={item.id} testimonial={item} />;
-                  // TODO: add testimonial
+                  return <ProfileTestimonial key={item.id} data={item} />;
                 }
               })}
         </ul>

@@ -76,12 +76,24 @@ export const unfollowUserById = async ({ id, userId, callback, ...params }) => {
   }
 };
 
-export const getUserTestimonials = async ({ page = 1, limit = 9 }) => {
-  const url = `/users/testimonials?page=${page}&limit=${limit}`;
+export const getUserTestimonials = async ({ userId, page = 1, limit = 9 }) => {
+  const url = `/testimonials/user/${userId}`;
   try {
-    const { data } = await api.get(url);
+    const { data } = await api.get(url, {
+      params: { page, limit },
+    });
     return data;
   } catch (error) {
+    throw error;
+  }
+};
+
+export const deleteTestimonialsById = async (testimonialId) => {
+  try {
+    const { data } = await api.delete(`/testimonials/user/${testimonialId}`, {});
+    return data;
+  } catch (error) {
+    console.error(`Error deleting testimonials by id: ${testimonialId}`, error);
     throw error;
   }
 };

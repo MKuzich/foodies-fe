@@ -84,7 +84,7 @@ const UserPage = () => {
       dispatch(fetchUserFollowing({ id, ...filter }));
     tabOpened === "testimonials" &&
       isUserCurrentUser &&
-      dispatch(fetchUserTestimonials({ id, ...filter }));
+      dispatch(fetchUserTestimonials({ userId: id, ...filter }));
   }, [dispatch, filter, tabOpened]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
@@ -188,7 +188,7 @@ const UserPage = () => {
                     )}
                     {isUserCurrentUser && (
                       <TabItem
-                        name="My testimonials"
+                        name="My reviews"
                         onClick={() => dispatch(changeTab("testimonials"))}
                         isActive={tabOpened === "testimonials"}
                       />
