@@ -1,14 +1,16 @@
 import clsx from "clsx";
 import { useEffect, useRef, useState } from "react";
 
+import useMediaQuery from "../../hooks/useMediaQuery";
 import css from "./TabItem.module.css";
 
 const TabItem = ({ name, onClick, isActive }) => {
   const ref = useRef(null);
   const [isNeedScrollToStart, setIsNeedScrollToStart] = useState(false);
+  const mq = useMediaQuery("(max-width: 1439px)");
 
   useEffect(() => {
-    if (isNeedScrollToStart && ref.current) {
+    if (mq && isNeedScrollToStart && ref.current) {
       ref.current.scrollIntoView({
         behavior: "smooth",
         block: "nearest",

@@ -239,16 +239,19 @@ const slice = createSlice({
       })
       .addCase(deleteTestimonial.pending, (state) => {
         state.isLoading = true;
+        state.testimonialsLoading = true;
       })
       .addCase(deleteTestimonial.fulfilled, (state, action) => {
         state.user.testimonials = state.user.testimonials.filter(
           (testimonial) => action.meta.arg !== testimonial.id,
         );
         state.isLoading = false;
+        state.testimonialsLoading = false;
       })
       .addCase(deleteTestimonial.rejected, (state, action) => {
         state.error = action.payload;
         state.isLoading = false;
+        state.testimonialsLoading = false;
       });
   },
 });

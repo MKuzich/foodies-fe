@@ -8,6 +8,7 @@ import {
 } from "../../redux/users/selectors";
 import { getSkeletons } from "../../utils/helpers";
 import ProfileTestimonial from "../ProfileTestimonial/ProfileTestimonial";
+import ProfileTestimonialSkeleton from "../ProfileTestimonial/ProfileTestimonialSkeleton";
 import RecipePreview from "../RecipePreview/RecipePreview";
 import RecipePreviewSkeleton from "../RecipePreview/RecipePreviewSkeleton";
 import UserCard from "../UserCard/UserCard";
@@ -17,7 +18,7 @@ import css from "./ListItems.module.css";
 const ListItems = ({ items, type, errorText, skeletonMode }) => {
   const isRecipesLoading = useSelector(selectUsersRecipesLoading);
   const isFollowLoading = useSelector(selectUsersFollowLoading);
-  const isTestimonialsLoading = useSelector((state) => state.users.user.testimonialsLoading);
+  const isTestimonialsLoading = useSelector((state) => state.users.testimonialsLoading);
   const itemsCount = useSelector(selectItemsCount);
 
   return (
@@ -35,9 +36,7 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
                   return <UserCardSkeleton key={skeleton.id} />;
                 }
                 if (type === "testimonial") {
-                  return <UserCardSkeleton key={skeleton.id} />;
-                  // return <TestimonialSkeleton key={skeleton.id} />;
-                  // TODO: add testimonial skeleton
+                  return <ProfileTestimonialSkeleton key={skeleton.id} />;
                 }
               })
             : items.map((item) => {

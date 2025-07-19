@@ -1,13 +1,9 @@
 import clsx from "clsx";
-import { useSelector } from "react-redux";
 
-import { selectLoading } from "../../redux/root/selectors";
 import css from "./Pagination.module.css";
 
 const Pagination = ({ currentPage, totalPages, onClick, borders, style, isLoading }) => {
-  const loading = useSelector(selectLoading);
-  const loadingState = isLoading || loading;
-  const btnClassName = clsx(css.button, borders && css.borders, loadingState && css.loading);
+  const btnClassName = clsx(css.button, borders && css.borders, isLoading && css.loading);
 
   if (currentPage > totalPages) {
     return (
