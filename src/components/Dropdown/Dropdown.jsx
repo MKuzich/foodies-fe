@@ -59,7 +59,7 @@ const DefaultDropdownList = ({ data, handleSelectItem, selectedIndex, setSelecte
             styles.dropdownItem,
             selectedIndex === index && styles.dropdownItemSelected,
           )}
-          onClick={() => handleSelectItem(item)}
+          onMouseDown={() => handleSelectItem(item)}
           onMouseEnter={() => setSelectedIndex(index)}
         >
           {item.name}
@@ -95,7 +95,7 @@ function Dropdown({
     }
   }, []);
 
-  // Сброс состояния при изменении resetSignal
+  // RESET WHEN RESET SIGNAL IS TRUE
   useEffect(() => {
     setSelectedItems("");
     setIsOpen(false);
