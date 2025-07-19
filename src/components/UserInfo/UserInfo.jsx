@@ -8,8 +8,8 @@ import { changeAvatar } from "../../redux/users/operations";
 import { selectIsUserCurrentUser, selectUser } from "../../redux/users/selectors";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import ChageAvatarForm from "../ChageAvatarForm/ChageAvatarForm";
-import Loader from "../Loader/Loader";
 import Meta from "../Meta/Meta";
+import skeletonCss from "../Skeleton/Skeleton.module.css";
 import css from "./UserInfo.module.css";
 
 const UserInfo = () => {
@@ -55,7 +55,13 @@ const UserInfo = () => {
               </div>
             )}
             {cngAvatarLoading ? (
-              <Loader />
+              <div
+                className={clsx(
+                  skeletonCss.skeleton,
+                  skeletonCss.skeletonAvatar,
+                  skeletonCss.large,
+                )}
+              ></div>
             ) : (
               <AvatarIcon src={user.avatarURL} name={user.name} large />
             )}

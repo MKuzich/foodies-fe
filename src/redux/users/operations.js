@@ -149,7 +149,7 @@ export const unfollowUser = createAsyncThunk("users/unfollowUser", async (id, th
 export const changeAvatar = createAsyncThunk(
   "users/changeAvatar",
   async (newAvatarFile, thunkAPI) => {
-    const url = "auth/avatars";
+    const url = "/auth/avatars";
     try {
       const formData = new FormData();
       formData.append("avatar", newAvatarFile, newAvatarFile.name);
