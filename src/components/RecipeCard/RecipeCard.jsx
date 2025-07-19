@@ -1,4 +1,5 @@
 import { useState } from "react";
+import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
 
@@ -52,19 +53,40 @@ function RecipeCard({ recipe }) {
   };
 
   const handleClickFavorite = async (e) => {
+    if (!user) {
+      dispatch(openSignIn());
+      return;
+    }
     const btn = e.currentTarget;
     btn.disabled = true;
-    if (user) {
-      if (isFavorite) {
-        await dispatch(removeFavoriteRecipe(recipe.id));
-      } else {
-        await dispatch(addFavoriteRecipe(recipe));
-      }
-      setIsFavorite((prev) => !prev);
+    btn.blur();
+    if (isFavorite) {
+      toast.promise(dispatch(removeFavoriteRecipe(recipe.id)), {
+        loading: "Removing from favorites...",
+        success: (result) => {
+          btn.disabled = false;
+          if (removeFavoriteRecipe.fulfilled.match(result)) {
+            setIsFavorite(false);
+            return `Recipe removed from favorites`;
+          }
+          throw new Error("Failed to remove recipe from favorites");
+        },
+        error: (err) => err.message,
+      });
     } else {
-      dispatch(openSignIn());
+      toast.promise(dispatch(addFavoriteRecipe(recipe)), {
+        loading: "Adding to favorites...",
+        success: (result) => {
+          btn.disabled = false;
+          if (addFavoriteRecipe.fulfilled.match(result)) {
+            setIsFavorite(true);
+            return `Recipe added to favorites`;
+          }
+          throw new Error("Failed to add recipe to favorites");
+        },
+        error: (err) => err.message,
+      });
     }
-    btn.disabled = false;
   };
 
   return (

@@ -3,6 +3,7 @@ import clsx from "clsx";
 import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
+import toast from "react-hot-toast";
 import { useSelector } from "react-redux";
 import * as yup from "yup";
 
@@ -52,10 +53,11 @@ const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
       const response = await api.testimonials.createTestimonial(data);
       if (typeof onChangeTestimonials === "function") {
         onChangeTestimonials({ ...response, user });
+        toast.success("Testimonial added successfully");
       }
     } catch (error) {
       setError(error.response?.data?.message || "Failed to create testimonial");
-      console.error("Error create testimonial:", error);
+      toast.error(error.response?.data?.message || "Failed to create testimonial");
     } finally {
       setIsLoading(false);
       onClose();
