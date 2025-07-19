@@ -100,9 +100,20 @@ textarea:focus {
 
 .description,
 .recipePreparation {
+  max-height: calc(20px * 16); 
   resize: none;
-  overflow: hidden;
+  overflow-y: auto;
   transition: height 0.2s ease;
+}
+
+@media screen and (min-width: 768px) {
+  .description,
+  .recipePreparation {
+    max-height: calc(24px * 16); 
+    resize: none;
+    overflow-y: auto;
+    transition: height 0.2s ease;
+  }
 }
 
 .formRecipePreparation {
@@ -114,6 +125,11 @@ textarea:focus {
   border: none;
   font-size: 14px;
   text-align: center;
+  white-space: nowrap;
+}
+
+.adjustIndent {
+  transform: translateX(-4px);
 }
 
 .wordsCounterInside {
@@ -131,7 +147,7 @@ textarea:focus {
   display: flex;
   justify-content: center;
   align-items: center;
-  gap: 14px;
+  gap: 12px;
 }
 
 .formCookingtime .addRecipeForm {
@@ -154,6 +170,10 @@ textarea:focus {
   gap: 8px;
 }
 
+.btnIngredient:hover .iconPlus {
+  stroke: var(--white-color);
+}
+
 .dropdown, .dropdownSearch {
   padding: 14px;
 }
@@ -161,6 +181,10 @@ textarea:focus {
 .trashIcon {
   width: 20px;
   height: 20px;
+}
+
+.formGroupSubmit .buttonGroup {
+  gap: 8px;
 }
 
 .trashButton {
@@ -177,6 +201,12 @@ textarea:focus {
   background-color: var(--title-color)
 }
 
+@media screen and (min-width: 768px) {
+  .btnSubmit {
+    padding: 16px 39px;
+  }
+}
+
 /* ingredientList */
 .ingredientList {
   display: grid;
@@ -189,6 +219,11 @@ textarea:focus {
   .ingredientList {
     grid-template-columns: repeat(3, 1fr);
     gap: 20px;
+  }
+
+  .trashButton {
+    width: 56px;
+    height: 56px;
   }
 }
 
@@ -261,7 +296,7 @@ textarea:focus {
   color: var(--title-color);
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 60px;
+  max-width: 74px;
   white-space: nowrap;
 }
 
@@ -269,7 +304,7 @@ textarea:focus {
   color: var(--inactive-color);
   overflow: hidden;
   text-overflow: ellipsis;
-  max-width: 60px;
+  max-width: 74px;
   white-space: nowrap;
 }
 
@@ -309,6 +344,10 @@ textarea:focus {
 
   .description, .recipePreparation, .quantity, .timeInput {
     font-size: 16px;
+  }
+
+  .timeInput {
+    width: 50px;
   }
 
   .category,

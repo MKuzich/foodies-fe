@@ -15,6 +15,11 @@
   justify-content: center;
   align-items: center;
   overflow: hidden;
+  transition: .3s ease-in-out border-color
+}
+
+.photoUpload:hover {
+  border-color: var(--title-color);
 }
 
 .photoUpload > img {
