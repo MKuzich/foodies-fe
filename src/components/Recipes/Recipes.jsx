@@ -69,8 +69,8 @@ function Recipes() {
       if (searchParams.get("ingredient")) params.ingredient = searchParams.get("ingredient");
       if (searchParams.get("area")) params.area = searchParams.get("area");
       params.page = page;
-
-      getRecipesApi({ ...params, limit: limitPage });
+      // TODO: REMOVE THIS AFTER TESTING IT WAS USED BEFORE BUT I THINK IT IS NOT NEEDED
+      // getRecipesApi({ ...params, limit: limitPage });
       setSearchParams(params);
     }
   };
@@ -100,13 +100,15 @@ function Recipes() {
             <div>
               <RecipeList recipes={recipes} isLoading={isLoading} error={error} />
               {pagination.pages > 1 && (
-                <Pagination
-                  currentPage={Number(pagination.page)}
-                  totalPages={Number(pagination.pages)}
-                  onClick={handlePaginationClick}
-                  borders={true}
-                  style={{ marginTop: "0" }}
-                />
+                <div className={styles.paginationWrapper}>
+                  <Pagination
+                    currentPage={Number(pagination.page)}
+                    totalPages={Number(pagination.pages)}
+                    onClick={handlePaginationClick}
+                    borders={true}
+                    style={{ marginTop: "0" }}
+                  />
+                </div>
               )}
               {/* TODO: REMOVE THIS AFTER TESTING */}
               {/* <RecipePagination currentPage={Number(pagination.page)} lastPage={Number(pagination.pages)} onClick={handlePaginationClick} /> */}

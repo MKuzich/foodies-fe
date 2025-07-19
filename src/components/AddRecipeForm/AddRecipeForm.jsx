@@ -5,6 +5,7 @@ import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 import { useNavigate } from "react-router-dom";
+import { Tooltip } from "react-tooltip";
 
 import IconButton from "@/components/IconButton/IconButton";
 import { useCategoriesAreasIngredientsFetch } from "@/hooks/useCategoriesAreasIngredientsFetch";
@@ -441,6 +442,8 @@ const AddRecipeForm = () => {
                           src={item.preview}
                           alt={item.name}
                           className={clsx(styles.ingredientImage)}
+                          data-tooltip-id="added-ingredient-tooltip"
+                          data-tooltip-content={`${item.name} - ${item.quantity}`}
                         />
                       </div>
                       <div className={clsx(styles.ingredientDetails)}>
@@ -523,6 +526,22 @@ const AddRecipeForm = () => {
           </div>
         </form>
       </FormProvider>
+      <Tooltip
+        id="added-ingredient-tooltip"
+        border="1px solid var(--title-color)"
+        color="var(--text-color)"
+        place="top"
+        effect="solid"
+        delayHide={500}
+        clickable={true}
+        style={{
+          backgroundColor: "var(--background-color)",
+          color: "var(--title-color)",
+          borderRadius: "30px",
+          padding: "8px 12px",
+          fontSize: "14px",
+        }}
+      />
     </div>
   );
 };

@@ -1,42 +1,74 @@
 .wrapper {
   display: flex;
   align-items: flex-start;
-  gap: 32px;
   flex-wrap: wrap;
+
+  @media screen and (min-width: 768px) {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  @media screen and (min-width: 1440px) {
+    flex-direction: row;
+    align-items: flex-start;
+    gap: 80px;
+  }
 }
 
 .image {
-  width: 100%;
-  max-width: 375px;
-  min-width: 325px;
-  height: auto;
+  width: 343px;
+  height: 318px;
   border-radius: 16px;
   object-fit: cover;
+  margin-bottom: 32px;
+
+  @media screen and (min-width: 768px) {
+    width: 704px;
+    height: 400px;
+  }
+
+  @media screen and (min-width: 1440px) {
+    width: 551px;
+    border-radius: 20px;
+
+  }
 }
 
 .content {
   display: flex;
   flex-direction: column;
 }
+
 .content {
   flex: 1;
   min-width: 250px;
+
+  @media screen and (min-width: 1440px) {
+    flex: 1;
+    min-width: 250px;
+  }
 }
 
 .title {
   font-weight: 800;
   font-size: 18px;
   line-height: 1.33;
-  margin-bottom: 12px;
+  margin-bottom: 20px;
   text-transform: uppercase;
-  color: var(-text-color);
+  color: var(--title-color);
+
+  @media screen and (min-width: 1440px) {
+    font-size: 24px;
+    line-height: 1.17;
+  }
+  
 }
 
 .meta {
   display: flex;
   gap: 8px;
   flex-wrap: wrap;
-  margin-bottom: 16px;
+  margin-bottom: 20px;
 }
 
 .category,
@@ -53,6 +85,10 @@
   line-height: 1.43;
   color: var(--text-color);
   margin-bottom: 20px;
+
+  @media screen and (min-width: 768px) {
+    line-height: 1.5;
+  }
 }
 
 .authorBtn {
@@ -74,6 +110,10 @@
   font-size: 12px;
   color: var(--inactive-color);
   text-align: left;
+
+  @media screen and (min-width: 1440px) {
+    font-size: 14px;
+  }
 }
 
 .authorName {
@@ -84,46 +124,9 @@
 }
 
 @media screen and (min-width: 768px) {
-  .wrapper {
-    padding: 0 32px;
-  }
-  .image {
-    max-width: 704px;
-    height: 400px;
-  }
-  .authorInfo {
-    font-size: 14px;
-  }
-
   .avatar {
     width: 50px;
     height: 50px;
   }
-
-  .description {
-    line-height: 1.5;
-  }
 }
 
-@media screen and (min-width: 1000px) {
-  .wrapper {
-    flex-direction: row;
-    align-items: flex-start;
-    gap: 48px;
-    padding: 0;
-  }
-  .title {
-    font-size: 24px;
-    line-height: 1.17;
-  }
-
-  .image {
-    width: 580px;
-    border-radius: 20px;
-  }
-
-  .content {
-    flex: 1;
-    min-width: 250px;
-  }
-}

@@ -1,27 +1,49 @@
+import { Tooltip } from "react-tooltip";
+
 import styles from "./RecipeIngredients.module.css";
 
-const RecipeIngredients = ({ ingredients }) => (
-  <div>
-    <h3 className={styles.itemTitle}>Ingredients</h3>
-    <ul className={styles.ingredientList}>
-      {ingredients.map((item, index) => (
-        <li key={index} className={styles.ingredientListItem}>
-          <div className={styles.imgWrapper}>
-            <img
-              loading="lazy"
-              src={item.img || "/ingredient-placeholder.png"}
-              alt={item.name}
-              className={styles.ingredientListImg}
-            />
-          </div>
-          <div className={styles.ingredientsInfo}>
-            <span className={styles.ingredientName}>{item.name}</span>
-            <span className={styles.ingredientMeasure}>{item.measure}</span>
-          </div>
-        </li>
-      ))}
-    </ul>
-  </div>
-);
+const RecipeIngredients = ({ ingredients }) => {
+  return (
+    <section>
+      <h4 className={styles.itemTitle}>Ingredients</h4>
+      <ul className={styles.ingredientList}>
+        {ingredients.map((item, index) => {
+          return (
+            <li key={index} className={styles.ingredientListItem}>
+              <img
+                loading="lazy"
+                src={item.img || "/ingredient-placeholder.png"}
+                alt={item.name}
+                className={styles.ingredientListImg}
+                data-tooltip-id="ingredient-tooltip"
+                data-tooltip-content={`${item.name} - ${item.measure}`}
+              />
+              <div className={styles.ingredientsInfoWrapper}>
+                <span className={styles.ingredientName}>{item.name}</span>
+                <span className={styles.ingredientMeasure}>{item.measure}</span>
+              </div>
+            </li>
+          );
+        })}
+      </ul>
+      <Tooltip
+        id="ingredient-tooltip"
+        border="1px solid var(--title-color)"
+        color="var(--text-color)"
+        place="top"
+        effect="solid"
+        delayHide={500}
+        clickable={true}
+        style={{
+          backgroundColor: "var(--background-color)",
+          color: "var(--title-color)",
+          borderRadius: "30px",
+          padding: "8px 12px",
+          fontSize: "14px",
+        }}
+      />
+    </section>
+  );
+};
 
 export default RecipeIngredients;

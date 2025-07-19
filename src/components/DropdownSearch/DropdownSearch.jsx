@@ -13,6 +13,7 @@ const SearchableDropdownInput = ({
   searchValue,
   onKeyDown,
   hasError,
+  isOpen,
   setIsOpen,
   className,
 
@@ -32,6 +33,7 @@ const SearchableDropdownInput = ({
           hasError && styles.inputError,
           className,
           selectedItems && styles.inputFieldSelected,
+          isOpen && styles.inputFieldFocused,
         )}
         placeholder={selectedItems ? selectedItems.split("_").join(" ") : placeholder}
         value={searchValue}
@@ -226,6 +228,7 @@ function DropdownSearch({
         selectedItems={selectedItems}
         handleToggle={handleToggle}
         setIsOpen={setIsOpen}
+        isOpen={isOpen}
         onKeyDown={handleKeyDown}
         onSearch={handleSearch}
         searchValue={searchValue}
