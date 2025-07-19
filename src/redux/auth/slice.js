@@ -60,7 +60,6 @@ const slice = createSlice({
         state.error = null;
         state.success = true;
         state.authModal = null;
-        state.next = null;
       })
       .addCase(userLogin.rejected, (state, { payload }) => {
         state.loading = false;
@@ -78,7 +77,6 @@ const slice = createSlice({
         state.error = null;
         state.success = true;
         state.authModal = null;
-        state.next = null;
       })
       .addCase(registerUser.rejected, (state, { payload }) => {
         state.loading = false;
