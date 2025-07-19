@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Container from "@/components/Container/Container";
+import Pagination from "@/components/Pagination/Pagination";
 import PathInfo from "@/components/PathInfo/PathInfo";
 import PopularRecipes from "@/components/PopularRecipes/PopularRecipes";
 import RecipeInfo from "@/components/RecipeInfo/RecipeInfo";
@@ -16,6 +17,8 @@ const RecipePage = () => {
   const [recipe, setRecipe] = useState(null);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(true);
+  const [totalPages, _] = useState(1);
+  const [currentPage, setCurrentPage] = useState(1);
 
   useEffect(() => {
     const fetchRecipe = async () => {
@@ -33,6 +36,8 @@ const RecipePage = () => {
       try {
         const response = await api.testimonials.fetchTestimonialsByRecipeId({ recipeId: id });
         setTestimonials(response);
+        // setTotalPages(2);
+        // TODO: chnage total pages from BE
       } catch (error) {
         console.error("Error fetching testimonials:", error);
       }
@@ -46,8 +51,7 @@ const RecipePage = () => {
   }, [id]);
 
   const handleAddTestimonial = (newTestimonial) => {
-    const prevTestimonials = testimonials.slice(0, -1);
-    setTestimonials([newTestimonial, ...prevTestimonials]);
+    setTestimonials((prevTestimonials) => [newTestimonial, ...prevTestimonials]);
   };
 
   const handleDeleteTestimonial = (id) => {
@@ -79,6 +83,15 @@ const RecipePage = () => {
       <section>
         <Container>
           <RecipeTestimonials testimonials={testimonials} onDelete={handleDeleteTestimonial} />
+          {totalPages > 1 && (
+            <div className={styles.pagination}>
+              <Pagination
+                totalPages={totalPages}
+                currentPage={currentPage}
+                onClick={setCurrentPage}
+              />
+            </div>
+          )}
         </Container>
       </section>
     </>
