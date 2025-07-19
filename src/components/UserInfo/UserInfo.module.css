@@ -109,7 +109,14 @@
 .userInfoListTitle {
   font-size: 12px;
   line-height: 1.5;
+  font-weight: 500;
   color: var(--inactive-color);
+}
+
+.userInfoListItem {
+  display: flex;
+  align-items: center;
+  gap: 8px;
 }
 
 .userInfoListValue {
@@ -121,7 +128,21 @@
 }
 
 @media screen and (min-width: 768px) {
+  .userInfoListTitle {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
   .userInfoListValue {
+    font-size: 16px;
+    line-height: 1.5;
     color: var(--title-color);
+  }
+}
+
+@media screen and (min-width: 1440px) {
+
+  .userInfoListValue {
+    color: var(--text-color);
   }
 }
