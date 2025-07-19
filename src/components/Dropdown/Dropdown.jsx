@@ -197,7 +197,6 @@ function Dropdown({
           <List
             data={data}
             handleSelectItem={handleSelectItem}
-            isOpen={isOpen}
             selectedIndex={selectedIndex}
             setSelectedIndex={setSelectedIndex}
           />

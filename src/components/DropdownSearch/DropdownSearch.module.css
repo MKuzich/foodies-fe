@@ -121,3 +121,7 @@
   z-index: 1;
   padding: 0 5px;
 }
+
+.dropdownItemSelected {
+  background-color: var(--inactive-color);
+}
