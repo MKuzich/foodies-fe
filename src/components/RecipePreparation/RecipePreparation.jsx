@@ -22,18 +22,32 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
     }
     setLoading(true);
 
-    try {
-      if (isFavorite) {
-        await api.delete(`recipes/${recipe.id}/favorite`);
-        setIsFavorite(false);
-      } else {
-        await api.post(`recipes/${recipe.id}/favorite`);
-        setIsFavorite(true);
-      }
-    } catch (err) {
-      toast.error(err.response?.data?.message || "Something went wrong");
-    } finally {
-      setLoading(false);
+    if (isFavorite) {
+      toast.promise(api.delete(`recipes/${recipe.id}/favorite`), {
+        loading: "Removing from favorites...",
+        success: () => {
+          setIsFavorite(false);
+          setLoading(false);
+          return "Recipe removed from favorites";
+        },
+        error: () => {
+          setLoading(false);
+          return "Failed to remove recipe from favorites";
+        },
+      });
+    } else {
+      toast.promise(api.post(`recipes/${recipe.id}/favorite`), {
+        loading: "Adding to favorites...",
+        success: () => {
+          setIsFavorite(true);
+          setLoading(false);
+          return "Recipe added to favorites";
+        },
+        error: () => {
+          setLoading(false);
+          return "Failed to add recipe to favorites";
+        },
+      });
     }
   };
 
