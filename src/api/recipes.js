@@ -32,6 +32,11 @@ export const getPopularRecipesApi = async (excludeId) => {
 
 export const getFavoriteRecipesApi = async () => {
   try {
+    // TODO: check if this is correct i have check earlier but not sure it catch all cases
+    if (!api.defaults.headers.common.Authorization) {
+      return [];
+    }
+
     const response = await api.get("recipes/favorites");
     return response.data;
   } catch (error) {

@@ -9,6 +9,7 @@ const DefaultDropdownButton = ({
   selectedItems,
   handleToggle,
   setIsOpen,
+  isOpen,
   className,
   ...props
 }) => {
@@ -27,7 +28,12 @@ const DefaultDropdownButton = ({
     <div style={{ position: "relative" }}>
       <button
         type="button"
-        className={clsx(styles.inputField, className, selectedItems && styles.inputFieldSelected)}
+        className={clsx(
+          styles.inputField,
+          className,
+          selectedItems && styles.inputFieldSelected,
+          isOpen && styles.inputFieldFocused,
+        )}
         onMouseDown={handleToggle}
         onFocus={handleFocus}
         onKeyDown={handleKeyDown}
@@ -180,6 +186,7 @@ function Dropdown({
         placeholder={placeholder}
         selectedItems={selectedItems}
         handleToggle={handleToggle}
+        isOpen={isOpen}
         setIsOpen={setIsOpen}
         onKeyDown={handleKeyDown}
         className={clsx(

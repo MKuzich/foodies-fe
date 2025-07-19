@@ -45,18 +45,17 @@
 
   &:hover {
     cursor: pointer;
+    border: 1px solid var(--title-color);
   }
 
   
   &:focus {
     outline: none;
-    border: 1px solid var(--inactive-color);
   }
 
   
   &:focus-visible {
     outline: none;
-    border: 1px solid var(--inactive-color);
   }
 
 }
@@ -122,4 +121,8 @@
 
 .dropdownItemSelected {
   background-color: var(--inactive-color);
+}
+
+.inputFieldFocused {
+  border: 1px solid var(--title-color);
 }

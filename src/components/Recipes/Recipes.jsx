@@ -69,8 +69,8 @@ function Recipes() {
       if (searchParams.get("ingredient")) params.ingredient = searchParams.get("ingredient");
       if (searchParams.get("area")) params.area = searchParams.get("area");
       params.page = page;
-
-      getRecipesApi({ ...params, limit: limitPage });
+      // TODO: REMOVE THIS AFTER TESTING IT WAS USED BEFORE BUT I THINK IT IS NOT NEEDED
+      // getRecipesApi({ ...params, limit: limitPage });
       setSearchParams(params);
     }
   };

@@ -3,6 +3,7 @@ import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
 
 import Button from "../../components/Button/Button";
+import { useAuth } from "../../hooks/useAuth";
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
 import { addFavoriteRecipe, removeFavoriteRecipe } from "../../redux/recipes/actions";
 import { favoriteRecipesSelector } from "../../redux/recipes/selectors";
@@ -12,17 +13,15 @@ import styles from "./RecipePreparation.module.css";
 const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectCurrentUser);
-  console.log(isLoggedIn);
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
-  console.log(favoriteRecipes);
-
+  const { auth } = useAuth();
   const [isFavorite, setIsFavorite] = useState(
     favoriteRecipes?.some((fav) => fav.id === recipe.id) || false,
   );
 
   useEffect(() => {
     setIsFavorite(favoriteRecipes?.some((fav) => fav.id === recipe.id) || false);
-  }, [favoriteRecipes, recipe.id]);
+  }, [favoriteRecipes, recipe.id, auth]);
 
   const [loading, setLoading] = useState(false);
 
