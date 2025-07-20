@@ -4,7 +4,18 @@ import { Link } from "react-router-dom";
 import Icons from "../../assets/sprite.svg";
 import css from "./IconLink.module.css";
 
-const IconLink = ({ children, to, black, white, social, name, iconStyle, disabled, ...props }) => {
+const IconLink = ({
+  children,
+  to,
+  black,
+  white,
+  social,
+  name,
+  iconStyle,
+  className,
+  disabled,
+  ...props
+}) => {
   const iconNameMap = {
     arrow: "arrow-up-right",
     facebook: "facebook",
@@ -21,6 +32,7 @@ const IconLink = ({ children, to, black, white, social, name, iconStyle, disable
         white && css.white,
         social && css.social,
         disabled && css.disabled,
+        className,
       )}
     >
       <svg

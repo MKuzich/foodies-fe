@@ -99,7 +99,6 @@ function Dropdown({
     }
   }, []);
 
-  // RESET WHEN RESET SIGNAL IS TRUE
   useEffect(() => {
     setSelectedItems("");
     setIsOpen(false);
