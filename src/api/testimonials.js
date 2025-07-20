@@ -20,9 +20,9 @@ export const createTestimonial = async ({ text, recipeId }) => {
   }
 };
 
-export const fetchTestimonialsByRecipeId = async ({ recipeId }) => {
+export const fetchTestimonialsByRecipeId = async ({ recipeId, page = 1, limit = 9 }) => {
   try {
-    const { data } = await api.get(`/testimonials/${recipeId}`, {});
+    const { data } = await api.get(`/testimonials/${recipeId}?page=${page}&limit=${limit}`, {});
     return data;
   } catch (error) {
     console.error("Error fetching testimonials by recipeId:", error);

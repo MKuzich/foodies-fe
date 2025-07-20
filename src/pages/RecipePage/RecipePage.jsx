@@ -17,8 +17,9 @@ const RecipePage = () => {
   const [recipe, setRecipe] = useState(null);
   const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [totalPages, _] = useState(1);
+  const [totalPages, setTotalPages] = useState(1);
   const [currentPage, setCurrentPage] = useState(1);
+  const limit = 9;
 
   useEffect(() => {
     setLoading(true);
@@ -28,37 +29,43 @@ const RecipePage = () => {
         setRecipe(data);
       } catch (error) {
         console.error("Failed to fetch recipe:", error);
-      }
-    };
-
-    const fetchTestimonials = async () => {
-      try {
-        const response = await api.testimonials.fetchTestimonialsByRecipeId({ recipeId: id });
-        setTestimonials(response);
-        // setTotalPages(2);
-        // TODO: chnage total pages from BE
-      } catch (error) {
-        console.error("Error fetching testimonials:", error);
       } finally {
         setLoading(false);
       }
     };
-
     window.scrollTo({ top: 0, behavior: "smooth" });
-
-    fetchTestimonials();
-
     fetchRecipe();
   }, [id]);
 
-  const handleAddTestimonial = (newTestimonial) => {
-    setTestimonials((prevTestimonials) => [newTestimonial, ...prevTestimonials]);
+  const fetchTestimonials = async () => {
+    try {
+      const response = await api.testimonials.fetchTestimonialsByRecipeId({
+        recipeId: id,
+        page: currentPage,
+        limit,
+      });
+      setTestimonials(response.data);
+      setTotalPages(response.pagination.pages);
+    } catch (error) {
+      console.error("Error fetching testimonials:", error);
+    } finally {
+      setLoading(false);
+    }
   };
 
-  const handleDeleteTestimonial = (id) => {
-    setTestimonials((prevTestimonials) =>
-      prevTestimonials.filter((testimonial) => testimonial.id !== id),
-    );
+  useEffect(() => {
+    setLoading(true);
+    fetchTestimonials();
+  }, [id, currentPage]);
+
+  const handleAddTestimonial = () => {
+    setLoading(true);
+    fetchTestimonials();
+  };
+
+  const handleDeleteTestimonial = () => {
+    setLoading(true);
+    fetchTestimonials();
   };
 
   return (
@@ -92,6 +99,7 @@ const RecipePage = () => {
                 totalPages={totalPages}
                 currentPage={currentPage}
                 onClick={setCurrentPage}
+                isLoading={loading}
               />
             </div>
           )}
