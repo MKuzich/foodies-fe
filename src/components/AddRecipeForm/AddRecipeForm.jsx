@@ -443,6 +443,11 @@ const AddRecipeForm = () => {
                           className={clsx(styles.ingredientImage)}
                           data-tooltip-id="added-ingredient-tooltip"
                           data-tooltip-content={`${item.name} - ${item.quantity}`}
+                          onError={(e) => {
+                            e.target.src = "/noImg.webp";
+                            e.target.srcSet = "/noImg.webp 1x, /noImg@2x.webp 2x";
+                            e.target.onerror = null;
+                          }}
                         />
                       </div>
                       <div className={clsx(styles.ingredientDetails)}>
