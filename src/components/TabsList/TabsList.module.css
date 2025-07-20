@@ -13,7 +13,7 @@
     width: 17px;
     height: 6px;
     background-color: var(--white-color);
-    z-index: 2;
+    /* z-index: 2; */
   }
   .tabsList::before {
     left: -1px;

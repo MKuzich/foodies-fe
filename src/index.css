@@ -42,6 +42,10 @@ a {
   padding: 0;
 }
 
+a {
+  color: var(--text-color);
+}
+
 ul {
   list-style: none;
   padding: 0;

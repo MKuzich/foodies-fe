@@ -4,7 +4,7 @@
   left: 0;
   width: 100%;
   padding: 24px 0 24px 0;
-  z-index: 1;
+  z-index: 3;
 }
 
 @media screen and (min-width: 768px) {
@@ -215,7 +215,7 @@
 
 .headerFlex {
   display: flex;
-  position: static;
+  position: relative;
 }
 
 .headerDark .dropdown {
