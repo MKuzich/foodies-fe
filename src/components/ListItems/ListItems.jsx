@@ -41,7 +41,6 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
             <AnimatePresence>
               {items.map((item) => {
                 const commonProps = {
-                  key: item.id,
                   initial: { opacity: 0, y: 10 },
                   animate: { opacity: 1, y: 0 },
                   exit: { opacity: 0, y: -10 },
@@ -50,23 +49,23 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
 
                 if (type === "recipe") {
                   return (
-                    <motion.li {...commonProps}>
+                    <motion.ul key={item.id} {...commonProps}>
                       <RecipePreview recipe={item} />
-                    </motion.li>
+                    </motion.ul>
                   );
                 }
                 if (type === "user") {
                   return (
-                    <motion.li {...commonProps}>
+                    <motion.ul key={item.id} {...commonProps}>
                       <UserCard user={item} />
-                    </motion.li>
+                    </motion.ul>
                   );
                 }
                 if (type === "testimonial") {
                   return (
-                    <motion.li {...commonProps}>
+                    <motion.ul key={item.id} {...commonProps}>
                       <ProfileTestimonial data={item} />
-                    </motion.li>
+                    </motion.ul>
                   );
                 }
                 return null;
