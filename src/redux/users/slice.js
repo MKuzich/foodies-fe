@@ -224,18 +224,13 @@ const slice = createSlice({
       .addCase(fetchUserTestimonials.rejected, (state) => {
         state.testimonialsLoading = false;
       })
-      .addCase(deleteTestimonial.pending, (state) => {
-        state.testimonialsLoading = true;
-      })
       .addCase(deleteTestimonial.fulfilled, (state, { payload }) => {
         state.user.testimonials = payload.data;
         state.totalPages = payload.pagination.pages;
         state.filter.page = 1;
-        state.testimonialsLoading = false;
       })
       .addCase(deleteTestimonial.rejected, (state, action) => {
         state.error = action.payload;
-        state.testimonialsLoading = false;
       });
   },
 });

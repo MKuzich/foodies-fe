@@ -46,11 +46,11 @@
   padding: 16px 18px;
   border-radius: 25px;
 
-  border: 1px solid #bfbebe;
+  border: 1px solid var(--inactive-color);
 }
 
 .input:focus {
-  border: 1px solid #050505;
+  border: 1px solid var(--title-color);
 }
 
 .input.error {
@@ -63,7 +63,7 @@
   padding: 16px;
   margin-top: 40px;
 
-  background: #050505;
+  background: var(--title-color);
   color: #fff;
   border-radius: 30px;
   font-weight: 700;
@@ -83,6 +83,7 @@
   border: none;
   font-size: 20px;
   cursor: pointer;
+  stroke: #050505;
 }
 
 .errorInput {

@@ -23,7 +23,7 @@ const OpenModalButton = ({ recipeId, onChangeTestimonials }) => {
   return (
     <>
       <Button outlinedInactive onClick={handleOpen}>
-        Add testimonial
+        Add review
       </Button>
 
       {isOpen && (
