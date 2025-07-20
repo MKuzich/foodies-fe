@@ -113,6 +113,7 @@ const slice = createSlice({
         state.recipesLoading = false;
         state.user.favorites = payload.data;
         state.user.favoriteCount = payload.pagination.total;
+        state.filter.page = 1;
         state.totalPages = payload.pagination.pages;
       })
       .addCase(fetchUserFollowers.pending, (state) => {
