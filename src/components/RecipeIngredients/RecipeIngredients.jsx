@@ -8,7 +8,6 @@ const RecipeIngredients = ({ ingredients }) => {
       <h4 className={styles.itemTitle}>Ingredients</h4>
       <ul className={styles.ingredientList}>
         {ingredients.map((item, index) => {
-          console.log(item);
           return (
             <li key={index} className={styles.ingredientListItem}>
               <img
