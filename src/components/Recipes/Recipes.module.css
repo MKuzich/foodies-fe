@@ -15,7 +15,6 @@
   @media screen and (min-width: 1440px) {
     display: grid;
     grid-template-columns: 330px 1fr;
-    
   }
 }
 
@@ -36,7 +35,8 @@
   gap: 4px;
   background-color: transparent;
   cursor: pointer;
-  stroke: var(--title-color);
+  stroke: var(--text-color);
+  color: var(--text-color);
   margin-bottom: 16px;
 
   @media screen and (min-width: 768px) {
@@ -46,8 +46,8 @@
 
   &:hover,
   &:focus {
-    color: var(--text-color);
-    stroke: var(--text-color);
+    color: var(--title-color);
+    stroke: var(--title-color);
   }
 }
 
@@ -61,7 +61,6 @@
     width: 18px;
     height: 18px;
   }
-
 }
 
 .recipesBackText {
