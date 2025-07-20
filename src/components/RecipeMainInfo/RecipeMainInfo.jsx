@@ -42,7 +42,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
           <button className={styles.authorBtn} onClick={handleAuthorClick}>
             <AvatarIcon
               name={author.name}
-              avatarUrl={author.avatarURL}
+              src={author.avatarURL}
               alt={`${author.name} avatar`}
               small
               to={`/user/${author.id}`}
