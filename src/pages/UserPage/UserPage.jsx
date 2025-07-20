@@ -13,7 +13,7 @@ import Subtitle from "../../components/Subtitle/Subtitle";
 import TabItem from "../../components/TabItem/TabItem";
 import TabsList from "../../components/TabsList/TabsList";
 import UserInfo from "../../components/UserInfo/UserInfo";
-import { openLogout } from "../../redux/auth/slice";
+import { openLogout, selectUserInfo } from "../../redux/auth/slice";
 import { selectError, selectLoading } from "../../redux/root/selectors";
 import {
   fetchUser,
@@ -57,6 +57,7 @@ const UserPage = () => {
   const error = useSelector(selectError);
 
   const isUserExists = useSelector(selectUserExists);
+  const currentUserInfo = useSelector(selectUserInfo);
   const isUserCurrentUser = useSelector(selectIsUserCurrentUser);
   const isUserIsFollowed = useSelector(selectIsUserIsFollowed);
   const tabOpened = useSelector(selectTabOpened);
@@ -120,7 +121,6 @@ const UserPage = () => {
     }
     setButtonLoading(false);
   };
-
   return (
     <>
       {isUserExists ? (
@@ -261,7 +261,7 @@ const UserPage = () => {
           </section>
         </>
       ) : loading ? (
-        <UserPageSkeleton />
+        <UserPageSkeleton isUserCurrentUser={currentUserInfo?.id === parseInt(id)} />
       ) : (
         error && <NotFound />
       )}

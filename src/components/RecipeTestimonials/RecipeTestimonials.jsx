@@ -26,6 +26,7 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
     });
     btn.disabled = false;
   };
+
   return (
     <div className={s.recipeTestimonials}>
       <h2 className={s.title}>Our users say</h2>

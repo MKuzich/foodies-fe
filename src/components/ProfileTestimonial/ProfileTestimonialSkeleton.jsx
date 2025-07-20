@@ -14,26 +14,32 @@ const ProfileTestimonialSkeleton = () => {
         />
       </div>
       <div className={s.testimonialContent}>
-        <div
-          className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTitle)}
-          style={{ marginBottom: "15px", width: "215px" }}
-        />
+        <div className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTitle, s.skeletonTitle)} />
 
         <div className={s.testimonialWrapper}>
           <Icon name="comment" className={s.commentIcon} />
-          <div className={s.authorInfo}>
+          <div className={s.authorInfo} style={{ alignItems: "flex-start" }}>
             <div
-              className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTinyText)}
-              style={{ maxWidth: "none", width: "60px" }}
+              className={clsx(
+                s.skeletonAuthorName,
+                skeletonCss.skeleton,
+                skeletonCss.skeletonTinyText,
+              )}
             />
             <div
-              className={clsx(skeletonCss.skeleton, skeletonCss.skeletonTinyText)}
-              style={{ maxWidth: "none", width: "120px" }}
+              className={clsx(
+                skeletonCss.skeleton,
+                skeletonCss.skeletonTinyText,
+                s.skeletonAuthorDate,
+              )}
             />
           </div>
           <div
-            className={clsx(skeletonCss.skeleton, skeletonCss.skeletonDescription)}
-            style={{ width: "250px", marginTop: "5px" }}
+            className={clsx(
+              skeletonCss.skeleton,
+              skeletonCss.skeletonDescription,
+              s.skeletonAuthorDescription,
+            )}
           ></div>
           <IconButton
             disabled
