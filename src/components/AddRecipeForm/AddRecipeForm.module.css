@@ -106,6 +106,10 @@ textarea:focus {
   transition: height 0.2s ease;
 }
 
+button {
+  -webkit-tap-highlight-color: transparent;
+}
+
 @media screen and (min-width: 768px) {
   .description,
   .recipePreparation {
