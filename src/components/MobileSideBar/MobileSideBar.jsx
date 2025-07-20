@@ -20,6 +20,17 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 767 && open) {
+        onClose();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [open, onClose]);
+
+  useEffect(() => {
     if (!open) return;
 
     const handleKey = (e) => {
