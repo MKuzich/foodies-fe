@@ -50,6 +50,7 @@ const UserPage = () => {
   const dispatch = useDispatch();
   const { id } = useParams();
   const userRendered = useRef(false);
+  const userTab = useRef(null);
 
   const loading = useSelector(selectUsersUserLoading);
   const isLoading = useSelector(selectLoading);
@@ -98,6 +99,16 @@ const UserPage = () => {
       });
     }
   }, []);
+
+  useEffect(() => {
+    if (userTab.current) {
+      userTab.current.scrollIntoView({
+        behavior: "smooth",
+        block: "start",
+        inline: "nearest",
+      });
+    }
+  }, [currentPage]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
   const errorMap = isUserCurrentUser ? currentUserPageErrors : userPageErrors;
@@ -171,7 +182,7 @@ const UserPage = () => {
               </div>
 
               <div className={css.tabsContainer}>
-                <div className={css.tabsWrapper}>
+                <div className={css.tabsWrapper} ref={userTab}>
                   <TabsList>
                     <TabItem
                       name={recepieTabName}
