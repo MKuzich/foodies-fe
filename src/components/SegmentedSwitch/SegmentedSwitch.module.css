@@ -20,6 +20,7 @@
   z-index: 1;
   width: 76px;
   text-transform: uppercase;
+  color: var(--text-color);
 }
 
 @media screen and (min-width: 768px) {
