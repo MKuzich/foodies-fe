@@ -48,7 +48,6 @@ const slice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      //login user
       .addCase(userLogin.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -65,7 +64,6 @@ const slice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-      // register user
       .addCase(registerUser.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -82,7 +80,6 @@ const slice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-      // logout user
       .addCase(userLogout.pending, (state) => {
         state.loading = true;
         state.error = null;
@@ -100,7 +97,6 @@ const slice = createSlice({
         state.loading = false;
         state.error = payload;
       })
-      // get user
       .addCase(getUser.pending, (state) => {
         state.loading = true;
         state.error = null;

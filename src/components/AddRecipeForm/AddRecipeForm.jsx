@@ -118,7 +118,6 @@ const AddRecipeForm = () => {
 
     el.style.height = "auto";
     el.style.height = `${el.scrollHeight}px`;
-    console.log("Reset signal changed:", el.style.height);
   };
 
   const buildFormData = (data) => {

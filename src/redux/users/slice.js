@@ -144,14 +144,7 @@ const slice = createSlice({
       })
       .addCase(unfollowUser.fulfilled, (state, { payload }) => {
         const { id, data, currentUserId } = payload;
-        // id - is user id we unfollow
-        // currentUserInfo - is current loggined user info
-        // data - is data we get from callback (getUserFollowers or getUserFollowing)
-
-        // work with other user profiles
-        // if we unfollow user from user page profile button without using tabs
         if (state.user.id === parseInt(id)) {
-          // current open user page profile is the id we unfollow
           state.user.followersCount -= 1;
           state.user.isFollowed = false;
           if (state.tab === "followers") {
@@ -160,7 +153,6 @@ const slice = createSlice({
         } else {
           if (state.tab === "followers") {
             if (state.user.id === parseInt(currentUserId)) {
-              // decrement only if it own profile
               state.user.followingCount -= 1;
             }
             state.user.followers = data.results;
@@ -186,12 +178,7 @@ const slice = createSlice({
       .addCase(followUser.fulfilled, (state, { payload }) => {
         const { id, data, currentUserId } = payload;
 
-        // id - is user id we follow
-        // currentUserId - is current loggined user id
-        // data - is data we get from callback (getUserFollowers or getUserFollowing)
-
         if (state.user.id === parseInt(id)) {
-          // current open user page profile is the id we follow
           state.user.followersCount += 1;
           state.user.isFollowed = true;
           if (state.tab === "followers") {
@@ -200,7 +187,6 @@ const slice = createSlice({
         } else {
           if (state.tab === "followers") {
             if (state.user.id === parseInt(currentUserId)) {
-              // increment only if it own profile
               state.user.followingCount += 1;
             }
             state.user.followers = data.results;

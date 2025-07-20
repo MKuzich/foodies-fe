@@ -1,3 +1,4 @@
+import clsx from "clsx";
 import { useEffect, useState } from "react";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -95,10 +96,10 @@ function RecipeCard({ recipe }) {
 
   return (
     <li className={styles.recipeItem}>
-      <Link to={`/recipe/${recipe.id}`}>
+      <Link className={clsx(styles.link, styles.linkImage)} to={`/recipe/${recipe.id}`}>
         <img loading="lazy" src={recipe.thumb} alt={recipe.title} className={styles.recipeImage} />
       </Link>
-      <Link to={`/recipe/${recipe.id}`}>
+      <Link className={clsx(styles.link, styles.linkTitle)} to={`/recipe/${recipe.id}`}>
         <h3 className={styles.recipeTitle}>{recipe.title}</h3>
       </Link>
       <p className={styles.recipeDescription}>{recipe.description}</p>
@@ -120,7 +121,11 @@ function RecipeCard({ recipe }) {
             iconStyle={isFavorite ? { fill: "red", stroke: "red" } : {}}
             onClick={handleClickFavorite}
           />
-          <IconButton name="arrowUpRight" onClick={handleGetRecipe} />
+          <IconButton
+            name="arrowUpRight"
+            onClick={handleGetRecipe}
+            className={clsx(styles.link, styles.linkIcon)}
+          />
         </div>
       </div>
     </li>

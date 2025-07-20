@@ -6,6 +6,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { userLogout } from "../../redux/auth/actions";
+import { setClearFavoriteRecipes } from "../../redux/recipes/slice";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -45,6 +46,7 @@ const LogoutModal = ({ onClose }) => {
     e.currentTarget.blur();
     const result = await dispatch(userLogout());
     if (userLogout.fulfilled.match(result)) {
+      dispatch(setClearFavoriteRecipes());
       toast.success("You have been logged out, we miss you!");
     } else {
       toast.error(result.payload.message || "Failed to log out");

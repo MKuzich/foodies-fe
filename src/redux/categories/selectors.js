@@ -6,7 +6,6 @@ export const isLoadingCategoriesSelector = (state) => state.categories.isLoading
 export const errorCategoriesSelector = (state) => state.categories.error;
 export const showAllSelector = (state) => state.categories.showAll;
 
-// Selector for getting a category by name (exact match)
 export const selectCategoryByName = (categoryName) =>
   createSelector(categoriesSelector, (categories) => {
     if (!categoryName) return null;

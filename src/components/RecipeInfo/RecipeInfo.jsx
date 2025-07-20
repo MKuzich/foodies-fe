@@ -1,10 +1,11 @@
 import Loader from "../../components/Loader/Loader";
 import RecipeMainInfo from "../../components/RecipeMainInfo/RecipeMainInfo";
+import css from "./RecipeInfo.module.css";
 
 const RecipeInfo = ({ recipe, loading, onChangeTestimonials }) => {
   if (loading)
     return (
-      <div>
+      <div className={css.loaderWrapper}>
         <Loader />
       </div>
     );
