@@ -51,11 +51,11 @@
   padding: 16px 18px;
   border-radius: 25px;
 
-  border: 1px solid #bfbebe;
+  border: 1px solid var(--inactive-color);
 }
 
 .input:focus {
-  border: 1px solid #050505;
+  border: 1px solid var(--title-color);
 }
 
 .input.error {
@@ -63,42 +63,15 @@
 }
 
 .buttonSubmit {
-  border: none;
   width: 100%;
   padding: 16px;
   margin-top: 40px;
-
-  background: var(--text-color);
-  color: #fff;
-  border-radius: 30px;
-  font-weight: 700;
-  text-transform: uppercase;
-  cursor: pointer;
-  transition: var(--background-transition);
-}
-.buttonSubmit:hover,
-.buttonSubmit:focus {
-  background: var(--title-color);
-}
-
-.buttonSubmit:disabled {
-  background: #ccc;
 }
 
 .buttonCancel {
-  border: none;
-  width: 100%;
   padding: 16px;
   margin-top: 20px;
-
-  font-weight: 700;
-  text-transform: uppercase;
-  color: #000;
-
-  background-color: transparent;
-  border-radius: 30px;
-  border: 1px solid #050505;
-  cursor: pointer;
+  width: 100%;
 }
 
 .close {
@@ -128,7 +101,7 @@
   padding: 0 5px;
   position: absolute;
   z-index: 2;
-  background: white;
+  background: var(--white-color);
   left: 30px;
   bottom: -8px;
   font-size: 12px;
@@ -204,11 +177,11 @@
     font-size: 28px;
   }
   .bottomText {
-    color: #bfbebe;
+    color: var(--inactive-color);
   }
 
   .logoutModal .bottomText {
-    color: #bfbebe;
+    color: var(--inactive-color);
   }
 }
 

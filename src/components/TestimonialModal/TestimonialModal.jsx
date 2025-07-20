@@ -8,6 +8,7 @@ import { useSelector } from "react-redux";
 import * as yup from "yup";
 
 import api from "../../api";
+import Button from "../Button/Button";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./TestimonialModal.module.css";
@@ -53,11 +54,11 @@ const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
       const response = await api.testimonials.createTestimonial(data);
       if (typeof onChangeTestimonials === "function") {
         onChangeTestimonials({ ...response, user });
-        toast.success("Testimonial added successfully");
+        toast.success("Review added successfully");
       }
     } catch (error) {
-      setError(error.response?.data?.message || "Failed to create testimonial");
-      toast.error(error.response?.data?.message || "Failed to create testimonial");
+      setError(error.response?.data?.message || "Failed to create review");
+      toast.error(error.response?.data?.message || "Failed to create review");
     } finally {
       setIsLoading(false);
       onClose();
@@ -90,7 +91,7 @@ const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
             <button className={s.close} onClick={onClose}>
               <Icon name="x" />
             </button>
-            <h2 className={s.title}>Add testimonial</h2>
+            <h2 className={s.title}>Add review</h2>
             <form onSubmit={handleSubmit(onSubmit)}>
               <div className={s.inputGroup}>
                 <textarea
@@ -102,14 +103,14 @@ const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
                 />
                 {errors.text && <p className={s.errorInput}>{errors.text.message}</p>}
               </div>
-              <button
+              <Button
                 className={s.buttonSubmit}
                 onClick={(e) => e.currentTarget.blur()}
                 type="submit"
                 disabled={isLoading}
               >
                 Create
-              </button>
+              </Button>
             </form>
             {error && <p className={s.errorForm}>{error}</p>}
           </motion.div>

@@ -10,6 +10,7 @@ import * as yup from "yup";
 
 import { userLogin } from "../../redux/auth/actions";
 import { selectNext } from "../../redux/auth/slice";
+import Button from "../Button/Button";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -120,14 +121,14 @@ const SignInModal = ({ onClose, onSwitch }) => {
                 </button>
                 {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
               </div>
-              <button
-                className={s.buttonSubmit}
+              <Button
+                appendClassName={s.buttonSubmit}
                 onClick={(e) => e.currentTarget.blur()}
                 type="submit"
                 disabled={loading}
               >
                 Sign in
-              </button>
+              </Button>
             </form>
             {error && <p className={s.errorForm}>{error}</p>}
             <p className={s.bottomText}>
