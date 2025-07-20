@@ -78,7 +78,7 @@ const LogoutModal = ({ onClose }) => {
             <p className={s.bottomText}>You can always log back in at my time.</p>
             <div>
               <Button
-                className={s.buttonSubmit}
+                appendClassName={s.buttonSubmit}
                 type="button"
                 onClick={handleLogout}
                 disabled={loading}
