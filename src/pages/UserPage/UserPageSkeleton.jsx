@@ -10,7 +10,9 @@ import TabsList from "../../components/TabsList/TabsList";
 import UserInfoSkeleton from "../../components/UserInfo/UserInfoSkeleton";
 import css from "./UserPage.module.css";
 
-const UserPageSkeleton = () => {
+const UserPageSkeleton = ({ isUserCurrentUser }) => {
+  const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
+
   return (
     <>
       <PathInfo name={"Profile"} />
@@ -43,8 +45,11 @@ const UserPageSkeleton = () => {
           <div className={css.tabsContainer}>
             <div className={css.tabsWrapper}>
               <TabsList>
-                <TabItem name="Recipes" />
+                <TabItem name={recepieTabName} />
+                {isUserCurrentUser && <TabItem name="My Favorites" />}
                 <TabItem name="Followers" />
+                {isUserCurrentUser && <TabItem name="Following" />}
+                {isUserCurrentUser && <TabItem name="My reviews" />}
               </TabsList>
             </div>
             <div className={css.container}>
