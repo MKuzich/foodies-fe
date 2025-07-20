@@ -40,8 +40,7 @@
   border: 2px dashed transparent;
 }
 
-.changeAvatarWrapper:hover,
-.changeAvatarWrapper:has(input:focus) {
+.changeAvatarWrapper:hover {
   border-color: var(--title-color);
 }
 
