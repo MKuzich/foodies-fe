@@ -4,7 +4,7 @@ import styles from "./RecipeIngredients.module.css";
 
 const RecipeIngredients = ({ ingredients }) => {
   return (
-    <section>
+    <section className={styles.section}>
       <h4 className={styles.itemTitle}>Ingredients</h4>
       <ul className={styles.ingredientList}>
         {ingredients.map((item, index) => {
