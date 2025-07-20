@@ -70,6 +70,8 @@ const slice = createSlice({
       .addCase(fetchUser.pending, (state) => {
         state.user = userSchema;
         state.userLoading = true;
+        state.filter.page = 1;
+        state.totalPages = 0;
       })
       .addCase(fetchUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload };
