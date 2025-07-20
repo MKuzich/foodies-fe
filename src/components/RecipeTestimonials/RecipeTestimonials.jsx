@@ -32,7 +32,7 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
       <ul>
         {testimonials.length > 0 &&
           testimonials.map((item) => {
-            const currentUserIsOwner = item.user.id === currentUser.id;
+            const currentUserIsOwner = currentUser ? item.user.id === currentUser.id : false;
 
             return (
               <li key={item.id} className={s.testimonialItem}>

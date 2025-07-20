@@ -128,7 +128,7 @@ const UserPage = () => {
           <PathInfo name={"Profile"} />
           <section className={css.section} ref={userRendered}>
             <div className={css.container}>
-              <MainTitle>profile</MainTitle>
+              <MainTitle>Profile</MainTitle>
               <Subtitle>
                 Reveal your culinary art, share your favorite recipe and create gastronomic
                 masterpieces with us.
