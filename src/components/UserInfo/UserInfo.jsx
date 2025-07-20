@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/label-has-associated-control */
 import clsx from "clsx";
 import { useId, useState } from "react";
 import toast from "react-hot-toast";
