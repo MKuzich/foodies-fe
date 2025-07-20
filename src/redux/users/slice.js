@@ -113,6 +113,7 @@ const slice = createSlice({
         state.recipesLoading = false;
         state.user.favorites = payload.data;
         state.user.favoriteCount = payload.pagination.total;
+        state.filter.page = 1;
         state.totalPages = payload.pagination.pages;
       })
       .addCase(fetchUserFollowers.pending, (state) => {
@@ -224,19 +225,16 @@ const slice = createSlice({
         state.testimonialsLoading = false;
       })
       .addCase(deleteTestimonial.pending, (state) => {
-        state.isLoading = true;
         state.testimonialsLoading = true;
       })
-      .addCase(deleteTestimonial.fulfilled, (state, action) => {
-        state.user.testimonials = state.user.testimonials.filter(
-          (testimonial) => action.meta.arg !== testimonial.id,
-        );
-        state.isLoading = false;
+      .addCase(deleteTestimonial.fulfilled, (state, { payload }) => {
+        state.user.testimonials = payload.data;
+        state.totalPages = payload.pagination.pages;
+        state.filter.page = 1;
         state.testimonialsLoading = false;
       })
       .addCase(deleteTestimonial.rejected, (state, action) => {
         state.error = action.payload;
-        state.isLoading = false;
         state.testimonialsLoading = false;
       });
   },

@@ -88,9 +88,12 @@ export const getUserTestimonials = async ({ userId, page = 1, limit = 9 }) => {
   }
 };
 
-export const deleteTestimonialsById = async (testimonialId) => {
+export const deleteTestimonialsById = async (testimonialId, userId) => {
   try {
-    const { data } = await api.delete(`/testimonials/user/${testimonialId}`, {});
+    await api.delete(`/testimonials/user/${testimonialId}`, {});
+    const { data } = await api.get(`/testimonials/user/${userId}`, {
+      params: { page: 1, limit: 9 },
+    });
     return data;
   } catch (error) {
     console.error(`Error deleting testimonials by id: ${testimonialId}`, error);
