@@ -4,7 +4,7 @@ const HeroImages = () => (
   <div className={styles.images}>
     <picture className={`${styles.heroImg} ${styles.imgLeft}`}>
       <source
-        media="(max-width: 375px)"
+        media="(max-width: 374px)"
         type="image/webp"
         srcSet={`
           /img/cakemob.webp 1x,
@@ -12,7 +12,7 @@ const HeroImages = () => (
         `}
       />
       <source
-        media="(max-width: 767px)"
+        media="(min-width: 768px)"
         type="image/webp"
         srcSet={`
           /img/cakedesk.webp 1x,
@@ -20,7 +20,7 @@ const HeroImages = () => (
         `}
       />
       <source
-        media="(max-width: 1440px)"
+        media="(min-width: 1440px)"
         type="image/webp"
         srcSet={`
           /img/cakedesk.webp 1x,
@@ -32,7 +32,7 @@ const HeroImages = () => (
 
     <picture className={`${styles.heroImg} ${styles.imgRight}`}>
       <source
-        media="(max-width: 375px)"
+        media="(max-width: 374px)"
         type="image/webp"
         srcSet={`
           /img/beefmob.webp 1x,
@@ -40,7 +40,7 @@ const HeroImages = () => (
         `}
       />
       <source
-        media="(max-width: 767px)"
+        media="(min-width: 768px)"
         type="image/webp"
         srcSet={`
           /img/beefdesk.webp 1x,
@@ -48,7 +48,7 @@ const HeroImages = () => (
         `}
       />
       <source
-        media="(max-width: 1440px)"
+        media="(min-width: 1440px)"
         type="image/webp"
         srcSet={`
           /img/beefdesk.webp 1x,
