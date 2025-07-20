@@ -26,13 +26,19 @@ export default function RecipeTestimonials({ testimonials, onDelete }) {
     });
     btn.disabled = false;
   };
+
+  const isOwner = (id) => {
+    if (!currentUser) return false;
+    return currentUser.id === id;
+  };
+
   return (
     <div className={s.recipeTestimonials}>
       <h2 className={s.title}>Our users say</h2>
       <ul>
         {testimonials.length > 0 &&
           testimonials.map((item) => {
-            const currentUserIsOwner = item.user.id === currentUser.id;
+            const currentUserIsOwner = isOwner(item.user.id);
 
             return (
               <li key={item.id} className={s.testimonialItem}>
