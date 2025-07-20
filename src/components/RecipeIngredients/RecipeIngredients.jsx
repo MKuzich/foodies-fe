@@ -8,6 +8,7 @@ const RecipeIngredients = ({ ingredients }) => {
       <h4 className={styles.itemTitle}>Ingredients</h4>
       <ul className={styles.ingredientList}>
         {ingredients.map((item, index) => {
+          console.log(item);
           return (
             <li key={index} className={styles.ingredientListItem}>
               <img
@@ -17,6 +18,11 @@ const RecipeIngredients = ({ ingredients }) => {
                 className={styles.ingredientListImg}
                 data-tooltip-id="ingredient-tooltip"
                 data-tooltip-content={`${item.name} - ${item.measure}`}
+                onError={(e) => {
+                  e.target.src = "/noImg.webp";
+                  e.target.srcSet = "/noImg.webp 1x, /noImg@2x.webp 2x";
+                  e.target.onerror = null;
+                }}
               />
               <div className={styles.ingredientsInfoWrapper}>
                 <span className={styles.ingredientName}>{item.name}</span>
