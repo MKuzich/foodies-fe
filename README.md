@@ -105,9 +105,8 @@ Also we welcome any feedback or suggestions for improvement!
 
 ## 👨‍💻 Tech Stack
 
-* **Frontend**: React, Vite, Redux Toolkit, React Router, CSS Modules / Tailwind
+* **Frontend**: React, Vite, Redux Toolkit, React Router, CSS Modules, React Hot Toast
 * **State Management**: Redux Toolkit
-* **Testing**: Jest, React Testing Library (optional)
 * **Hosting**: Vercel (for frontend)
 
 ---
@@ -117,11 +116,11 @@ Also we welcome any feedback or suggestions for improvement!
 
 Foodies is powered by a fully-featured backend that handles authentication, recipe data, user interactions, and more.
 
-* **Built with**: Node.js / Express (or your tech stack – update as needed)
+* **Built with**: Node.js / Express
 * **RESTful API**: Clean, scalable, and versioned endpoints
 * **JWT-based Authentication**: Secure login and protected routes
-* **MongoDB / PostgreSQL** (mention whichever DB you use)
-* **Swagger UI** for API exploration and testing
+* **PostgreSQL** : Database for storing user data, recipes, and other application data
+* **Swagger UI** : API exploration and testing
 
 ---
 
