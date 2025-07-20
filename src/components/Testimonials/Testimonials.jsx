@@ -10,6 +10,7 @@ import MainTitle from "@/components/MainTitle/MainTitle";
 import useMediaQuery from "@/hooks/useMediaQuery";
 import { testimonialsSelector } from "@/redux/testimonials/selectors";
 
+import Icons from "../../assets/sprite.svg";
 import { fetchTestimonials } from "../../redux/testimonials/actions";
 import styles from "./Testimonials.module.css";
 
@@ -28,7 +29,7 @@ function Testimonials() {
       <p className={styles.testimonialsSubtitle}>What our customer say</p>
       <MainTitle style={{ textAlign: "center", marginBottom: value }}>Testimonials</MainTitle>
       <svg className={styles.testimonialsIcon}>
-        <use href="/src/assets/sprite.svg#icon-quote" />
+        <use href={`${Icons}#icon-quote`} />
       </svg>
       <Swiper
         spaceBetween={20}
