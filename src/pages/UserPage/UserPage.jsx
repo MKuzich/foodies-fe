@@ -92,22 +92,21 @@ const UserPage = () => {
   }, [dispatch, filter, tabOpened]);
 
   useEffect(() => {
-    if (userRendered.current) {
-      scrollTo({
-        top: 0,
-        behavior: "smooth",
-      });
-    }
-  }, []);
-
-  useEffect(() => {
-    if (userTab.current) {
-      userTab.current.scrollIntoView({
+    if (!userTab.current) return;
+    if (!userRendered.current) return;
+    if (currentPage === 1) {
+      userRendered.current.scrollIntoView({
         behavior: "smooth",
         block: "start",
         inline: "nearest",
       });
+      return;
     }
+    userTab.current.scrollIntoView({
+      behavior: "smooth",
+      block: "start",
+      inline: "nearest",
+    });
   }, [currentPage]);
 
   const recepieTabName = isUserCurrentUser ? "My recepies" : "recepies";
