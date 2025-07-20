@@ -35,7 +35,6 @@ const RecipePage = () => {
       try {
         const response = await api.testimonials.fetchTestimonialsByRecipeId({ recipeId: id });
         setTestimonials(response);
-        // setTotalPages(2);
         // TODO: chnage total pages from BE
       } catch (error) {
         console.error("Error fetching testimonials:", error);

@@ -1,5 +1,7 @@
+import clsx from "clsx";
 import { toast } from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
+import { Link } from "react-router-dom";
 
 import { fetchFavoriteRecipes } from "../../redux/recipes/actions";
 import { removeFromFavoriteRecipe, removeRecipe } from "../../redux/users/operations";
@@ -40,21 +42,28 @@ const RecipePreview = ({ recipe }) => {
 
   return (
     <li className={css.recipePreview}>
-      <img
-        loading="lazy"
-        src={recipe.thumb}
-        alt={recipe.title}
-        className={css.recipePreviewImage}
-      />
+      <Link to={`/recipe/${recipe.id}`} className={clsx(css.link, css.linkImage)}>
+        <img
+          loading="lazy"
+          src={recipe.thumb}
+          alt={recipe.title}
+          className={css.recipePreviewImage}
+        />
+      </Link>
       <div className={css.recipePreviewWrapper}>
         <div className={css.recipePreviewInfo}>
-          {/* add as typography with variant="h2" UserCard has the same */}
-
-          <h2 className={css.recipePreviewTitle}>{recipe.title}</h2>
+          <Link to={`/recipe/${recipe.id}`} className={clsx(css.link, css.linkTitle)}>
+            <h2 className={css.recipePreviewTitle}>{recipe.title}</h2>
+          </Link>
           <p className={css.recipePreviewDescription}>{recipe.description}</p>
         </div>
         <div className={css.recipePreviewButtons}>
-          <IconLink to={`/recipe/${recipe.id}`} name="arrow" black />
+          <IconLink
+            to={`/recipe/${recipe.id}`}
+            name="arrow"
+            black
+            className={clsx(css.link, css.linkIcon)}
+          />
           {isCurrentUser && <IconButton name="trash" onClick={handleRemoveRecipe} />}
         </div>
       </div>

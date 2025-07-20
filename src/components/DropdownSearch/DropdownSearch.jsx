@@ -3,7 +3,6 @@ import { useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 
 import styles from "./DropdownSearch.module.css";
-// import styles from "../Dropdown/Dropdown.module.css";
 
 const SearchableDropdownInput = ({
   placeholder,
@@ -109,14 +108,12 @@ function DropdownSearch({
     }
   }, []);
 
-  // Clear values when resetSignal is true
   useEffect(() => {
     setSelectedItems("");
     setSearchValue("");
     setIsOpen(false);
   }, [resetSignal]);
 
-  // Update selectedItems when value prop changes
   useEffect(() => {
     if (value) {
       const selectedItem = data.find((item) => item.id === value);

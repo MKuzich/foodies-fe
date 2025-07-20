@@ -28,6 +28,7 @@ function App() {
   }, [dispatch]);
 
   useEffect(() => {
+    if (!user) return;
     dispatch(fetchFavoriteRecipes());
   }, [user]);
 

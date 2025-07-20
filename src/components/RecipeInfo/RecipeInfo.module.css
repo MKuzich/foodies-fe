@@ -1,0 +1,7 @@
+.loaderWrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex: 1;
+  min-height: calc(100vh - 400px);
+}

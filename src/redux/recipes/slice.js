@@ -27,6 +27,9 @@ const slice = createSlice({
     setWasShowAllRecipesInitialized: (state, action) => {
       state.wasShowAllRecipesInitialized = action.payload;
     },
+    setClearFavoriteRecipes: (state) => {
+      state.favoriteRecipes = [];
+    },
   },
   extraReducers: (builder) => {
     builder
@@ -79,8 +82,13 @@ const slice = createSlice({
   },
 });
 
-export const { setQuery, resetQuery, setShowAllRecipes, setWasShowAllRecipesInitialized } =
-  slice.actions;
+export const {
+  setQuery,
+  resetQuery,
+  setShowAllRecipes,
+  setWasShowAllRecipesInitialized,
+  setClearFavoriteRecipes,
+} = slice.actions;
 
 export const recipesReducer = slice.reducer;
 
