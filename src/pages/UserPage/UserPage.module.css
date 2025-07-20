@@ -106,6 +106,7 @@
   .section {
     padding: 0 80px;
     margin: 0 auto;
+    width: 1440px;
   }
 }
 
