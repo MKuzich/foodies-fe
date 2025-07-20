@@ -24,15 +24,11 @@
   top: 0;
   left: 0;
 }
-.linkTitle {
-}
-.linkIcon {
-}
 
 .recipePreview:has(.link:hover),
 .recipePreview:has(.link:focus) {
   .linkImage::after {
-    opacity: 0.4;
+    opacity: 0.2;
   }
   .linkIcon {
     border-color: var(--text-color);

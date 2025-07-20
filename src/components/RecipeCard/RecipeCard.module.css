@@ -26,15 +26,11 @@
   top: 0;
   left: 0;
 }
-.linkTitle {
-}
-.linkIcon {
-}
 
 .recipeItem:has(.link:hover),
 .recipeItem:has(.link:focus) {
   .linkImage::after {
-    opacity: 0.4;
+    opacity: 0.2;
   }
   .linkIcon {
     border-color: var(--text-color);
