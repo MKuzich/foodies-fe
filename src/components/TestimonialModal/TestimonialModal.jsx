@@ -104,7 +104,7 @@ const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
                 {errors.text && <p className={s.errorInput}>{errors.text.message}</p>}
               </div>
               <Button
-                className={s.buttonSubmit}
+                appendClassName={s.buttonSubmit}
                 onClick={(e) => e.currentTarget.blur()}
                 type="submit"
                 disabled={isLoading}
