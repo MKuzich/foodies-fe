@@ -143,4 +143,4 @@ Whether you’re a beginner in the kitchen 🧑‍🍳 or a seasoned foodie 🍝
 Explore mouthwatering recipes 😋, save your favorites ⭐, and share your own delicious creations with the world 🌍.
 Cooking has never felt this connected — and tasty! 🥑✨
 
-## 🧑‍🍳 Made with ❤️ by [ProTeam2](https://github.com/MKuzich)
+## 🧑‍🍳 Made with ❤️ by [KOTLЄТА L`Apps](https://github.com/MKuzich)
