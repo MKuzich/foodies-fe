@@ -34,7 +34,13 @@
 
 .recipeWrapper {
   margin-right: 15px;
-  min-width: 50px;
+  min-width: 32px;
+}
+
+@media screen and (min-width: 768px) {
+  .recipeWrapper {
+    min-width: 50px;
+  }
 }
 
 .recipeName {
@@ -54,4 +60,41 @@
 
 .date {
   font-size: 12px;
+}
+
+.skeletonTitle {
+  margin-bottom: 15px;
+  width: 150px;
+}
+
+.skeletonAuthorName {
+  max-width: none;
+  width: 50px;
+}
+
+.skeletonAuthorDate {
+  width: 100px;
+  max-width: none;
+  height: 30px !important;
+}
+
+.skeletonAuthorDescription {
+  width: 100px;
+  margin-top: 5px;
+}
+
+@media screen and (min-width: 768px) {
+  .skeletonTitle {
+    width: 215px;
+  }
+  .skeletonAuthorName {
+    width: 120px;
+  }
+  .skeletonAuthorDate {
+    width: 120px;
+    height: 16px !important;
+  }
+  .skeletonAuthorDescription {
+    width: 250px;
+  }
 }
