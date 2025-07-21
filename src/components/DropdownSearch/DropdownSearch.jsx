@@ -55,16 +55,26 @@ const SearchableDropdownInput = ({
 };
 
 const SearchableDropdownList = ({ data, handleSelectItem, selectedIndex, setSelectedIndex }) => {
-  const displayData = data.slice(0, 10);
+  const itemRefs = useRef([]);
+
+  useEffect(() => {
+    if (selectedIndex >= 0 && itemRefs.current[selectedIndex]) {
+      itemRefs.current[selectedIndex].scrollIntoView({
+        block: "nearest",
+        behavior: "auto",
+      });
+    }
+  }, [selectedIndex]);
 
   return (
     <ul className={clsx(styles.dropdown)}>
-      {displayData.length === 0 ? (
+      {data.length === 0 ? (
         <li className={clsx(styles.dropdownItem, styles.noResults)}>No results found</li>
       ) : (
-        displayData.map((item, index) => (
+        data.map((item, index) => (
           <li
             key={item.id}
+            ref={(el) => (itemRefs.current[index] = el)}
             className={clsx(
               styles.dropdownItem,
               selectedIndex === index && styles.dropdownItemSelected,

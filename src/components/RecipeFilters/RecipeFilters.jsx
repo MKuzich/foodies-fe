@@ -40,7 +40,7 @@ function RecipeFilters() {
   }, [dispatch, showAllRecipes, wasShowAllRecipesInitialized]);
 
   const handleClearAll = () => {
-    if (category) {
+    if (category && !showAllRecipes) {
       setSearchParams({ category, page: 1 });
     } else {
       setSearchParams({ page: 1 });
@@ -49,7 +49,12 @@ function RecipeFilters() {
 
   return (
     <div className={styles.recipeFilters}>
-      <DropdownSearch placeholder="Ingredient" data={ingredients} shouldSetUrl={true} />
+      <DropdownSearch
+        name="Ingredients"
+        placeholder="Ingredient"
+        data={ingredients}
+        shouldSetUrl={true}
+      />
       <Dropdown placeholder="Area" data={areas} shouldSetUrl={true} />
       {showAllRecipes && <Dropdown placeholder="Category" data={categories} shouldSetUrl={true} />}
       <Button onClick={handleClearAll}>Clear all</Button>

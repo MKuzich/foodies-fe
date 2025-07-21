@@ -10,7 +10,7 @@ function RecipeList({ recipes, isLoading, error }) {
     return (
       <div className={styles.recipeListEmpty}>
         <h3 className={styles.recipeListTitle}>
-          Oops! We couldn't find any recipes. Please try again.
+          Looks like there’s nothing here yet. Try a different filter
         </h3>
       </div>
     );

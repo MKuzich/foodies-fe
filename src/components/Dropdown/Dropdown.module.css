@@ -8,14 +8,20 @@
 }
 
 .inputContainer {
+  padding: 5px 0;
   position: absolute;
   z-index: 100;
   left: 0;
   width: 100%;
   border-radius: 30px;
+  border-radius: 15px;
+  border: 1px solid var(--inactive-color);
+  background-color: var(--white-color);
+  overflow: hidden;
 }
 
-.inputField.placeholderField, .inputField.placeholderField::placeholder {
+.inputField.placeholderField,
+.inputField.placeholderField::placeholder {
   color: var(--inactive-color);
 }
 
@@ -28,7 +34,12 @@
   height: 48px;
   border-radius: 30px;
   border: 1px solid var(--inactive-color);
-  color: var(--title-color);
+
+
+  transition: var(--border-transition);
+  color: var(--inactive-color);
+
+
   background-color: var(--white-color);
   text-align: left;
   padding-left: 14px;
@@ -48,19 +59,16 @@
     border: 1px solid var(--title-color);
   }
 
-  
   &:focus {
     outline: none;
   }
 
-  
   &:focus-visible {
     outline: none;
   }
-
 }
 
-.inputFieldSelected{
+.inputFieldSelected {
   color: var(--text-color);
 }
 
@@ -84,20 +92,26 @@
   flex-direction: column;
   gap: 6px;
   padding: 16px 0;
-  border-radius: 15px;
-  border: 1px solid var(--inactive-color);
-  background-color: var(--white-color);
-
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .dropdownItem {
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42;
   color: var(--title-color);
   cursor: pointer;
-  padding:  0 18px;
+  padding: 0 18px;
+
+  scrollbar-color: transparent transparent;
+
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+  }
 
   &:hover {
     background-color: var(--inactive-color);
