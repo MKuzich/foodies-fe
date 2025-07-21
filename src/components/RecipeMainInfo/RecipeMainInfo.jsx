@@ -7,7 +7,7 @@ import RecipePreparation from "../../components/RecipePreparation/RecipePreparat
 import { openSignIn, selectCurrentUser } from "../../redux/auth/slice";
 import styles from "./RecipeMainInfo.module.css";
 
-const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
+const RecipeMainInfo = ({ recipe }) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
@@ -42,7 +42,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
           <button className={styles.authorBtn} onClick={handleAuthorClick}>
             <AvatarIcon
               name={author.name}
-              avatarUrl={author.avatarURL}
+              src={author.avatarURL}
               alt={`${author.name} avatar`}
               small
               to={`/user/${author.id}`}
@@ -54,7 +54,7 @@ const RecipeMainInfo = ({ recipe, onChangeTestimonials }) => {
           </button>
         </div>
         <RecipeIngredients ingredients={recipe.ingredients} />
-        <RecipePreparation recipe={recipe} onChangeTestimonials={onChangeTestimonials} />
+        <RecipePreparation recipe={recipe} />
       </div>
     </div>
   );

@@ -1,12 +1,12 @@
-import React from "react";
-import css from "./Loader.module.css";
 import clsx from "clsx";
 
-const Loader = ({ isDark = true }) => {
+import css from "./Loader.module.css";
+
+const Loader = ({ isDark = true, large = false }) => {
   return (
     <div className={css.wrapper}>
       <div
-        className={clsx(css.loader, isDark && css.dark, !isDark && css.light)}
+        className={clsx(css.loader, isDark && css.dark, !isDark && css.light, large && css.large)}
       ></div>
     </div>
   );

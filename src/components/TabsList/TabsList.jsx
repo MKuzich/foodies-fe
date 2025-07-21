@@ -1,6 +1,6 @@
-import { useEffect, useRef } from "react";
-import css from "./TabsList.module.css";
 import clsx from "clsx";
+
+import css from "./TabsList.module.css";
 
 const TabsList = ({ children }) => {
   return (

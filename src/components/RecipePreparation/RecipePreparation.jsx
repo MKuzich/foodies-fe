@@ -11,7 +11,7 @@ import { favoriteRecipesSelector } from "../../redux/recipes/selectors";
 import TestimonialModal from "../TestimonialModal";
 import styles from "./RecipePreparation.module.css";
 
-const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
+const RecipePreparation = ({ recipe }) => {
   const dispatch = useDispatch();
   const isLoggedIn = useSelector(selectCurrentUser);
   const favoriteRecipes = useSelector(favoriteRecipesSelector);
@@ -73,7 +73,7 @@ const RecipePreparation = ({ recipe, onChangeTestimonials }) => {
           </Button>
         </li>
         <li>
-          <TestimonialModal recipeId={recipe.id} onChangeTestimonials={onChangeTestimonials} />
+          <TestimonialModal recipeId={recipe.id} />
         </li>
       </ul>
     </>

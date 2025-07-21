@@ -10,6 +10,8 @@ import * as yup from "yup";
 
 import { registerUser } from "../../redux/auth/actions";
 import { selectNext } from "../../redux/auth/slice";
+import { disableScroll, enableScroll } from "../../utils/helpers";
+import Button from "../Button/Button";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -48,10 +50,10 @@ const SignUpModal = ({ onClose, onSwitch }) => {
       }
     };
     window.addEventListener("keydown", handleEsc);
-    document.body.style.overflow = "hidden";
+    disableScroll();
     return () => {
       window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "auto";
+      enableScroll();
     };
   }, [onClose]);
 
@@ -118,14 +120,14 @@ const SignUpModal = ({ onClose, onSwitch }) => {
                 </button>
                 {errors.password && <p className={s.errorInput}>{errors.password.message}</p>}
               </div>
-              <button
-                className={s.buttonSubmit}
+              <Button
+                appendClassName={s.buttonSubmit}
                 type="submit"
                 onClick={(e) => e.currentTarget.blur()}
                 disabled={loading}
               >
                 Create
-              </button>
+              </Button>
             </form>
             {error && <p className={s.errorForm}>{error}</p>}
             <p className={s.bottomText} onClick={onSwitch}>

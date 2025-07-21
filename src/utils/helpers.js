@@ -53,3 +53,13 @@ export const getAvatarName = (name) => {
   if (name.length === 1) return name;
   return name[0];
 };
+
+export const disableScroll = () => {
+  document.body.style.overflow = "hidden";
+  document.body.style.paddingRight = "8px";
+};
+
+export const enableScroll = () => {
+  document.body.style.overflow = "auto";
+  document.body.style.paddingRight = "0";
+};

@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,12 +21,14 @@ import { areasSelector } from "@/redux/areas/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import { ingredientsSelector } from "@/redux/ingredients/selectors";
 
-import Icons from "../../assets/sprite.svg";
+import { autoResize } from "../../utils/autoResizeTextarea";
+import { disableScroll, enableScroll } from "../../utils/helpers";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import DropdownSearch from "../DropdownSearch/DropdownSearch";
 import Icon from "../Icon";
+import Loader from "../Loader/Loader";
 import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
 
@@ -101,24 +103,13 @@ const AddRecipeForm = () => {
   const [resetSignal, setResetSignal] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      autoResize(descriptionRef, true);
-      autoResize(recipePreparationRef, true);
-    }, 0);
+    autoResize(descriptionRef, true);
+    autoResize(recipePreparationRef, true);
   }, [resetSignal]);
 
-  const autoResize = (ref, forceReset = false) => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (forceReset) {
-      el.style.height = "auto";
-      return;
-    }
-
-    el.style.height = "auto";
-    el.style.height = `${el.scrollHeight}px`;
-  };
+  useEffect(() => {
+    loading ? disableScroll() : enableScroll();
+  }, [loading]);
 
   const buildFormData = (data) => {
     const formData = new FormData();
@@ -222,9 +213,13 @@ const AddRecipeForm = () => {
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
-
   return (
     <div className={styles.addRecipeForm}>
+      {loading && (
+        <div className={styles.loaderWrapper}>
+          <Loader isDark={false} large />
+        </div>
+      )}
       <FormProvider {...methods}>
         <form className={clsx(styles.formAdd)} onSubmit={handleSubmit(onSubmit)}>
           <AddRecipeImage resetSignal={resetSignal} />
@@ -374,6 +369,7 @@ const AddRecipeForm = () => {
                   control={methods.control}
                   render={({ field }) => (
                     <DropdownSearch
+                      name="ingredients"
                       placeholder="Add the ingredient"
                       data={ingredients}
                       value={field.value}

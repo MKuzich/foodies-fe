@@ -1,4 +1,5 @@
 import clsx from "clsx";
+import { AnimatePresence, motion } from "framer-motion";
 import { useSelector } from "react-redux";
 
 import {
@@ -21,35 +22,56 @@ const ListItems = ({ items, type, errorText, skeletonMode }) => {
   const isTestimonialsLoading = useSelector((state) => state.users.testimonialsLoading);
   const itemsCount = useSelector(selectItemsCount);
 
+  const isLoading = skeletonMode || isRecipesLoading || isFollowLoading || isTestimonialsLoading;
+
   return (
     <div className={css.listItemsWrap}>
-      {items?.length === 0 && !isRecipesLoading && !isFollowLoading && !isTestimonialsLoading ? (
+      {items?.length === 0 && !isLoading ? (
         <p className={css.errorText}>{errorText}</p>
       ) : (
         <ul className={clsx(css.listItems, css[type])}>
-          {skeletonMode || isRecipesLoading || isFollowLoading || isTestimonialsLoading
-            ? getSkeletons(itemsCount).map((skeleton) => {
+          {isLoading ? (
+            getSkeletons(itemsCount).map((skeleton) => {
+              if (type === "recipe") return <RecipePreviewSkeleton key={skeleton.id} />;
+              if (type === "user") return <UserCardSkeleton key={skeleton.id} />;
+              if (type === "testimonial") return <ProfileTestimonialSkeleton key={skeleton.id} />;
+              return null;
+            })
+          ) : (
+            <AnimatePresence>
+              {items.map((item) => {
+                const commonProps = {
+                  initial: { opacity: 0, y: 10 },
+                  animate: { opacity: 1, y: 0 },
+                  exit: { opacity: 0, y: -10 },
+                  transition: { duration: 0.3 },
+                };
+
                 if (type === "recipe") {
-                  return <RecipePreviewSkeleton key={skeleton.id} />;
+                  return (
+                    <motion.ul key={item.id} {...commonProps}>
+                      <RecipePreview recipe={item} />
+                    </motion.ul>
+                  );
                 }
                 if (type === "user") {
-                  return <UserCardSkeleton key={skeleton.id} />;
+                  return (
+                    <motion.ul key={item.id} {...commonProps}>
+                      <UserCard user={item} />
+                    </motion.ul>
+                  );
                 }
                 if (type === "testimonial") {
-                  return <ProfileTestimonialSkeleton key={skeleton.id} />;
+                  return (
+                    <motion.ul key={item.id} {...commonProps}>
+                      <ProfileTestimonial data={item} />
+                    </motion.ul>
+                  );
                 }
-              })
-            : items.map((item) => {
-                if (type === "recipe") {
-                  return <RecipePreview key={item.id} recipe={item} />;
-                }
-                if (type === "user") {
-                  return <UserCard key={item.id} user={item} />;
-                }
-                if (type === "testimonial") {
-                  return <ProfileTestimonial key={item.id} data={item} />;
-                }
+                return null;
               })}
+            </AnimatePresence>
+          )}
         </ul>
       )}
     </div>

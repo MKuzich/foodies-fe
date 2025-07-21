@@ -1,5 +1,5 @@
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link } from "react-router-dom";
 
 import Icons from "../../assets/sprite.svg";
@@ -20,11 +20,22 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
   };
 
   useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 767 && open) {
+        onClose();
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, [open, onClose]);
+
+  useEffect(() => {
     if (!open) return;
 
     const handleKey = (e) => {
       if (e.key === "Escape") {
-        onClose();
+        handleCloseClick();
       }
     };
 
@@ -96,7 +107,7 @@ const MobileSidebar = ({ open, onClose, navLinks, isAuthenticated, isHome = true
       >
         <Container className={css.mobileContainer}>
           <div className={css.sidebarHeader}>
-            <Link to="/" className={css.logo} onClick={onClose}>
+            <Link to="/" className={css.logo} onClick={handleCloseClick}>
               foodies
             </Link>
             <button

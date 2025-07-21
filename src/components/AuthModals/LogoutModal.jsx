@@ -7,6 +7,8 @@ import { useDispatch, useSelector } from "react-redux";
 import useMediaQuery from "../../hooks/useMediaQuery";
 import { userLogout } from "../../redux/auth/actions";
 import { setClearFavoriteRecipes } from "../../redux/recipes/slice";
+import { disableScroll, enableScroll } from "../../utils/helpers";
+import Button from "../Button/Button";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
 import s from "./index.module.css";
@@ -29,10 +31,10 @@ const LogoutModal = ({ onClose }) => {
       }
     };
     window.addEventListener("keydown", handleEsc);
-    document.body.style.overflow = "hidden";
+    disableScroll();
     return () => {
       window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "auto";
+      enableScroll();
     };
   }, [onClose]);
 
@@ -76,17 +78,22 @@ const LogoutModal = ({ onClose }) => {
             <h2 className={s.title}>{isMobile ? "Log out" : "Are you logging out?"}</h2>
             <p className={s.bottomText}>You can always log back in at my time.</p>
             <div>
-              <button
-                className={s.buttonSubmit}
+              <Button
+                appendClassName={s.buttonSubmit}
                 type="button"
                 onClick={handleLogout}
                 disabled={loading}
               >
                 Log out
-              </button>
-              <button className={s.buttonCancel} type="button" onClick={onClose}>
+              </Button>
+              <Button
+                outlined="true"
+                appendClassName={s.buttonCancel}
+                type="button"
+                onClick={onClose}
+              >
                 Cancel
-              </button>
+              </Button>
             </div>
             {error && <p className={s.errorForm}>{error}</p>}
           </motion.div>

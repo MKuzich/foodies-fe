@@ -11,6 +11,7 @@ const DefaultDropdownButton = ({
   setIsOpen,
   isOpen,
   className,
+  appendClassName: _appendClassName,
   ...props
 }) => {
   const handleKeyDown = (e) => {
@@ -54,11 +55,23 @@ const DefaultDropdownButton = ({
 };
 
 const DefaultDropdownList = ({ data, handleSelectItem, selectedIndex, setSelectedIndex }) => {
+  const itemRefs = useRef([]);
+
+  useEffect(() => {
+    if (selectedIndex >= 0 && itemRefs.current[selectedIndex]) {
+      itemRefs.current[selectedIndex].scrollIntoView({
+        block: "nearest",
+        behavior: "auto",
+      });
+    }
+  }, [selectedIndex]);
+
   return (
     <ul className={clsx(styles.dropdown)}>
       {data.map((item, index) => (
         <li
           key={item.id}
+          ref={(el) => (itemRefs.current[index] = el)}
           className={clsx(
             styles.dropdownItem,
             selectedIndex === index && styles.dropdownItemSelected,

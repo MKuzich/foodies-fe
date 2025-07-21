@@ -55,7 +55,7 @@ export default defineConfig([
     rules: {
       "no-undef": "error",
       "react/jsx-uses-vars": "error",
-      "no-unused-vars": ["error", { varsIgnorePattern: "^[A-Z_]" }],
+      "no-unused-vars": ["error", { varsIgnorePattern: "^_.*$", ignoreRestSiblings: true }],
       "react/react-in-jsx-scope": "off",
       "no-duplicate-imports": "error",
       "prettier/prettier": ["error", {}, { usePrettierrc: true }],

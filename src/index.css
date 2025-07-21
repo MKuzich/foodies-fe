@@ -17,7 +17,6 @@
   --all-transition: all 250ms cubic-bezier(0.4, 0, 0.2, 1);
   --radius-card-mobile: 20px;
   --radius-card: 30px;
-
 }
 
 body {
@@ -27,6 +26,7 @@ body {
   color: var(--text-color);
   font-size: 16px;
   letter-spacing: -0.02rem;
+  overflow-x: hidden;
 }
 
 h1,
@@ -40,6 +40,10 @@ a {
   font-size: 16px;
   margin: 0;
   padding: 0;
+}
+
+a {
+  color: var(--text-color);
 }
 
 ul {
@@ -72,4 +76,19 @@ main {
   flex: 1;
   display: flex;
   flex-direction: column;
+}
+
+::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background-color: var(--white-color);
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb {
+  background-color: var(--title-color);
+  border-radius: 4px;
 }

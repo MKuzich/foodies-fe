@@ -105,8 +105,8 @@
 @media screen and (min-width: 1440px) {
   .section {
     padding: 0 80px;
-    width: 1440px;
     margin: 0 auto;
+    width: 1440px;
   }
 }
 

@@ -70,6 +70,8 @@ const slice = createSlice({
       .addCase(fetchUser.pending, (state) => {
         state.user = userSchema;
         state.userLoading = true;
+        state.filter.page = 1;
+        state.totalPages = 0;
       })
       .addCase(fetchUser.fulfilled, (state, { payload }) => {
         state.user = { ...state.user, ...payload };
@@ -113,6 +115,7 @@ const slice = createSlice({
         state.recipesLoading = false;
         state.user.favorites = payload.data;
         state.user.favoriteCount = payload.pagination.total;
+        state.filter.page = 1;
         state.totalPages = payload.pagination.pages;
       })
       .addCase(fetchUserFollowers.pending, (state) => {
@@ -223,21 +226,13 @@ const slice = createSlice({
       .addCase(fetchUserTestimonials.rejected, (state) => {
         state.testimonialsLoading = false;
       })
-      .addCase(deleteTestimonial.pending, (state) => {
-        state.isLoading = true;
-        state.testimonialsLoading = true;
-      })
       .addCase(deleteTestimonial.fulfilled, (state, action) => {
         state.user.testimonials = state.user.testimonials.filter(
           (testimonial) => action.meta.arg !== testimonial.id,
         );
-        state.isLoading = false;
-        state.testimonialsLoading = false;
       })
       .addCase(deleteTestimonial.rejected, (state, action) => {
         state.error = action.payload;
-        state.isLoading = false;
-        state.testimonialsLoading = false;
       });
   },
 });
