@@ -125,7 +125,8 @@ const slice = createSlice({
 
 export const { openSignIn, openSignUp, openLogout, closeModal, setNext, setAuthCanceled } =
   slice.actions;
-export const selectCurrentUser = (state) => (state.auth.userToken ? true : false);
+export const selectCurrentUser = (state) =>
+  state.auth.loading ? false : state.auth.userToken ? true : false;
 export const selectUserInfo = (state) => state.auth.userInfo;
 export const selectAuthCanceled = (state) => state.auth.authCanceled;
 export const selectNext = (state) => state.auth.next;
