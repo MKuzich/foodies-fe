@@ -222,7 +222,6 @@ const AddRecipeForm = () => {
     setAddedIngredients(updated);
     methods.setValue("ingredientsList", updated);
   };
-
   return (
     <div className={styles.addRecipeForm}>
       <FormProvider {...methods}>
@@ -374,6 +373,7 @@ const AddRecipeForm = () => {
                   control={methods.control}
                   render={({ field }) => (
                     <DropdownSearch
+                      name="ingredients"
                       placeholder="Add the ingredient"
                       data={ingredients}
                       value={field.value}

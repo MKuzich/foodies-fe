@@ -49,7 +49,12 @@ function RecipeFilters() {
 
   return (
     <div className={styles.recipeFilters}>
-      <DropdownSearch placeholder="Ingredient" data={ingredients} shouldSetUrl={true} />
+      <DropdownSearch
+        name="Ingredients"
+        placeholder="Ingredient"
+        data={ingredients}
+        shouldSetUrl={true}
+      />
       <Dropdown placeholder="Area" data={areas} shouldSetUrl={true} />
       {showAllRecipes && <Dropdown placeholder="Category" data={categories} shouldSetUrl={true} />}
       <Button onClick={handleClearAll}>Clear all</Button>

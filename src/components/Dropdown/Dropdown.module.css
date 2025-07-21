@@ -15,7 +15,8 @@
   border-radius: 30px;
 }
 
-.inputField.placeholderField, .inputField.placeholderField::placeholder {
+.inputField.placeholderField,
+.inputField.placeholderField::placeholder {
   color: var(--inactive-color);
 }
 
@@ -48,19 +49,16 @@
     border: 1px solid var(--title-color);
   }
 
-  
   &:focus {
     outline: none;
   }
 
-  
   &:focus-visible {
     outline: none;
   }
-
 }
 
-.inputFieldSelected{
+.inputFieldSelected {
   color: var(--text-color);
 }
 
@@ -87,17 +85,18 @@
   border-radius: 15px;
   border: 1px solid var(--inactive-color);
   background-color: var(--white-color);
-
+  max-height: 300px;
+  overflow-y: auto;
 }
 
 .dropdownItem {
-  font-family: 'Mulish', sans-serif;
+  font-family: "Mulish", sans-serif;
   font-weight: 500;
   font-size: 14px;
   line-height: 1.42;
   color: var(--title-color);
   cursor: pointer;
-  padding:  0 18px;
+  padding: 0 18px;
 
   &:hover {
     background-color: var(--inactive-color);
