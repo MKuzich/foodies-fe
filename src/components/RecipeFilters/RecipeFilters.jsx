@@ -23,8 +23,8 @@ function RecipeFilters() {
   const areas = useSelector(areasSelector);
   const ingredients = useSelector(ingredientsSelector);
   const wasShowAllRecipesInitialized = useSelector(wasShowAllRecipesInitializedSelector);
-
   const showAllRecipes = useSelector(showAllRecipesSelector);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get("category");
@@ -40,7 +40,7 @@ function RecipeFilters() {
   }, [dispatch, showAllRecipes, wasShowAllRecipesInitialized]);
 
   const handleClearAll = () => {
-    if (category) {
+    if (category && !showAllRecipes) {
       setSearchParams({ category, page: 1 });
     } else {
       setSearchParams({ page: 1 });
