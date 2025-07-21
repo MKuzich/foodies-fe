@@ -55,3 +55,19 @@
   top: 10px;
   right: 10px;
 }
+
+.pagination {
+  margin-bottom: 64px;
+}
+
+@media (min-width: 768px) {
+  .pagination {
+    margin-bottom: 100px;
+  }
+}
+
+@media (min-width: 1440px) {
+  .pagination {
+    margin-bottom: 120px;
+  }
+}

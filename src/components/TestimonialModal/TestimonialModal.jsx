@@ -4,7 +4,6 @@ import { AnimatePresence, motion } from "framer-motion";
 import { useEffect, useState } from "react";
 import { useForm } from "react-hook-form";
 import toast from "react-hot-toast";
-import { useSelector } from "react-redux";
 import * as yup from "yup";
 
 import api from "../../api";
@@ -23,8 +22,7 @@ const schema = yup.object({
   text: yup.string().min(3, "Text must be at least 3 characters").required("Text is required"),
 });
 
-const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
-  const user = useSelector((state) => state.auth.userInfo);
+const TestimonialModal = ({ onClose, recipeId }) => {
   const {
     register,
     handleSubmit,
@@ -51,11 +49,10 @@ const TestimonialModal = ({ onClose, recipeId, onChangeTestimonials }) => {
     data.recipeId = recipeId;
     try {
       setIsLoading(true);
-      const response = await api.testimonials.createTestimonial(data);
-      if (typeof onChangeTestimonials === "function") {
-        onChangeTestimonials({ ...response, user });
-        toast.success("Review added successfully");
-      }
+      await api.testimonials.createTestimonial(data);
+
+      window.dispatchEvent(new CustomEvent("testimonial:add"));
+      toast.success("Review added successfully");
     } catch (error) {
       setError(error.response?.data?.message || "Failed to create review");
       toast.error(error.response?.data?.message || "Failed to create review");
