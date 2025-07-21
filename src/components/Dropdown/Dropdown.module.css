@@ -34,7 +34,12 @@
   height: 48px;
   border-radius: 30px;
   border: 1px solid var(--inactive-color);
-  color: var(--title-color);
+
+
+  transition: var(--border-transition);
+  color: var(--inactive-color);
+
+
   background-color: var(--white-color);
   text-align: left;
   padding-left: 14px;
@@ -99,6 +104,14 @@
   color: var(--title-color);
   cursor: pointer;
   padding: 0 18px;
+
+  scrollbar-color: transparent transparent;
+
+
+  &::-webkit-scrollbar {
+    width: 4px;
+    background: transparent;
+  }
 
   &:hover {
     background-color: var(--inactive-color);
