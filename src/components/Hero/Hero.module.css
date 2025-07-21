@@ -41,12 +41,24 @@
 }
 
 .title {
+  min-height: 120px;
   font-weight: 800;
   font-size: 90px;
   line-height: 1;
   text-align: center;
   text-transform: uppercase;
   margin-bottom: 40px;
+}
+
+@media screen and (min-width: 768px) {
+  .title {
+    min-height: 160px;
+  }
+}
+@media screen and (min-width: 1440px) {
+  .title {
+    min-height: 200px;
+  }
 }
 
 .subtitle {

@@ -33,6 +33,7 @@
     "react-redux": "^9.2.0",
     "react-router-dom": "^7.6.3",
     "react-tooltip": "^5.29.1",
+    "react-typed": "^2.0.12",
     "redux": "^5.0.1",
     "redux-persist": "^6.0.0",
     "swiper": "^11.2.10",
