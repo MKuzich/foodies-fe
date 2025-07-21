@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
@@ -21,7 +21,7 @@ import { areasSelector } from "@/redux/areas/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import { ingredientsSelector } from "@/redux/ingredients/selectors";
 
-// import Icons from "../../assets/sprite.svg";
+import { autoResize } from "../../utils/autoResizeTextarea";
 import { disableScroll, enableScroll } from "../../utils/helpers";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
@@ -103,28 +103,13 @@ const AddRecipeForm = () => {
   const [resetSignal, setResetSignal] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      autoResize(descriptionRef, true);
-      autoResize(recipePreparationRef, true);
-    }, 0);
+    autoResize(descriptionRef, true);
+    autoResize(recipePreparationRef, true);
   }, [resetSignal]);
 
   useEffect(() => {
     loading ? disableScroll() : enableScroll();
   }, [loading]);
-
-  const autoResize = (ref, forceReset = false) => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (forceReset) {
-      el.style.height = "auto";
-      return;
-    }
-
-    el.style.height = "auto";
-    el.style.height = `${el.scrollHeight}px`;
-  };
 
   const buildFormData = (data) => {
     const formData = new FormData();
