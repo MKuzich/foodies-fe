@@ -189,10 +189,9 @@ export const fetchUserTestimonials = createAsyncThunk(
 
 export const deleteTestimonial = createAsyncThunk(
   "testimonials/deleteTestimonial",
-  async (testimonialId, { rejectWithValue, getState }) => {
-    const state = getState();
+  async (testimonialId, { rejectWithValue }) => {
     try {
-      const response = await deleteTestimonialsById(testimonialId, state.users.user.id);
+      const response = await deleteTestimonialsById(testimonialId);
       return response;
     } catch (err) {
       return rejectWithValue(err.message || "Unknown error");
