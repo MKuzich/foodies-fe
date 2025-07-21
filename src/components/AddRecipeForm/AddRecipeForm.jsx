@@ -74,7 +74,6 @@ const AddRecipeForm = () => {
   const areas = useSelector(areasSelector);
   const ingredients = useSelector(ingredientsSelector);
   const categories = useSelector(categoriesSelector);
-  const [wordsCounter, setWordsCounter] = useState(0);
 
   const stepTime = 5;
   const maxTime = 999;
@@ -104,8 +103,8 @@ const AddRecipeForm = () => {
   const [resetSignal, setResetSignal] = useState(false);
 
   useEffect(() => {
-    autoResize(descriptionRef, countWords, wordsCounter, setWordsCounter, true);
-    autoResize(recipePreparationRef, countWords, wordsCounter, setWordsCounter, true);
+    autoResize(descriptionRef, true);
+    autoResize(recipePreparationRef, true);
   }, [resetSignal]);
 
   useEffect(() => {
@@ -263,7 +262,7 @@ const AddRecipeForm = () => {
                       onChange={(e) => {
                         limitWordsInput(e);
                         field.onChange(e);
-                        autoResize(descriptionRef, countWords, wordsCounter, setWordsCounter);
+                        autoResize(descriptionRef);
                       }}
                       className={clsx(styles.description)}
                       placeholder="Enter a description of the dish"
@@ -491,7 +490,7 @@ const AddRecipeForm = () => {
                       onChange={(e) => {
                         limitWordsInput(e);
                         field.onChange(e);
-                        autoResize(recipePreparationRef, countWords, wordsCounter, setWordsCounter);
+                        autoResize(recipePreparationRef);
                       }}
                       className={clsx(styles.recipePreparation)}
                       placeholder="Enter recipe"

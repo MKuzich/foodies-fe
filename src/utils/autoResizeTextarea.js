@@ -1,4 +1,4 @@
-export const autoResize = (ref, countWords, wordsCounter, setWordsCounter, forceReset = false) => {
+export const autoResize = (ref, forceReset = false) => {
   const el = ref.current;
 
   if (!el) return;
@@ -11,7 +11,6 @@ export const autoResize = (ref, countWords, wordsCounter, setWordsCounter, force
   const height = calculateTextAreaHeight(el);
   el.style.height = `${height}px`;
   el.style.overflow = "hidden";
-  setWordsCounter(countWords(el.value));
   return;
 };
 
