@@ -23,8 +23,8 @@ function RecipeFilters() {
   const areas = useSelector(areasSelector);
   const ingredients = useSelector(ingredientsSelector);
   const wasShowAllRecipesInitialized = useSelector(wasShowAllRecipesInitializedSelector);
-
   const showAllRecipes = useSelector(showAllRecipesSelector);
+
   const [searchParams, setSearchParams] = useSearchParams();
 
   const category = searchParams.get("category");

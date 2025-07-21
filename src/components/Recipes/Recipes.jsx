@@ -7,11 +7,12 @@ import Pagination from "@/components/Pagination/Pagination";
 import Subtitle from "@/components/Subtitle/Subtitle";
 import { useAuth } from "@/hooks/useAuth";
 import useMediaQuery from "@/hooks/useMediaQuery";
+import { selectCategoryByName } from "@/redux/categories/selectors";
+import { showAllRecipesSelector } from "@/redux/recipes/selectors";
 import { extractParamsFromUrl } from "@/utils/extractParamsFromUrl";
 
 import { getRecipesApi } from "../../api/recipes";
 import Icons from "../../assets/sprite.svg";
-import { selectCategoryByName } from "../../redux/categories/selectors";
 import Meta from "../Meta/Meta";
 import RecipeFilters from "../RecipeFilters/RecipeFilters";
 import RecipeList from "../RecipeList/RecipeList";
@@ -33,6 +34,8 @@ function Recipes() {
   const limitPage = isMobile ? 8 : 12;
 
   const [searchParams, setSearchParams] = useSearchParams();
+
+  const shouldShowAll = useSelector(showAllRecipesSelector);
 
   useEffect(() => {
     if (!isLoading && recipesRef.current) {
@@ -77,10 +80,11 @@ function Recipes() {
 
   const category = useSelector(selectCategoryByName(searchParams.get("category")));
 
-  const CategoryDescription = category
-    ? category.description
-    : "A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.";
-  const CategoryName = category ? category.name : "All recipes";
+  const CategoryDescription =
+    category && !shouldShowAll
+      ? category.description
+      : "A comprehensive collection of meal categories including appetizers, main courses, side dishes, desserts, beverages, and more. Each section offers diverse options to suit any preference or dietary need.";
+  const CategoryName = category && !shouldShowAll ? category.name : "All recipes";
 
   return (
     <>

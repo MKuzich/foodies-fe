@@ -109,6 +109,7 @@ function DropdownSearch({
   const [filteredData, setFilteredData] = useState(data);
   const buttonRef = useRef(null);
   const wrapperRef = useRef(null);
+
   const [buttonHeight, setButtonHeight] = useState(0);
   const [searchParams, setSearchParams] = useSearchParams();
 
