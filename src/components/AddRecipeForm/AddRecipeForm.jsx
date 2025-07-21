@@ -1,6 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import clsx from "clsx";
-import React, { useEffect, useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Controller, FormProvider, useForm } from "react-hook-form";
 import toast from "react-hot-toast";
 import { useDispatch, useSelector } from "react-redux";
