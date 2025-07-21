@@ -33,6 +33,7 @@
 
 .avatarWrapper {
   margin-right: 15px;
+  flex-shrink: 0;
 }
 
 .authorInfo {
@@ -70,4 +71,11 @@
   .pagination {
     margin-bottom: 120px;
   }
+}
+
+.loaderWrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 260px;
 }

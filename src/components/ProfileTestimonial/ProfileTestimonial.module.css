@@ -34,13 +34,7 @@
 
 .recipeWrapper {
   margin-right: 15px;
-  min-width: 32px;
-}
-
-@media screen and (min-width: 768px) {
-  .recipeWrapper {
-    min-width: 50px;
-  }
+  flex-shrink: 0;
 }
 
 .recipeName {
