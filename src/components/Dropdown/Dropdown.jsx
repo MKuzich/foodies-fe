@@ -60,7 +60,7 @@ const DefaultDropdownList = ({ data, handleSelectItem, selectedIndex, setSelecte
     if (selectedIndex >= 0 && itemRefs.current[selectedIndex]) {
       itemRefs.current[selectedIndex].scrollIntoView({
         block: "nearest",
-        behavior: "smooth",
+        behavior: "auto",
       });
     }
   }, [selectedIndex]);
