@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 
 import Container from "@/components/Container/Container";
-import Pagination from "@/components/Pagination/Pagination";
 import PathInfo from "@/components/PathInfo/PathInfo";
 import PopularRecipes from "@/components/PopularRecipes/PopularRecipes";
 import RecipeInfo from "@/components/RecipeInfo/RecipeInfo";
@@ -15,11 +14,7 @@ import styles from "./RecipePage.module.css";
 const RecipePage = () => {
   const { id } = useParams();
   const [recipe, setRecipe] = useState(null);
-  const [testimonials, setTestimonials] = useState([]);
   const [loading, setLoading] = useState(false);
-  const [totalPages, setTotalPages] = useState(1);
-  const [currentPage, setCurrentPage] = useState(1);
-  const limit = 9;
 
   useEffect(() => {
     setLoading(true);
@@ -37,37 +32,6 @@ const RecipePage = () => {
     fetchRecipe();
   }, [id]);
 
-  const fetchTestimonials = async () => {
-    try {
-      const response = await api.testimonials.fetchTestimonialsByRecipeId({
-        recipeId: id,
-        page: currentPage,
-        limit,
-      });
-      setTestimonials(response.data);
-      setTotalPages(response.pagination.pages);
-    } catch (error) {
-      console.error("Error fetching testimonials:", error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  useEffect(() => {
-    setLoading(true);
-    fetchTestimonials();
-  }, [id, currentPage]);
-
-  const handleAddTestimonial = () => {
-    setLoading(true);
-    fetchTestimonials();
-  };
-
-  const handleDeleteTestimonial = () => {
-    setLoading(true);
-    fetchTestimonials();
-  };
-
   return (
     <>
       <Meta
@@ -78,11 +42,7 @@ const RecipePage = () => {
       <PathInfo name={recipe?.title ?? "Recipe"} />
       <section className={styles.recipeInfo}>
         <Container>
-          <RecipeInfo
-            recipe={recipe}
-            loading={loading}
-            onChangeTestimonials={handleAddTestimonial}
-          />
+          <RecipeInfo recipe={recipe} loading={loading} />
         </Container>
       </section>
       <section>
@@ -90,19 +50,7 @@ const RecipePage = () => {
       </section>
       <section>
         <Container>
-          {!loading && (
-            <RecipeTestimonials testimonials={testimonials} onDelete={handleDeleteTestimonial} />
-          )}
-          {totalPages > 1 && (
-            <div className={styles.pagination}>
-              <Pagination
-                totalPages={totalPages}
-                currentPage={currentPage}
-                onClick={setCurrentPage}
-                isLoading={loading}
-              />
-            </div>
-          )}
+          <RecipeTestimonials />
         </Container>
       </section>
     </>
