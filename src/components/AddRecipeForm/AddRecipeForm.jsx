@@ -21,7 +21,7 @@ import { areasSelector } from "@/redux/areas/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import { ingredientsSelector } from "@/redux/ingredients/selectors";
 
-// import Icons from "../../assets/sprite.svg";
+import { autoResize } from "../../utils/autoResizeTextarea";
 import { disableScroll, enableScroll } from "../../utils/helpers";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
@@ -74,6 +74,7 @@ const AddRecipeForm = () => {
   const areas = useSelector(areasSelector);
   const ingredients = useSelector(ingredientsSelector);
   const categories = useSelector(categoriesSelector);
+  const [wordsCounter, setWordsCounter] = useState(0);
 
   const stepTime = 5;
   const maxTime = 999;
@@ -103,28 +104,13 @@ const AddRecipeForm = () => {
   const [resetSignal, setResetSignal] = useState(false);
 
   useEffect(() => {
-    setTimeout(() => {
-      autoResize(descriptionRef, true);
-      autoResize(recipePreparationRef, true);
-    }, 0);
+    autoResize(descriptionRef, countWords, wordsCounter, setWordsCounter, true);
+    autoResize(recipePreparationRef, countWords, wordsCounter, setWordsCounter, true);
   }, [resetSignal]);
 
   useEffect(() => {
     loading ? disableScroll() : enableScroll();
   }, [loading]);
-
-  const autoResize = (ref, forceReset = false) => {
-    const el = ref.current;
-    if (!el) return;
-
-    if (forceReset) {
-      el.style.height = "auto";
-      return;
-    }
-
-    el.style.height = "auto";
-    el.style.height = `${el.scrollHeight}px`;
-  };
 
   const buildFormData = (data) => {
     const formData = new FormData();
@@ -277,7 +263,7 @@ const AddRecipeForm = () => {
                       onChange={(e) => {
                         limitWordsInput(e);
                         field.onChange(e);
-                        autoResize(descriptionRef);
+                        autoResize(descriptionRef, countWords, wordsCounter, setWordsCounter);
                       }}
                       className={clsx(styles.description)}
                       placeholder="Enter a description of the dish"
@@ -505,7 +491,7 @@ const AddRecipeForm = () => {
                       onChange={(e) => {
                         limitWordsInput(e);
                         field.onChange(e);
-                        autoResize(recipePreparationRef);
+                        autoResize(recipePreparationRef, countWords, wordsCounter, setWordsCounter);
                       }}
                       className={clsx(styles.recipePreparation)}
                       placeholder="Enter recipe"
