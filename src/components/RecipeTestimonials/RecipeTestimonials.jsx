@@ -9,6 +9,7 @@ import Pagination from "@/components/Pagination/Pagination";
 import api from "../../api";
 import AvatarIcon from "../AvatarIcon/AvatarIcon";
 import IconButton from "../IconButton/IconButton";
+import Loader from "../Loader/Loader";
 import s from "./RecipeTestimonials.module.css";
 
 export default function RecipeTestimonials() {
@@ -74,7 +75,14 @@ export default function RecipeTestimonials() {
 
   return (
     <>
-      {!loading && (
+      {loading ? (
+        <div className={s.recipeTestimonials}>
+          <h2 className={s.title}>Our users say</h2>
+          <div className={s.loaderWrapper}>
+            <Loader />
+          </div>
+        </div>
+      ) : (
         <div className={s.recipeTestimonials}>
           <h2 className={s.title}>Our users say</h2>
           <ul className={s.testimonialsList}>
