@@ -11,6 +11,7 @@ const DefaultDropdownButton = ({
   setIsOpen,
   isOpen,
   className,
+  appendClassName: _appendClassName,
   ...props
 }) => {
   const handleKeyDown = (e) => {
