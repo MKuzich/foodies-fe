@@ -21,12 +21,14 @@ import { areasSelector } from "@/redux/areas/selectors";
 import { categoriesSelector } from "@/redux/categories/selectors";
 import { ingredientsSelector } from "@/redux/ingredients/selectors";
 
-import Icons from "../../assets/sprite.svg";
+// import Icons from "../../assets/sprite.svg";
+import { disableScroll, enableScroll } from "../../utils/helpers";
 import AddRecipeImage from "../AddRecipeImage/AddRecipeImage";
 import Button from "../Button/Button";
 import Dropdown from "../Dropdown/Dropdown";
 import DropdownSearch from "../DropdownSearch/DropdownSearch";
 import Icon from "../Icon";
+import Loader from "../Loader/Loader";
 import styles from "./AddRecipeForm.module.css";
 import { recipeSchema } from "./validationSchema";
 
@@ -106,6 +108,10 @@ const AddRecipeForm = () => {
       autoResize(recipePreparationRef, true);
     }, 0);
   }, [resetSignal]);
+
+  useEffect(() => {
+    loading ? disableScroll() : enableScroll();
+  }, [loading]);
 
   const autoResize = (ref, forceReset = false) => {
     const el = ref.current;
@@ -225,6 +231,11 @@ const AddRecipeForm = () => {
 
   return (
     <div className={styles.addRecipeForm}>
+      {loading && (
+        <div className={styles.loaderWrapper}>
+          <Loader isDark={false} large />
+        </div>
+      )}
       <FormProvider {...methods}>
         <form className={clsx(styles.formAdd)} onSubmit={handleSubmit(onSubmit)}>
           <AddRecipeImage resetSignal={resetSignal} />
