@@ -40,7 +40,7 @@ function RecipeFilters() {
   }, [dispatch, showAllRecipes, wasShowAllRecipesInitialized]);
 
   const handleClearAll = () => {
-    if (category) {
+    if (category && !showAllRecipes) {
       setSearchParams({ category, page: 1 });
     } else {
       setSearchParams({ page: 1 });
