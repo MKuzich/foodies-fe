@@ -200,7 +200,7 @@ function Dropdown({
         isOpen={isOpen}
         setIsOpen={setIsOpen}
         onKeyDown={handleKeyDown}
-        appendClassName={clsx(
+        className={clsx(
           className,
           !selectedItems && styles.placeholderField,
           hasError && styles.inputError,
