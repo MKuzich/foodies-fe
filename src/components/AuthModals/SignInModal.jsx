@@ -10,6 +10,7 @@ import * as yup from "yup";
 
 import { userLogin } from "../../redux/auth/actions";
 import { selectNext } from "../../redux/auth/slice";
+import { disableScroll, enableScroll } from "../../utils/helpers";
 import Button from "../Button/Button";
 import Icon from "../Icon";
 import ModalPortal from "../ModalPortal/ModalPortal";
@@ -48,10 +49,10 @@ const SignInModal = ({ onClose, onSwitch }) => {
       }
     };
     window.addEventListener("keydown", handleEsc);
-    document.body.style.overflow = "hidden";
+    disableScroll();
     return () => {
       window.removeEventListener("keydown", handleEsc);
-      document.body.style.overflow = "auto";
+      enableScroll();
     };
   }, [onClose]);
 
